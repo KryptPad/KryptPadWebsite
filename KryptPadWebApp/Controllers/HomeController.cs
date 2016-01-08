@@ -29,7 +29,7 @@ namespace KryptPadWebApp.Controllers
             // Create the view model for our view
             var model = new HomeIndexViewModel();
 
-            // TODO: Increase download count
+            // Increase download count
             await model.IncrementDownloadCount();
 
             // Return the file
