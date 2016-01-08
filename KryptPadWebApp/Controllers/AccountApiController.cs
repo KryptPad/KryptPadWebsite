@@ -10,8 +10,7 @@ using System.Web;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http;
-
-
+using KryptPadWebApp.Models.Requests;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -22,36 +21,39 @@ namespace KryptPadWebApp.Controllers
         //POST: Register
         [HttpPost]
         [Route("Register", Name = "Register")]
-        public async Task<HttpResponseMessage> Register(CreateAccount accountInfo)
+        public async Task<IHttpActionResult> Register(CreateAccountRequest accountInfo)
         {
+            // Check if we have a valid model state
+            if (!ModelState.IsValid)
+            {
+                // Return the error
+                return BadRequest(ModelState);
+            }
+            
+            // If we have a model state, then get the user manager
             var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            //create the user in the database
+            // Create the user in the database
             var user = new ApplicationUser { UserName = accountInfo.Email, Email = accountInfo.Email };
             var result = await userManager.CreateAsync(user, accountInfo.Password);
             if (result.Succeeded)
             {
 
-                //all is ok
-                return Request.CreateResponse(HttpStatusCode.OK);
+                // All is ok
+                return Ok();
             }
             else
             {
-                //add errors to the model state
+                // Add errors to the model state
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("Errors", error);
                 }
 
-                //return the error
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                // Return the error
+                return BadRequest(ModelState);
             }
         }
     }
 
-    public class CreateAccount
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
 }

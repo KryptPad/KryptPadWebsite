@@ -12,7 +12,7 @@ using System.Web.Http.Results;
 
 namespace KryptPadWebApp.Controllers
 {
-    [Authorize]
+    
     [RoutePrefix("Api/Profiles")]
     public class ProfileApiController : AuthorizedApiController
     {
@@ -72,9 +72,7 @@ namespace KryptPadWebApp.Controllers
                 ctx.Profiles.Add(profile);
                 // Save changes
                 await ctx.SaveChangesAsync();
-                // Get the id of the newly created record
-                var id = profile.Id;
-
+                
                 // Return profile back to the caller. it will have the new id
                 return Json(new ProfileResult(new[] { profile }));
             }

@@ -52,6 +52,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -189,7 +193,9 @@
     <Compile Include="Controllers\AccountApiController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthorizedApiController.cs" />
+    <Compile Include="Controllers\CategoryApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\ProfileApiController.cs" />
     <Compile Include="Controllers\SecureController.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,13 +213,48 @@
     <Compile Include="Migrations\201510270237521_AppSettings.Designer.cs">
       <DependentUpon>201510270237521_AppSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511061930229_categories.cs" />
+    <Compile Include="Migrations\201511061930229_categories.Designer.cs">
+      <DependentUpon>201511061930229_categories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511080257245_category_update.cs" />
+    <Compile Include="Migrations\201511080257245_category_update.Designer.cs">
+      <DependentUpon>201511080257245_category_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511120304196_Item.cs" />
+    <Compile Include="Migrations\201511120304196_Item.Designer.cs">
+      <DependentUpon>201511120304196_Item.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511120306218_Item1.cs" />
+    <Compile Include="Migrations\201511120306218_Item1.Designer.cs">
+      <DependentUpon>201511120306218_Item1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511122102558_category_update1.cs" />
+    <Compile Include="Migrations\201511122102558_category_update1.Designer.cs">
+      <DependentUpon>201511122102558_category_update1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511181740370_fields.cs" />
+    <Compile Include="Migrations\201511181740370_fields.Designer.cs">
+      <DependentUpon>201511181740370_fields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511190350040_db_updates.cs" />
+    <Compile Include="Migrations\201511190350040_db_updates.Designer.cs">
+      <DependentUpon>201511190350040_db_updates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AppSettings.cs" />
+    <Compile Include="Cryptography\Encryption.cs" />
+    <Compile Include="Models\Entities\AppSettings.cs" />
+    <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\Field.cs" />
     <Compile Include="Models\HomeIndexViewModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Entities\IdentityModels.cs" />
+    <Compile Include="Models\Entities\Item.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Entities\Profile.cs" />
+    <Compile Include="Models\Requests\CreateAccountRequest.cs" />
+    <Compile Include="Models\Results\CategoryResult.cs" />
+    <Compile Include="Models\Results\ItemResult.cs" />
     <Compile Include="Models\Results\ProfileResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApiOAuthAuthorizationServerProvider.cs" />
@@ -245,6 +286,9 @@
     <Content Include="Content\Images\social_twitter.png" />
     <Content Include="Content\Images\sync128x128.png" />
     <Content Include="favicon.ico" />
+    <Content Include="files\autorun.inf" />
+    <Content Include="files\publish.htm" />
+    <Content Include="files\setup.exe" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -257,7 +301,9 @@
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="files\KryptPad.application" />
     <None Include="Properties\PublishProfiles\Live.pubxml" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -295,7 +341,8 @@
     <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="files\" />
+    <Folder Include="files\Application Files\" />
+    <Folder Include="Views\CategoryApi\" />
     <Folder Include="Views\Secure\" />
   </ItemGroup>
   <ItemGroup>
@@ -311,6 +358,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510270237521_AppSettings.resx">
       <DependentUpon>201510270237521_AppSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511061930229_categories.resx">
+      <DependentUpon>201511061930229_categories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511080257245_category_update.resx">
+      <DependentUpon>201511080257245_category_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511120304196_Item.resx">
+      <DependentUpon>201511120304196_Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511120306218_Item1.resx">
+      <DependentUpon>201511120306218_Item1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511122102558_category_update1.resx">
+      <DependentUpon>201511122102558_category_update1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511181740370_fields.resx">
+      <DependentUpon>201511181740370_fields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511190350040_db_updates.resx">
+      <DependentUpon>201511190350040_db_updates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

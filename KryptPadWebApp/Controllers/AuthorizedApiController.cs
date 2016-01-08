@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace KryptPadWebApp.Controllers
 {
+    [Authorize]
     public class AuthorizedApiController : ApiController
     {
         protected string UserId
