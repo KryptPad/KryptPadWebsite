@@ -1,0 +1,227 @@
+﻿body {
+    /*padding-top: 50px;*/
+    padding-bottom: 20px;
+}
+
+/* Header styles */
+h1, .h1 {
+    font-size: 3em;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
+    font-family: 'Segoe UI Light';
+    font-weight: normal;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Set extra large spacing on jumbotrons */
+.hero {
+    padding-top: 50px;
+    background-color: #eee;
+    padding-bottom: 50px;
+    margin-bottom: 30px;
+}
+
+
+    .hero.hero-blue {
+        background-color: #3d77b2;
+        color: #fff;
+    }
+
+    .hero.hero-light-blue {
+        background-color: #aeddff;
+    }
+
+    .hero.hero-light-red {
+        background-color: #ffddd7;
+    }
+
+    .hero.hero-transparent {
+        background-color: transparent;
+    }
+
+    .hero.hero-main {
+        margin-bottom: 0;
+    }
+
+/* Set the color of the navbar */
+.navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.navbar-inverse {
+    background-color: #333; /*#3d77b2;*/
+    border: none;
+}
+
+    .navbar-inverse .nav.navbar-nav li > p {
+        color: #aeddff;
+    }
+
+    .navbar-inverse .nav.navbar-nav li > a,
+    .navbar-inverse .navbar-brand {
+        color: #aeddff;
+        transition: all 200ms ease-in-out;
+    }
+
+        .navbar-inverse .nav.navbar-nav li > a:hover,
+        .navbar-inverse .navbar-brand:hover {
+            color: white;
+        }
+
+/* Styles for the login section */
+
+.login {
+    padding: 0 30px;
+    /*height: 20em;*/
+    /*transition: all 200ms ease-in-out;*/
+}
+
+/*.login:hover {
+        background-color: rgba(255, 255, 255, 0.10);
+    }*/
+
+/* Some border styles */
+.border-right {
+    border-right: 2px dashed #333;
+}
+
+.border-left {
+    border-left: 2px dashed #333;
+}
+
+@media screen and (max-width: 767px) {
+    .border-right {
+        border-right: none;
+        border-bottom: 2px dashed #333;
+    }
+
+    .border-left {
+        border-left: none;
+        border-top: 2px dashed #333;
+    }
+}
+
+/* Busy indicator styles */
+.indicator {
+    width: 5em;
+    height: 1em;
+    line-height: 1em;
+    display: inline-block;
+}
+
+    .indicator .bar {
+        float: left;
+        background-color: #0087b4;
+        border: 1px solid #007196;
+        width: .5em;
+        margin: 0 .25em;
+        box-sizing: border-box;
+        height: 25%;
+        margin-top: 10%;
+        -webkit-animation: animate 500ms infinite alternate;
+        animation: animate 500ms infinite alternate;
+    }
+
+    .indicator.indicator-light .bar {
+        background-color: white;
+        border: 1px solid #ccc;
+    }
+
+    .indicator .bar:nth-child(1) {
+        -webkit-animation-delay: 100ms;
+        animation-delay: 100ms;
+    }
+
+    .indicator .bar:nth-child(2) {
+        -webkit-animation-delay: 200ms;
+        animation-delay: 200ms;
+    }
+
+    .indicator .bar:nth-child(3) {
+        -webkit-animation-delay: 300ms;
+        animation-delay: 300ms;
+    }
+
+    .indicator .bar:nth-child(4) {
+        -webkit-animation-delay: 400ms;
+        animation-delay: 400ms;
+    }
+
+    .indicator .bar:nth-child(5) {
+        -webkit-animation-delay: 500ms;
+        animation-delay: 500ms;
+    }
+
+@keyframes animate {
+    0% {
+        height: 25%;
+        margin-top: 10%;
+    }
+
+    100% {
+        height: 100%;
+        margin-top: 0;
+    }
+}
+
+/* Table styles */
+td:last-child {
+    width: 1px;
+    white-space: nowrap;
+}
+
+/* Cards */
+.card {
+    margin-top: 50px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+/* Social bar */
+.social-bar {
+    background-color: #ccc;
+    margin-bottom: 20px;
+}
+
+/* Circle styles */
+.circle {
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 2.1em;
+    width: 2em;
+    height: 2em;
+    border-radius: 2em;
+    border: 4px solid #fff;
+}
+
+
+
+.circle-lg {
+    text-align: center;
+    font-size: 8em;
+}
+
+a .circle {
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.50);
+    transition: all 200ms ease-in-out;
+}
+
+    a .circle:hover {
+        box-shadow: 0 0 20px #fff;
+    }

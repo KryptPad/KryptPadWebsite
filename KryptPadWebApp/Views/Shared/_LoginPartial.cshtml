@@ -1,0 +1,8 @@
+﻿
+<ul id="user-info" class="nav navbar-nav navbar-right">
+    <li data-bind="visible: isAuthenticated">
+        <a href="@Url.RouteUrl("Home")" data-bind="text: username"></a>
+    </li>
+    <li data-bind="visible: isAuthenticated"><a href="#" data-bind="click: logout">Log Out</a></li>
+    <li data-bind="visible: !isAuthenticated()" style="display:none;"><p>Welcome, Guest</p></li>
+</ul>

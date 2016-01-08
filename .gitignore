@@ -210,3 +210,9 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+KryptPadWebApp/Web.Release.config
+*.pubxml
+
+# Website files
+KryptPadWebApp/[Ff]iles/
+KryptPadWebApp/Web.Debug.config

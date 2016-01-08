@@ -1,0 +1,18 @@
+﻿@model string
+
+<div data-bind="visible: isBusy" class="text-center lead">
+    @if (!string.IsNullOrWhiteSpace(Model))
+    {
+        <p>
+            @Model
+        </p>
+    }
+    
+    <div class='indicator'>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+        <div class='bar'></div>
+    </div>
+</div>

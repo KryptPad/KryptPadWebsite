@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Profiles";
+}
+
+<div class="hero">
+    <div class="container">
+        <h2>Profiles</h2>
+    </div>
+</div>
+
+<div class="container">
+    <div id="profiles-section">
+        <p>
+            Select your profile from the list below
+        </p>
+
+        <div class="alert alert-danger" data-bind="visible: errorMessage" style="display: none;">
+            <p data-bind="text: errorMessage"></p>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Profile</th>
+                </tr>
+            </thead>
+
+            <tbody data-bind="foreach: profiles">
+                <tr>
+                    <td data-bind="text: Name"></td>
+                    <td >
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        @{Html.RenderPartial("_BusyIndicator"); }
+
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+        (function () {
+
+            function ProfilesViewModel() {
+                var self = this;
+
+                // Check for access token
+                if (!app.isAuthenticated()) {
+                    window.location = '@Url.RouteUrl("Home")';
+                }
+
+                self.profiles = ko.observableArray([]);
+                self.isBusy = ko.observable(false);
+                self.errorMessage = ko.observable();
+
+                self.getProfiles = function () {
+
+                    // Set busy state
+                    self.isBusy(true);
+
+                    // Authorize the request
+                    $.ajax({
+                        type: 'GET',
+                        url: '@Url.HttpRouteUrl("ApiProfiles", null)',
+                        headers: app.authorizeHeader()
+                    }).done(function (data) {
+                        // Bind the profiles to the list
+                        $.each(data.Profiles, function () {
+                            self.profiles.push(this);
+                        });
+
+                    }).fail(function (error) {
+                        app.processError(error, function (message) {
+                            self.errorMessage(message);
+                        });
+                    }).complete(function () {
+                        // Set busy state
+                        self.isBusy(false);
+                    });
+                }
+
+                // Load the profiles
+                self.getProfiles();
+
+            }
+
+            ko.applyBindings(new ProfilesViewModel(), $('#profiles-section')[0]);
+
+        })();
+
+    </script>
+
+}
