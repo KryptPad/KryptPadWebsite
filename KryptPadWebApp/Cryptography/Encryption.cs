@@ -126,14 +126,21 @@ namespace KryptPadWebApp.Models
                 byte[] outputBytes;
                 //get output
                 outputBytes = cipher.ProcessBytes(plainBytes);
-                //write the data to the stream
-                cipherStream.Write(outputBytes, 0, outputBytes.Length);
 
+                if (outputBytes != null)
+                {
+                    //write the data to the stream
+                    cipherStream.Write(outputBytes, 0, outputBytes.Length);
+                }
+                
                 //do the final block
                 outputBytes = cipher.DoFinal();
-                //write the data to the stream
-                cipherStream.Write(outputBytes, 0, outputBytes.Length);
 
+                if (outputBytes != null)
+                {
+                    //write the data to the stream
+                    cipherStream.Write(outputBytes, 0, outputBytes.Length);
+                }
 
             }
 
@@ -141,6 +148,12 @@ namespace KryptPadWebApp.Models
             return cipherStream.ToArray();
         }
 
+        /// <summary>
+        /// Decrypts cypher data
+        /// </summary>
+        /// <param name="cipherData"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public static string Decrypt(byte[] cipherData, string password)
         {
             //extract the iv and salt
@@ -178,14 +191,21 @@ namespace KryptPadWebApp.Models
                 byte[] outputBytes;
                 //get output
                 outputBytes = cipher.ProcessBytes(cipherBytes);
-                //write the data to the stream
-                plainStream.Write(outputBytes, 0, outputBytes.Length);
+
+                if (outputBytes != null)
+                {
+                    //write the data to the stream
+                    plainStream.Write(outputBytes, 0, outputBytes.Length);
+                }
 
                 //do the final block
                 outputBytes = cipher.DoFinal();
-                //write the data to the stream
-                plainStream.Write(outputBytes, 0, outputBytes.Length);
 
+                if (outputBytes != null)
+                {
+                    //write the data to the stream
+                    plainStream.Write(outputBytes, 0, outputBytes.Length);
+                }
 
             }
 
@@ -193,5 +213,29 @@ namespace KryptPadWebApp.Models
             return Encoding.UTF8.GetString(plainStream.ToArray());
         }
 
+
+        #region Helpers
+        /// <summary>
+        /// Encrypts data and returns a base64 string
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static string EncryptToString(string plainText, string password)
+        {
+            return Convert.ToBase64String(Encrypt(plainText, password));
+        }
+
+        /// <summary>
+        /// Decrypt data from a base64 string
+        /// </summary>
+        /// <param name="cypherString"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public static string DecryptFromString(string cypherString, string password)
+        {
+            return Decrypt(Convert.FromBase64String(cypherString), password);
+        }
+        #endregion
     }
 }

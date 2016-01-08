@@ -1,4 +1,5 @@
 ﻿using KryptPadWebApp.Models;
+using KryptPadWebApp.Models.Requests;
 using KryptPadWebApp.Models.Results;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -12,7 +13,7 @@ using System.Web.Http.Results;
 
 namespace KryptPadWebApp.Controllers
 {
-    
+
     [RoutePrefix("Api/Profiles")]
     public class ProfileApiController : AuthorizedApiController
     {
@@ -21,6 +22,9 @@ namespace KryptPadWebApp.Controllers
         [Route("", Name = "ApiProfiles")]
         public IHttpActionResult Get()
         {
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
             //get the user's profiles
             using (var ctx = new ApplicationDbContext())
             {
@@ -28,7 +32,7 @@ namespace KryptPadWebApp.Controllers
                                 where p.User.Id == UserId
                                 select p).ToArray();
 
-                return Json(new ProfileResult(profiles));
+                return Json(new ProfileResult(profiles, passphrase));
             }
 
         }
@@ -38,6 +42,9 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
             //get the user's profiles
             using (var ctx = new ApplicationDbContext())
             {
@@ -46,15 +53,19 @@ namespace KryptPadWebApp.Controllers
                                 && p.Id == id
                                 select p).ToArray();
 
-                return Json(new ProfileResult(profiles));
+                return Json(new ProfileResult(profiles, passphrase));
             }
         }
 
         // POST api/<controller>
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Post(Profile profile)
+        public async Task<IHttpActionResult> Post(CreateProfileRequest request)
         {
+
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
             // Create context
             using (var ctx = new ApplicationDbContext())
             {
@@ -66,15 +77,21 @@ namespace KryptPadWebApp.Controllers
                     return Content(HttpStatusCode.BadRequest, "User not found");
                 }
 
-                profile.User = user;
+                // Create profile object to store in DB
+                var profile = new Profile()
+                {
+                    User = user,
+                    Name = Encryption.EncryptToString(request.Name, passphrase)
+                };
 
                 // Add the profile to the context
                 ctx.Profiles.Add(profile);
+
                 // Save changes
                 await ctx.SaveChangesAsync();
                 
                 // Return profile back to the caller. it will have the new id
-                return Json(new ProfileResult(new[] { profile }));
+                return Json(new ProfileResult(new[] { profile }, passphrase));
             }
 
         }
