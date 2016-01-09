@@ -74,7 +74,12 @@ namespace KryptPadWebApp
                 AuthorizeEndpointPath = new PathString("/api/account/external"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 // Note: Remove the following line before you deploy to production:
+
+                #if DEBUG
                 AllowInsecureHttp = true
+                #else
+                AllowInsecureHttp = false
+                #endif
             };
 
             // Enable the application to use bearer tokens to authenticate users
