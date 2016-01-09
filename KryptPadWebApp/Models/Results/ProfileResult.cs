@@ -14,7 +14,7 @@ namespace KryptPadWebApp.Models.Results
         {
             foreach (var profile in profiles)
             {
-                // Decrypt the data, but in this case, we already have a decrypted form
+                // Decrypt the data
                 profile.Name = Encryption.DecryptFromString(profile.Name, passphrase);
 
             }

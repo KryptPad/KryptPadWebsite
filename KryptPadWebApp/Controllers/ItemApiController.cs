@@ -19,6 +19,9 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public IHttpActionResult Get(int profileId, int categoryId)
         {
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
             using (var ctx = new ApplicationDbContext())
             {
                 var items = (from i in ctx.Items
@@ -28,7 +31,7 @@ namespace KryptPadWebApp.Controllers
                              select i).ToArray();
 
                 // Return items
-                return Json(new ItemResult() { Items = items });
+                return Json(new ItemResult(items, passphrase));
             }
         }
 
@@ -42,6 +45,9 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(int profileId, int categoryId, [FromBody] Item item)
         {
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
             // Ignore the category field
             ModelState.Remove("item.Category");
 
@@ -65,8 +71,8 @@ namespace KryptPadWebApp.Controllers
                     // Add item to the category
                     item.Category = category;
                     // Encrypt name
-                    item.Name = Convert.ToBase64String(Encryption.Encrypt(item.Name, "123"));
-                    
+                    item.Name = Encryption.EncryptToString(item.Name, passphrase);
+
                     // Add item to the items table
                     ctx.Items.Add(item);
 
@@ -92,18 +98,20 @@ namespace KryptPadWebApp.Controllers
             // Ignore the category field
             ModelState.Remove("item.Category");
 
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
             if (ModelState.IsValid)
             {
                 using (var ctx = new ApplicationDbContext())
                 {
                     // Get the item from the db
                     var obj = (from i in ctx.Items
-                               where item.Id == id &&
-                                item.Category.Profile.User.Id == UserId
+                               where i.Id == id && i.Category.Profile.User.Id == UserId
                                select i).SingleOrDefault();
 
                     //ctx.Entry(item).State = System.Data.Entity.EntityState.Modified
-                    obj.Name = item.Name;
+                    obj.Name = Encryption.EncryptToString(item.Name, passphrase);
                     obj.ItemType = item.ItemType;
 
                     // Save the changes
@@ -121,8 +129,27 @@ namespace KryptPadWebApp.Controllers
         }
 
         // DELETE api/<controller>/5
-        public void Delete(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
+
+            // Find the item by the id and delete it
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Get the item from the db
+                var obj = (from i in ctx.Items
+                           where i.Id == id && i.Category.Profile.User.Id == UserId
+                           select i).SingleOrDefault();
+
+                // Delete item
+                ctx.Items.Remove(obj);
+
+                // Save the changes
+                await ctx.SaveChangesAsync();
+
+                // OK
+                return Ok();
+
+            }
         }
     }
 }
