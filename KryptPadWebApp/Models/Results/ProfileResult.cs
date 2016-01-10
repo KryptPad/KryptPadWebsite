@@ -10,14 +10,8 @@ namespace KryptPadWebApp.Models.Results
         public Profile[] Profiles { get; set; }
 
         public ProfileResult() { }
-        public ProfileResult(Profile[] profiles, string passphrase)
+        public ProfileResult(Profile[] profiles)
         {
-            foreach (var profile in profiles)
-            {
-                // Decrypt the data
-                profile.Name = Encryption.DecryptFromString(profile.Name, passphrase);
-
-            }
 
             Profiles = profiles;
 
