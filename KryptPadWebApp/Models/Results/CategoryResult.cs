@@ -11,8 +11,14 @@ namespace KryptPadWebApp.Models.Results
         public Category[] Categories { get; set; }
 
         public CategoryResult() { }
-        public CategoryResult(Category[] categories)
+        public CategoryResult(Category[] categories, string passphrase)
         {
+
+            foreach (var category in categories)
+            {
+                category.Name = Encryption.DecryptFromString(category.Name, passphrase);
+            }
+
             Categories = categories;
         }
 
