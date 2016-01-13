@@ -17,5 +17,6 @@ namespace KryptPadWebApp.Models
         [Required]
         [JsonIgnore] //prevent self referencing nightmare
         public Category Category { get; set; }
+
     }
 }

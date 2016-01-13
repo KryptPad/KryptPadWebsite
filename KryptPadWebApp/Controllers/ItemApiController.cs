@@ -28,10 +28,13 @@ namespace KryptPadWebApp.Controllers
                              where i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
-                             select i).ToArray();
+                             select new ItemResult
+                             {
+                                 Name = i.Name
+                             }).ToArray();
 
                 // Return items
-                return Json(new ItemResult(items, passphrase));
+                return Json(new ItemsResult(items, passphrase));
             }
         }
 
