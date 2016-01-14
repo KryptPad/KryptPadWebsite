@@ -258,7 +258,8 @@
     <Compile Include="Models\Entities\Profile.cs" />
     <Compile Include="Models\Requests\CreateAccountRequest.cs" />
     <Compile Include="Models\Requests\CreateProfileRequest.cs" />
-    <Compile Include="Models\Results\CategoryResult.cs" />
+    <Compile Include="Models\Results\ApiCategory.cs" />
+    <Compile Include="Models\Results\CategoriesResult.cs" />
     <Compile Include="Models\Results\ItemResult.cs" />
     <Compile Include="Models\Results\ItemsResult.cs" />
     <Compile Include="Models\Results\ProfileResult.cs" />

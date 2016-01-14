@@ -30,7 +30,19 @@ namespace KryptPadWebApp.Controllers
                                   c.Profile.Id == profileId
                                   select c).ToArray();
 
-                return Json(new CategoryResult(categories, passphrase));
+                var apiCategories = (from c in categories
+                                     select new ApiCategory
+                                     {
+                                         Name = Encryption.DecryptFromString(c.Name, passphrase),
+                                         Items = (from i in c.Items
+                                                  select new ItemResult
+                                                  {
+                                                      Name = Encryption.DecryptFromString(i.Name, passphrase)
+                                                  }).ToArray()
+                                     }).ToArray();
+                
+          
+                return Json(new CategoriesResult(apiCategories, passphrase));
             }
 
 
@@ -39,7 +51,7 @@ namespace KryptPadWebApp.Controllers
         // POST: CategoryApi
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Post(int profileId, [FromBody]Category category)
+        public async Task<IHttpActionResult> Post(int profileId, [FromBody]ApiCategory request)
         {
 
             // Get the passphrase from the header
@@ -60,8 +72,10 @@ namespace KryptPadWebApp.Controllers
                     return Content(HttpStatusCode.BadRequest, "Profile not found");
                 }
 
+                var category = new Category();
+
                 // Encrypt the category name
-                category.Name = Encryption.EncryptToString(category.Name, passphrase);
+                category.Name = Encryption.EncryptToString(request.Name, passphrase);
 
                 // Set the profile to the category
                 category.Profile = profile;
@@ -71,7 +85,7 @@ namespace KryptPadWebApp.Controllers
                 // Save changes
                 await ctx.SaveChangesAsync();
 
-                return Json(new CategoryResult(new[] { category }, passphrase));
+                return Json(new CategoriesResult(new[] { request } , passphrase));
             }
 
 
