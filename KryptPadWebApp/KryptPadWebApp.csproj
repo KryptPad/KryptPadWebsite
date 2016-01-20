@@ -246,6 +246,10 @@
     <Compile Include="Migrations\201601080322073_profile_remove_haspassphrase.Designer.cs">
       <DependentUpon>201601080322073_profile_remove_haspassphrase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601201835089_pending_changes1.cs" />
+    <Compile Include="Migrations\201601201835089_pending_changes1.Designer.cs">
+      <DependentUpon>201601201835089_pending_changes1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
@@ -394,6 +398,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601080322073_profile_remove_haspassphrase.resx">
       <DependentUpon>201601080322073_profile_remove_haspassphrase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601201835089_pending_changes1.resx">
+      <DependentUpon>201601201835089_pending_changes1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

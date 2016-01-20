@@ -1,4 +1,5 @@
 ﻿using KryptPadWebApp.Models;
+using KryptPadWebApp.Models.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +14,26 @@ namespace KryptPadWebApp.Controllers
     {
 
         [Route("")]
-        public IHttpActionResult Get(int profileId, int categoryId)
+        public IHttpActionResult Get(int profileId, int categoryId, int itemId)
         {
             // Get the passphrase from the header
             var passphrase = Request.Headers.GetValues("Passphrase").First();
 
             using (var ctx = new ApplicationDbContext())
             {
-                var items = (from i in ctx.Fields
-                             where i.Category.Id == categoryId &&
-                                i.Category.Profile.Id == profileId &&
-                                i.Category.Profile.User.Id == UserId
-                             select new ItemResult
+                var fields = (from f in ctx.Fields
+                             where f.Item.Id == itemId &&
+                                f.Item.Category.Id == categoryId &&
+                                f.Item.Category.Profile.Id == profileId &&
+                                f.Item.Category.Profile.User.Id == UserId
+                             select new ApiField
                              {
-                                 Name = i.Name
+                                 Id = f.Id,
+                                 Name = f.Name
                              }).ToArray();
 
                 // Return items
-                return Json(new ItemsResult(items, passphrase));
+                return Json(new FieldsResult(fields, passphrase));
             }
         }
 
