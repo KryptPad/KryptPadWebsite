@@ -33,6 +33,7 @@ namespace KryptPadWebApp.Models
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Field> Fields { get; set; }
         public virtual DbSet<AppSettings> AppSettings { get; set; }
     }
 }
