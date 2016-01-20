@@ -4,6 +4,7 @@ using KryptPadWebApp.Models.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -36,6 +37,7 @@ namespace KryptPadWebApp.Controllers
                                 i.Category.Profile.User.Id == UserId
                              select new ApiItem
                              {
+                                 Id = i.Id,
                                  Name = i.Name
                              }).ToArray();
 
@@ -60,12 +62,14 @@ namespace KryptPadWebApp.Controllers
 
             using (var ctx = new ApplicationDbContext())
             {
-                var items = (from i in ctx.Items
-                             where i.Category.Id == categoryId &&
+                var items = (from i in ctx.Items.Include(x => x.Fields)
+                             where i.Id == id &&
+                                i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
                              select new ApiItem
                              {
+                                 Id = i.Id,
                                  Name = i.Name
                              }).ToArray();
 

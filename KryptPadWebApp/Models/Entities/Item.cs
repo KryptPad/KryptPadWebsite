@@ -22,5 +22,7 @@ namespace KryptPadWebApp.Models
         [Required]
         public Category Category { get; set; }
 
+        
+        public List<Field> Fields { get; set; }
     }
 }
