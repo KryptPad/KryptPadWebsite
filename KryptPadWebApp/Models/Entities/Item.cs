@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,11 +10,16 @@ namespace KryptPadWebApp.Models
     {
         public int Id { get; set; }
         public int ItemType { get; set; }
+
         [Required]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the notes for the item
+        /// </summary>
+        public string Notes { get; set; }
+
         [Required]
-        [JsonIgnore] //prevent self referencing nightmare
         public Category Category { get; set; }
 
     }

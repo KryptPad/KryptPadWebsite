@@ -15,7 +15,13 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("Api/Profiles/{profileId}/Categories/{categoryId}/Items")]
     public class ItemApiController : AuthorizedApiController
     {
-        // GET api/<controller>
+        /// <summary>
+        /// Gets all items in the category
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("")]
         public IHttpActionResult Get(int profileId, int categoryId)
         {
@@ -38,13 +44,38 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        /// <summary>
+        /// Gets a specific item and details
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="categoryId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}")]
+        public IHttpActionResult Get(int profileId, int categoryId, int id)
         {
-            return "value";
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
+            using (var ctx = new ApplicationDbContext())
+            {
+                var items = (from i in ctx.Items
+                             where i.Category.Id == categoryId &&
+                                i.Category.Profile.Id == profileId &&
+                                i.Category.Profile.User.Id == UserId
+                             select new ApiItem
+                             {
+                                 Name = i.Name
+                             }).ToArray();
+
+                // Return items
+                return Json(new ItemsResult(items, passphrase));
+            }
         }
 
         // POST api/<controller>
+        [HttpPost]
         [Route("")]
         public async Task<IHttpActionResult> Post(int profileId, int categoryId, [FromBody] Item item)
         {
@@ -83,7 +114,7 @@ namespace KryptPadWebApp.Controllers
                     await ctx.SaveChangesAsync();
 
                     // OK
-                    return Ok();
+                    return Ok(item.Id);
 
                 }
             }
@@ -95,6 +126,7 @@ namespace KryptPadWebApp.Controllers
         }
 
         // PUT api/<controller>/5
+        [HttpPut]
         [Route("{id}")]
         public async Task<IHttpActionResult> Put(int profileId, int categoryId, int id, [FromBody]Item item)
         {
@@ -132,6 +164,8 @@ namespace KryptPadWebApp.Controllers
         }
 
         // DELETE api/<controller>/5
+        [HttpDelete]
+        [Route("{id}")]
         public async Task<IHttpActionResult> Delete(int id)
         {
 

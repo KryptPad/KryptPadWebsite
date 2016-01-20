@@ -250,6 +250,10 @@
     <Compile Include="Migrations\201601201835089_pending_changes1.Designer.cs">
       <DependentUpon>201601201835089_pending_changes1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601202157154_field_notes.cs" />
+    <Compile Include="Migrations\201601202157154_field_notes.Designer.cs">
+      <DependentUpon>201601202157154_field_notes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
@@ -401,6 +405,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601201835089_pending_changes1.resx">
       <DependentUpon>201601201835089_pending_changes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601202157154_field_notes.resx">
+      <DependentUpon>201601202157154_field_notes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
