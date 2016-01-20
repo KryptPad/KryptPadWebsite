@@ -33,10 +33,12 @@ namespace KryptPadWebApp.Controllers
                 var apiCategories = (from c in categories
                                      select new ApiCategory
                                      {
+                                         Id=c.Id,
                                          Name = Encryption.DecryptFromString(c.Name, passphrase),
                                          Items = (from i in c.Items
-                                                  select new ItemResult
+                                                  select new ApiItem
                                                   {
+                                                      Id=i.Id,
                                                       Name = Encryption.DecryptFromString(i.Name, passphrase)
                                                   }).ToArray()
                                      }).ToArray();

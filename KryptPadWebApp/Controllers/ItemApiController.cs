@@ -28,7 +28,7 @@ namespace KryptPadWebApp.Controllers
                              where i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
-                             select new ItemResult
+                             select new ApiItem
                              {
                                  Name = i.Name
                              }).ToArray();

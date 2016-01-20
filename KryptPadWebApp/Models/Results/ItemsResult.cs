@@ -7,10 +7,10 @@ namespace KryptPadWebApp.Models.Results
 {
     public class ItemsResult
     {
-        public ItemResult[] Items { get; protected set; }
+        public ApiItem[] Items { get; protected set; }
 
         public ItemsResult() { }
-        public ItemsResult(ItemResult[] items, string passphrase) {
+        public ItemsResult(ApiItem[] items, string passphrase) {
 
             foreach (var item in items)
             {

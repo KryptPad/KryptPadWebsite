@@ -8,6 +8,11 @@ namespace KryptPadWebApp.Models.Results
     public class ApiField
     {
         /// <summary>
+        /// Gets or sets the ID of the field
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the field. e.g Password
         /// </summary>
         public string Name { get; set; }
