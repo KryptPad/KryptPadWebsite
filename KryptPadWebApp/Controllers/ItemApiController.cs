@@ -67,14 +67,30 @@ namespace KryptPadWebApp.Controllers
                                 i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
-                             select new ApiItem
-                             {
-                                 Id = i.Id,
-                                 Name = i.Name
-                             }).ToArray();
+                             select i);
+
+                var apiItems = new List<ApiItem>();
+
+                // Convert to api response
+                foreach (var item in items)
+                {
+                    var apiItem = new ApiItem
+                    {
+                        Id = item.Id,
+                        Name = item.Name,
+                        Fields = (from f in item.Fields
+                                  select new ApiField
+                                  {
+                                      Id = f.Id,
+                                      Name = f.Name
+                                  }).ToArray()
+                    };
+
+                    apiItems.Add(apiItem);
+                }
 
                 // Return items
-                return Json(new ItemsResult(items, passphrase));
+                return Json(new ItemsResult(apiItems.ToArray(), passphrase));
             }
         }
 

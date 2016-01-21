@@ -17,6 +17,15 @@ namespace KryptPadWebApp.Models.Results
                 // Decrypt the data
                 item.Name = Encryption.DecryptFromString(item.Name, passphrase);
 
+                if (item.Fields != null)
+                {
+                    foreach (var field in item.Fields)
+                    {
+                        // Decrypt the data
+                        field.Name = Encryption.DecryptFromString(field.Name, passphrase);
+
+                    }
+                }
             }
 
             Items = items;
