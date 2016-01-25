@@ -126,7 +126,8 @@ namespace KryptPadWebApp.Controllers
                              where f.Item.Id == itemId &&
                                 f.Item.Category.Id == categoryId &&
                                 f.Item.Category.Profile.Id == profileId &&
-                                f.Item.Category.Profile.User.Id == UserId).SingleOrDefault();
+                                f.Item.Category.Profile.User.Id == UserId
+                             select f).SingleOrDefault();
 
                 if (field != null)
                 {
