@@ -88,6 +88,9 @@ namespace KryptPadWebApp.Controllers
                     // Set item
                     field.Item = item;
 
+                    // Add field to the DB
+                    ctx.Fields.Add(field);
+
                     // Save to database
                     await ctx.SaveChangesAsync();
 

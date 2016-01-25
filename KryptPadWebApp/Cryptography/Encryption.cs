@@ -93,6 +93,13 @@ namespace KryptPadWebApp.Models
         /// <returns></returns>
         public static byte[] Encrypt(string plainText, string password)
         {
+            // If text to encrypt is null, return null
+            if (string.IsNullOrWhiteSpace(plainText))
+            {
+                return null;
+            }
+
+
             byte[] saltBytes = new byte[SALT_LENGTH];
 
             //create random byte generator
@@ -156,6 +163,12 @@ namespace KryptPadWebApp.Models
         /// <returns></returns>
         public static string Decrypt(byte[] cipherData, string password)
         {
+            // If there is no cipher data, return null
+            if (cipherData == null)
+            {
+                return null;
+            }
+
             //extract the iv and salt
             byte[] ivBytes = new byte[IV_LENGTH];
             byte[] saltBytes = new byte[SALT_LENGTH];
@@ -223,7 +236,13 @@ namespace KryptPadWebApp.Models
         /// <returns></returns>
         public static string EncryptToString(string plainText, string password)
         {
-            return Convert.ToBase64String(Encrypt(plainText, password));
+            var data = Encrypt(plainText, password);
+            if (data == null)
+            {
+                return null;
+            }
+
+            return Convert.ToBase64String(data);
         }
 
         /// <summary>
