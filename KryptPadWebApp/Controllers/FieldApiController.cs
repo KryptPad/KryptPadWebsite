@@ -66,11 +66,11 @@ namespace KryptPadWebApp.Controllers
                 {
                     // Get the item
                     var item = (from i in ctx.Items
-                                    where i.Id == itemId &&
-                                        i.Category.Id == categoryId &&
-                                        i.Category.Profile.Id == profileId &&
-                                        i.Category.Profile.User.Id == UserId
-                                    select i).SingleOrDefault();
+                                where i.Id == itemId &&
+                                    i.Category.Id == categoryId &&
+                                    i.Category.Profile.Id == profileId &&
+                                    i.Category.Profile.User.Id == UserId
+                                select i).SingleOrDefault();
 
                     // Check for the item
                     if (item == null)
@@ -104,6 +104,42 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes a field from the system
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="categoryId"></param>
+        /// <param name="itemId"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("")]
+        public async Task<IHttpActionResult> Delete(int profileId, int categoryId, int itemId, int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Find the field and delete it
+                var field = (from f in ctx.Fields
+                             where f.Item.Id == itemId &&
+                                f.Item.Category.Id == categoryId &&
+                                f.Item.Category.Profile.Id == profileId &&
+                                f.Item.Category.Profile.User.Id == UserId).SingleOrDefault();
 
+                if (field != null)
+                {
+                    // Remove field
+                    ctx.Fields.Remove(field);
+                    // Save
+                    await ctx.SaveChangesAsync();
+
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("The specified field does not exist.");
+                }
+
+            }
+        }
     }
 }
