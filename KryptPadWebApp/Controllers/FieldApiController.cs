@@ -108,6 +108,52 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> Put(int profileId, int categoryId, int itemId, int id, [FromBody]ApiField request)
+        {
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
+            if (ModelState.IsValid)
+            {
+                using (var ctx = new ApplicationDbContext())
+                {
+                    // Get the field
+                    var field = (from f in ctx.Fields
+                                 where f.Item.Id == itemId &&
+                                    f.Item.Category.Id == categoryId &&
+                                    f.Item.Category.Profile.Id == profileId &&
+                                    f.Item.Category.Profile.User.Id == UserId
+                                 select f).SingleOrDefault();
+
+                    // Check to make sure we have a field
+                    if (field == null)
+                    {
+                        return BadRequest("The specified field does not exist.");
+                    }
+                    
+                    // Encrypt name and value
+                    field.Name = Encryption.EncryptToString(request.Name, passphrase);
+                    field.Value = Encryption.EncryptToString(request.Value, passphrase);
+                    
+                    // Save to database
+                    await ctx.SaveChangesAsync();
+
+                    // Return created
+                    return Ok();
+
+                }
+
+            }
+            else
+            {
+                // Opps
+                return BadRequest(ModelState);
+            }
+        }
+
+
         /// <summary>
         /// Deletes a field from the system
         /// </summary>

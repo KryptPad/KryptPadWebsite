@@ -72,9 +72,9 @@ namespace KryptPadWebApp
                 TokenEndpointPath = new PathString("/token"),
                 Provider = new ApiOAuthAuthorizationServerProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/account/external"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                // Note: Remove the following line before you deploy to production:
-
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(20),
+                
+                // In DEBUG mode, we allow insecure HTTP
                 #if DEBUG
                 AllowInsecureHttp = true
                 #else
