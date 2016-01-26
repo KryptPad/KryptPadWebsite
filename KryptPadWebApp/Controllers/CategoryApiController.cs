@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Data.Entity;
+using KryptPadWebApp.Models.ApiEntities;
 
 namespace KryptPadWebApp.Controllers
 {
