@@ -270,7 +270,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Entities\Profile.cs" />
     <Compile Include="Models\Requests\CreateAccountRequest.cs" />
-    <Compile Include="Models\Requests\CreateProfileRequest.cs" />
+    <Compile Include="Models\Requests\ApiProfile.cs" />
     <Compile Include="Models\Results\ApiCategory.cs" />
     <Compile Include="Models\Results\ApiField.cs" />
     <Compile Include="Models\Results\CategoriesResult.cs" />

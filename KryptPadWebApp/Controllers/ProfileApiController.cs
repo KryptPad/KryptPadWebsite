@@ -58,7 +58,7 @@ namespace KryptPadWebApp.Controllers
         // POST api/<controller>
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Post(CreateProfileRequest request)
+        public async Task<IHttpActionResult> Post(ApiProfile request)
         {
 
 

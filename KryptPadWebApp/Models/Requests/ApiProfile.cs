@@ -5,7 +5,7 @@ using System.Web;
 
 namespace KryptPadWebApp.Models.Requests
 {
-    public class CreateProfileRequest
+    public class ApiProfile
     {
         /// <summary>
         /// Gets or sets the name of the profile
