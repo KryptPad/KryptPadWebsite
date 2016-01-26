@@ -41,8 +41,7 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
-
-
+            
             //get the user's profiles
             using (var ctx = new ApplicationDbContext())
             {
@@ -60,37 +59,75 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(ApiProfile request)
         {
-
-
-            // Create context
-            using (var ctx = new ApplicationDbContext())
+            if (ModelState.IsValid)
             {
-                // Find the user
-                var user = ctx.Users.Find(UserId);
-
-                if (user == null)
+                // Create context
+                using (var ctx = new ApplicationDbContext())
                 {
-                    return Content(HttpStatusCode.BadRequest, "User not found");
+                    // Find the user
+                    var user = ctx.Users.Find(UserId);
+
+                    if (user == null)
+                    {
+                        return Content(HttpStatusCode.BadRequest, "User not found");
+                    }
+
+                    // Create profile object to store in DB
+                    var profile = new Profile()
+                    {
+                        User = user,
+                        Name = request.Name
+                    };
+
+                    // Add the profile to the context
+                    ctx.Profiles.Add(profile);
+
+                    // Save changes
+                    await ctx.SaveChangesAsync();
+
+                    // Ok
+                    return Ok();
                 }
-
-                // Create profile object to store in DB
-                var profile = new Profile()
-                {
-                    User = user,
-                    Name = request.Name
-                };
-
-                // Add the profile to the context
-                ctx.Profiles.Add(profile);
-
-                // Save changes
-                await ctx.SaveChangesAsync();
-                
-                // Return profile back to the caller. it will have the new id
-                return Json(new ProfileResult(new[] { profile }));
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
 
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IHttpActionResult> Put(int id, ApiProfile request)
+        {
+
+            if (ModelState.IsValid)
+            {
+                // Create context
+                using (var ctx = new ApplicationDbContext())
+                {
+                    var profile = (from p in ctx.Profiles
+                                    where p.User.Id == UserId
+                                    && p.Id == id
+                                    select p).SingleOrDefault();
+
+                    // Update name
+                    profile.Name = request.Name;
+
+                    // Save changes
+                    await ctx.SaveChangesAsync();
+
+                    // Ok
+                    return Ok();
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+        }
+
 
         // PUT api/<controller>/5
         [HttpPut]

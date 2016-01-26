@@ -108,6 +108,15 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates a specified field
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <param name="categoryId"></param>
+        /// <param name="itemId"></param>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
         public async Task<IHttpActionResult> Put(int profileId, int categoryId, int itemId, int id, [FromBody]ApiField request)
