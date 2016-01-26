@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace KryptPadWebApp.Models.Requests
+namespace KryptPadWebApp.Models.ApiEntities
 {
     public class ApiProfile
     {

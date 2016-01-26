@@ -10,7 +10,7 @@ using System.Web;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http;
-using KryptPadWebApp.Models.Requests;
+using KryptPadWebApp.Models.ApiEntities;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -21,7 +21,7 @@ namespace KryptPadWebApp.Controllers
         //POST: Register
         [HttpPost]
         [Route("Register", Name = "Register")]
-        public async Task<IHttpActionResult> Register(CreateAccountRequest accountInfo)
+        public async Task<IHttpActionResult> Register(ApiAccount accountInfo)
         {
             // Check if we have a valid model state
             if (!ModelState.IsValid)

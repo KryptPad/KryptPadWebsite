@@ -1,5 +1,5 @@
 ﻿using KryptPadWebApp.Models;
-using KryptPadWebApp.Models.Requests;
+using KryptPadWebApp.Models.ApiEntities;
 using KryptPadWebApp.Models.Results;
 using Microsoft.AspNet.Identity.Owin;
 using System;

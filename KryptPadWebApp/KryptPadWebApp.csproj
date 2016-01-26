@@ -269,8 +269,8 @@
     <Compile Include="Models\Entities\Item.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Entities\Profile.cs" />
-    <Compile Include="Models\Requests\CreateAccountRequest.cs" />
-    <Compile Include="Models\Requests\ApiProfile.cs" />
+    <Compile Include="Models\ApiEntities\ApiAccount.cs" />
+    <Compile Include="Models\ApiEntities\ApiProfile.cs" />
     <Compile Include="Models\Results\ApiCategory.cs" />
     <Compile Include="Models\Results\ApiField.cs" />
     <Compile Include="Models\Results\CategoriesResult.cs" />
