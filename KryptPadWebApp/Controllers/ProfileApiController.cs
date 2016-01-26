@@ -86,7 +86,7 @@ namespace KryptPadWebApp.Controllers
                     await ctx.SaveChangesAsync();
 
                     // Ok
-                    return Ok();
+                    return Ok(profile.Id);
                 }
             }
             else
@@ -118,7 +118,7 @@ namespace KryptPadWebApp.Controllers
                     await ctx.SaveChangesAsync();
 
                     // Ok
-                    return Ok();
+                    return Ok(profile.Id);
                 }
             }
             else
