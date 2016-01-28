@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -15,6 +16,7 @@ namespace KryptPadWebApp.Models.ApiEntities
         /// <summary>
         /// Gets or sets the name of the item
         /// </summary>
+        [Required]
         public string Name { get; set; }
 
         /// <summary>

@@ -98,13 +98,10 @@ namespace KryptPadWebApp.Controllers
         // POST api/<controller>
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Post(int profileId, int categoryId, [FromBody] Item item)
+        public async Task<IHttpActionResult> Post(int profileId, int categoryId, [FromBody] ApiItem request)
         {
             // Get the passphrase from the header
             var passphrase = Request.Headers.GetValues("Passphrase").First();
-
-            // Ignore the category field
-            ModelState.Remove("item.Category");
 
             if (ModelState.IsValid)
             {
@@ -123,10 +120,13 @@ namespace KryptPadWebApp.Controllers
                         // No category found
                         return BadRequest("The specified category does not exist.");
                     }
+
+                    var item = new Item();
+
                     // Add item to the category
                     item.Category = category;
                     // Encrypt name
-                    item.Name = Encryption.EncryptToString(item.Name, passphrase);
+                    item.Name = Encryption.EncryptToString(request.Name, passphrase);
 
                     // Add item to the items table
                     ctx.Items.Add(item);
@@ -149,11 +149,9 @@ namespace KryptPadWebApp.Controllers
         // PUT api/<controller>/5
         [HttpPut]
         [Route("{id}")]
-        public async Task<IHttpActionResult> Put(int profileId, int categoryId, int id, [FromBody]Item item)
+        public async Task<IHttpActionResult> Put(int profileId, int categoryId, int id, [FromBody]ApiItem request)
         {
-            // Ignore the category field
-            ModelState.Remove("item.Category");
-
+            
             // Get the passphrase from the header
             var passphrase = Request.Headers.GetValues("Passphrase").First();
 
@@ -162,14 +160,13 @@ namespace KryptPadWebApp.Controllers
                 using (var ctx = new ApplicationDbContext())
                 {
                     // Get the item from the db
-                    var obj = (from i in ctx.Items
+                    var item = (from i in ctx.Items
                                where i.Id == id && i.Category.Profile.User.Id == UserId
                                select i).SingleOrDefault();
 
                     //ctx.Entry(item).State = System.Data.Entity.EntityState.Modified
-                    obj.Name = Encryption.EncryptToString(item.Name, passphrase);
-                    obj.ItemType = item.ItemType;
-
+                    item.Name = Encryption.EncryptToString(request.Name, passphrase);
+                    
                     // Save the changes
                     await ctx.SaveChangesAsync();
 
