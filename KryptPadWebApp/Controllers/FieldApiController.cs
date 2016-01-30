@@ -176,7 +176,7 @@ namespace KryptPadWebApp.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("")]
+        [Route("{id}")]
         public async Task<IHttpActionResult> Delete(int profileId, int categoryId, int itemId, int id)
         {
             using (var ctx = new ApplicationDbContext())
