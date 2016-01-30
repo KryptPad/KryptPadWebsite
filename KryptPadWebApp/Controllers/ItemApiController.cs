@@ -39,7 +39,8 @@ namespace KryptPadWebApp.Controllers
                              select new ApiItem
                              {
                                  Id = i.Id,
-                                 Name = i.Name
+                                 Name = i.Name,
+                                 Notes = i.Notes
                              }).ToArray();
 
                 // Return items
@@ -68,7 +69,7 @@ namespace KryptPadWebApp.Controllers
                                 i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
-                             select i);
+                             select i).ToArray();
 
                 var apiItems = new List<ApiItem>();
 
@@ -79,6 +80,7 @@ namespace KryptPadWebApp.Controllers
                     {
                         Id = item.Id,
                         Name = item.Name,
+                        Notes = item.Notes,
                         Fields = (from f in item.Fields
                                   select new ApiField
                                   {
@@ -125,8 +127,9 @@ namespace KryptPadWebApp.Controllers
 
                     // Add item to the category
                     item.Category = category;
-                    // Encrypt name
+                    // Encrypt data
                     item.Name = Encryption.EncryptToString(request.Name, passphrase);
+                    item.Notes = Encryption.EncryptToString(request.Notes, passphrase);
 
                     // Add item to the items table
                     ctx.Items.Add(item);
@@ -161,13 +164,17 @@ namespace KryptPadWebApp.Controllers
                 {
                     // Get the item from the db
                     var item = (from i in ctx.Items.Include(x => x.Category)
-                                where i.Id == id && i.Category.Profile.User.Id == UserId
+                                where i.Id == id &&
+                                    i.Category.Id == categoryId &&
+                                    i.Category.Profile.Id == profileId &&
+                                    i.Category.Profile.User.Id == UserId
                                 select i).SingleOrDefault();
 
                     if (item != null)
                     {
-                        //ctx.Entry(item).State = System.Data.Entity.EntityState.Modified
+                        // Encrypt data
                         item.Name = Encryption.EncryptToString(request.Name, passphrase);
+                        item.Notes = Encryption.EncryptToString(request.Notes, passphrase);
 
                         // Save the changes
                         await ctx.SaveChangesAsync();
@@ -190,7 +197,7 @@ namespace KryptPadWebApp.Controllers
         // DELETE api/<controller>/5
         [HttpDelete]
         [Route("{id}")]
-        public async Task<IHttpActionResult> Delete(int id)
+        public async Task<IHttpActionResult> Delete(int profileId, int categoryId, int id)
         {
 
             // Find the item by the id and delete it
@@ -198,7 +205,10 @@ namespace KryptPadWebApp.Controllers
             {
                 // Get the item from the db
                 var obj = (from i in ctx.Items
-                           where i.Id == id && i.Category.Profile.User.Id == UserId
+                           where i.Id == id && 
+                                i.Category.Id == categoryId &&
+                                i.Category.Profile.Id == profileId &&
+                                i.Category.Profile.User.Id == UserId
                            select i).SingleOrDefault();
 
                 // Delete item

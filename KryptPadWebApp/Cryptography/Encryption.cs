@@ -237,12 +237,12 @@ namespace KryptPadWebApp.Models
         public static string EncryptToString(string plainText, string password)
         {
             var data = Encrypt(plainText, password);
-            if (data == null)
+            if (data != null)
             {
-                return null;
+                return Convert.ToBase64String(data);
             }
 
-            return Convert.ToBase64String(data);
+            return null;
         }
 
         /// <summary>
@@ -253,7 +253,12 @@ namespace KryptPadWebApp.Models
         /// <returns></returns>
         public static string DecryptFromString(string cypherString, string password)
         {
-            return Decrypt(Convert.FromBase64String(cypherString), password);
+            if (!string.IsNullOrWhiteSpace(cypherString))
+            {
+                return Decrypt(Convert.FromBase64String(cypherString), password);
+            }
+
+            return null;
         }
         #endregion
     }

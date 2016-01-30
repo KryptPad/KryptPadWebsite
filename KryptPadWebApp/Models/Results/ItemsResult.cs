@@ -17,6 +17,7 @@ namespace KryptPadWebApp.Models.Results
             {
                 // Decrypt the data
                 item.Name = Encryption.DecryptFromString(item.Name, passphrase);
+                item.Notes = Encryption.DecryptFromString(item.Notes, passphrase);
 
                 if (item.Fields != null)
                 {
@@ -24,7 +25,7 @@ namespace KryptPadWebApp.Models.Results
                     {
                         // Decrypt the data
                         field.Name = Encryption.DecryptFromString(field.Name, passphrase);
-
+                        
                     }
                 }
             }
