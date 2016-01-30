@@ -183,7 +183,8 @@ namespace KryptPadWebApp.Controllers
             {
                 // Find the field and delete it
                 var field = (from f in ctx.Fields
-                             where f.Item.Id == itemId &&
+                             where f.Id == id &&
+                                f.Item.Id == itemId &&
                                 f.Item.Category.Id == categoryId &&
                                 f.Item.Category.Profile.Id == profileId &&
                                 f.Item.Category.Profile.User.Id == UserId
