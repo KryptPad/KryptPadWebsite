@@ -18,7 +18,7 @@ namespace KryptPadWebApp.Models.Results
             {
                 // Decrypt the data
                 field.Name = Encryption.DecryptFromString(field.Name, passphrase);
-
+                field.Value = Encryption.DecryptFromString(field.Value, passphrase);
             }
 
             Fields = fields;

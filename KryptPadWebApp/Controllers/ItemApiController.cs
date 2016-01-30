@@ -151,7 +151,7 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public async Task<IHttpActionResult> Put(int profileId, int categoryId, int id, [FromBody]ApiItem request)
         {
-            
+
             // Get the passphrase from the header
             var passphrase = Request.Headers.GetValues("Passphrase").First();
 
@@ -160,19 +160,25 @@ namespace KryptPadWebApp.Controllers
                 using (var ctx = new ApplicationDbContext())
                 {
                     // Get the item from the db
-                    var item = (from i in ctx.Items
-                               where i.Id == id && i.Category.Profile.User.Id == UserId
-                               select i).SingleOrDefault();
+                    var item = (from i in ctx.Items.Include(x => x.Category)
+                                where i.Id == id && i.Category.Profile.User.Id == UserId
+                                select i).SingleOrDefault();
 
-                    //ctx.Entry(item).State = System.Data.Entity.EntityState.Modified
-                    item.Name = Encryption.EncryptToString(request.Name, passphrase);
-                    
-                    // Save the changes
-                    await ctx.SaveChangesAsync();
+                    if (item != null)
+                    {
+                        //ctx.Entry(item).State = System.Data.Entity.EntityState.Modified
+                        item.Name = Encryption.EncryptToString(request.Name, passphrase);
 
-                    // OK
-                    return Ok();
+                        // Save the changes
+                        await ctx.SaveChangesAsync();
 
+                        // OK
+                        return Ok(item.Id);
+                    }
+                    else
+                    {
+                        return BadRequest("The specified item does not exist.");
+                    }
                 }
             }
             else

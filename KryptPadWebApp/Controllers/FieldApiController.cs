@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -38,7 +39,8 @@ namespace KryptPadWebApp.Controllers
                               select new ApiField
                               {
                                   Id = f.Id,
-                                  Name = f.Name
+                                  Name = f.Name,
+                                  Value = f.Value
                               }).ToArray();
 
                 // Return items
@@ -96,7 +98,7 @@ namespace KryptPadWebApp.Controllers
                     await ctx.SaveChangesAsync();
 
                     // Return created
-                    return Ok();
+                    return Ok(field.Id);
 
                 }
 
@@ -128,9 +130,11 @@ namespace KryptPadWebApp.Controllers
             {
                 using (var ctx = new ApplicationDbContext())
                 {
+
                     // Get the field
-                    var field = (from f in ctx.Fields
-                                 where f.Item.Id == itemId &&
+                    var field = (from f in ctx.Fields.Include(x => x.Item)
+                                 where f.Id == id &&
+                                    f.Item.Id == itemId &&
                                     f.Item.Category.Id == categoryId &&
                                     f.Item.Category.Profile.Id == profileId &&
                                     f.Item.Category.Profile.User.Id == UserId
@@ -141,16 +145,16 @@ namespace KryptPadWebApp.Controllers
                     {
                         return BadRequest("The specified field does not exist.");
                     }
-                    
+
                     // Encrypt name and value
                     field.Name = Encryption.EncryptToString(request.Name, passphrase);
                     field.Value = Encryption.EncryptToString(request.Value, passphrase);
-                    
+
                     // Save to database
                     await ctx.SaveChangesAsync();
 
                     // Return created
-                    return Ok();
+                    return Ok(field.Id);
 
                 }
 
