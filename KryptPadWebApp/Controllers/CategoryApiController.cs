@@ -15,10 +15,10 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("Api/Profiles/{profileId}/Categories")]
     public class CategoryApiController : AuthorizedApiController
     {
-        // GET: CategoryApi
+
         [HttpGet]
-        [Route("", Name = "ProfileCategories")]
-        public IHttpActionResult Get(int profileId)
+        [Route("with-items", Name = "ProfileCategoriesWithItems")]
+        public IHttpActionResult GetWithItem(int profileId)
         {
 
             // Get the passphrase from the header
@@ -31,21 +31,31 @@ namespace KryptPadWebApp.Controllers
                                   c.Profile.Id == profileId
                                   select c).ToArray();
 
-                var apiCategories = (from c in categories
-                                     select new ApiCategory
-                                     {
-                                         Id=c.Id,
-                                         Name = Encryption.DecryptFromString(c.Name, passphrase),
-                                         Items = (from i in c.Items
-                                                  select new ApiItem
-                                                  {
-                                                      Id=i.Id,
-                                                      Name = Encryption.DecryptFromString(i.Name, passphrase)
-                                                  }).ToArray()
-                                     }).ToArray();
                 
-          
-                return Json(new CategoriesResult(apiCategories, passphrase));
+                return Json(new CategoriesResult(categories, passphrase));
+            }
+
+
+        }
+
+        // GET: CategoryApi
+        [HttpGet]
+        [Route("", Name = "ProfileCategories")]
+        public IHttpActionResult Get(int profileId)
+        {
+
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
+            using (var ctx = new ApplicationDbContext())
+            {
+                var categories = (from c in ctx.Categories
+                                  where c.Profile.User.Id == UserId &&
+                                  c.Profile.Id == profileId
+                                  select c).ToArray();
+
+               
+                return Json(new CategoriesResult(categories, passphrase));
             }
 
 
@@ -72,7 +82,7 @@ namespace KryptPadWebApp.Controllers
                 // Did we find one?
                 if (profile == null)
                 {
-                    return Content(HttpStatusCode.BadRequest, "Profile not found");
+                    return Content(HttpStatusCode.BadRequest, "The specified profile does not exist.");
                 }
 
                 var category = new Category();
@@ -88,7 +98,7 @@ namespace KryptPadWebApp.Controllers
                 // Save changes
                 await ctx.SaveChangesAsync();
 
-                return Json(new CategoriesResult(new[] { request } , passphrase));
+                return Ok(category.Id);
             }
 
 
@@ -116,7 +126,7 @@ namespace KryptPadWebApp.Controllers
                 // Did we find one?
                 if (obj == null)
                 {
-                    return Content(HttpStatusCode.BadRequest, "Category not found");
+                    return Content(HttpStatusCode.BadRequest, "The specified category does not exist.");
                 }
 
                 // Encrypt the category name
@@ -125,7 +135,7 @@ namespace KryptPadWebApp.Controllers
                 // Save changes
                 await ctx.SaveChangesAsync();
 
-                return Ok();
+                return Ok(obj.Id);
             }
         }
 
@@ -149,7 +159,7 @@ namespace KryptPadWebApp.Controllers
                 // Did we find one?
                 if (obj == null)
                 {
-                    return Content(HttpStatusCode.BadRequest, "Category not found");
+                    return Content(HttpStatusCode.BadRequest, "The specified category does not exist.");
                 }
 
                 ctx.Categories.Remove(obj);

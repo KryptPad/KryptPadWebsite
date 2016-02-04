@@ -12,9 +12,21 @@ namespace KryptPadWebApp.Models.Results
         public ApiCategory[] Categories { get; set; }
 
         public CategoriesResult() { }
-        public CategoriesResult(ApiCategory[] categories, string passphrase)
+        public CategoriesResult(Category[] categories, string passphrase)
         {
-            Categories = categories;
+            Categories = (from c in categories
+                          select new ApiCategory()
+                          {
+                              Id = c.Id,
+                              Name = Encryption.DecryptFromString(c.Name, passphrase),
+                              Items = (c.Items != null ? (from i in c.Items
+                                                          select new ApiItem()
+                                                          {
+                                                              Id = i.Id,
+                                                              Name = Encryption.DecryptFromString(i.Name, passphrase)
+                                                          }).ToArray() : null)
+                          }).ToArray();
+
         }
 
     }
