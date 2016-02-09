@@ -128,14 +128,6 @@ namespace KryptPadWebApp.Controllers
 
         }
 
-
-        // PUT api/<controller>/5
-        [HttpPut]
-        [Route("")]
-        public void Put(int id, Profile profile)
-        {
-        }
-
         // DELETE api/<controller>/5
         [HttpDelete]
         [Route("{id}")]
