@@ -41,16 +41,47 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
-            
-            //get the user's profiles
+            // Get the passphrase from the header
+            var passphrase = Request.Headers.GetValues("Passphrase").First();
+
+            // Get the specified profile
             using (var ctx = new ApplicationDbContext())
             {
-                var profiles = (from p in ctx.Profiles
-                                where p.User.Id == UserId
-                                && p.Id == id
-                                select p).ToArray();
+                var profile = (from p in ctx.Profiles
+                               where p.Id == id
+                                   && p.User.Id == UserId
+                               select p).SingleOrDefault();
 
-                return Json(new ProfileResult(profiles));
+                // Check profile
+                if (profile != null)
+                {
+                    // If there is no salt, set empty
+                    var salt = profile.Key1 ?? string.Empty;
+
+                    // Get the salt
+                    var saltBytes = Convert.FromBase64String(salt);
+
+                    // Verify the supplied passphrase
+                    var hashedPassphrase = Encryption.Hash(passphrase, saltBytes);
+
+                    if (hashedPassphrase.Equals(profile.Key2))
+                    {
+                        // Return the profile
+                        return Json(new ProfileResult(new[] { profile }));
+                    }
+                    else
+                    {
+                        // The passphrase is wrong, unauthorized
+                        return Unauthorized();
+                    }
+                    
+                }
+                else
+                {
+                    // Record does not exist
+                    return BadRequest("The specified profile does not exist");
+                }
+                
             }
         }
 
@@ -61,6 +92,10 @@ namespace KryptPadWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                // Get the passphrase from the header
+                var passphrase = Request.Headers.GetValues("Passphrase").First();
+
                 // Create context
                 using (var ctx = new ApplicationDbContext())
                 {
@@ -72,11 +107,16 @@ namespace KryptPadWebApp.Controllers
                         return Content(HttpStatusCode.BadRequest, "User not found");
                     }
 
+                    // Generate a random salt for the profile
+                    var saltBytes = Encryption.GenerateSalt();
+
                     // Create profile object to store in DB
                     var profile = new Profile()
                     {
                         User = user,
-                        Name = request.Name
+                        Name = request.Name,
+                        Key1 = Convert.ToBase64String(saltBytes),
+                        Key2 = Encryption.Hash(passphrase, saltBytes)
                     };
 
                     // Add the profile to the context
@@ -107,9 +147,9 @@ namespace KryptPadWebApp.Controllers
                 using (var ctx = new ApplicationDbContext())
                 {
                     var profile = (from p in ctx.Profiles
-                                    where p.User.Id == UserId
-                                    && p.Id == id
-                                    select p).SingleOrDefault();
+                                   where p.User.Id == UserId
+                                   && p.Id == id
+                                   select p).SingleOrDefault();
 
                     // Update name
                     profile.Name = request.Name;

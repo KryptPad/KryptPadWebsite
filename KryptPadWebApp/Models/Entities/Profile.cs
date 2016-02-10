@@ -21,6 +21,16 @@ namespace KryptPadWebApp.Models
         /// Gets or sets the name of the profile
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Key1 value of the profile
+        /// </summary>
+        public string Key1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Key2 value of the profile
+        /// </summary>
+        public string Key2 { get; set; }
         
     }
 }

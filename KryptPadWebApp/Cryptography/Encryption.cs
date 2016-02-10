@@ -1,4 +1,5 @@
 ﻿using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Modes;
@@ -99,13 +100,8 @@ namespace KryptPadWebApp.Models
                 return null;
             }
 
-
-            byte[] saltBytes = new byte[SALT_LENGTH];
-
-            //create random byte generator
-            var rand = new SecureRandom();
-            //get random bytes for our salt
-            rand.NextBytes(saltBytes);
+            // Generate a random salt
+           var saltBytes = GenerateSalt();
 
             //create cipher engine
             var cipher = new PaddedBufferedBlockCipher(
@@ -118,7 +114,7 @@ namespace KryptPadWebApp.Models
             //initialize for encryption with the key
             cipher.Init(true, key);
 
-            //get the message as bytes
+            // Convert plain text string to bytes
             var plainBytes = Encoding.UTF8.GetBytes(plainText);
 
             MemoryStream cipherStream;
@@ -260,6 +256,51 @@ namespace KryptPadWebApp.Models
 
             return null;
         }
+
+        /// <summary>
+        /// Generates a random salt
+        /// </summary>
+        /// <returns></returns>
+        public static byte[] GenerateSalt()
+        {
+            byte[] saltBytes = new byte[SALT_LENGTH];
+
+            //create random byte generator
+            var rand = new SecureRandom();
+            //get random bytes for our salt
+            rand.NextBytes(saltBytes);
+
+            // Return the salt
+            return saltBytes;
+        }
+
+        /// <summary>
+        /// Computes a hash from a string and a salt
+        /// </summary>
+        /// <param name="plainText"></param>
+        /// <param name="saltBytes"></param>
+        /// <returns></returns>
+        public static string Hash(string plainText, byte[] saltBytes)
+        {
+            // Create digest instance to compute our hash
+            var hash = new Sha512Digest();
+
+            // Create a buffer large enough to store the computed hash
+            var resultBytes = new byte[hash.GetDigestSize()];
+
+            // Convert plain text string to bytes
+            var plainBytes = saltBytes.Concat(Encoding.UTF8.GetBytes(plainText)).ToArray();
+            
+            // Process the bytes
+            hash.BlockUpdate(plainBytes, 0, plainBytes.Length);
+
+            // Process final output
+            hash.DoFinal(resultBytes, 0);
+
+            // Convert to string
+            return Convert.ToBase64String(resultBytes);
+        }
+
         #endregion
     }
 }
