@@ -31,7 +31,7 @@ namespace KryptPadWebApp.Controllers
                                   c.Profile.Id == profileId
                                   select c).ToArray();
 
-                
+
                 return Json(new CategoriesResult(categories, passphrase));
             }
 
@@ -54,7 +54,7 @@ namespace KryptPadWebApp.Controllers
                                   c.Profile.Id == profileId
                                   select c).ToArray();
 
-               
+
                 return Json(new CategoriesResult(categories, passphrase));
             }
 
@@ -116,7 +116,7 @@ namespace KryptPadWebApp.Controllers
             {
 
                 // Find the profile
-                var obj = (from c in ctx.Categories
+                var obj = (from c in ctx.Categories.Include((x) => x.Items).Include((x) => x.Profile)
                            where c.Id == id
                                && c.Profile.Id == profileId
                                && c.Profile.User.Id == UserId
@@ -131,7 +131,7 @@ namespace KryptPadWebApp.Controllers
 
                 // Encrypt the category name
                 obj.Name = Encryption.EncryptToString(category.Name, passphrase);
-                
+
                 // Save changes
                 await ctx.SaveChangesAsync();
 
@@ -144,7 +144,7 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public async Task<IHttpActionResult> Delete(int profileId, int id)
         {
-            
+
             using (var ctx = new ApplicationDbContext())
             {
 
