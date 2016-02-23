@@ -18,7 +18,7 @@ namespace KryptPadWebApp.Controllers
     public class ItemApiController : AuthorizedApiController
     {
         /// <summary>
-        /// Gets all items in the category
+        /// Gets all items in a category
         /// </summary>
         /// <param name="profileId"></param>
         /// <param name="categoryId"></param>
@@ -27,27 +27,20 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public IHttpActionResult Get(int profileId, int categoryId)
         {
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
+            
             using (var ctx = new ApplicationDbContext())
             {
                 var items = (from i in ctx.Items
                              where i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
-                             select new ApiItem
-                             {
-                                 Id = i.Id,
-                                 Name = i.Name,
-                                 Notes = i.Notes
-                             }).ToArray();
+                             select i).ToArray();
 
                 // Return items
-                return Json(new ItemsResult(items, passphrase));
+                return Json(new ItemsResult(items, Passphrase));
             }
         }
-
+        
         /// <summary>
         /// Gets a specific item and details
         /// </summary>
@@ -59,9 +52,7 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public IHttpActionResult Get(int profileId, int categoryId, int id)
         {
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
+            
             using (var ctx = new ApplicationDbContext())
             {
                 var items = (from i in ctx.Items.Include(x => x.Fields)
@@ -70,30 +61,10 @@ namespace KryptPadWebApp.Controllers
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
                              select i).ToArray();
-
-                var apiItems = new List<ApiItem>();
-
-                // Convert to api response
-                foreach (var item in items)
-                {
-                    var apiItem = new ApiItem
-                    {
-                        Id = item.Id,
-                        Name = item.Name,
-                        Notes = item.Notes,
-                        Fields = (from f in item.Fields
-                                  select new ApiField
-                                  {
-                                      Id = f.Id,
-                                      Name = f.Name
-                                  }).ToArray()
-                    };
-
-                    apiItems.Add(apiItem);
-                }
+                
 
                 // Return items
-                return Json(new ItemsResult(apiItems.ToArray(), passphrase));
+                return Json(new ItemsResult(items, Passphrase));
             }
         }
 
@@ -102,9 +73,7 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(int profileId, int categoryId, [FromBody] ApiItem request)
         {
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
+            
             if (ModelState.IsValid)
             {
                 using (var ctx = new ApplicationDbContext())
@@ -128,8 +97,8 @@ namespace KryptPadWebApp.Controllers
                     // Add item to the category
                     item.Category = category;
                     // Encrypt data
-                    item.Name = Encryption.EncryptToString(request.Name, passphrase);
-                    item.Notes = Encryption.EncryptToString(request.Notes, passphrase);
+                    item.Name = Encryption.EncryptToString(request.Name, Passphrase);
+                    item.Notes = Encryption.EncryptToString(request.Notes, Passphrase);
 
                     // Add item to the items table
                     ctx.Items.Add(item);
@@ -155,9 +124,6 @@ namespace KryptPadWebApp.Controllers
         public async Task<IHttpActionResult> Put(int profileId, int categoryId, int id, [FromBody]ApiItem request)
         {
 
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
             if (ModelState.IsValid)
             {
                 using (var ctx = new ApplicationDbContext())
@@ -173,8 +139,8 @@ namespace KryptPadWebApp.Controllers
                     if (item != null)
                     {
                         // Encrypt data
-                        item.Name = Encryption.EncryptToString(request.Name, passphrase);
-                        item.Notes = Encryption.EncryptToString(request.Notes, passphrase);
+                        item.Name = Encryption.EncryptToString(request.Name, Passphrase);
+                        item.Notes = Encryption.EncryptToString(request.Notes, Passphrase);
 
                         // Save the changes
                         await ctx.SaveChangesAsync();

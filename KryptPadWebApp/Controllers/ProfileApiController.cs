@@ -22,8 +22,7 @@ namespace KryptPadWebApp.Controllers
         [Route("", Name = "ApiProfiles")]
         public IHttpActionResult Get()
         {
-
-
+    
             //get the user's profiles
             using (var ctx = new ApplicationDbContext())
             {
@@ -41,9 +40,7 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
+            
             // Get the specified profile
             using (var ctx = new ApplicationDbContext())
             {
@@ -62,7 +59,7 @@ namespace KryptPadWebApp.Controllers
                     var saltBytes = Convert.FromBase64String(salt);
 
                     // Verify the supplied passphrase
-                    var hashedPassphrase = Encryption.Hash(passphrase, saltBytes);
+                    var hashedPassphrase = Encryption.Hash(Passphrase, saltBytes);
 
                     if (hashedPassphrase.Equals(profile.Key2))
                     {
@@ -92,10 +89,7 @@ namespace KryptPadWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                // Get the passphrase from the header
-                var passphrase = Request.Headers.GetValues("Passphrase").First();
-
+                
                 // Create context
                 using (var ctx = new ApplicationDbContext())
                 {
@@ -116,7 +110,7 @@ namespace KryptPadWebApp.Controllers
                         User = user,
                         Name = request.Name,
                         Key1 = Convert.ToBase64String(saltBytes),
-                        Key2 = Encryption.Hash(passphrase, saltBytes)
+                        Key2 = Encryption.Hash(Passphrase, saltBytes)
                     };
 
                     // Add the profile to the context
@@ -199,6 +193,27 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all items in a profile
+        /// </summary>
+        /// <param name="profileId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}/items")]
+        public IHttpActionResult GetItems(int id)
+        {
+
+            using (var ctx = new ApplicationDbContext())
+            {
+                var items = (from i in ctx.Items
+                             where i.Category.Profile.Id == id &&
+                                i.Category.Profile.User.Id == UserId
+                             select i).ToArray();
+
+                // Return items
+                return Json(new ItemsResult(items, Passphrase));
+            }
+        }
 
     }
 }

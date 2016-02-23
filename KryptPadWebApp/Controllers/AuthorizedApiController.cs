@@ -11,6 +11,9 @@ namespace KryptPadWebApp.Controllers
     [Authorize]
     public class AuthorizedApiController : ApiController
     {
+        /// <summary>
+        /// Gets the authenticated user's id
+        /// </summary>
         protected string UserId
         {
             get
@@ -18,5 +21,19 @@ namespace KryptPadWebApp.Controllers
                 return User.Identity.GetUserId();
             }
         }
+
+        /// <summary>
+        /// Gets the passphrase sent in the header
+        /// </summary>
+        protected string Passphrase
+        {
+            get
+            {
+                // Get the passphrase from the header
+                var passphrase = Request.Headers.GetValues("Passphrase").FirstOrDefault();
+                return passphrase;
+            }
+        }
+
     }
 }

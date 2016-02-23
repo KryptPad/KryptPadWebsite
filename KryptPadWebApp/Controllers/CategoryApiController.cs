@@ -21,9 +21,6 @@ namespace KryptPadWebApp.Controllers
         public IHttpActionResult GetWithItem(int profileId)
         {
 
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
             using (var ctx = new ApplicationDbContext())
             {
                 var categories = (from c in ctx.Categories.Include((cat) => cat.Items)
@@ -32,7 +29,7 @@ namespace KryptPadWebApp.Controllers
                                   select c).ToArray();
 
 
-                return Json(new CategoriesResult(categories, passphrase));
+                return Json(new CategoriesResult(categories, Passphrase));
             }
 
 
@@ -43,10 +40,7 @@ namespace KryptPadWebApp.Controllers
         [Route("", Name = "ProfileCategories")]
         public IHttpActionResult Get(int profileId)
         {
-
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
+                        
             using (var ctx = new ApplicationDbContext())
             {
                 var categories = (from c in ctx.Categories
@@ -55,7 +49,7 @@ namespace KryptPadWebApp.Controllers
                                   select c).ToArray();
 
 
-                return Json(new CategoriesResult(categories, passphrase));
+                return Json(new CategoriesResult(categories, Passphrase));
             }
 
 
@@ -66,9 +60,6 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(int profileId, [FromBody]ApiCategory request)
         {
-
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
 
             using (var ctx = new ApplicationDbContext())
             {
@@ -88,7 +79,7 @@ namespace KryptPadWebApp.Controllers
                 var category = new Category();
 
                 // Encrypt the category name
-                category.Name = Encryption.EncryptToString(request.Name, passphrase);
+                category.Name = Encryption.EncryptToString(request.Name, Passphrase);
 
                 // Set the profile to the category
                 category.Profile = profile;
@@ -109,8 +100,6 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public async Task<IHttpActionResult> Put(int profileId, int id, [FromBody]Category category)
         {
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
 
             using (var ctx = new ApplicationDbContext())
             {
@@ -130,7 +119,7 @@ namespace KryptPadWebApp.Controllers
                 }
 
                 // Encrypt the category name
-                obj.Name = Encryption.EncryptToString(category.Name, passphrase);
+                obj.Name = Encryption.EncryptToString(category.Name, Passphrase);
 
                 // Save changes
                 await ctx.SaveChangesAsync();

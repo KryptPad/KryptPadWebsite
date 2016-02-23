@@ -11,26 +11,45 @@ namespace KryptPadWebApp.Models.Results
         public ApiItem[] Items { get; protected set; }
 
         public ItemsResult() { }
-        public ItemsResult(ApiItem[] items, string passphrase) {
+        public ItemsResult(Item[] items, string passphrase) {
+
+            var apiItems = new List<ApiItem>();
 
             foreach (var item in items)
             {
+                var apiItem = new ApiItem();
+                
                 // Decrypt the data
-                item.Name = Encryption.DecryptFromString(item.Name, passphrase);
-                item.Notes = Encryption.DecryptFromString(item.Notes, passphrase);
+                apiItem.Name = Encryption.DecryptFromString(item.Name, passphrase);
+                apiItem.Notes = Encryption.DecryptFromString(item.Notes, passphrase);
 
                 if (item.Fields != null)
                 {
+
+                    // Create a field list
+                    var apiFields = new List<ApiField>();
+
                     foreach (var field in item.Fields)
                     {
+                        // Create field
+                        var apiField = new ApiField();
+
                         // Decrypt the data
-                        field.Name = Encryption.DecryptFromString(field.Name, passphrase);
-                        
+                        apiField.Name = Encryption.DecryptFromString(field.Name, passphrase);
+
+                        // Add field to list
+                        apiFields.Add(apiField);
                     }
+
+                    // Add the fields to the item
+                    apiItem.Fields = apiFields.ToArray();
                 }
+
+                // Add the ApiItem to the list
+                apiItems.Add(apiItem);
             }
 
-            Items = items;
+            Items = apiItems.ToArray();
         }
     }
 }

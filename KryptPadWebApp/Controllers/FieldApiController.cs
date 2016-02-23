@@ -26,9 +26,7 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public IHttpActionResult Get(int profileId, int categoryId, int itemId)
         {
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
+            
             using (var ctx = new ApplicationDbContext())
             {
                 var fields = (from f in ctx.Fields
@@ -44,7 +42,7 @@ namespace KryptPadWebApp.Controllers
                               }).ToArray();
 
                 // Return items
-                return Json(new FieldsResult(fields, passphrase));
+                return Json(new FieldsResult(fields, Passphrase));
             }
         }
 
@@ -60,9 +58,7 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(int profileId, int categoryId, int itemId, [FromBody]ApiField request)
         {
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
-
+            
             if (ModelState.IsValid)
             {
                 using (var ctx = new ApplicationDbContext())
@@ -85,8 +81,8 @@ namespace KryptPadWebApp.Controllers
                     var field = new Field();
 
                     // Encrypt name and value
-                    field.Name = Encryption.EncryptToString(request.Name, passphrase);
-                    field.Value = Encryption.EncryptToString(request.Value, passphrase);
+                    field.Name = Encryption.EncryptToString(request.Name, Passphrase);
+                    field.Value = Encryption.EncryptToString(request.Value, Passphrase);
 
                     // Set item
                     field.Item = item;
@@ -123,8 +119,6 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public async Task<IHttpActionResult> Put(int profileId, int categoryId, int itemId, int id, [FromBody]ApiField request)
         {
-            // Get the passphrase from the header
-            var passphrase = Request.Headers.GetValues("Passphrase").First();
 
             if (ModelState.IsValid)
             {
@@ -147,8 +141,8 @@ namespace KryptPadWebApp.Controllers
                     }
 
                     // Encrypt name and value
-                    field.Name = Encryption.EncryptToString(request.Name, passphrase);
-                    field.Value = Encryption.EncryptToString(request.Value, passphrase);
+                    field.Name = Encryption.EncryptToString(request.Name, Passphrase);
+                    field.Value = Encryption.EncryptToString(request.Value, Passphrase);
 
                     // Save to database
                     await ctx.SaveChangesAsync();
