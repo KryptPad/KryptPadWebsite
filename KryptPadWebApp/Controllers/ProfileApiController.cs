@@ -200,7 +200,7 @@ namespace KryptPadWebApp.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{id}/items")]
-        public IHttpActionResult GetItems(int id)
+        public IHttpActionResult GetItems(int id, string q)
         {
 
             using (var ctx = new ApplicationDbContext())
@@ -210,8 +210,18 @@ namespace KryptPadWebApp.Controllers
                                 i.Category.Profile.User.Id == UserId
                              select i).ToArray();
 
+                // Decrypt the text so we can search
+                foreach (var item in items)
+                {
+                    item.Name = Encryption.DecryptFromString(item.Name, Passphrase);
+                }
+
+                var matchedItems = (from i in items
+                                    where q == null || (i.Name.IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                    select i);
+
                 // Return items
-                return Json(new ItemsResult(items, Passphrase));
+                return Json(new ItemSearchResult(matchedItems.ToArray(), Passphrase));
             }
         }
 
