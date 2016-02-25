@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
+using System.Data.Entity;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -22,7 +23,7 @@ namespace KryptPadWebApp.Controllers
         [Route("", Name = "ApiProfiles")]
         public IHttpActionResult Get()
         {
-    
+
             //get the user's profiles
             using (var ctx = new ApplicationDbContext())
             {
@@ -40,7 +41,7 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public IHttpActionResult Get(int id)
         {
-            
+
             // Get the specified profile
             using (var ctx = new ApplicationDbContext())
             {
@@ -71,14 +72,14 @@ namespace KryptPadWebApp.Controllers
                         // The passphrase is wrong, unauthorized
                         return Unauthorized();
                     }
-                    
+
                 }
                 else
                 {
                     // Record does not exist
                     return BadRequest("The specified profile does not exist");
                 }
-                
+
             }
         }
 
@@ -89,7 +90,7 @@ namespace KryptPadWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 // Create context
                 using (var ctx = new ApplicationDbContext())
                 {
@@ -202,27 +203,48 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}/items")]
         public IHttpActionResult GetItems(int id, string q)
         {
-
             using (var ctx = new ApplicationDbContext())
             {
-                var items = (from i in ctx.Items
-                             where i.Category.Profile.Id == id &&
-                                i.Category.Profile.User.Id == UserId
-                             select i).ToArray();
+                var categories = (from c in ctx.Categories.Include((cat) => cat.Items)
+                                  where c.Profile.User.Id == UserId &&
+                                  c.Profile.Id == id
+                                  select c).ToArray();
+
+                // Create a flat list of items
+                var itemsToRemove = new List<Item>();
+                var categoriesToRemove = new List<Category>();
 
                 // Decrypt the text so we can search
-                foreach (var item in items)
+                foreach (var category in categories)
                 {
-                    item.Name = Encryption.DecryptFromString(item.Name, Passphrase);
+                    foreach (var item in category.Items)
+                    {
+                        item.Name = Encryption.DecryptFromString(item.Name, Passphrase);
+                        // If this item does not match, remove it from the list
+                        if (q != null && (item.Name.IndexOf(q, StringComparison.CurrentCultureIgnoreCase) < 0))
+                        {
+                            // Add to the remove list
+                            itemsToRemove.Add(item);
+                        }
+                    }
+
+                    // Remove any items from this category
+                    foreach (var item in itemsToRemove)
+                    {
+                        category.Items.Remove(item);
+                    }
+                    
                 }
 
-                var matchedItems = (from i in items
-                                    where q == null || (i.Name.IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
-                                    select i);
+                // Remove any empty categories
+                categories = (from c in categories
+                              where c.Items.Any()
+                              select c).ToArray();
 
-                // Return items
-                return Json(new ItemSearchResult(matchedItems.ToArray(), Passphrase));
+
+                return Json(new ItemSearchResult(categories, Passphrase));
             }
+            
         }
 
     }

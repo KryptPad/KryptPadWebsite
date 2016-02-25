@@ -8,27 +8,24 @@ namespace KryptPadWebApp.Models.Results
 {
     public class ItemSearchResult
     {
-        public ApiItem[] Items { get; protected set; }
+        public ApiCategory[] Categories { get; set; }
 
         public ItemSearchResult() { }
-        public ItemSearchResult(Item[] items, string passphrase)
+        public ItemSearchResult(Category[] categories, string passphrase)
         {
+            Categories = (from c in categories
+                          select new ApiCategory()
+                          {
+                              Id = c.Id,
+                              Name = Encryption.DecryptFromString(c.Name, passphrase),
+                              Items = (c.Items != null ? (from i in c.Items
+                                                          select new ApiItem()
+                                                          {
+                                                              Id = i.Id,
+                                                              Name = i.Name
+                                                          }).ToArray() : null)
+                          }).ToArray();
 
-            var apiItems = new List<ApiItem>();
-
-            foreach (var item in items)
-            {
-                var apiItem = new ApiItem();
-
-                // Decrypt the data
-                apiItem.Name = item.Name;
-                apiItem.Notes = item.Notes;
-                
-                // Add the ApiItem to the list
-                apiItems.Add(apiItem);
-            }
-
-            Items = apiItems.ToArray();
         }
     }
 }

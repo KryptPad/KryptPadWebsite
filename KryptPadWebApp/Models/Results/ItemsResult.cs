@@ -18,6 +18,9 @@ namespace KryptPadWebApp.Models.Results
             foreach (var item in items)
             {
                 var apiItem = new ApiItem();
+
+                // Set properties
+                apiItem.Id = item.Id;
                 
                 // Decrypt the data
                 apiItem.Name = Encryption.DecryptFromString(item.Name, passphrase);
