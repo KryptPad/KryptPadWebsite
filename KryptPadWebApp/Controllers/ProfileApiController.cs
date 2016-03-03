@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Data.Entity;
+using System.Transactions;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -53,16 +54,8 @@ namespace KryptPadWebApp.Controllers
                 // Check profile
                 if (profile != null)
                 {
-                    // If there is no salt, set empty
-                    var salt = profile.Key1 ?? string.Empty;
 
-                    // Get the salt
-                    var saltBytes = Convert.FromBase64String(salt);
-
-                    // Verify the supplied passphrase
-                    var hashedPassphrase = Encryption.Hash(Passphrase, saltBytes);
-
-                    if (hashedPassphrase.Equals(profile.Key2))
+                    if (VerifyPassphrase(profile, Passphrase))
                     {
                         // Return the profile
                         return Json(new ProfileResult(new[] { profile }));
@@ -163,6 +156,96 @@ namespace KryptPadWebApp.Controllers
 
         }
 
+        [HttpPost]
+        [Route("{id}/Change-Passphrase")]
+        public async Task<IHttpActionResult> ChangePassphrase(int id, string newPassphrase)
+        {
+            if (!string.IsNullOrWhiteSpace(newPassphrase))
+            {
+                // Update the profile with the new passphrase
+                //using (var scope = new TransactionScope())
+                using (var ctx = new ApplicationDbContext())
+                {
+                    // First, verify that the supplied passphrase is correct
+                    var profile = (from p in ctx.Profiles
+                                   where p.Id == id
+                                       && p.User.Id == UserId
+                                   select p).SingleOrDefault();
+
+                    // Check profile
+                    if (profile != null)
+                    {
+
+                        if (VerifyPassphrase(profile, Passphrase))
+                        {
+                            // Get all items in the profile
+                            var items = (from i in ctx.Items.Include(x => x.Fields)
+                                         where i.Category.Profile.Id == id
+                                         && i.Category.Profile.User.Id == UserId
+                                         select i);
+
+                            // Passphrase is correct
+                            foreach (var item in items)
+                            {
+                                // Decrypt with old passphrase
+                                var decryptedItemName = Encryption.DecryptFromString(item.Name, Passphrase);
+                                var decryptedItemNotes = Encryption.DecryptFromString(item.Notes, Passphrase);
+
+                                // Encrypt with new passphrase
+                                item.Name = Encryption.EncryptToString(decryptedItemName, newPassphrase);
+                                item.Notes = Encryption.EncryptToString(decryptedItemNotes, newPassphrase);
+
+                                // Now re-encrypt the fields
+                                foreach (var field in item.Fields)
+                                {
+                                    // Decrypt with old passphrase
+                                    var decryptedFieldName = Encryption.DecryptFromString(field.Name, Passphrase);
+                                    var decryptedFieldValue = Encryption.DecryptFromString(field.Value, Passphrase);
+
+                                    // Encrypt with new passphrase
+                                    field.Name = Encryption.EncryptToString(decryptedFieldName, newPassphrase);
+                                    field.Value = Encryption.EncryptToString(decryptedFieldValue, newPassphrase);
+                                }
+                            }
+
+                            // Generate a random salt for the profile
+                            var saltBytes = Encryption.GenerateSalt();
+                            
+                            // Hash passphrase with salt
+                            profile.Key1 = Convert.ToBase64String(saltBytes);
+                            profile.Key2 = Encryption.Hash(Passphrase, saltBytes);
+
+                            // Save the changes
+                            await ctx.SaveChangesAsync();
+
+                            // Done
+                            return Ok();
+
+                        }
+                        else
+                        {
+                            // The passphrase is wrong, unauthorized
+                            return Unauthorized();
+                        }
+
+                    }
+                    else
+                    {
+                        // Record does not exist
+                        return BadRequest("The specified profile does not exist");
+                    }
+
+
+                }
+
+            }
+            else
+            {
+                // Must have a value
+                return BadRequest("Passphrase cannot be null or blank");
+            }
+        }
+
         // DELETE api/<controller>/5
         [HttpDelete]
         [Route("{id}")]
@@ -233,7 +316,7 @@ namespace KryptPadWebApp.Controllers
                     {
                         category.Items.Remove(item);
                     }
-                    
+
                 }
 
                 // Remove any empty categories
@@ -244,8 +327,27 @@ namespace KryptPadWebApp.Controllers
 
                 return Json(new ItemSearchResult(categories, Passphrase));
             }
-            
+
         }
 
+        /// <summary>
+        /// Verifies the supplied passphrase
+        /// </summary>
+        /// <param name="passphrase"></param>
+        /// <returns></returns>
+        private bool VerifyPassphrase(Profile profile, string passphrase)
+        {
+            // If there is no salt, set empty
+            var salt = profile.Key1 ?? string.Empty;
+
+            // Get the salt
+            var saltBytes = Convert.FromBase64String(salt);
+
+            // Verify the supplied passphrase
+            var hashedPassphrase = Encryption.Hash(Passphrase, saltBytes);
+
+            // Compare the hashes
+            return hashedPassphrase.Equals(profile.Key2);
+        }
     }
 }
