@@ -158,7 +158,7 @@ namespace KryptPadWebApp.Controllers
 
         [HttpPost]
         [Route("{id}/Change-Passphrase")]
-        public async Task<IHttpActionResult> ChangePassphrase(int id, string newPassphrase)
+        public async Task<IHttpActionResult> ChangePassphrase(int id, [FromBody]string newPassphrase)
         {
             if (!string.IsNullOrWhiteSpace(newPassphrase))
             {
@@ -179,38 +179,48 @@ namespace KryptPadWebApp.Controllers
                         if (VerifyPassphrase(profile, Passphrase))
                         {
                             // Get all items in the profile
-                            var items = (from i in ctx.Items.Include(x => x.Fields)
-                                         where i.Category.Profile.Id == id
-                                         && i.Category.Profile.User.Id == UserId
-                                         select i);
+                            var categories = (from i in ctx.Categories.Include(x => x.Items.Select(y => y.Fields)).Include(x => x.Profile)
+                                              where i.Profile.Id == id
+                                                && i.Profile.User.Id == UserId
+                                              select i);
 
                             // Passphrase is correct
-                            foreach (var item in items)
+                            foreach (var category in categories)
                             {
                                 // Decrypt with old passphrase
-                                var decryptedItemName = Encryption.DecryptFromString(item.Name, Passphrase);
-                                var decryptedItemNotes = Encryption.DecryptFromString(item.Notes, Passphrase);
+                                var decryptedCategoryName = Encryption.DecryptFromString(category.Name, Passphrase);
 
                                 // Encrypt with new passphrase
-                                item.Name = Encryption.EncryptToString(decryptedItemName, newPassphrase);
-                                item.Notes = Encryption.EncryptToString(decryptedItemNotes, newPassphrase);
-
-                                // Now re-encrypt the fields
-                                foreach (var field in item.Fields)
+                                category.Name = Encryption.EncryptToString(decryptedCategoryName, newPassphrase);
+                                
+                                // Re-encrypt items
+                                foreach (var item in category.Items)
                                 {
                                     // Decrypt with old passphrase
-                                    var decryptedFieldName = Encryption.DecryptFromString(field.Name, Passphrase);
-                                    var decryptedFieldValue = Encryption.DecryptFromString(field.Value, Passphrase);
+                                    var decryptedItemName = Encryption.DecryptFromString(item.Name, Passphrase);
+                                    var decryptedItemNotes = Encryption.DecryptFromString(item.Notes, Passphrase);
 
                                     // Encrypt with new passphrase
-                                    field.Name = Encryption.EncryptToString(decryptedFieldName, newPassphrase);
-                                    field.Value = Encryption.EncryptToString(decryptedFieldValue, newPassphrase);
+                                    item.Name = Encryption.EncryptToString(decryptedItemName, newPassphrase);
+                                    item.Notes = Encryption.EncryptToString(decryptedItemNotes, newPassphrase);
+
+                                    // Now re-encrypt the fields
+                                    foreach (var field in item.Fields)
+                                    {
+                                        // Decrypt with old passphrase
+                                        var decryptedFieldName = Encryption.DecryptFromString(field.Name, Passphrase);
+                                        var decryptedFieldValue = Encryption.DecryptFromString(field.Value, Passphrase);
+
+                                        // Encrypt with new passphrase
+                                        field.Name = Encryption.EncryptToString(decryptedFieldName, newPassphrase);
+                                        field.Value = Encryption.EncryptToString(decryptedFieldValue, newPassphrase);
+                                    }
                                 }
                             }
 
                             // Generate a random salt for the profile
                             var saltBytes = Encryption.GenerateSalt();
-                            
+
                             // Hash passphrase with salt
                             profile.Key1 = Convert.ToBase64String(saltBytes);
                             profile.Key2 = Encryption.Hash(Passphrase, saltBytes);
