@@ -271,6 +271,10 @@
     <Compile Include="Migrations\201602101806267_profile_security.Designer.cs">
       <DependentUpon>201602101806267_profile_security.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603031458182_profile_add_categories.cs" />
+    <Compile Include="Migrations\201603031458182_profile_add_categories.Designer.cs">
+      <DependentUpon>201603031458182_profile_add_categories.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
@@ -432,6 +436,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602101806267_profile_security.resx">
       <DependentUpon>201602101806267_profile_security.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603031458182_profile_add_categories.resx">
+      <DependentUpon>201603031458182_profile_add_categories.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

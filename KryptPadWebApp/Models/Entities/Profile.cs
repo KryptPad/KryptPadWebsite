@@ -31,6 +31,10 @@ namespace KryptPadWebApp.Models
         /// Gets or sets the Key2 value of the profile
         /// </summary>
         public string Key2 { get; set; }
-        
+
+        /// <summary>
+        /// Navigate back to properties
+        /// </summary>
+        public List<Category> Categories { get; set; }
     }
 }

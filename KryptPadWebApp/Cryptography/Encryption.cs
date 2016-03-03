@@ -258,6 +258,22 @@ namespace KryptPadWebApp.Models
         }
 
         /// <summary>
+        /// Re-encrypts a string by decrypting with a password, and encrypting with a new password
+        /// </summary>
+        /// <param name="cypherString"></param>
+        /// <param name="password"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        public static string ReEncryptToString(string cypherString, string password, string newPassword)
+        {
+            // Decrypt with password
+            var plainText = DecryptFromString(cypherString, password);
+
+            // Encrypt with new password
+            return EncryptToString(plainText, newPassword);
+        }
+
+        /// <summary>
         /// Generates a random salt
         /// </summary>
         /// <returns></returns>
