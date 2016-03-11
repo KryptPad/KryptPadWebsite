@@ -23,6 +23,7 @@ namespace KryptPadWebApp.Models.Results
                                                           select new ApiItem()
                                                           {
                                                               Id = i.Id,
+                                                              CategoryId = c.Id,
                                                               Name = Encryption.DecryptFromString(i.Name, passphrase)
                                                           }).ToArray() : null)
                           }).ToArray();

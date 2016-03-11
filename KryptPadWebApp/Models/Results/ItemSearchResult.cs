@@ -22,6 +22,7 @@ namespace KryptPadWebApp.Models.Results
                                                           select new ApiItem()
                                                           {
                                                               Id = i.Id,
+                                                              CategoryId = c.Id,
                                                               Name = i.Name
                                                           }).ToArray() : null)
                           }).ToArray();

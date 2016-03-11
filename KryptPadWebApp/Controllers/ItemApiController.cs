@@ -31,6 +31,7 @@ namespace KryptPadWebApp.Controllers
             using (var ctx = new ApplicationDbContext())
             {
                 var items = (from i in ctx.Items
+                                .Include(x => x.Category)
                              where i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
@@ -57,6 +58,7 @@ namespace KryptPadWebApp.Controllers
             {
                 var items = (from i in ctx.Items
                                 .Include(x => x.Fields)
+                                .Include(x => x.Category)
                              where i.Id == id &&
                                 i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
