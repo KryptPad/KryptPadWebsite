@@ -27,7 +27,7 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public IHttpActionResult Get(int profileId, int categoryId)
         {
-            
+
             using (var ctx = new ApplicationDbContext())
             {
                 var items = (from i in ctx.Items
@@ -41,7 +41,7 @@ namespace KryptPadWebApp.Controllers
                 return Json(new ItemsResult(items, Passphrase));
             }
         }
-        
+
         /// <summary>
         /// Gets a specific item and details
         /// </summary>
@@ -53,7 +53,7 @@ namespace KryptPadWebApp.Controllers
         [Route("{id}")]
         public IHttpActionResult Get(int profileId, int categoryId, int id)
         {
-            
+
             using (var ctx = new ApplicationDbContext())
             {
                 var items = (from i in ctx.Items
@@ -64,7 +64,7 @@ namespace KryptPadWebApp.Controllers
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
                              select i).ToArray();
-                
+
 
                 // Return items
                 return Json(new ItemsResult(items, Passphrase));
@@ -76,7 +76,7 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(int profileId, int categoryId, [FromBody] ApiItem request)
         {
-            
+
             if (ModelState.IsValid)
             {
                 using (var ctx = new ApplicationDbContext())
@@ -145,6 +145,14 @@ namespace KryptPadWebApp.Controllers
                         item.Name = Encryption.EncryptToString(request.Name, Passphrase);
                         item.Notes = Encryption.EncryptToString(request.Notes, Passphrase);
 
+                        // Look for changes in categories
+                        if (request.CategoryId != categoryId)
+                        {
+                            // Get new category
+                            item.Category = await GetCategory(ctx, profileId, request.CategoryId);
+                        }
+
+
                         // Save the changes
                         await ctx.SaveChangesAsync();
 
@@ -174,7 +182,7 @@ namespace KryptPadWebApp.Controllers
             {
                 // Get the item from the db
                 var obj = (from i in ctx.Items
-                           where i.Id == id && 
+                           where i.Id == id &&
                                 i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
@@ -191,5 +199,24 @@ namespace KryptPadWebApp.Controllers
 
             }
         }
+
+        #region HelperMethods
+
+        /// <summary>
+        /// Gets a category by its id
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="profileId"></param>
+        /// <param name="categoryId"></param>
+        /// <returns></returns>
+        private async Task<Category> GetCategory(ApplicationDbContext ctx, int profileId, int categoryId) =>
+            await (from c in ctx.Categories
+                   where c.Id == categoryId
+                      && c.Profile.Id == profileId
+                      && c.Profile.User.Id == UserId
+                   select c).SingleOrDefaultAsync();
+
+        #endregion
+
     }
 }
