@@ -76,6 +76,88 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Downloads the entire profile (encrypted) for use with KryptPad desktop or for backup purposes
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}/download")]
+        public IHttpActionResult Download(int id)
+        {
+
+            // Get the specified profile
+            using (var ctx = new ApplicationDbContext())
+            {
+                var profile = (from p in ctx.Profiles
+                               where p.Id == id
+                                   && p.User.Id == UserId
+                               select p).SingleOrDefault();
+
+                // Check profile
+                if (profile != null)
+                {
+
+                    if (VerifyPassphrase(profile, Passphrase))
+                    {
+                        // Download the entire profile
+                        var download = (from p in ctx.Profiles
+                                                        .Include(x => x.Categories.Select(y => y.Items.Select(z => z.Fields)))
+
+                                        where p.Id == id
+                                             && p.User.Id == UserId
+                                        select new
+                                        {
+                                            p.Id,
+                                            p.Name,
+                                            p.Key1,
+                                            p.Key2,
+                                            Categories = (from c in p.Categories
+                                                          select new
+                                                          {
+                                                              c.Id,
+                                                              c.Name,
+                                                              Items = (from i in c.Items
+                                                                       select new
+                                                                       {
+                                                                           i.Id,
+                                                                           i.ItemType,
+                                                                           i.Name,
+                                                                           i.Notes,
+                                                                           Fields = (from f in i.Fields
+                                                                                     select new
+                                                                                     {
+                                                                                         f.Id,
+                                                                                         f.FieldType,
+                                                                                         f.Name,
+                                                                                         f.Value,
+                                                                                         f.SortOrder
+                                                                                     })
+                                                                       })
+                                                          })
+                                        }).Single();
+
+
+                        // Return the profile
+                        return Json(download);
+                    }
+                    else
+                    {
+                        // The passphrase is wrong, unauthorized
+                        return Unauthorized();
+                    }
+
+                }
+                else
+                {
+                    // Record does not exist
+                    return BadRequest("The specified profile does not exist");
+                }
+
+            }
+        }
+
+
         // POST api/<controller>
         [HttpPost]
         [Route("")]
@@ -185,7 +267,7 @@ namespace KryptPadWebApp.Controllers
                         if (VerifyPassphrase(profile, Passphrase))
                         {
                             // Get all items in the profile
-                            var categories = (from c in ctx.Categories.Include(c=> c.Items.Select(y => y.Fields))
+                            var categories = (from c in ctx.Categories.Include(c => c.Items.Select(y => y.Fields))
                                               where c.Profile.Id == id
                                                 && c.Profile.User.Id == UserId
                                               select c);
