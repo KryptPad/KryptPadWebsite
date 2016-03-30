@@ -275,6 +275,10 @@
     <Compile Include="Migrations\201603031458182_profile_add_categories.Designer.cs">
       <DependentUpon>201603031458182_profile_add_categories.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603110331511_update_field_sort_order.cs" />
+    <Compile Include="Migrations\201603110331511_update_field_sort_order.Designer.cs">
+      <DependentUpon>201603110331511_update_field_sort_order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
@@ -438,6 +442,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603031458182_profile_add_categories.resx">
       <DependentUpon>201603031458182_profile_add_categories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603110331511_update_field_sort_order.resx">
+      <DependentUpon>201603110331511_update_field_sort_order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

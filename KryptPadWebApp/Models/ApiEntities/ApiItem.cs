@@ -25,6 +25,11 @@ namespace KryptPadWebApp.Models.ApiEntities
         public string Notes { get; set; }
 
         /// <summary>
+        /// Gets or sets the ID of the category
+        /// </summary>
+        public int CategoryId { get; set; }
+
+        /// <summary>
         /// Gets or set the fields for the item
         /// </summary>
         public ApiField[] Fields { get; set; }

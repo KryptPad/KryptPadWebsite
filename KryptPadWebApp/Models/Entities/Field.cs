@@ -21,6 +21,11 @@ namespace KryptPadWebApp.Models
         /// </summary>
         public string Value { get; set; }
 
+        /// <summary>
+        /// Gets or sets the field sort order
+        /// </summary>
+        public int SortOrder { get; set; }
+
         [Required]
         public Item Item { get; set; }
     }
