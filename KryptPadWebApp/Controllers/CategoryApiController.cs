@@ -73,7 +73,7 @@ namespace KryptPadWebApp.Controllers
                 // Did we find one?
                 if (profile == null)
                 {
-                    return Content(HttpStatusCode.BadRequest, "The specified profile does not exist.");
+                    return BadRequest("The specified profile does not exist.");
                 }
 
                 var category = new Category();
@@ -115,7 +115,7 @@ namespace KryptPadWebApp.Controllers
                 // Did we find one?
                 if (obj == null)
                 {
-                    return Content(HttpStatusCode.BadRequest, "The specified category does not exist.");
+                    return BadRequest("The specified category does not exist.");
                 }
 
                 // Encrypt the category name
@@ -148,7 +148,7 @@ namespace KryptPadWebApp.Controllers
                 // Did we find one?
                 if (obj == null)
                 {
-                    return Content(HttpStatusCode.BadRequest, "The specified category does not exist.");
+                    return BadRequest("The specified category does not exist.");
                 }
 
                 ctx.Categories.Remove(obj);

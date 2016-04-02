@@ -174,7 +174,7 @@ namespace KryptPadWebApp.Controllers
 
                     if (user == null)
                     {
-                        return Content(HttpStatusCode.BadRequest, "User not found");
+                        return BadRequest("User not found");
                     }
 
                     // Generate a random salt for the profile
@@ -359,7 +359,7 @@ namespace KryptPadWebApp.Controllers
                 }
                 else
                 {
-                    return Content(HttpStatusCode.BadRequest, $"The profile '{id}' does not exist.");
+                    return BadRequest("The specified profile does not exist.");
                 }
             }
         }
