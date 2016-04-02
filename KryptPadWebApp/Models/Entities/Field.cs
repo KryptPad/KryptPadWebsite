@@ -9,6 +9,10 @@ namespace KryptPadWebApp.Models
     public class Field
     {
         public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the field type
+        /// </summary>
         public int FieldType { get; set; }
 
         /// <summary>

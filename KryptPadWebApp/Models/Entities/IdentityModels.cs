@@ -27,13 +27,16 @@ namespace KryptPadWebApp.Models
 
         public static ApplicationDbContext Create()
         {
+            
             return new ApplicationDbContext();
         }
+        
 
         public virtual DbSet<Profile> Profiles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Field> Fields { get; set; }
+        public virtual DbSet<FieldType> FieldTypes { get; set; }
         public virtual DbSet<AppSettings> AppSettings { get; set; }
     }
 }

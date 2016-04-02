@@ -1,5 +1,6 @@
 namespace KryptPadWebApp.Migrations
 {
+    using Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -27,6 +28,12 @@ namespace KryptPadWebApp.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            // Seed the field types table
+            context.FieldTypes.AddOrUpdate(
+                ft => ft.Id,
+                new FieldType() { Id = 1, Name = "Password" }
+            );
         }
     }
 }

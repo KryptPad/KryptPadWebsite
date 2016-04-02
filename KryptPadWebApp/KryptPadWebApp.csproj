@@ -279,12 +279,21 @@
     <Compile Include="Migrations\201603110331511_update_field_sort_order.Designer.cs">
       <DependentUpon>201603110331511_update_field_sort_order.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604020248015_field_types.cs" />
+    <Compile Include="Migrations\201604020248015_field_types.Designer.cs">
+      <DependentUpon>201604020248015_field_types.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604020328320_field_types_remove_field.cs" />
+    <Compile Include="Migrations\201604020328320_field_types_remove_field.Designer.cs">
+      <DependentUpon>201604020328320_field_types_remove_field.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Models\Entities\AppSettings.cs" />
     <Compile Include="Models\Entities\Category.cs" />
     <Compile Include="Models\Entities\Field.cs" />
+    <Compile Include="Models\Entities\FieldType.cs" />
     <Compile Include="Models\HomeIndexViewModel.cs" />
     <Compile Include="Models\Entities\IdentityModels.cs" />
     <Compile Include="Models\Entities\Item.cs" />
@@ -446,6 +455,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603110331511_update_field_sort_order.resx">
       <DependentUpon>201603110331511_update_field_sort_order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604020248015_field_types.resx">
+      <DependentUpon>201604020248015_field_types.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604020328320_field_types_remove_field.resx">
+      <DependentUpon>201604020328320_field_types_remove_field.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
