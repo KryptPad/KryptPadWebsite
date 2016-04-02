@@ -32,7 +32,13 @@ namespace KryptPadWebApp.Migrations
             // Seed the field types table
             context.FieldTypes.AddOrUpdate(
                 ft => ft.Id,
-                new FieldType() { Id = 1, Name = "Password" }
+                new FieldType() { Id = 1, Name = "Password" },
+                new FieldType() { Id = 2, Name = "Username" },
+                new FieldType() { Id = 3, Name = "Email" },
+                new FieldType() { Id = 4, Name = "Account Number" },
+                new FieldType() { Id = 5, Name = "Credit Card Number" },
+                new FieldType() { Id = 6, Name = "Numeric" },
+                new FieldType() { Id = 7, Name = "Text" }
             );
         }
     }
