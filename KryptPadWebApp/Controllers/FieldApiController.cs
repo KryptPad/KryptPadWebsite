@@ -84,7 +84,8 @@ namespace KryptPadWebApp.Controllers
                     field.Name = Encryption.EncryptToString(request.Name, Passphrase);
                     field.Value = Encryption.EncryptToString(request.Value, Passphrase);
 
-                    // Set item
+                    // Set other values
+                    field.FieldType = request.FieldType;
                     field.Item = item;
 
                     // Add field to the DB
