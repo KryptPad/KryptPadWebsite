@@ -22,6 +22,8 @@ namespace KryptPadWebApp.Models.Results
                          Notes = Encryption.DecryptFromString(i.Notes, passphrase),
                          Fields = (from f in i.Fields
                                    select new ApiField() {
+                                       Id = f.Id,
+                                       FieldType=f.FieldType,
                                        Name = Encryption.DecryptFromString(f.Name, passphrase),
                                        Value = Encryption.DecryptFromString(f.Value, passphrase)
                                    }).ToArray()
