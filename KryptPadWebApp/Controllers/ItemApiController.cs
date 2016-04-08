@@ -17,30 +17,30 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("Api/Profiles/{profileId}/Categories/{categoryId}/Items")]
     public class ItemApiController : AuthorizedApiController
     {
-        /// <summary>
-        /// Gets all items in a category
-        /// </summary>
-        /// <param name="profileId"></param>
-        /// <param name="categoryId"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("")]
-        public IHttpActionResult Get(int profileId, int categoryId)
-        {
+        ///// <summary>
+        ///// Gets all items in a category
+        ///// </summary>
+        ///// <param name="profileId"></param>
+        ///// <param name="categoryId"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("")]
+        //public IHttpActionResult Get(int profileId, int categoryId)
+        //{
 
-            using (var ctx = new ApplicationDbContext())
-            {
-                var items = (from i in ctx.Items
-                                .Include(x => x.Category)
-                             where i.Category.Id == categoryId &&
-                                i.Category.Profile.Id == profileId &&
-                                i.Category.Profile.User.Id == UserId
-                             select i).ToArray();
+        //    using (var ctx = new ApplicationDbContext())
+        //    {
+        //        var items = (from i in ctx.Items
+        //                        .Include(x => x.Category)
+        //                     where i.Category.Id == categoryId &&
+        //                        i.Category.Profile.Id == profileId &&
+        //                        i.Category.Profile.User.Id == UserId
+        //                     select i).ToArray();
 
-                // Return items
-                return Json(new ItemsResult(items, Passphrase));
-            }
-        }
+        //        // Return items
+        //        return Json(new ItemsResult(items, Passphrase));
+        //    }
+        //}
 
         /// <summary>
         /// Gets a specific item and details
