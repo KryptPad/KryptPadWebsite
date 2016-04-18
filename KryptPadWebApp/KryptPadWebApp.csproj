@@ -287,6 +287,10 @@
     <Compile Include="Migrations\201604020328320_field_types_remove_field.Designer.cs">
       <DependentUpon>201604020328320_field_types_remove_field.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604181756403_dbupdates.cs" />
+    <Compile Include="Migrations\201604181756403_dbupdates.Designer.cs">
+      <DependentUpon>201604181756403_dbupdates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
@@ -461,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604020328320_field_types_remove_field.resx">
       <DependentUpon>201604020328320_field_types_remove_field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604181756403_dbupdates.resx">
+      <DependentUpon>201604181756403_dbupdates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

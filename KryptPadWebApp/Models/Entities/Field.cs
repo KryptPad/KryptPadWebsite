@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,9 @@ namespace KryptPadWebApp.Models
 {
     public class Field
     {
+        /// <summary>
+        /// Gets or sets the Id of the field
+        /// </summary>
         public int Id { get; set; }
 
         /// <summary>
@@ -18,6 +22,7 @@ namespace KryptPadWebApp.Models
         /// <summary>
         /// Gets or sets the name of the field. e.g Password
         /// </summary>
+        [Required]
         public string Name { get; set; }
 
         /// <summary>
@@ -30,6 +35,10 @@ namespace KryptPadWebApp.Models
         /// </summary>
         public int SortOrder { get; set; }
 
+        /// <summary>
+        /// Link back to item
+        /// </summary>
+        [JsonIgnore]
         [Required]
         public Item Item { get; set; }
     }

@@ -12,6 +12,7 @@ using System.Web.Http;
 using System.Web.Http.Results;
 using System.Data.Entity;
 using System.Transactions;
+using Newtonsoft.Json.Linq;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -19,7 +20,10 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("Api/Profiles")]
     public class ProfileApiController : AuthorizedApiController
     {
-        // GET api/<controller>
+        /// <summary>
+        /// Gets a list of all the profiles for a user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("", Name = "ApiProfiles")]
         public IHttpActionResult Get()
@@ -37,7 +41,11 @@ namespace KryptPadWebApp.Controllers
 
         }
 
-        // GET api/<controller>/5
+        /// <summary>
+        /// Gets the profile by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
         public IHttpActionResult Get(int id)
@@ -82,17 +90,17 @@ namespace KryptPadWebApp.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id}/download")]
-        public IHttpActionResult Download(int id)
+        [Route("{id}/Download")]
+        public async Task<IHttpActionResult> Download(int id)
         {
 
             // Get the specified profile
             using (var ctx = new ApplicationDbContext())
             {
-                var profile = (from p in ctx.Profiles
-                               where p.Id == id
-                                   && p.User.Id == UserId
-                               select p).SingleOrDefault();
+                var profile = await (from p in ctx.Profiles
+                                     where p.Id == id
+                                         && p.User.Id == UserId
+                                     select p).SingleOrDefaultAsync();
 
                 // Check profile
                 if (profile != null)
@@ -100,46 +108,15 @@ namespace KryptPadWebApp.Controllers
 
                     if (VerifyPassphrase(profile, Passphrase))
                     {
+
                         // Download the entire profile
-                        var download = (from p in ctx.Profiles
+                        var profileToDownload = await (from p in ctx.Profiles
                                                         .Include(x => x.Categories.Select(y => y.Items.Select(z => z.Fields)))
-
-                                        where p.Id == id
-                                             && p.User.Id == UserId
-                                        select new
-                                        {
-                                            p.Id,
-                                            p.Name,
-                                            p.Key1,
-                                            p.Key2,
-                                            Categories = (from c in p.Categories
-                                                          select new
-                                                          {
-                                                              c.Id,
-                                                              c.Name,
-                                                              Items = (from i in c.Items
-                                                                       select new
-                                                                       {
-                                                                           i.Id,
-                                                                           i.ItemType,
-                                                                           i.Name,
-                                                                           i.Notes,
-                                                                           Fields = (from f in i.Fields
-                                                                                     select new
-                                                                                     {
-                                                                                         f.Id,
-                                                                                         f.FieldType,
-                                                                                         f.Name,
-                                                                                         f.Value,
-                                                                                         f.SortOrder
-                                                                                     })
-                                                                       })
-                                                          })
-                                        }).Single();
-
-
+                                                       where p.Id == id
+                                                            && p.User.Id == UserId
+                                                       select p).SingleAsync();
                         // Return the profile
-                        return Json(download);
+                        return Json(profileToDownload);
                     }
                     else
                     {
@@ -157,6 +134,52 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new profile with uploaded profile data
+        /// </summary>
+        /// <param name="profile"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Upload")]
+        public async Task<IHttpActionResult> Upload(Profile profile)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Find the user
+                var user = ctx.Users.Find(UserId);
+
+                if (user == null)
+                {
+                    return BadRequest("User not found");
+                }
+
+                //// Look for a profile with the same name, if there are one or more, count them and add a (n) to the name
+                //var dupes = (from p in ctx.Profiles
+                //             where p.User.Id == user.Id
+                //             && p.Name == profile.Name
+                //             select p).Count();
+
+                //// Add dupe count to profile name
+                //if (dupes > 0)
+                //{
+                //    profile.Name = profile.Name + $" ({dupes})";
+                //}
+
+                // Create a profile
+                profile.Id = 0;
+                profile.User = user;
+
+                // Add the profile to the context
+                ctx.Profiles.Add(profile);
+
+                // Save new profile
+                await ctx.SaveChangesAsync();
+
+                // Ok
+                return Ok(profile.Id);
+            }
+
+        }
 
         // POST api/<controller>
         [HttpPost]
@@ -370,7 +393,7 @@ namespace KryptPadWebApp.Controllers
         /// <param name="profileId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{id}/items")]
+        [Route("{id}/Items")]
         public IHttpActionResult GetItems(int id, string q)
         {
             using (var ctx = new ApplicationDbContext())
@@ -417,6 +440,8 @@ namespace KryptPadWebApp.Controllers
 
         }
 
+        #region Helper methods
+
         /// <summary>
         /// Verifies the supplied passphrase
         /// </summary>
@@ -436,5 +461,7 @@ namespace KryptPadWebApp.Controllers
             // Compare the hashes
             return hashedPassphrase.Equals(profile.Key2);
         }
+
+        #endregion
     }
 }
