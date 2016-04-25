@@ -307,6 +307,7 @@
     <Compile Include="Models\ApiEntities\ApiProfile.cs" />
     <Compile Include="Models\ApiEntities\ApiCategory.cs" />
     <Compile Include="Models\ApiEntities\ApiField.cs" />
+    <Compile Include="Models\Requests\RecoverProfileRequest.cs" />
     <Compile Include="Models\Results\CategoriesResult.cs" />
     <Compile Include="Models\Results\FieldsResult.cs" />
     <Compile Include="Models\ApiEntities\ApiItem.cs" />

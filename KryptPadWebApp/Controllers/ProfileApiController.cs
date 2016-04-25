@@ -13,6 +13,7 @@ using System.Web.Http.Results;
 using System.Data.Entity;
 using System.Transactions;
 using Newtonsoft.Json.Linq;
+using KryptPadWebApp.Models.Requests;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -26,15 +27,15 @@ namespace KryptPadWebApp.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("", Name = "ApiProfiles")]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
 
             //get the user's profiles
             using (var ctx = new ApplicationDbContext())
             {
-                var profiles = (from p in ctx.Profiles
-                                where p.User.Id == UserId
-                                select p).ToArray();
+                var profiles = await (from p in ctx.Profiles
+                                      where p.User.Id == UserId
+                                      select p).ToArrayAsync();
 
                 return Json(new ProfileResult(profiles));
             }
@@ -48,16 +49,16 @@ namespace KryptPadWebApp.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{id}")]
-        public IHttpActionResult Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
 
-            // Get the specified profile
             using (var ctx = new ApplicationDbContext())
             {
-                var profile = (from p in ctx.Profiles
-                               where p.Id == id
-                                   && p.User.Id == UserId
-                               select p).SingleOrDefault();
+                // Get the specified profile
+                var profile = await (from p in ctx.Profiles
+                                     where p.Id == id
+                                         && p.User.Id == UserId
+                                     select p).SingleOrDefaultAsync();
 
                 // Check profile
                 if (profile != null)
@@ -70,6 +71,8 @@ namespace KryptPadWebApp.Controllers
                     }
                     else
                     {
+                        // TODO: Log the failed attempt
+
                         // The passphrase is wrong, unauthorized
                         return Unauthorized();
                     }
@@ -135,6 +138,87 @@ namespace KryptPadWebApp.Controllers
         }
 
         /// <summary>
+        /// Downloads the raw encryption key after verifying existing passphrase
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{id}/Download-Key")]
+        public async Task<IHttpActionResult> DownloadKey(int id)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Get profile
+                var profile = await (from p in ctx.Profiles
+                                     where p.Id == id
+                                         && p.User.Id == UserId
+                                     select p).SingleOrDefaultAsync();
+
+                // Verify the passphrase
+                if (profile != null)
+                {
+                    // Check passphrase to make sure we're authorized to access this profile
+                    if (VerifyPassphrase(profile, Passphrase))
+                    {
+                        // Passphrase OK, generate the encryption key and send it to user
+                        // Hash passphrase with salt
+                        var saltBytes = Convert.FromBase64String(profile.Key1);
+                        var key = Encryption.Hash(Passphrase, saltBytes);
+
+                        // Return the raw key
+                        return Ok(key);
+                    }
+                    else
+                    {
+                        // The passphrase is wrong, unauthorized
+                        return Unauthorized();
+
+                    }
+                    
+                }
+                else
+                {
+                    // No profile found
+                    return BadRequest("The specified profile does not exist");
+
+                }
+            }
+        }
+
+        [HttpPut]
+        [Route("{id}/Recover")]
+        public async Task<IHttpActionResult> RecoverProfile(int id, RecoverProfileRequest request)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Get the specified profile
+                var profile = await (from p in ctx.Profiles
+                                     where p.Id == id
+                                         && p.User.Id == UserId
+                                     select p).SingleOrDefaultAsync();
+
+                // Verify the passphrase
+                if (profile != null)
+                {
+                    // Attempt to change the passphrase of the profile to recover data
+                    // Since the user does not remember the passphrase, the recover key
+                    // is used to try to decrypt the data, if successful, the data is 
+                    // re-encrypted using the user's new passphrase. If someone gains
+                    // unauthorized access to the user's account, the attacker could
+                    // attempt to recover the profile by submitting a bogus key, however,
+                    // if the data cannot be decrypted, then the recovery will fail.
+                    return Ok();
+                }
+                else
+                {
+                    // No profile found
+                    return BadRequest("The specified profile does not exist");
+
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates a new profile with uploaded profile data
         /// </summary>
         /// <param name="profile"></param>
@@ -181,7 +265,11 @@ namespace KryptPadWebApp.Controllers
 
         }
 
-        // POST api/<controller>
+        /// <summary>
+        /// Creates a profile
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("")]
         public async Task<IHttpActionResult> Post(ApiProfile request)
@@ -229,6 +317,12 @@ namespace KryptPadWebApp.Controllers
 
         }
 
+        /// <summary>
+        /// Updates a profile
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{id}")]
         public async Task<IHttpActionResult> Put(int id, ApiProfile request)
@@ -356,7 +450,11 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
-        // DELETE api/<controller>/5
+        /// <summary>
+        /// Deletes a profile
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{id}")]
         public async Task<IHttpActionResult> Delete(int id)
