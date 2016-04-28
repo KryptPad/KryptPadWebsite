@@ -42,11 +42,15 @@ textarea {
     }
 
     .hero.hero-light-blue {
-        background-color: #aeddff;
+        background-color: #cfebff;
+        border-top: 10px dashed #fff;
+        border-bottom: 10px dashed #fff;
     }
 
     .hero.hero-light-red {
         background-color: #ffddd7;
+        border-top: 10px dashed #fff;
+        border-bottom: 10px dashed #fff;
     }
 
     .hero.hero-transparent {

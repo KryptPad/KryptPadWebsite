@@ -6,33 +6,120 @@
 @section pageHeader{
     <div class="hero hero-main hero-blue">
         <div class="container text-center">
-
-
+            
             <h1>Krypt Pad</h1>
-            <p class="lead">Secure password manager for Windows</p>
+            <p class="lead">Secure credential manager</p>
 
+            @*Account interactions*@
+            <div>
+                <p>
+                    <a href="@Url.RouteUrl("App")" title="Sign in" class="btn btn-info">Sign in</a>
+                    <button class="btn btn-default">Sign up for a free account</button>
+                </p>
+            </div>
 
+            @*Download supported clients*@
             <p>
-                Download Krypt Pad for Windows Desktop Beta 4 for Windows 7, 8, 10
+                Download the Krypt Pad client for your device
             </p>
-
-            <a href="@Url.RouteUrl("Download")" title="Download Now">
-                <div class="circle circle-lg center-block">
-
-                    <i class="glyphicon glyphicon-download-alt"></i>
-
-                </div>
-            </a>
-
             <p>
-                <small><span>@Model.NumDownloads</span> Downloads | <span>@Model.FileSize</span></small>
+                <i class="fa fa-windows fa-2x" aria-hidden="true"></i>
             </p>
-
+            @*<a href="@Url.RouteUrl("Download")" title="Download Now"></a>*@
         </div>
 
     </div>
 }
 
+<div class="text-center">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- KP_RESP_1 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-3983402242017131"
+         data-ad-slot="8554978894"
+         data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+@*Main content*@
+<div class="hero hero-transparent ">
+    <div class="container text-center">
+        <p class="h1">How it works</p>
+        <p class="lead">
+            Keeping track of all your passwords, credit cards, and other personal information can be difficult, or even impossible
+            (unless you have a photographic memory). But for the rest of us, Krypt Pad can store sensitive information and keep it
+            safe for you. Your data is encrypted and synced across all your compatible devices.
+        </p>
+        <p class="lead">
+            
+        </p>
+    </div>
+
+</div>
+
+@*Safe & secure*@
+<div id="secure" class="hero hero-light-blue">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-5">
+                <p class="h1">Safe &amp; Secure</p>
+                <p class="lead">
+                    Security is important, especially when you are storing credentials, credit card numbers, bank information, and other
+                    sesitive data. Everything is protected using AES 256bit encryption.
+                </p>
+            </div>
+
+            <div class="col-md-5 visible-md-block visible-lg-block">
+                <img src="~/Content/Images/safe.png" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="text-center">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- KP_RESP_2 -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-3983402242017131"
+         data-ad-slot="6799044097"
+         data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+@*Donations*@
+<div id="donate" class="hero hero-light-red">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-5">
+                <p class="h1">Donation Supported</p>
+                <p class="lead">
+                    Krypt Pad is supported by donations. Your contributions help support future development.
+                    You are free to donate as much as you'd like; there's no preset amount.
+                </p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="XFMJUYPB6U5R6">
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+            </div>
+
+            <div class="col-md-5 visible-md-block visible-lg-block">
+                <img src="~/Content/Images/favorite2.png" />
+            </div>
+        </div>
+
+    </div>
+</div>
 
 @*This is the login section*@
 @*<div id="login-section" class="hero hero-transparent" style="display: none;" data-bind="visible: !isAuthenticated()">
@@ -83,140 +170,11 @@
         </div>
     </div>*@
 
-<div class="text-center">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- KP_RESP_1 -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-3983402242017131"
-         data-ad-slot="8554978894"
-         data-ad-format="auto"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
-
-
-<div class="container">
-    <div class="row same-height">
-        <div class="col-md-4 ">
-            <div class="card text-center">
-                <img src="~/Content/Images/safe128x128.png" class="hidden-sm hidden-xs" />
-                <h2>Safe &amp; Secure</h2>
-                <p><a class="btn btn-default" href="#secure">Learn more &raquo;</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 ">
-            <div class="card text-center">
-                <img src="~/Content/Images/cloud128x128.png" class="hidden-sm hidden-xs" />
-                <h2>Stored in the Cloud</h2>
-                <p><a class="btn btn-default" href="#cloud">Learn more &raquo;</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 ">
-            <div class="card text-center">
-                <img src="~/Content/Images/favorite2128x128.png" class="hidden-sm hidden-xs" />
-                <h2>Donation Supported</h2>
-                <p><a class="btn btn-default" href="#donate">Learn more &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="hero hero-transparent ">
-    <div class="container text-center">
-        <p class="h1">How it works</p>
-        <p class="lead">
-            Keeping track of all your passwords, credit cards, and other personal information can be difficult, or even impossible
-            (unless you have a photographic memory). But for the rest of us, Krypt Pad can store sensitive information and keep it
-            safe for you.
-        </p>
-        <p class="lead">
-            Your data is encrypted and stored in a document. You can save that document on a flash drive, on your computer, or even
-            in OneDrive, DropBox, Google Drive, or any other cloud storage service you'd like. Install Krypt Pad for Windows Desktop
-            on all your computers, and access your data from those machines.
-        </p>
-    </div>
-
-</div>
-
-
-<div id="secure" class="hero hero-light-blue">
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-5">
-                <p class="h1">Safe &amp; Secure</p>
-                <p>
-                    Security is important, especially when you are storing credentials, credit card numbers, bank information, and other
-                    sesitive data. Everything is protected using AES 256bit encryption.
-                </p>
-            </div>
-
-            <div class="col-md-5 visible-md-block visible-lg-block">
-                <img src="~/Content/Images/safe.png" />
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<div class="text-center">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- KP_RESP_2 -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-3983402242017131"
-         data-ad-slot="6799044097"
-         data-ad-format="auto"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
-
-<div id="cloud" class="hero hero-transparent">
-    <div class="container text-center">
-        <p class="h1">Stored in the Cloud</p>
-        <p class="lead">
-            Krypt Pad for Windows Desktop can store your personal information in your favorite cloud storage platform. Your
-            documents sync across supported devices.
-        </p>
-        <div class="visible-md-block visible-lg-block">
-            <img src="~/Content/Images/screen.png" />
-            <img src="~/Content/Images/sync128x128.png" />
-            <img src="~/Content/Images/screen.png" />
-        </div>
-    </div>
-</div>
 
 
 
-<div id="donate" class="hero hero-light-red">
-    <div class="container">
 
-        <div class="row">
-            <div class="col-md-5">
-                <p class="h1">Donation Supported</p>
-                <p>
-                    Krypt Pad is supported by donations. Your contributions help support future development.
-                    You are free to donate as much as you'd like; there's no preset amount.
-                </p>
-                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="XFMJUYPB6U5R6">
-                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-                </form>
-            </div>
 
-            <div class="col-md-5 visible-md-block visible-lg-block">
-                <img src="~/Content/Images/favorite2.png" />
-            </div>
-        </div>
-
-    </div>
-</div>
 
 <div class="text-center">
 
@@ -230,21 +188,6 @@
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-
-</div>
-
-
-<div class="container text-center">
-    <p class="h1">Krypt Pad Universal coming soon!</p>
-    <p class="lead">
-        Krypt Pad for Desktop Beta 5, and Krypt Pad Universal for Windows 10 and Windows 10 Mobile will be coming soon in 2016! The Windows 10 version
-        will be able to import the desktop version's documents, but will store your data online so you can access it from all your devices!
-    </p>
-    <p>Follow Krypt Pad for updates</p>
-    <p>
-        <a href="https://www.facebook.com/KryptPad/"><img src="~/Content/Images/social_facebook.png" /></a>
-        <a href="https://twitter.com/KryptPad"><img src="~/Content/Images/social_twitter.png" /></a>
-    </p>
 
 </div>
 
