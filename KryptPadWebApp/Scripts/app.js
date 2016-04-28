@@ -106,11 +106,11 @@
             this.get('#:path', function () {
                 var path = this.params.path;
                 // Get view based on path
-                var s = $('<script id="' + path + '-template" type="text/html">');
+                //var s = $('<script id="' + path + '-template" type="text/html">');
                 
-                s.append('<span data-bind="text: test">');
+                //s.append('<span data-bind="text: test">');
 
-                $('#app').append(s);
+                //$('#app').append(s);
 
                 // Trigger rebind of template
                 self.template('profile-template');
