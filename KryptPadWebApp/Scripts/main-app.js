@@ -17,7 +17,7 @@
         self.isSignedIn = function () {
             // Check to see if we are authenticated
             if (!app.isAuthenticated()) {
-                global.location.hash = 'login'
+                global.location.hash = 'login';
                 // Not signed in
                 return false;
             }
@@ -35,14 +35,14 @@
                 self.template('login-template');
             });
 
-            //this.post('#login', function (context) {
-                
-            //    // Perform login action
-            //});
+            // POST: Login
+            this.post('#login', function (context) {    
+                // Login was successfull, refresh
+                global.location = '/app';
+            });
 
             // GET: Profiles
             this.get('#profiles', function (context) {
-
                 // Check to see if we are authenticated
                 if (self.isSignedIn()) {
                     // Trigger rebind of template

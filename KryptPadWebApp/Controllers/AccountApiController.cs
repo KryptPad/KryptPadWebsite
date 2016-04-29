@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http;
 using KryptPadWebApp.Models.ApiEntities;
+using KryptPadWebApp.Models.Requests;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -29,7 +30,7 @@ namespace KryptPadWebApp.Controllers
                 // Return the error
                 return BadRequest(ModelState);
             }
-            
+
             // If we have a model state, then get the user manager
             var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
@@ -53,6 +54,35 @@ namespace KryptPadWebApp.Controllers
                 // Return the error
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpPost]
+        [Route("ForgotPassword", Name = "ForgotPassword")]
+        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordRequest request)
+        {
+            if (ModelState.IsValid)
+            {
+
+                // If we have a model state, then get the user manager
+                var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                var user = await userManager.FindByNameAsync(request.Email);
+                if (user == null || !(await userManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return Ok();
+                }
+
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await userManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = "";//Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                await userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                return Ok();
+            }
+
+            // Oops
+            return BadRequest();
         }
     }
 

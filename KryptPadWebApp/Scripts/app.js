@@ -5,8 +5,6 @@
 
     // This represents the key for our token response
     app.tokenKey = 'token';
-    app.homeRoute = "/";
-
     // Define some functions for our app
 
     // Gets the token object from storage
@@ -42,6 +40,8 @@
     app.logout = function () {
         // Clear the session token
         sessionStorage.removeItem(app.tokenKey);
+        // Go to sign in page
+        global.location = "/app";
     }
 
     // Returns true if the user is authenticated
@@ -84,6 +84,8 @@
         if (error.status == 401) {
             // The web call was unauthorized
             message = "You are not authorized to perform this action.";
+            // Sign out
+            app.logout();
         }
 
         // Call the fail callback

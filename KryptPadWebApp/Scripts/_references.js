@@ -9,6 +9,7 @@
 /// <reference path="knockout-loaders.js" />
 /// <reference path="ko-widgets/login-widget.js" />
 /// <reference path="ko-widgets/profiles-widget.js" />
+/// <reference path="ko-widgets/sign-up-widget.js" />
 /// <reference path="main-app.js" />
 /// <reference path="modernizr-2.8.3.js" />
 /// <reference path="respond.matchmedia.addlistener.min.js" />
