@@ -5,10 +5,17 @@
 
 <div id="app" class="container">
 
+    @*Placeholder for the active template*@
     <div data-bind="template: { name: template }"></div>
 
-    <script id="profile-template" type="text/html">
-        <span data-bind="text: test"></span>
+
+
+    @*
+        Templates
+        These templates load components so that the html and view model can reside in separate files
+    *@
+    <script id="profiles-template" type="text/html">
+        <profiles-widget></profiles-widget>
     </script>
-    
+
 </div>

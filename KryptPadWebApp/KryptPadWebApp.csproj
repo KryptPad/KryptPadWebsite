@@ -374,6 +374,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
+    <Content Include="Scripts\knockout-loaders.js" />
+    <Content Include="Scripts\ko-widgets\profiles-widget.html" />
+    <Content Include="Scripts\ko-widgets\profiles-widget.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -382,7 +385,6 @@
     <Content Include="Scripts\sammy-0.7.5.js" />
     <Content Include="Scripts\sammy-0.7.5.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\App\Templates\Profiles.html" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

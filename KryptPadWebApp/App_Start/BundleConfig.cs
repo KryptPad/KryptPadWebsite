@@ -12,6 +12,8 @@ namespace KryptPadWebApp
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/sammy-{version}.js",
                         "~/Scripts/knockout-{version}.js",
+                        "~/Scripts/knockout-loaders.js",
+                        "~/Scripts/ko-widgets/*.js",
                         "~/Scripts/app.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
