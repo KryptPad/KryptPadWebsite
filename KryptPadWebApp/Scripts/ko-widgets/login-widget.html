@@ -1,0 +1,56 @@
+﻿<!--This is the login section-->
+<div id="login-section" class="container">
+
+    <div class="row">
+        <div class="col-sm-6 login border-right">
+
+            <p class="h1">Welcome back</p>
+            <p class="lead">Sign in to your account</p>
+
+            <!--Login-->
+            <div data-bind="visible: !isBusy()">
+
+                <form id="login-form" method="post" action='#login'>
+
+                    <div class="alert alert-danger" style="display: none" data-bind="visible: errorMessage">
+                        <p data-bind="text: errorMessage">
+                        </p>
+                    </div>
+
+                    <small><label for="username">Email</label></small>
+                    <input type="text" id="username" class="form-control" data-bind="value: username"
+                           placeholder="example@domain.com" />
+
+
+                    <small><label for="password">Password</label></small>
+                    <input type="password" id="password" class="form-control" data-bind="value: password"
+                           placeholder="Password" />
+
+                    <br />
+                    <p data-bind="visible: !isBusy()">
+                        <button id="login-button" data-bind="click: login" class="btn btn-primary">Sign In</button>
+                    </p>
+
+                </form>
+
+            </div>
+
+            <!--Spinner-->
+            <div class="wait-spinner" data-bind="visible: isBusy">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+                <span class="lead" >Just a moment...</span>
+            </div>
+
+        </div>
+        <div class="col-sm-6 login">
+            <div class="">
+                <p class="h1">New user?</p>
+                <p class="lead">Sign up for a free account</p>
+                <p>
+                    Sign up form here
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>

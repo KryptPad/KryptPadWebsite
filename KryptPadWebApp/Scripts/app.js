@@ -92,38 +92,4 @@
         }
     }
 
-    // App view model
-    function AppViewModel() {
-        var self = this;
-
-        // Create some observables for our model
-        self.test = ko.observable('This is a test');
-        self.template = ko.observable();
-
-        // Setup routes
-        Sammy(function () {
-
-            this.get('#:path', function () {
-                var path = this.params.path;
-                
-
-                // Trigger rebind of template
-                self.template(path + '-template');
-            });
-
-            this.get('', function () { this.app.runRoute('get', '#profiles') });
-        }).run();
-    }
-
-    // Create model
-    var model = new AppViewModel();
-
-    // Get main app container
-    var node = document.getElementById('app');
-
-    if (node) {
-        // Apply bindings
-        ko.applyBindings(model, document.getElementById('app'));
-    }
-
 })(window);

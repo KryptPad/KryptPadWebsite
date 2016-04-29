@@ -229,3 +229,10 @@ a .circle {
     a .circle:hover {
         box-shadow: 0 0 20px #fff;
     }
+
+/*Spinner classes*/
+.wait-spinner > span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 3em;
+}
