@@ -73,17 +73,36 @@ namespace KryptPadWebApp.Controllers
                     return Ok();
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                string code = await userManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = "";//Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                await userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                return Ok();
+                try
+                {
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    string code = await userManager.GeneratePasswordResetTokenAsync(user.Id);
+                    var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Host}/api/account/reset-password?userId={user.Id}&code={code}";
+
+
+                    await userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                
             }
 
             // Oops
             return BadRequest();
         }
+
+        [HttpGet]
+        [Route("ResetPassword", Name = "ResetPassword")]
+        public async Task<IHttpActionResult> ResetPassword(string userId, string code)
+        {
+            return Ok();
+        }
+
     }
 
 }
