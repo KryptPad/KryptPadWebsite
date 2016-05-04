@@ -7,6 +7,7 @@
 /// <reference path="jquery-2.2.3.min.js" />
 /// <reference path="knockout-3.4.0.js" />
 /// <reference path="knockout-loaders.js" />
+/// <reference path="ko-widgets/forgot-password-widget.js" />
 /// <reference path="ko-widgets/login-widget.js" />
 /// <reference path="ko-widgets/profiles-widget.js" />
 /// <reference path="ko-widgets/sign-up-widget.js" />

@@ -20,14 +20,14 @@ namespace KryptPadWebApp
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Credentials:
+            // Credentials
             var credentialUserName = ConfigurationManager.AppSettings["SmtpUserName"];
             var sentFrom = ConfigurationManager.AppSettings["SmtpSendFrom"];
             var pwd = ConfigurationManager.AppSettings["SmtpPassword"];
             var server = ConfigurationManager.AppSettings["SmtpHostName"];
             var port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]);
 
-            // Configure the client:
+            // Configure the client
             System.Net.Mail.SmtpClient client =
                 new System.Net.Mail.SmtpClient(server);
 
@@ -35,21 +35,20 @@ namespace KryptPadWebApp
             client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
 
-            // Create the credentials:
+            // Create the credentials
             System.Net.NetworkCredential credentials =
                 new System.Net.NetworkCredential(credentialUserName, pwd);
             
             client.EnableSsl = false;
             client.Credentials = credentials;
 
-            // Create the message:
-            var mail =
-                new System.Net.Mail.MailMessage(sentFrom, message.Destination);
+            // Create the message
+            var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
             mail.IsBodyHtml = true;
             mail.Subject = message.Subject;
             mail.Body = message.Body;
 
-            // Send:
+            // Send
             return client.SendMailAsync(mail);
         }
     }
@@ -86,7 +85,7 @@ namespace KryptPadWebApp
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
+                RequiredLength = 8,
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,

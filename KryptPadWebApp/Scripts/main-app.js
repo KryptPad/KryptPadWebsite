@@ -41,6 +41,12 @@
                 global.location = '/app';
             });
 
+            // GET: Forgot-Password
+            this.get('#forgot-password', function (context) {
+                // Trigger rebind of template
+                self.template('forgot-password-template');
+            });
+
             // GET: Profiles
             this.get('#profiles', function (context) {
                 // Check to see if we are authenticated

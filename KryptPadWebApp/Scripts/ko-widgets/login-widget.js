@@ -49,31 +49,8 @@
 
         // User forgot password
         self.forgotPassword = function () {
-            // Set busy state
-            self.isBusy(true);
-
-            var postData = {
-                email: self.username()
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/api/account/forgotpassword',
-                data: postData
-            }).done(function (data) {
-                // Success
-
-            }).fail(function (error) {
-                // Failed
-                app.processError(error, function (message) {
-                    // Show the error somewhere
-                    self.errorMessage(message);
-                });
-
-            }).always(function () {
-                // Set busy state
-                self.isBusy(false);
-            });
+            // Load the forgot password view
+            window.location.hash = "forgot-password";
         };
     },
     template: { fromUrl: 'login-widget.html' }

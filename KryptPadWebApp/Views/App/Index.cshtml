@@ -17,8 +17,30 @@
 
     @*Login*@
     <script id="login-template" type="text/html">
-        <login-widget></login-widget>
+
+        <!--This is the login section-->
+        <div id="login-section" class="container">
+
+            <div class="row">
+                <div class="col-sm-6 login border-right">
+                    @*Login section*@
+                    <login-widget></login-widget>
+                </div>
+                <div class="col-sm-6 login">
+                    @*Sign up section*@
+                    <sign-up-widget></sign-up-widget>
+                </div>
+            </div>
+
+        </div>
+
     </script>
+
+    @*Forgot password*@
+    <script id="forgot-password-template" type="text/html">
+        <forgot-password-widget></forgot-password-widget>
+    </script>
+
 
     @*Profiles*@
     <script id="profiles-template" type="text/html">

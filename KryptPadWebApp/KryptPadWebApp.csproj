@@ -377,6 +377,8 @@
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="Scripts\knockout-loaders.js" />
+    <Content Include="Scripts\ko-widgets\forgot-password-widget.html" />
+    <Content Include="Scripts\ko-widgets\forgot-password-widget.js" />
     <Content Include="Scripts\ko-widgets\login-widget.html" />
     <Content Include="Scripts\ko-widgets\login-widget.js" />
     <Content Include="Scripts\ko-widgets\profiles-widget.html" />
