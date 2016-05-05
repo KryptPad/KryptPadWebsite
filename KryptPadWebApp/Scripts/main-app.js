@@ -47,6 +47,16 @@
                 self.template('forgot-password-template');
             });
 
+            // GET: Reset-Password
+            //http://localhost:50821/app#reset-password?userId=1234&code=5678
+            this.get('#reset-password', function (context) {
+                var userId = this.params.userId;
+                var code = this.params.code;
+                debugger
+                // Trigger rebind of template
+                self.template('reset-password-template');
+            });
+
             // GET: Profiles
             this.get('#profiles', function (context) {
                 // Check to see if we are authenticated

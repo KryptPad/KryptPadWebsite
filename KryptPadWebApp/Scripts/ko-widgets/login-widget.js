@@ -47,11 +47,7 @@
             });
         }
 
-        // User forgot password
-        self.forgotPassword = function () {
-            // Load the forgot password view
-            window.location.hash = "forgot-password";
-        };
+        
     },
     template: { fromUrl: 'login-widget.html' }
 });
