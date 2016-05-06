@@ -9,6 +9,7 @@
 /// <reference path="knockout-loaders.js" />
 /// <reference path="ko-widgets/forgot-password-widget.js" />
 /// <reference path="ko-widgets/login-widget.js" />
+/// <reference path="ko-widgets/message-widget.js" />
 /// <reference path="ko-widgets/profiles-widget.js" />
 /// <reference path="ko-widgets/reset-password-widget.js" />
 /// <reference path="ko-widgets/sign-up-widget.js" />

@@ -65,6 +65,11 @@
         return headers;
     };
 
+    // Shorthand method to create a message
+    app.createMessage = function (type, message) {
+        return { type: type, message: message };
+    };
+
     app.processError = function (error, fail) {
         var message = '';
         
