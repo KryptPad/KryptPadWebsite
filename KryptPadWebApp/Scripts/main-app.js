@@ -8,8 +8,11 @@
         var self = this;
 
         // Create some observables for our model
-        self.test = ko.observable('This is a test');
+
+        // Store the name of the current view in this observable
         self.template = ko.observable();
+        // Pass in options to our template with this observable
+        self.templateOptions = ko.observable();
 
         // Behaviors
 
@@ -48,13 +51,27 @@
             });
 
             // GET: Reset-Password
-            //http://localhost:50821/app#reset-password?userId=1234&code=5678
+            // http://localhost:50821/app#reset-password?userId=1234&code=5678
             this.get('#reset-password', function (context) {
                 var userId = this.params.userId;
                 var code = this.params.code;
-                debugger
-                // Trigger rebind of template
-                self.template('reset-password-template');
+                
+                // Make sure we have a user id and code
+                if (userId && code) {
+                    // Create model for reset password
+                    var model = {
+                        code: code
+                    };
+
+                    // Set the options
+                    self.templateOptions(model);
+                    // Trigger rebind of template
+                    self.template('reset-password-template');
+                }
+                else {
+                    // Show some error or go back to login
+
+                }
             });
 
             // GET: Profiles

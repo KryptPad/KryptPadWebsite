@@ -2,7 +2,7 @@
     viewModel: function (params) {
         var self = this;
 
-        self.username = ko.observable();
+        self.email = ko.observable();
         self.isBusy = ko.observable(false);
         self.errorMessage = ko.observable();
 
@@ -12,15 +12,18 @@
             self.isBusy(true);
 
             var postData = {
-                email: self.username()
+                email: self.email()
             };
 
             $.ajax({
                 type: 'POST',
-                url: '/api/account/forgotpassword',
+                url: '/api/account/forgot-password',
                 data: postData
             }).done(function (data) {
                 // Success
+                self.errorMessage(null);
+                // Go back to login
+                window.location.hash = "login";
 
             }).fail(function (error) {
                 // Failed
@@ -32,6 +35,7 @@
             }).always(function () {
                 // Set busy state
                 self.isBusy(false);
+                
             });
         };
     },

@@ -19,6 +19,7 @@ namespace KryptPadWebApp.Models.ApiEntities
         /// Gets or sets the password
         /// </summary>
         [Required]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
 }

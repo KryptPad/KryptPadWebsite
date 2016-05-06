@@ -18,6 +18,16 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("Api/Account")]
     public class AccountApiController : ApiController
     {
+        /// <summary>
+        /// Gets the user manager from the owin context
+        /// </summary>
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
 
         //POST: Register
         [HttpPost]
@@ -31,12 +41,9 @@ namespace KryptPadWebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            // If we have a model state, then get the user manager
-            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
             // Create the user in the database
             var user = new ApplicationUser { UserName = accountInfo.Email, Email = accountInfo.Email };
-            var result = await userManager.CreateAsync(user, accountInfo.Password);
+            var result = await UserManager.CreateAsync(user, accountInfo.Password);
             if (result.Succeeded)
             {
 
@@ -57,17 +64,14 @@ namespace KryptPadWebApp.Controllers
         }
 
         [HttpPost]
-        [Route("ForgotPassword", Name = "ForgotPassword")]
-        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordRequest request)
+        [Route("Forgot-Password", Name = "ForgotPassword")]
+        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordRequest model)
         {
             if (ModelState.IsValid)
             {
 
-                // If we have a model state, then get the user manager
-                var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-                var user = await userManager.FindByNameAsync(request.Email);
-                if (user == null || !(await userManager.IsEmailConfirmedAsync(user.Id)))
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return Ok();
@@ -77,11 +81,11 @@ namespace KryptPadWebApp.Controllers
                 {
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    string code = await userManager.GeneratePasswordResetTokenAsync(user.Id);
-                    var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Host}/api/account/reset-password?userId={user.Id}&code={code}";
+                    string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                    var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#reset-password?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
 
 
-                    await userManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return Ok();
                 }
@@ -96,10 +100,26 @@ namespace KryptPadWebApp.Controllers
             return BadRequest();
         }
 
-        [HttpGet]
-        [Route("ResetPassword", Name = "ResetPassword")]
-        public async Task<IHttpActionResult> ResetPassword(string userId, string code)
+        [HttpPost]
+        [Route("Reset-Password", Name = "ResetPassword")]
+        public async Task<IHttpActionResult> ResetPassword(ResetPasswordRequest model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Get the user based on the email address
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user != null)
+            {
+                var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+            }
+
             return Ok();
         }
 

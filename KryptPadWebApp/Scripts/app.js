@@ -67,7 +67,7 @@
 
     app.processError = function (error, fail) {
         var message = '';
-
+        
         // Get the error message
         if (error.responseJSON && error.responseJSON.error_description) {
             // Get the error message from OAuth
@@ -76,6 +76,23 @@
         } else if (error.responseJSON && error.responseJSON.Message) {
             // Get the error message from .net
             message = error.responseJSON.Message;
+
+            if (error.responseJSON.ModelState) {
+                var state = error.responseJSON.ModelState;
+                var errors = [];
+                // Get all the errors
+                for (var property in state) {
+                    
+                    if (state.hasOwnProperty(property)) {
+                        // Add errors to the list
+                        errors.push(state[property].join("<br />"));
+                        
+                    }
+                }
+
+                message += '<br />' + errors.join('<br />');
+            }
+
         } else {
             message = "An unknown error has occurred.";
         }
