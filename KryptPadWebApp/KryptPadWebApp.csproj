@@ -318,7 +318,7 @@
     <Compile Include="Models\Results\ItemsResult.cs" />
     <Compile Include="Models\Results\ProfileResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\ApiOAuthAuthorizationServerProvider.cs" />
+    <Compile Include="Providers\AccessTokenProvider.cs" />
     <Compile Include="Providers\RefreshTokenProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

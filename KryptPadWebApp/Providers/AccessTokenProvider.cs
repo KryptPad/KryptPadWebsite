@@ -14,11 +14,11 @@ using KryptPadWebApp.Models;
 namespace KryptPadWebApp.Providers
 {
 
-    public class ApiOAuthAuthorizationServerProvider : OAuthAuthorizationServerProvider
+    public class AccessTokenProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
 
-        public ApiOAuthAuthorizationServerProvider(string publicClientId)
+        public AccessTokenProvider(string publicClientId)
         {
             if (publicClientId == null)
             {

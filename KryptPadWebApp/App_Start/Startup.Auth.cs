@@ -70,7 +70,7 @@ namespace KryptPadWebApp
             var OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/token"),
-                Provider = new ApiOAuthAuthorizationServerProvider(PublicClientId),
+                Provider = new AccessTokenProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/account/external"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(20),
                 RefreshTokenProvider = new RefreshTokenProvider(),
