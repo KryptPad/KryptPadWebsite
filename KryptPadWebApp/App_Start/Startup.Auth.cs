@@ -73,7 +73,7 @@ namespace KryptPadWebApp
                 Provider = new AccessTokenProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/account/external"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(20),
-                RefreshTokenProvider = new RefreshTokenProvider(),
+                //RefreshTokenProvider = new RefreshTokenProvider(),
 
                 // In DEBUG mode, we allow insecure HTTP
                 #if DEBUG

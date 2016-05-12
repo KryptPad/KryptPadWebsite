@@ -26,11 +26,14 @@ namespace KryptPadWebApp.Providers
             };
             var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
 
-            //_refreshTokens.TryAdd(guid, context.Ticket);
-            _refreshTokens.TryAdd(guid, refreshTokenTicket);
+            // Hash the handle and store it
+            var hashedGuid = Models.Encryption.Hash(guid, new byte[] { 9, 28, 187, 245, 132, 89, 205, 112 });
 
-            // consider storing only the hash of the handle
-            context.SetToken(guid);
+            //_refreshTokens.TryAdd(guid, context.Ticket);
+            _refreshTokens.TryAdd(hashedGuid, refreshTokenTicket);
+
+            
+            context.SetToken(hashedGuid);
         }
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
