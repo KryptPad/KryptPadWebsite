@@ -297,6 +297,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Models\Entities\AppSettings.cs" />
+    <Compile Include="Models\Entities\AuthorizedClients.cs" />
     <Compile Include="Models\Entities\Category.cs" />
     <Compile Include="Models\Entities\Field.cs" />
     <Compile Include="Models\Entities\FieldType.cs" />

@@ -61,6 +61,11 @@ namespace KryptPadWebApp.Providers
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
+
+            //string clientId, clientSecret;
+            ////gets the clientid and client secret from authenticate header
+            //context.TryGetBasicCredentials(out clientId, out clientSecret);
+
             // Resource owner password credentials does not provide a client ID.
             if (context.ClientId == null)
             {
