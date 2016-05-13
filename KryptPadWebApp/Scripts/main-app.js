@@ -52,6 +52,7 @@
 
             // GET: Reset-Password
             this.get('#reset-password', function (context) {
+                var userId = this.params.userId;
                 var code = this.params.code;
                 
                 // Make sure we have a user id and code

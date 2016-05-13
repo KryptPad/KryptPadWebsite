@@ -8,6 +8,7 @@
 
         // Define some observables
         self.isBusy = ko.observable(false);
+        self.isSuccess = ko.observable(false);
         self.message = ko.observable();
         
         // Behaviors
@@ -27,6 +28,8 @@
                 data: postData
             }).done(function (data) {
                 // Success
+                self.isSuccess(true);
+                // Show message
                 self.message(app.createMessage(app.MSG_SUCCESS, 'Your email address has been confirmed successfully.'));
 
             }).fail(function (error) {
