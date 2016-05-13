@@ -2,6 +2,8 @@
     var app = global.app = global.app || {};
 
     // Define some app level variables
+    app.MSG_ERROR = 0;
+    app.MSG_SUCCESS = 1;
 
     // This represents the key for our token response
     app.tokenKey = 'token';

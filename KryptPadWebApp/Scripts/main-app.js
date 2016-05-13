@@ -51,9 +51,7 @@
             });
 
             // GET: Reset-Password
-            // http://localhost:50821/app#reset-password?userId=1234&code=5678
             this.get('#reset-password', function (context) {
-                var userId = this.params.userId;
                 var code = this.params.code;
                 
                 // Make sure we have a user id and code
@@ -67,6 +65,30 @@
                     self.templateOptions(model);
                     // Trigger rebind of template
                     self.template('reset-password-template');
+                }
+                else {
+                    // Show some error or go back to login
+
+                }
+            });
+
+            // GET: Confirm-Email
+            this.get('#confirm-email', function (context) {
+                var userId = this.params.userId;
+                var code = this.params.code;
+
+                // Make sure we have a user id and code
+                if (userId && code) {
+                    // Create model for reset password
+                    var model = {
+                        userId: userId,
+                        code: code
+                    };
+
+                    // Set the options
+                    self.templateOptions(model);
+                    // Trigger rebind of template
+                    self.template('confirm-email-template');
                 }
                 else {
                     // Show some error or go back to login

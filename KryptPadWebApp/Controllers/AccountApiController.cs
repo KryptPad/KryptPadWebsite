@@ -46,6 +46,13 @@ namespace KryptPadWebApp.Controllers
             var result = await UserManager.CreateAsync(user, accountInfo.Password);
             if (result.Succeeded)
             {
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#confirm-email?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
+
+                // Send the email
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                 // All is ok
                 return Ok();
@@ -84,7 +91,7 @@ namespace KryptPadWebApp.Controllers
                     string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                     var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#reset-password?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
 
-
+                    // Send the email
                     await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return Ok();
@@ -93,7 +100,7 @@ namespace KryptPadWebApp.Controllers
                 {
                     throw;
                 }
-                
+
             }
 
             // Oops
@@ -121,6 +128,36 @@ namespace KryptPadWebApp.Controllers
             }
 
             return Ok();
+        }
+
+        /// <summary>
+        /// Confirm account
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Confirm-Email", Name = "ConfirmEmail")]
+        public async Task<IHttpActionResult> ConfirmEmail(ConfirmEmailRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Confirm the email address
+            var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Code);
+
+            // Return OK if the account was confirmed successfully
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+
         }
 
     }

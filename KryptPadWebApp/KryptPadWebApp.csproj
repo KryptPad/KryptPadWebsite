@@ -310,6 +310,7 @@
     <Compile Include="Models\ApiEntities\ApiProfile.cs" />
     <Compile Include="Models\ApiEntities\ApiCategory.cs" />
     <Compile Include="Models\ApiEntities\ApiField.cs" />
+    <Compile Include="Models\Requests\ConfirmEmailRequest.cs" />
     <Compile Include="Models\Requests\ForgotPasswordRequest.cs" />
     <Compile Include="Models\Requests\ResetPasswordRequest.cs" />
     <Compile Include="Models\Results\CategoriesResult.cs" />
@@ -380,6 +381,8 @@
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="Scripts\knockout-loaders.js" />
+    <Content Include="Scripts\ko-widgets\confirm-email-widget.html" />
+    <Content Include="Scripts\ko-widgets\confirm-email-widget.js" />
     <Content Include="Scripts\ko-widgets\forgot-password-widget.html" />
     <Content Include="Scripts\ko-widgets\forgot-password-widget.js" />
     <Content Include="Scripts\ko-widgets\login-widget.html" />

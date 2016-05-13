@@ -1,34 +1,33 @@
-﻿ko.components.register('reset-password-widget', {
+﻿ko.components.register('confirm-email-widget', {
     viewModel: function (params) {
         var self = this;
 
         // Store the data we got passed
+        self.userId = params.data.userId;
         self.code = params.data.code;
 
         // Define some observables
         self.isBusy = ko.observable(false);
         self.message = ko.observable();
-        self.email = ko.observable();
-        self.password = ko.observable();
-        self.confirmPassword = ko.observable();
-
+        
         // Behaviors
-        self.reset = function () {
+        self.confirm = function () {
+            
+            self.isBusy(true);
+
             // Send all the data we need to the api to reset the password
             var postData = {
-                email: self.email(),
-                code: ko.unwrap(self.code),
-                password: self.password(),
-                confirmPassword: self.confirmPassword()
+                userId: ko.unwrap(self.userId),
+                code: ko.unwrap(self.code)
             };
-            
+
             $.ajax({
                 type: 'POST',
-                url: '/api/account/reset-password',
+                url: '/api/account/confirm-email',
                 data: postData
             }).done(function (data) {
                 // Success
-                self.message(null);
+                self.message(app.createMessage(app.MSG_SUCCESS, 'Your email address has been confirmed successfully.'));
 
             }).fail(function (error) {
                 // Failed
@@ -43,6 +42,8 @@
             });
         };
 
+        // Trigger behaviors
+        self.confirm();
     },
-    template: { fromUrl: 'reset-password-widget.html' }
+    template: { fromUrl: 'confirm-email-widget.html' }
 });
