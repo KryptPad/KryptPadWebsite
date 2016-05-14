@@ -13,6 +13,7 @@ using System.Web.Http.Results;
 using System.Data.Entity;
 using System.Transactions;
 using Newtonsoft.Json.Linq;
+using KryptPadWebApp.Models.Requests;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -20,6 +21,18 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("Api/Profiles")]
     public class ProfileApiController : AuthorizedApiController
     {
+
+        /// <summary>
+        /// Gets the user manager from the owin context
+        /// </summary>
+        private ApplicationUserManager UserManager
+        {
+            get
+            {
+                return Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
         /// <summary>
         /// Gets a list of all the profiles for a user
         /// </summary>
@@ -281,100 +294,108 @@ namespace KryptPadWebApp.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("{id}/Change-Passphrase")]
-        public async Task<IHttpActionResult> ChangePassphrase(int id, [FromBody]string newPassphrase)
+        public async Task<IHttpActionResult> ChangePassphrase(int id, [FromBody]ChangePassphraseRequest model)
         {
-            if (!string.IsNullOrWhiteSpace(newPassphrase))
+            // Check initial model state
+            if (ModelState.IsValid)
             {
-                // Update the profile with the new passphrase
-                //using (var scope = new TransactionScope())
-                using (var ctx = new ApplicationDbContext())
+                // Check passphrase against our password rules
+                var result = await UserManager.PasswordValidator.ValidateAsync(model.NewPassphrase);
+
+                if (!result.Succeeded)
                 {
-                    // First, verify that the supplied passphrase is correct
-                    var profile = (from p in ctx.Profiles
-                                   where p.Id == id
-                                       && p.User.Id == UserId
-                                   select p).SingleOrDefault();
-
-                    // Check profile
-                    if (profile != null)
+                    // Add errors to the model state
+                    foreach (var error in result.Errors)
                     {
+                        ModelState.AddModelError("Errors", error);
+                    }
+                }
+            }
 
-                        if (VerifyPassphrase(profile, Passphrase))
+            // Is the model state valid?
+            if (!ModelState.IsValid)
+            {
+                // There were model errors, bad request
+                return BadRequest(ModelState);
+            }
+
+            var newPassphrase = model.NewPassphrase;
+
+            // Update the profile with the new passphrase
+            using (var ctx = new ApplicationDbContext())
+            {
+                // First, verify that the supplied passphrase is correct
+                var profile = (from p in ctx.Profiles
+                               where p.Id == id
+                                   && p.User.Id == UserId
+                               select p).SingleOrDefault();
+
+                // Check profile
+                if (profile != null)
+                {
+
+                    if (VerifyPassphrase(profile, Passphrase))
+                    {
+                        // Get all items in the profile
+                        var categories = (from c in ctx.Categories.Include(c => c.Items.Select(y => y.Fields)).Include(c => c.Profile.User)
+                                          where c.Profile.Id == id
+                                            && c.Profile.User.Id == UserId
+                                          select c);
+
+                        // Passphrase is correct
+                        foreach (var category in categories)
                         {
-                            // Get all items in the profile
-                            var categories = (from c in ctx.Categories.Include(c => c.Items.Select(y => y.Fields)).Include(c => c.Profile.User)
-                                              where c.Profile.Id == id
-                                                && c.Profile.User.Id == UserId
-                                              select c);
+                            // Re-encrypt with new passphrase
+                            category.Name = Encryption.ReEncryptToString(category.Name, Passphrase, newPassphrase);
 
-                            // Passphrase is correct
-                            foreach (var category in categories)
+                            // Re-encrypt items
+                            foreach (var item in category.Items)
                             {
                                 // Re-encrypt with new passphrase
-                                category.Name = Encryption.ReEncryptToString(category.Name, Passphrase, newPassphrase);
+                                item.Name = Encryption.ReEncryptToString(item.Name, Passphrase, newPassphrase);
+                                item.Notes = Encryption.ReEncryptToString(item.Notes, Passphrase, newPassphrase);
 
-                                // Re-encrypt items
-                                foreach (var item in category.Items)
+                                // Now re-encrypt the fields
+                                foreach (var field in item.Fields)
                                 {
                                     // Re-encrypt with new passphrase
-                                    item.Name = Encryption.ReEncryptToString(item.Name, Passphrase, newPassphrase);
-                                    item.Notes = Encryption.ReEncryptToString(item.Notes, Passphrase, newPassphrase);
-
-                                    // Now re-encrypt the fields
-                                    foreach (var field in item.Fields)
-                                    {
-                                        // Re-encrypt with new passphrase
-                                        field.Name = Encryption.ReEncryptToString(field.Name, Passphrase, newPassphrase);
-                                        field.Value = Encryption.ReEncryptToString(field.Value, Passphrase, newPassphrase);
-                                    }
+                                    field.Name = Encryption.ReEncryptToString(field.Name, Passphrase, newPassphrase);
+                                    field.Value = Encryption.ReEncryptToString(field.Value, Passphrase, newPassphrase);
                                 }
                             }
-
-                            // Generate a random salt for the profile
-                            var saltBytes = Encryption.GenerateSalt();
-
-                            // Hash passphrase with salt
-                            profile.Key1 = Convert.ToBase64String(saltBytes);
-                            profile.Key2 = Encryption.Hash(newPassphrase, saltBytes);
-
-                            try
-                            {
-                                // Save the changes
-                                await ctx.SaveChangesAsync();
-                            }
-                            catch (Exception ex)
-                            {
-
-                                throw;
-                            }
-
-
-                            // Done
-                            return Ok();
-
                         }
-                        else
-                        {
-                            // The passphrase is wrong, unauthorized
-                            return Unauthorized();
-                        }
+
+                        // Generate a random salt for the profile
+                        var saltBytes = Encryption.GenerateSalt();
+
+                        // Hash passphrase with salt
+                        profile.Key1 = Convert.ToBase64String(saltBytes);
+                        profile.Key2 = Encryption.Hash(newPassphrase, saltBytes);
+
+                        // Save the changes
+                        await ctx.SaveChangesAsync();
+
+                        // Done
+                        return Ok();
 
                     }
                     else
                     {
-                        // Record does not exist
-                        return BadRequest("The specified profile does not exist");
+                        // The passphrase is wrong, unauthorized
+                        return Unauthorized();
                     }
 
-
+                }
+                else
+                {
+                    // Record does not exist
+                    return BadRequest("The specified profile does not exist");
                 }
 
+
             }
-            else
-            {
-                // Must have a value
-                return BadRequest("Passphrase cannot be null or blank");
-            }
+
+
         }
 
         /// <summary>

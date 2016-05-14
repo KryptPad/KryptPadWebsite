@@ -91,7 +91,7 @@ namespace KryptPadWebApp
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
-
+            
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);

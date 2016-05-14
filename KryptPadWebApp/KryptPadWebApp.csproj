@@ -294,7 +294,6 @@
       <DependentUpon>201604181756403_dbupdates.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Models\Entities\AppSettings.cs" />
     <Compile Include="Models\Entities\AuthorizedClients.cs" />
@@ -304,12 +303,12 @@
     <Compile Include="Models\HomeIndexViewModel.cs" />
     <Compile Include="Models\Entities\IdentityModels.cs" />
     <Compile Include="Models\Entities\Item.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Entities\Profile.cs" />
     <Compile Include="Models\ApiEntities\ApiAccount.cs" />
     <Compile Include="Models\ApiEntities\ApiProfile.cs" />
     <Compile Include="Models\ApiEntities\ApiCategory.cs" />
     <Compile Include="Models\ApiEntities\ApiField.cs" />
+    <Compile Include="Models\Requests\ChangePassphraseRequest.cs" />
     <Compile Include="Models\Requests\ConfirmEmailRequest.cs" />
     <Compile Include="Models\Requests\ForgotPasswordRequest.cs" />
     <Compile Include="Models\Requests\ResetPasswordRequest.cs" />
