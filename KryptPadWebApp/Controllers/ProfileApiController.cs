@@ -302,7 +302,7 @@ namespace KryptPadWebApp.Controllers
                         if (VerifyPassphrase(profile, Passphrase))
                         {
                             // Get all items in the profile
-                            var categories = (from c in ctx.Categories.Include(c => c.Items.Select(y => y.Fields))
+                            var categories = (from c in ctx.Categories.Include(c => c.Items.Select(y => y.Fields)).Include(c => c.Profile.User)
                                               where c.Profile.Id == id
                                                 && c.Profile.User.Id == UserId
                                               select c);
@@ -337,8 +337,17 @@ namespace KryptPadWebApp.Controllers
                             profile.Key1 = Convert.ToBase64String(saltBytes);
                             profile.Key2 = Encryption.Hash(newPassphrase, saltBytes);
 
-                            // Save the changes
-                            await ctx.SaveChangesAsync();
+                            try
+                            {
+                                // Save the changes
+                                await ctx.SaveChangesAsync();
+                            }
+                            catch (Exception ex)
+                            {
+
+                                throw;
+                            }
+
 
                             // Done
                             return Ok();
