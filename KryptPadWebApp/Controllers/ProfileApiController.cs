@@ -205,46 +205,58 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(ApiProfile request)
         {
-            if (ModelState.IsValid)
+
+            // Check passphrase against our password rules
+            var result = await UserManager.PasswordValidator.ValidateAsync(Passphrase);
+
+            if (!result.Succeeded)
             {
-
-                // Create context
-                using (var ctx = new ApplicationDbContext())
+                // Add errors to the model state
+                foreach (var error in result.Errors)
                 {
-                    // Find the user
-                    var user = ctx.Users.Find(UserId);
-
-                    if (user == null)
-                    {
-                        return BadRequest("User not found");
-                    }
-
-                    // Generate a random salt for the profile
-                    var saltBytes = Encryption.GenerateSalt();
-
-                    // Create profile object to store in DB
-                    var profile = new Profile()
-                    {
-                        User = user,
-                        Name = request.Name,
-                        Key1 = Convert.ToBase64String(saltBytes),
-                        Key2 = Encryption.Hash(Passphrase, saltBytes)
-                    };
-
-                    // Add the profile to the context
-                    ctx.Profiles.Add(profile);
-
-                    // Save changes
-                    await ctx.SaveChangesAsync();
-
-                    // Ok
-                    return Ok(profile.Id);
+                    ModelState.AddModelError("Errors", error);
                 }
             }
-            else
+
+            // If the model state is invalid, return bad request
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            // Create context
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Find the user
+                var user = ctx.Users.Find(UserId);
+
+                if (user == null)
+                {
+                    return BadRequest("User not found.");
+                }
+
+                // Generate a random salt for the profile
+                var saltBytes = Encryption.GenerateSalt();
+
+                // Create profile object to store in DB
+                var profile = new Profile()
+                {
+                    User = user,
+                    Name = request.Name,
+                    Key1 = Convert.ToBase64String(saltBytes),
+                    Key2 = Encryption.Hash(Passphrase, saltBytes)
+                };
+
+                // Add the profile to the context
+                ctx.Profiles.Add(profile);
+
+                // Save changes
+                await ctx.SaveChangesAsync();
+
+                // Ok
+                return Ok(profile.Id);
+            }
+
 
         }
 
