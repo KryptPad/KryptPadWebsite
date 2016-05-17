@@ -27,7 +27,7 @@ textarea {
     max-width: 280px;
 }
 
-/* Set extra large spacing on jumbotrons */
+/* Heros */
 .hero {
     padding-top: 50px;
     background-color: #eee;
@@ -41,25 +41,29 @@ textarea {
         color: #fff;
     }
 
-    .hero.hero-light-blue {
-        background-color: #cfebff;
-        border-top: 10px dashed #fff;
-        border-bottom: 10px dashed #fff;
-    }
+.hero-blue a {
+    color: white;
+}
 
-    .hero.hero-light-red {
-        background-color: #ffddd7;
-        border-top: 10px dashed #fff;
-        border-bottom: 10px dashed #fff;
-    }
+.hero.hero-light-blue {
+    background-color: #cfebff;
+    border-top: 10px dashed #fff;
+    border-bottom: 10px dashed #fff;
+}
 
-    .hero.hero-transparent {
-        background-color: transparent;
-    }
+.hero.hero-light-red {
+    background-color: #ffddd7;
+    border-top: 10px dashed #fff;
+    border-bottom: 10px dashed #fff;
+}
 
-    .hero.hero-main {
-        margin-bottom: 0;
-    }
+.hero.hero-transparent {
+    background-color: transparent;
+}
+
+.hero.hero-main {
+    margin-bottom: 0;
+}
 
 /* Set the color of the navbar */
 .navbar {
@@ -94,10 +98,6 @@ textarea {
     /*height: 20em;*/
     /*transition: all 200ms ease-in-out;*/
 }
-
-/*.login:hover {
-        background-color: rgba(255, 255, 255, 0.10);
-    }*/
 
 /* Some border styles */
 .border-right {
@@ -190,10 +190,19 @@ td:last-child {
 }
 
 /* Cards */
+.card-link {
+    display: inline-block;
+}
+
 .card {
-    margin-top: 50px;
-    padding: 10px;
-    border: 1px solid #ccc;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.10);
+    padding: 15px;
+}
+
+.card:hover {
+    background-color: rgba(255, 255, 255, 0.20);
 }
 
 /* Social bar */

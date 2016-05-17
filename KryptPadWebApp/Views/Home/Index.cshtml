@@ -6,10 +6,12 @@
 @section pageHeader{
     <div class="hero hero-main hero-blue">
         <div class="container text-center">
-            
+
             <h1>Krypt Pad</h1>
             <p class="lead">Secure credential manager</p>
-
+            <p>
+                Windows 10 app coming Summer 2016!
+            </p>
             @*Account interactions*@
             <div>
                 <p>
@@ -20,12 +22,27 @@
 
             @*Download supported clients*@
             <p>
-                Download the Krypt Pad client for your device
+                Download Krypt Pad for Windows desktop beta 4
             </p>
+            <div>
+                <a href="@Url.RouteUrl("Download")" title="Download Now" class="card-link">
+                    <div class="card">
+                        <p>
+                            <i class="fa fa-windows fa-3x" aria-hidden="true"></i>
+                        </p>
+
+                        <i class="fa fa-download fa-lg" aria-hidden="true"></i>
+                    </div>
+                </a>
+            </div>
+
+            <hr/>
             <p>
-                <i class="fa fa-windows fa-2x" aria-hidden="true"></i>
+                <small>
+                    Krypt Pad for Windows desktop beta 4 is being discontinued... for now. It will still be available for download, but
+                    will no longer be updated. I may pick it up again in the future if there is a demand for it.
+                </small>
             </p>
-            @*<a href="@Url.RouteUrl("Download")" title="Download Now"></a>*@
         </div>
 
     </div>
@@ -51,10 +68,10 @@
         <p class="lead">
             Keeping track of all your passwords, credit cards, and other personal information can be difficult, or even impossible
             (unless you have a photographic memory). But for the rest of us, Krypt Pad can store sensitive information and keep it
-            safe for you. Your data is encrypted and synced across all your compatible devices.
+            safe. Your data is encrypted and synced across all your compatible devices.
         </p>
         <p class="lead">
-            
+
         </p>
     </div>
 
@@ -145,82 +162,5 @@
 
 
 @section scripts{
-    @*
-        <script>
-            (function () {
 
-                function LoginViewModel() {
-                    var self = this;
-
-                    self.username = ko.observable('ebutler@test.com');
-                    self.password = ko.observable();
-                    self.isAuthenticated = ko.observable(app.isAuthenticated());
-                    self.isBusy = ko.observable(false);
-                    self.errorMessage = ko.observable();
-
-                    self.login = function () {
-
-                        // Set busy state
-                        self.isBusy(true);
-
-                        var loginData = {
-                            grant_type: 'password',
-                            username: self.username(),
-                            password: self.password()
-                        };
-
-                        $.ajax({
-                            type: 'POST',
-                            url: '/token',
-                            data: loginData
-                        }).done(function (data) {
-                            // Cache the access token in session storage.
-                            app.setToken(data);
-
-                            // Go to the main account page. We submit the form so that
-                            // browsers will offer to save password, but we don't do anything
-                            // with the values on the server side
-                            $('#login-form').submit();
-
-                        }).fail(function (error) {
-
-                            // Set busy state
-                            self.isBusy(false);
-
-                            app.processError(error, function (message) {
-                                // Show the error somewhere
-                                self.errorMessage(message);
-                            });
-
-                        }).complete(function () {
-                            // Leave busy state for login success
-                        });
-                    }
-                }
-
-                ko.applyBindings(new LoginViewModel(), $('#login-section')[0]);
-
-                //$('.same-height').each(function (index, element) {
-                //    var max = 0;
-
-                //    // Make each element in the same-height class
-                //    $(element).find('.card').each(function (x, elem) {
-                //        var $div = $(elem);
-                //        if ($div.height() > max) {
-                //            max = $div.height();
-                //        }
-                //    });
-
-                //    // Use the max value to apply the height
-                //    $(element).find('.card').height(max + 'px');
-
-                //});
-
-
-
-
-            })();
-
-        </script>
-    *@
 }

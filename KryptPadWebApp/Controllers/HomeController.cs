@@ -42,6 +42,12 @@ namespace KryptPadWebApp.Controllers
             return View();
         }
 
+        [Route("Terms", Name = "Terms")]
+        public ActionResult Terms()
+        {
+            return View();
+        }
+
         [Route("About", Name = "About")]
         public ActionResult About()
         {

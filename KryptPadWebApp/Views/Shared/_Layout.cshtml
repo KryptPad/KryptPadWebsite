@@ -38,13 +38,17 @@
                 </ul>
                 <ul id="user-info" class="nav navbar-nav navbar-right">
                     <li data-bind="visible: isAuthenticated" style="display:none;">
-                        <a href="@Url.RouteUrl("Home")" data-bind="text: username"></a>
+                        <a href="/app#account" data-bind="text: username"></a>
                     </li>
+                    
                     <li data-bind="visible: isAuthenticated" style="display:none;"><a href="#" data-bind="click: logout">Log Out</a></li>
 
                 </ul>
+                <!-- ko ifnot: isAuthenticated -->
+                <p class="navbar-text navbar-right">Guest</p>
+                <!-- /ko -->
 
-                <p data-bind="visible: !isAuthenticated()" class="navbar-text navbar-right">Welcome, Guest</p>
+                <p class="navbar-text navbar-right">Welcome,</p>
 
             </div>
         </div>

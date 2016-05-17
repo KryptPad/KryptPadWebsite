@@ -33,8 +33,7 @@
                 $('#login-form').submit();
 
             }).fail(function (error) {
-
-                // Set busy state
+                // Set busy state to false
                 self.isBusy(false);
 
                 app.processError(error, function (message) {
@@ -42,8 +41,6 @@
                     self.errorMessage(message);
                 });
 
-            }).complete(function () {
-                // Leave busy state for login success
             });
         }
 

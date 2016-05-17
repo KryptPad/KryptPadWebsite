@@ -107,7 +107,7 @@
             });
 
             // When there is no route defined
-            this.get('', function () { this.app.runRoute('get', '#profiles') });
+            this.get('/app', function () { this.app.runRoute('get', '#profiles') });
 
         }).run();
     }
