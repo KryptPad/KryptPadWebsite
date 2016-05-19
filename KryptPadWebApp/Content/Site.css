@@ -65,6 +65,12 @@ textarea {
     margin-bottom: 0;
 }
 
+/* Middle content */
+.middle {
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
 /* Set the color of the navbar */
 .navbar {
     border-radius: 0;
@@ -201,9 +207,9 @@ td:last-child {
     padding: 15px;
 }
 
-.card:hover {
-    background-color: rgba(255, 255, 255, 0.20);
-}
+    .card:hover {
+        background-color: rgba(255, 255, 255, 0.20);
+    }
 
 /* Social bar */
 .social-bar {
