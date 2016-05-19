@@ -82,19 +82,18 @@ textarea {
     border: none;
 }
 
-    .navbar-inverse .nav.navbar-nav li > p {
-        color: #aeddff;
-    }
-
     .navbar-inverse .nav.navbar-nav li > a,
+    .navbar-inverse .navbar-text a,
     .navbar-inverse .navbar-brand {
         color: #aeddff;
         transition: all 200ms ease-in-out;
     }
 
         .navbar-inverse .nav.navbar-nav li > a:hover,
+        .navbar-inverse .navbar-text a:hover,
         .navbar-inverse .navbar-brand:hover {
             color: white;
+            text-decoration: none;
         }
 
 /* Styles for the login section */

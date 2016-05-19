@@ -31,24 +31,27 @@
                     Krypt Pad
                 </a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div id="user-info" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.RouteUrl("About")">About</a></li>
 
                 </ul>
-                <ul id="user-info" class="nav navbar-nav navbar-right">
-                    <li data-bind="visible: isAuthenticated" style="display:none;">
-                        <a href="/app#account" data-bind="text: username"></a>
-                    </li>
-                    
+
+                <ul class="nav navbar-nav navbar-right">
                     <li data-bind="visible: isAuthenticated" style="display:none;"><a href="#" data-bind="click: logout">Log Out</a></li>
-
                 </ul>
-                <!-- ko ifnot: isAuthenticated -->
-                <p class="navbar-text navbar-right">Guest</p>
-                <!-- /ko -->
 
-                <p class="navbar-text navbar-right">Welcome,</p>
+                <p class="navbar-text navbar-right">
+                    <span>Welcome,</span>
+                    <!-- ko ifnot: isAuthenticated -->
+                    <span>Guest</span>
+                    <!-- /ko -->
+                    @*Display the username*@
+                    <span data-bind="visible: isAuthenticated">
+                        <a href="/app#account" data-bind="text: username"></a>
+                    </span>
+
+                </p>
 
             </div>
         </div>
@@ -104,7 +107,7 @@
                 self.logout = function () {
                     // Clear the token from the storage
                     app.logout();
-                    
+
                 }
             }
 
@@ -122,4 +125,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 </body>
+
+
+
 </html>

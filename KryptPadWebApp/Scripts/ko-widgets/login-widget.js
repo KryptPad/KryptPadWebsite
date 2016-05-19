@@ -5,25 +5,15 @@
         self.username = ko.observable();
         self.password = ko.observable();
         self.isBusy = ko.observable(false);
-        self.errorMessage = ko.observable();
+        self.message = ko.observable();
                 
         // Log in
         self.login = function () {
 
             // Set busy state
             self.isBusy(true);
-
-            var loginData = {
-                grant_type: 'password',
-                username: self.username(),
-                password: self.password()
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/token',
-                data: loginData
-            }).done(function (data) {
+            // Login
+            app.login(self.username(), self.password()).done(function (data) {
                 // Cache the access token in session storage.
                 app.setToken(data);
             
@@ -38,7 +28,7 @@
 
                 app.processError(error, function (message) {
                     // Show the error somewhere
-                    self.errorMessage(message);
+                    self.message(app.createMessage(app.MSG_ERROR, message));
                 });
 
             });

@@ -38,6 +38,24 @@
         }
     }
 
+    // Sign into the system
+    app.login = function (username, password) {
+
+        // Create post data
+        var postData = {
+            grant_type: 'password',
+            username: username,
+            password: password
+        };
+
+        // Send to token endpoint
+        return $.ajax({
+            type: 'POST',
+            url: '/token',
+            data: postData
+        });
+    }
+
     // Clears the token from storage
     app.logout = function () {
         // Clear the session token

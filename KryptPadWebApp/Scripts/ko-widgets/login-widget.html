@@ -7,10 +7,7 @@
 
         <form id="login-form" method="post" action='/app#profiles'>
 
-            <div class="alert alert-danger" style="display: none" data-bind="visible: errorMessage">
-                <p data-bind="html: errorMessage">
-                </p>
-            </div>
+            <message-widget params="message: message"></message-widget>
 
             <small><label for="username">Email</label></small>
             <input type="text" id="username" class="form-control" data-bind="value: username"

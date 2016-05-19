@@ -5,12 +5,9 @@
     <!--Sign up-->
     <div data-bind="visible: !isBusy()">
 
-        <form method="post" action='#signup'>
+        <form id="sign-up-form" method="post" action='#signup'>
 
-            <div class="alert alert-danger" style="display: none" data-bind="visible: errorMessage">
-                <p data-bind="html: errorMessage">
-                </p>
-            </div>
+            <message-widget params="message: message"></message-widget>
 
             <small><label for="sign-up-email">Email</label></small>
             <input type="text" id="sign-up-email" class="form-control" data-bind="value: email"
@@ -33,6 +30,12 @@
 
         </form>
 
+    </div>
+
+    <!--Spinner-->
+    <div class="wait-spinner" data-bind="visible: isBusy">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+        <span class="lead">Just a moment...</span>
     </div>
 </div>
 
