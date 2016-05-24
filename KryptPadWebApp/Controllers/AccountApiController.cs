@@ -32,7 +32,7 @@ namespace KryptPadWebApp.Controllers
         //POST: Register
         [HttpPost]
         [Route("Register", Name = "Register")]
-        public async Task<IHttpActionResult> Register(ApiAccount accountInfo)
+        public async Task<IHttpActionResult> Register(CreateAccountRequest model)
         {
             // Check if we have a valid model state
             if (!ModelState.IsValid)
@@ -42,18 +42,27 @@ namespace KryptPadWebApp.Controllers
             }
 
             // Create the user in the database
-            var user = new ApplicationUser { UserName = accountInfo.Email, Email = accountInfo.Email };
-            var result = await UserManager.CreateAsync(user, accountInfo.Password);
+            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+            var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#confirm-email?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
 
-                // Send the email
-                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                try
+                {
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#confirm-email?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
 
+                    // Send the email
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                }
+                catch (Exception)
+                {
+                    // Could not send email
+                }
+                
                 // All is ok
                 return Ok();
             }
