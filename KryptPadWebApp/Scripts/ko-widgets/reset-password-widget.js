@@ -12,6 +12,14 @@
         self.password = ko.observable();
         self.confirmPassword = ko.observable();
 
+        self.resetEnabled = ko.pureComputed(function () {
+            var pw = ko.unwrap(self.password);
+            var cp = ko.unwrap(self.confirmPassword);
+            // Enable sign up button when the email, password and confirm password fields are filled out
+            // properly.
+            return ko.unwrap(self.email) && pw && pw === cp;
+        });
+
         // Behaviors
         self.reset = function () {
             // Send all the data we need to the api to reset the password

@@ -4,7 +4,8 @@
 
         self.email = ko.observable();
         self.isBusy = ko.observable(false);
-        self.errorMessage = ko.observable();
+        self.message = ko.observable();
+        self.linkSent = ko.observable(false);
 
         // User forgot password
         self.sendLink = function () {
@@ -21,15 +22,16 @@
                 data: postData
             }).done(function (data) {
                 // Success
-                self.errorMessage(null);
-                // Go back to login
-                window.location.hash = "login";
+                self.message(app.createMessage(app.MSG_SUCCESS, "If the email address you provided is associated to your account, you should receive an email shortly with instructions on how to change your password."));
+                
+                // Set the flag
+                self.linkSent(true);
 
             }).fail(function (error) {
                 // Failed
                 app.processError(error, function (message) {
                     // Show the error somewhere
-                    self.errorMessage(message);
+                    self.message(app.createMessage(app.MSG_ERROR, message));
                 });
 
             }).always(function () {

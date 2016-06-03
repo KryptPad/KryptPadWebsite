@@ -9,6 +9,14 @@
         self.password = ko.observable();
         self.confirmPassword = ko.observable();
 
+        self.signUpEnabled = ko.pureComputed(function () {
+            var pw = ko.unwrap(self.password);
+            var cp = ko.unwrap(self.confirmPassword);
+            // Enable sign up button when the email, password and confirm password fields are filled out
+            // properly.
+            return ko.unwrap(self.email) && pw && pw === cp;
+        });
+
         // Behaviors
         self.signup = function () {
             // Set busy state

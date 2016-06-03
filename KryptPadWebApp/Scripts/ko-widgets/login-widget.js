@@ -6,6 +6,11 @@
         self.password = ko.observable();
         self.isBusy = ko.observable(false);
         self.message = ko.observable();
+
+        self.signInEnabled = ko.pureComputed(function () {
+            // Sign in button is only enabled when email and password are filled out
+            return ko.unwrap(self.username) && ko.unwrap(self.password);
+        });
                 
         // Log in
         self.login = function () {

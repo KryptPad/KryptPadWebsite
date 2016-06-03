@@ -10,22 +10,22 @@
             <message-widget params="message: message"></message-widget>
 
             <small><label for="sign-up-email">Email</label></small>
-            <input type="text" id="sign-up-email" class="form-control" data-bind="value: email"
+            <input type="text" id="sign-up-email" class="form-control" data-bind="textInput: email"
                    placeholder="example@domain.com" />
 
 
             <small><label for="sign-up-password">Password</label></small>
-            <input type="password" id="sign-up-password" class="form-control" data-bind="value: password"
+            <input type="password" id="sign-up-password" class="form-control" data-bind="textInput: password"
                    placeholder="Password" />
 
 
             <small><label for="sign-up-confirm-password">Confirm password</label></small>
-            <input type="password" id="sign-up-confirm-password" class="form-control" data-bind="value: confirmPassword"
+            <input type="password" id="sign-up-confirm-password" class="form-control" data-bind="textInput: confirmPassword"
                    placeholder="Password" />
 
             <br />
             <p>
-                <button data-bind="click: signup" class="btn btn-primary">Sign Up</button>
+                <button data-bind="click: signup, enable: signUpEnabled" class="btn btn-primary">Sign Up</button>
             </p>
 
         </form>
