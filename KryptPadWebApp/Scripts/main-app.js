@@ -44,6 +44,12 @@
                 global.location = '/app';
             });
 
+            // POST: Signup
+            this.post('#signup', function (context) {
+                // Sign up was successfull, refresh
+                global.location = '/app';
+            });
+
             // GET: Forgot-Password
             this.get('#forgot-password', function (context) {
                 // Trigger rebind of template
