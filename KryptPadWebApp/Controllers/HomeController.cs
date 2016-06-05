@@ -29,7 +29,7 @@ namespace KryptPadWebApp.Controllers
             // Create the view model for our view
             var model = new HomeIndexViewModel();
 
-            // TODO: Increase download count
+            // Increase download count
             await model.IncrementDownloadCount();
 
             // Return the file
@@ -38,6 +38,12 @@ namespace KryptPadWebApp.Controllers
 
         [Route("Policy", Name = "Policy")]
         public ActionResult Policy()
+        {
+            return View();
+        }
+
+        [Route("Terms", Name = "Terms")]
+        public ActionResult Terms()
         {
             return View();
         }

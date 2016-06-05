@@ -7,83 +7,48 @@
     <div class="hero hero-main hero-blue">
         <div class="container text-center">
 
-
             <h1>Krypt Pad</h1>
-            <p class="lead">Secure password manager for Windows</p>
-
-
+            <p class="lead">Secure credential manager</p>
             <p>
-                Download Krypt Pad for Windows Desktop Beta 4 for Windows 7, 8, 10
+                Windows 10 app coming Summer 2016!
             </p>
+            @*Account interactions*@
+            <div>
+                <p>
+                    <a href="@Url.RouteUrl("App")" title="Sign in" class="btn btn-info">Sign in or create an account</a>
+                    
+                </p>
+            </div>
 
-            <a href="@Url.RouteUrl("Download")" title="Download Now">
-                <div class="circle circle-lg center-block">
-
-                    <i class="glyphicon glyphicon-download-alt"></i>
-
-                </div>
-            </a>
-
+            @*Download supported clients*@
             <p>
-                <small><span>@Model.NumDownloads</span> Downloads | <span>@Model.FileSize</span></small>
+                Download Krypt Pad for Windows desktop beta 4
             </p>
+            <div>
+                <a href="@Url.RouteUrl("Download")" title="Download Now" class="card-link">
+                    <div class="card">
+                        <p>
+                            <i class="fa fa-windows fa-3x" aria-hidden="true"></i>
+                        </p>
 
+                        <i class="fa fa-download fa-lg" aria-hidden="true"></i>
+                    </div>
+                </a>
+            </div>
+
+            <hr />
+            <p>
+                <small>
+                    Krypt Pad for Windows desktop beta 4 is being discontinued... for now. It will still be available for download, but
+                    will no longer be updated. I may pick it up again in the future if there is a demand for it.
+                </small>
+            </p>
         </div>
 
     </div>
 }
 
-
-@*This is the login section*@
-@*<div id="login-section" class="hero hero-transparent" style="display: none;" data-bind="visible: !isAuthenticated()">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 login border-right">
-                    <div>
-
-                        <form id="login-form" method="post" action='@Url.RouteUrl("Profiles")' data-bind="visible: !isBusy()">
-
-                            <h2>Log In</h2>
-
-                            <div class="alert alert-danger" style="display: none" data-bind="visible: errorMessage">
-                                <p data-bind="text: errorMessage">
-                                </p>
-                            </div>
-
-                            <small><label for="username">Email</label></small>
-                            <input type="text" id="username" class="form-control" data-bind="value: username"
-                                   placeholder="example@domain.com" />
-
-
-                            <small><label for="password">Password</label></small>
-                            <input type="password" id="password" class="form-control" data-bind="value: password"
-                                   placeholder="Password" />
-
-                            <br />
-                            <p data-bind="visible: !isBusy()">
-                                <button id="login-button" data-bind="click: login" class="btn btn-primary">Log In</button>
-                            </p>
-
-                        </form>
-
-                        @{Html.RenderPartial("_BusyIndicator", "Signing you in"); }
-
-                    </div>
-                </div>
-                <div class="col-sm-6 login">
-                    <div class="">
-                        <h2>Sign Up</h2>
-                        <p class="lead">Don't have an account? Sign up for free!</p>
-                        <p>
-                            <button id="login-button" class="btn btn-default">Sign Up</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-<div class="text-center">
+<div class="text-center middle">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- KP_RESP_1 -->
     <ins class="adsbygoogle"
@@ -96,59 +61,30 @@
     </script>
 </div>
 
-
-<div class="container">
-    <div class="row same-height">
-        <div class="col-md-4 ">
-            <div class="card text-center">
-                <img src="~/Content/Images/safe128x128.png" class="hidden-sm hidden-xs" />
-                <h2>Safe &amp; Secure</h2>
-                <p><a class="btn btn-default" href="#secure">Learn more &raquo;</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 ">
-            <div class="card text-center">
-                <img src="~/Content/Images/cloud128x128.png" class="hidden-sm hidden-xs" />
-                <h2>Stored in the Cloud</h2>
-                <p><a class="btn btn-default" href="#cloud">Learn more &raquo;</a></p>
-            </div>
-        </div>
-        <div class="col-md-4 ">
-            <div class="card text-center">
-                <img src="~/Content/Images/favorite2128x128.png" class="hidden-sm hidden-xs" />
-                <h2>Donation Supported</h2>
-                <p><a class="btn btn-default" href="#donate">Learn more &raquo;</a></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
+@*Main content*@
 <div class="hero hero-transparent ">
     <div class="container text-center">
         <p class="h1">How it works</p>
         <p class="lead">
             Keeping track of all your passwords, credit cards, and other personal information can be difficult, or even impossible
             (unless you have a photographic memory). But for the rest of us, Krypt Pad can store sensitive information and keep it
-            safe for you.
+            safe. Your data is encrypted and synced across all your compatible devices.
         </p>
         <p class="lead">
-            Your data is encrypted and stored in a document. You can save that document on a flash drive, on your computer, or even
-            in OneDrive, DropBox, Google Drive, or any other cloud storage service you'd like. Install Krypt Pad for Windows Desktop
-            on all your computers, and access your data from those machines.
+
         </p>
     </div>
 
 </div>
 
-
+@*Safe & secure*@
 <div id="secure" class="hero hero-light-blue">
     <div class="container">
 
         <div class="row">
             <div class="col-md-5">
                 <p class="h1">Safe &amp; Secure</p>
-                <p>
+                <p class="lead">
                     Security is important, especially when you are storing credentials, credit card numbers, bank information, and other
                     sesitive data. Everything is protected using AES 256bit encryption.
                 </p>
@@ -162,7 +98,7 @@
     </div>
 </div>
 
-<div class="text-center">
+<div class="text-center middle">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- KP_RESP_2 -->
     <ins class="adsbygoogle"
@@ -175,30 +111,19 @@
     </script>
 </div>
 
-<div id="cloud" class="hero hero-transparent">
-    <div class="container text-center">
-        <p class="h1">Stored in the Cloud</p>
-        <p class="lead">
-            Krypt Pad for Windows Desktop can store your personal information in your favorite cloud storage platform. Your
-            documents sync across supported devices.
-        </p>
-        <div class="visible-md-block visible-lg-block">
-            <img src="~/Content/Images/screen.png" />
-            <img src="~/Content/Images/sync128x128.png" />
-            <img src="~/Content/Images/screen.png" />
-        </div>
-    </div>
-</div>
-
-
-
+@*Donations*@
 <div id="donate" class="hero hero-light-red">
     <div class="container">
 
         <div class="row">
+
+            <div class="col-md-5 visible-md-block visible-lg-block">
+                <img src="~/Content/Images/favorite2.png" />
+            </div>
+            
             <div class="col-md-5">
                 <p class="h1">Donation Supported</p>
-                <p>
+                <p class="lead">
                     Krypt Pad is supported by donations. Your contributions help support future development.
                     You are free to donate as much as you'd like; there's no preset amount.
                 </p>
@@ -210,15 +135,14 @@
                 </form>
             </div>
 
-            <div class="col-md-5 visible-md-block visible-lg-block">
-                <img src="~/Content/Images/favorite2.png" />
-            </div>
         </div>
 
     </div>
 </div>
 
-<div class="text-center">
+
+
+<div class="text-center middle">
 
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- KP_RESP_3 -->
@@ -234,98 +158,6 @@
 </div>
 
 
-<div class="container text-center">
-    <p class="h1">Krypt Pad Universal coming soon!</p>
-    <p class="lead">
-        Krypt Pad for Desktop Beta 5, and Krypt Pad Universal for Windows 10 and Windows 10 Mobile will be coming soon in 2016! The Windows 10 version
-        will be able to import the desktop version's documents, but will store your data online so you can access it from all your devices!
-    </p>
-    <p>Follow Krypt Pad for updates</p>
-    <p>
-        <a href="https://www.facebook.com/KryptPad/"><img src="~/Content/Images/social_facebook.png" /></a>
-        <a href="https://twitter.com/KryptPad"><img src="~/Content/Images/social_twitter.png" /></a>
-    </p>
-
-</div>
-
-
 @section scripts{
-    @*
-        <script>
-            (function () {
 
-                function LoginViewModel() {
-                    var self = this;
-
-                    self.username = ko.observable('ebutler@test.com');
-                    self.password = ko.observable();
-                    self.isAuthenticated = ko.observable(app.isAuthenticated());
-                    self.isBusy = ko.observable(false);
-                    self.errorMessage = ko.observable();
-
-                    self.login = function () {
-
-                        // Set busy state
-                        self.isBusy(true);
-
-                        var loginData = {
-                            grant_type: 'password',
-                            username: self.username(),
-                            password: self.password()
-                        };
-
-                        $.ajax({
-                            type: 'POST',
-                            url: '/token',
-                            data: loginData
-                        }).done(function (data) {
-                            // Cache the access token in session storage.
-                            app.setToken(data);
-
-                            // Go to the main account page. We submit the form so that
-                            // browsers will offer to save password, but we don't do anything
-                            // with the values on the server side
-                            $('#login-form').submit();
-
-                        }).fail(function (error) {
-
-                            // Set busy state
-                            self.isBusy(false);
-
-                            app.processError(error, function (message) {
-                                // Show the error somewhere
-                                self.errorMessage(message);
-                            });
-
-                        }).complete(function () {
-                            // Leave busy state for login success
-                        });
-                    }
-                }
-
-                ko.applyBindings(new LoginViewModel(), $('#login-section')[0]);
-
-                //$('.same-height').each(function (index, element) {
-                //    var max = 0;
-
-                //    // Make each element in the same-height class
-                //    $(element).find('.card').each(function (x, elem) {
-                //        var $div = $(elem);
-                //        if ($div.height() > max) {
-                //            max = $div.height();
-                //        }
-                //    });
-
-                //    // Use the max value to apply the height
-                //    $(element).find('.card').height(max + 'px');
-
-                //});
-
-
-
-
-            })();
-
-        </script>
-    *@
 }

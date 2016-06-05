@@ -1,0 +1,47 @@
+﻿<div class="container">
+
+    <p>
+        Select your profile from the list below
+    </p>
+
+    <div class="alert alert-warning">
+        <p>
+            Currently, you cannot edit profiles from here. You must install the Windows 10 app from the App Store.
+            The ability to edit your profiles from the website will be added soon. Sorry for the inconvenience.
+        </p>
+    </div>
+    <div class="alert alert-danger" data-bind="visible: errorMessage" style="display: none;">
+        <p data-bind="html: errorMessage"></p>
+    </div>
+
+    <!--Profiles view-->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Profile</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody data-bind="foreach: profiles">
+            <tr>
+                <td data-bind="text: Name"></td>
+                <td>
+                    <i class="fa fa-trash-o fa-lg"></i>
+                </td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+    <!-- ko if: profiles().length === 0 -->
+    <span>You don't have any profiles created. Download the Krypt Pad Windows 10 app from the appstore to add profiles.</span>
+    <!-- /ko -->
+
+    <!--Spinner-->
+    <div class="wait-spinner" data-bind="visible: isBusy">
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+        <span class="lead">Just a moment...</span>
+    </div>
+</div>

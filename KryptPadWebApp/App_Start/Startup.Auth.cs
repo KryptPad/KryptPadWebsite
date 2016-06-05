@@ -70,11 +70,17 @@ namespace KryptPadWebApp
             var OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/token"),
-                Provider = new ApiOAuthAuthorizationServerProvider(PublicClientId),
+                Provider = new AccessTokenProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/account/external"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                // Note: Remove the following line before you deploy to production:
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(5),
+                //RefreshTokenProvider = new RefreshTokenProvider(),
+
+                // In DEBUG mode, we allow insecure HTTP
+                #if DEBUG
                 AllowInsecureHttp = true
+                #else
+                AllowInsecureHttp = false
+                #endif
             };
 
             // Enable the application to use bearer tokens to authenticate users

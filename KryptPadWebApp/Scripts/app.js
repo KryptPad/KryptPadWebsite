@@ -2,11 +2,11 @@
     var app = global.app = global.app || {};
 
     // Define some app level variables
+    app.MSG_ERROR = 0;
+    app.MSG_SUCCESS = 1;
 
     // This represents the key for our token response
     app.tokenKey = 'token';
-    app.homeRoute = "/";
-
     // Define some functions for our app
 
     // Gets the token object from storage
@@ -38,10 +38,30 @@
         }
     }
 
+    // Sign into the system
+    app.login = function (username, password) {
+
+        // Create post data
+        var postData = {
+            grant_type: 'password',
+            username: username,
+            password: password
+        };
+
+        // Send to token endpoint
+        return $.ajax({
+            type: 'POST',
+            url: '/token',
+            data: postData
+        });
+    }
+
     // Clears the token from storage
     app.logout = function () {
         // Clear the session token
         sessionStorage.removeItem(app.tokenKey);
+        // Go to sign in page
+        global.location = "/app";
     }
 
     // Returns true if the user is authenticated
@@ -65,9 +85,14 @@
         return headers;
     };
 
+    // Shorthand method to create a message
+    app.createMessage = function (type, message) {
+        return { type: type, message: message };
+    };
+
     app.processError = function (error, fail) {
         var message = '';
-
+        
         // Get the error message
         if (error.responseJSON && error.responseJSON.error_description) {
             // Get the error message from OAuth
@@ -76,6 +101,23 @@
         } else if (error.responseJSON && error.responseJSON.Message) {
             // Get the error message from .net
             message = error.responseJSON.Message;
+
+            if (error.responseJSON.ModelState) {
+                var state = error.responseJSON.ModelState;
+                var errors = [];
+                // Get all the errors
+                for (var property in state) {
+                    
+                    if (state.hasOwnProperty(property)) {
+                        // Add errors to the list
+                        errors.push(state[property].join("<br />"));
+                        
+                    }
+                }
+
+                message += '<br />' + errors.join('<br />');
+            }
+
         } else {
             message = "An unknown error has occurred.";
         }
@@ -84,6 +126,8 @@
         if (error.status == 401) {
             // The web call was unauthorized
             message = "You are not authorized to perform this action.";
+            // Sign out
+            app.logout();
         }
 
         // Call the fail callback

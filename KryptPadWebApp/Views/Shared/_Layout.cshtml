@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    @*Link FontAwesome CDN*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    
     <title>@ViewBag.Title - Krypt Pad</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -28,20 +31,27 @@
                     Krypt Pad
                 </a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div id="user-info" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.RouteUrl("About")">About</a></li>
 
                 </ul>
-                <ul id="user-info" class="nav navbar-nav navbar-right">
-                    <li data-bind="visible: isAuthenticated" style="display:none;">
-                        <a href="@Url.RouteUrl("Home")" data-bind="text: username"></a>
-                    </li>
-                    <li data-bind="visible: isAuthenticated" style="display:none;"><a href="#" data-bind="click: logout">Log Out</a></li>
 
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-bind="visible: isAuthenticated" style="display:none;"><a href="#" data-bind="click: logout">Log Out</a></li>
                 </ul>
 
-                <p data-bind="visible: !isAuthenticated()" class="navbar-text navbar-right" >Welcome, Guest</p>
+                <p class="navbar-text navbar-right">
+                    <span>Welcome,</span>
+                    <!-- ko ifnot: isAuthenticated -->
+                    <span>Guest</span>
+                    <!-- /ko -->
+                    @*Display the username*@
+                    <span data-bind="visible: isAuthenticated">
+                        <a href="/app#account" data-bind="text: username"></a>
+                    </span>
+
+                </p>
 
             </div>
         </div>
@@ -64,12 +74,14 @@
 
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - KryptPad.com</p>
+            <p>Copyright &copy; @DateTime.Now.Year - KryptPad.com</p>
         </footer>
         <div class="row">
             <div class="col-sm-4">
                 <h5>Resources</h5>
                 <a href="@Url.RouteUrl("Policy")">Policy</a>
+                <br />
+                <a href="@Url.RouteUrl("Terms")">License Terms</a>
             </div>
             <div class="col-sm-4">
                 <h5>Links</h5>
@@ -95,8 +107,7 @@
                 self.logout = function () {
                     // Clear the token from the storage
                     app.logout();
-                    // Redirect to home page
-                    window.location = '@Url.RouteUrl("Home")';
+
                 }
             }
 
@@ -114,4 +125,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
 </body>
+
+
+
 </html>

@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="app" class="container">
+
+    @*Placeholder for the active template*@
+    <div data-bind="template: { name: template, data: templateOptions }"></div>
+
+
+
+    @*
+        Templates
+        These templates load components so that the html and view model can reside in separate files
+    *@
+
+    @*Login*@
+    <script id="login-template" type="text/html">
+
+        <!--This is the login section-->
+        <div id="login-section" class="container">
+
+            <div class="row">
+                <div class="col-sm-6 login border-right">
+                    @*Login section*@
+                    <login-widget></login-widget>
+                </div>
+                <div class="col-sm-6 login">
+                    @*Sign up section*@
+                    <sign-up-widget></sign-up-widget>
+                </div>
+            </div>
+
+        </div>
+
+    </script>
+
+    @*Forgot password*@
+    <script id="forgot-password-template" type="text/html">
+        <forgot-password-widget></forgot-password-widget>
+    </script>
+
+    @*Reset password*@
+    <script id="reset-password-template" type="text/html">
+        <reset-password-widget params="data: $data"></reset-password-widget>
+    </script>
+
+    @*Confirm email*@
+    <script id="confirm-email-template" type="text/html">
+        <confirm-email-widget params="data: $data"></confirm-email-widget>
+    </script>
+
+    @*Profiles*@
+    <script id="profiles-template" type="text/html">
+        <profiles-widget></profiles-widget>
+    </script>
+
+</div>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/app")
+
+}

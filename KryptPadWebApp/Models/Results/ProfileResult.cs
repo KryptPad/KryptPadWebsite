@@ -9,12 +9,14 @@ namespace KryptPadWebApp.Models.Results
     {
         public Profile[] Profiles { get; set; }
 
-        public ProfileResult()        {        }
+        public ProfileResult() { }
         public ProfileResult(Profile[] profiles)
         {
+
             Profiles = profiles;
+
         }
     }
 
-    
+
 }

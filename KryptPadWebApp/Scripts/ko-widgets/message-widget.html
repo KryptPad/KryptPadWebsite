@@ -1,0 +1,14 @@
+﻿
+<!-- ko if: isError -->
+<div class="alert alert-danger">
+    <p data-bind="html: messageText">
+    </p>
+</div>
+<!-- /ko -->
+
+<!-- ko if: isSuccess -->
+<div class="alert alert-success">
+    <p data-bind="html: messageText">
+    </p>
+</div>
+<!-- /ko -->
