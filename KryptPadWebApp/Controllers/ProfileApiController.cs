@@ -276,7 +276,7 @@ namespace KryptPadWebApp.Controllers
                 // Create context
                 using (var ctx = new ApplicationDbContext())
                 {
-                    var profile = (from p in ctx.Profiles
+                    var profile = (from p in ctx.Profiles.Include(p => p.User)
                                    where p.User.Id == UserId
                                    && p.Id == id
                                    select p).SingleOrDefault();
