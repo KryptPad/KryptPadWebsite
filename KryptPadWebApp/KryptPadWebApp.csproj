@@ -415,6 +415,7 @@
     <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.exe.deploy" />
     <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.exe.manifest" />
     <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.Security.dll.deploy" />
+    <None Include="Properties\PublishProfiles\Live WebDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\Live.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
