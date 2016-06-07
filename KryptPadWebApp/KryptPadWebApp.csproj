@@ -366,6 +366,55 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_28\file_icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_28\Images\icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.application" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.exe.config.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.exe.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.exe.manifest" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.Security.dll.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_32\file_icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_32\Images\icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.application" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.exe.config.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.exe.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.exe.manifest" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.Security.dll.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_33\file_icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_33\Images\icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.application" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.exe.config.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.exe.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.exe.manifest" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.Security.dll.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_34\file_icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_34\Images\icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.application" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.exe.config.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.exe.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.exe.manifest" />
+    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.Security.dll.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_0_35\file_icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_0_35\Images\icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.application" />
+    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.exe.config.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.exe.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.exe.manifest" />
+    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.Security.dll.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_5_36\file_icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_5_36\Images\icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.application" />
+    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.exe.config.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.exe.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.exe.manifest" />
+    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.Security.dll.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_7_5_37\file_icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_7_5_37\Images\icon.ico.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.application" />
+    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.exe.config.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.exe.deploy" />
+    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.exe.manifest" />
+    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.Security.dll.deploy" />
     <None Include="Properties\PublishProfiles\Live.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
@@ -424,9 +473,7 @@
     <Content Include="Views\App\Index.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="files\Application Files\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
