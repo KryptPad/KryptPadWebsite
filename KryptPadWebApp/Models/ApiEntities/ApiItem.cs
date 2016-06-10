@@ -17,6 +17,7 @@ namespace KryptPadWebApp.Models.ApiEntities
         /// Gets or sets the name of the item
         /// </summary>
         [Required]
+        [RegularExpression(@"^([a-zA-Z0-9_\s]+)$", ErrorMessage = "Name can only contain numbers, letters, spaces, and underscores")]
         public string Name { get; set; }
 
         /// <summary>
@@ -27,6 +28,7 @@ namespace KryptPadWebApp.Models.ApiEntities
         /// <summary>
         /// Gets or sets the ID of the category
         /// </summary>
+        [Required]
         public int CategoryId { get; set; }
 
         /// <summary>

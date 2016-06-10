@@ -17,6 +17,7 @@ namespace KryptPadWebApp.Models.ApiEntities
         /// Gets or sets the name of the profile
         /// </summary>
         [Required]
+        [RegularExpression(@"^([a-zA-Z0-9_\s]+)$", ErrorMessage = "Name can only contain numbers, letters, spaces, and underscores")]
         public string Name { get; set; }
         
     }

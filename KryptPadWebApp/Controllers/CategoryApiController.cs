@@ -40,7 +40,7 @@ namespace KryptPadWebApp.Controllers
         [Route("", Name = "ProfileCategories")]
         public IHttpActionResult Get(int profileId)
         {
-                        
+
             using (var ctx = new ApplicationDbContext())
             {
                 var categories = (from c in ctx.Categories
@@ -60,36 +60,42 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(int profileId, [FromBody]ApiCategory request)
         {
-
-            using (var ctx = new ApplicationDbContext())
+            if (ModelState.IsValid)
             {
-
-                // Find the profile
-                var profile = (from p in ctx.Profiles
-                               where p.User.Id == UserId &&
-                               p.Id == profileId
-                               select p).SingleOrDefault();
-
-                // Did we find one?
-                if (profile == null)
+                using (var ctx = new ApplicationDbContext())
                 {
-                    return BadRequest("The specified profile does not exist.");
+
+                    // Find the profile
+                    var profile = (from p in ctx.Profiles
+                                   where p.User.Id == UserId &&
+                                   p.Id == profileId
+                                   select p).SingleOrDefault();
+
+                    // Did we find one?
+                    if (profile == null)
+                    {
+                        return BadRequest("The specified profile does not exist.");
+                    }
+
+                    var category = new Category();
+
+                    // Encrypt the category name
+                    category.Name = Encryption.EncryptToString(request.Name, Passphrase);
+
+                    // Set the profile to the category
+                    category.Profile = profile;
+
+                    // Add to the context
+                    ctx.Categories.Add(category);
+                    // Save changes
+                    await ctx.SaveChangesAsync();
+
+                    return Ok(category.Id);
                 }
-
-                var category = new Category();
-
-                // Encrypt the category name
-                category.Name = Encryption.EncryptToString(request.Name, Passphrase);
-
-                // Set the profile to the category
-                category.Profile = profile;
-
-                // Add to the context
-                ctx.Categories.Add(category);
-                // Save changes
-                await ctx.SaveChangesAsync();
-
-                return Ok(category.Id);
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
 
 
@@ -98,33 +104,39 @@ namespace KryptPadWebApp.Controllers
         // PUT:
         [HttpPut]
         [Route("{id}")]
-        public async Task<IHttpActionResult> Put(int profileId, int id, [FromBody]Category category)
+        public async Task<IHttpActionResult> Put(int profileId, int id, [FromBody]ApiCategory category)
         {
-
-            using (var ctx = new ApplicationDbContext())
+            if (ModelState.IsValid)
             {
-
-                // Find the profile
-                var obj = (from c in ctx.Categories.Include((x) => x.Items).Include((x) => x.Profile)
-                           where c.Id == id
-                               && c.Profile.Id == profileId
-                               && c.Profile.User.Id == UserId
-                           select c).FirstOrDefault();
-
-
-                // Did we find one?
-                if (obj == null)
+                using (var ctx = new ApplicationDbContext())
                 {
-                    return BadRequest("The specified category does not exist.");
+
+                    // Find the profile
+                    var obj = (from c in ctx.Categories.Include((x) => x.Items).Include((x) => x.Profile)
+                               where c.Id == id
+                                   && c.Profile.Id == profileId
+                                   && c.Profile.User.Id == UserId
+                               select c).FirstOrDefault();
+
+
+                    // Did we find one?
+                    if (obj == null)
+                    {
+                        return BadRequest("The specified category does not exist.");
+                    }
+
+                    // Encrypt the category name
+                    obj.Name = Encryption.EncryptToString(category.Name, Passphrase);
+
+                    // Save changes
+                    await ctx.SaveChangesAsync();
+
+                    return Ok(obj.Id);
                 }
-
-                // Encrypt the category name
-                obj.Name = Encryption.EncryptToString(category.Name, Passphrase);
-
-                // Save changes
-                await ctx.SaveChangesAsync();
-
-                return Ok(obj.Id);
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
         }
 
