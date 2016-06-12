@@ -47,22 +47,15 @@ namespace KryptPadWebApp.Controllers
             if (result.Succeeded)
             {
 
-                try
-                {
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#confirm-email?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#confirm-email?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
 
-                    // Send the email
-                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                // Send the email
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                }
-                catch (Exception)
-                {
-                    // Could not send email
-                }
-                
+
                 // All is ok
                 return Ok();
             }
@@ -93,22 +86,16 @@ namespace KryptPadWebApp.Controllers
                     return Ok();
                 }
 
-                try
-                {
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                    var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#reset-password?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
 
-                    // Send the email
-                    await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#reset-password?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
 
-                    return Ok();
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
+                // Send the email
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                return Ok();
 
             }
 
