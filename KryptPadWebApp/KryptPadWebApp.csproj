@@ -454,7 +454,6 @@
     <Content Include="Scripts\sammy-0.7.5.js" />
     <Content Include="Scripts\sammy-0.7.5.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -473,6 +472,7 @@
     <Content Include="Scripts\jquery-2.2.3.min.map" />
     <Content Include="Views\App\Index.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
+    <Content Include="Views\Shared\_AppLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

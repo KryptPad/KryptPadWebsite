@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @*Link FontAwesome CDN*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <title>@ViewBag.Title - Krypt Pad</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        (function () {
+
+            function UserInfoViewModel() {
+                var self = this;
+
+                // Get user name
+                self.isAuthenticated = ko.observable(app.isAuthenticated());
+                self.username = ko.observable(app.getUserName());
+
+                self.logout = function () {
+                    // Clear the token from the storage
+                    app.logout();
+
+                }
+            }
+
+            ko.applyBindings(new UserInfoViewModel(), $('#user-info')[0]);
+
+        })();
+    </script>
+
+</body>
+</html>
