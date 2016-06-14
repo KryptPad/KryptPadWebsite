@@ -473,6 +473,7 @@
     <Content Include="Views\App\Index.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Shared\_AppLayout.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
