@@ -11,39 +11,20 @@
     <title>@ViewBag.Title - Krypt Pad</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("css", required: false)
+
+
 
 
 </head>
 <body>
-    <div class="container">
-        @RenderBody()
-    </div>
+    
+    @RenderBody()
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-
-    <script>
-        (function () {
-
-            function UserInfoViewModel() {
-                var self = this;
-
-                // Get user name
-                self.isAuthenticated = ko.observable(app.isAuthenticated());
-                self.username = ko.observable(app.getUserName());
-
-                self.logout = function () {
-                    // Clear the token from the storage
-                    app.logout();
-
-                }
-            }
-
-            ko.applyBindings(new UserInfoViewModel(), $('#user-info')[0]);
-
-        })();
-    </script>
+    
 
 </body>
 </html>

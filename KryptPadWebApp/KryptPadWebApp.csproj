@@ -349,6 +349,7 @@
     <Content Include="Content\Images\social_facebook.png" />
     <Content Include="Content\Images\social_twitter.png" />
     <Content Include="Content\Images\sync128x128.png" />
+    <Content Include="Content\SignIn.css" />
     <Content Include="favicon.ico" />
     <Content Include="files\autorun.inf" />
     <Content Include="files\publish.htm" />
@@ -474,6 +475,7 @@
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Shared\_AppLayout.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\App\SignIn.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

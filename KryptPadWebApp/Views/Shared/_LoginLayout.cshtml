@@ -4,5 +4,12 @@
     Layout = "~/Views/Shared/_AppLayout.cshtml";
 }
 
-<h2>_LoginLayout</h2>
+@section css{
+    @Styles.Render("~/Content/css/signin")    
+}
 
+<div class="container">
+    @RenderBody()
+</div>
+
+@RenderSection("scripts", required: false)
