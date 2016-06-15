@@ -1,3 +1,19 @@
 ﻿body {
-    background-color: #a4d8eb
+    background-color: #5c9ccb;
 }
+
+.login-wrapper {
+    color: #fff;
+}
+
+    .login-wrapper .login-section {
+        color:#000;
+        background-color: #d6eaf1;
+        border: 1px solid #c8e9f5;
+        border-radius: 6px;
+        padding: 15px;
+    }
+
+        .login-wrapper .login-section .input-group {
+            margin-bottom: 15px;
+        }

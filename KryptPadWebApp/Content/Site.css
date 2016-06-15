@@ -21,11 +21,11 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
+/*input,
 select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 /* Heros */
 .hero {

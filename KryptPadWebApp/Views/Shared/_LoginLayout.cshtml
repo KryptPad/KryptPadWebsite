@@ -12,4 +12,6 @@
     @RenderBody()
 </div>
 
-@RenderSection("scripts", required: false)
+@section scripts{
+    @Scripts.Render("~/bundles/signin")
+}

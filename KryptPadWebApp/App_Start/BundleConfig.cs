@@ -14,11 +14,8 @@ namespace KryptPadWebApp
                         "~/Scripts/knockout-{version}.js",
                         "~/Scripts/knockout-loaders.js",
                         "~/Scripts/app.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                        "~/Scripts/ko-widgets/*.js",
-                        "~/Scripts/main-app.js"));
-
+            
+            // jQuery validate - not sure if it will be used
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -35,8 +32,24 @@ namespace KryptPadWebApp
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            // Create a bundle for the ko widgets
+            bundles.Add(new ScriptBundle("~/bundles/widgets").Include(
+                        "~/Scripts/ko-widgets/*.js"));
+
+            // Create bundle for the main app
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                        "~/Scripts/main-app.js"));
+
+            // Sign in specific styles and scripts
+
+            // Bundle for sign in stuff
+            bundles.Add(new ScriptBundle("~/bundles/signin").Include(
+                        "~/Scripts/signin.js"));
+
             bundles.Add(new StyleBundle("~/Content/css/signin").Include(
                       "~/Content/SignIn.css"));
+
+
         }
     }
 }

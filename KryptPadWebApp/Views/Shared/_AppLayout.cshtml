@@ -11,6 +11,7 @@
     <title>@ViewBag.Title - Krypt Pad</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
     @RenderSection("css", required: false)
 
 
@@ -21,10 +22,11 @@
     
     @RenderBody()
     
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/widgets")
     
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

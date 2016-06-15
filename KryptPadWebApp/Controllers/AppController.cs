@@ -15,5 +15,12 @@ namespace KryptPadWebApp.Controllers
         {
             return View();
         }
+
+        // GET: App
+        [Route("SignIn", Name = "SignIn")]
+        public ActionResult SignIn()
+        {
+            return View();
+        }
     }
 }

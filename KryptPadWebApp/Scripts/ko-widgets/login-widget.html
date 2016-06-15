@@ -1,6 +1,6 @@
 ﻿<div>
-    <p class="h1">Welcome back</p>
-    <p class="lead">Sign in to your account</p>
+    
+    <p class="lead text-center">SIGN IN</p>
 
     <!--Login-->
     <div data-bind="visible: !isBusy()">
@@ -9,20 +9,33 @@
 
             <message-widget params="message: message"></message-widget>
 
-            <small><label for="username">Email</label></small>
-            <input type="text" id="username" class="form-control" data-bind="textInput: username"
-                   placeholder="example@domain.com" />
-
-
-            <small><label for="password">Password</label></small>
-            <input type="password" id="password" class="form-control" data-bind="textInput: password"
-                   placeholder="Password" />
-
-            <br />
+            <label class="sr-only" for="username">Email</label>
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-user fa-fw"></i>
+                </span>
+                <input type="text" id="username" class="form-control" data-bind="textInput: username"
+                       placeholder="email: example@domain.com" />
+            </div>
+            
+            <label class="sr-only" for="password">Password</label>
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="fa fa-key fa-fw"></i>
+                </span>
+                <input type="password" id="password" class="form-control" data-bind="textInput: password"
+                       placeholder="password" />
+            </div>
+            
             <p>
-                <button data-bind="click: login, enable: signInEnabled" class="btn btn-primary">Sign In</button>
-                <a href="#forgot-password" class="btn btn-link">I forgot my password</a>
+                <button data-bind="click: login, enable: signInEnabled" class="btn btn-primary btn-block">Sign In</button> 
             </p>
+
+            <span>
+                <a href="#forgot-password">I forgot my password</a>
+                |
+                <a href="/app/signup" >Sign up for an account</a>   
+            </span>
 
         </form>
 
