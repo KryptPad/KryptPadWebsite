@@ -5,7 +5,7 @@
 }
 
 @section css{
-    @Styles.Render("~/Content/css/signin")    
+    @RenderSection("css", required: false)   
 }
 
 <div class="container">
@@ -13,5 +13,5 @@
 </div>
 
 @section scripts{
-    @Scripts.Render("~/bundles/signin")
+    @RenderSection("scripts", required: false)
 }

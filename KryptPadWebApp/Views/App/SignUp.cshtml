@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Sign Up";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+@section css{
+    @Styles.Render("~/Content/css/signin")
+}
+
+<div class="container">
+
+    @*Row for the login form*@
+    <div class="row">
+
+        <div class="col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
+            <div class="login-wrapper">
+                <h1 class="">
+                    <img src="~/Content/Images/Square176x176Logo.png" class="logo" />
+                    Krypt Pad
+                </h1>
+                <div id="signup" class="login-section">
+                    @*Signup section*@
+                    <p class="lead text-center">SIGN UP</p>
+
+                    <!--Sign up-->
+                    <div data-bind="visible: !isBusy()">
+
+                        <form id="sign-up-form" method="post" action='@Url.RouteUrl("SignIn")'>
+
+                            <message-widget params="message: message"></message-widget>
+
+                            <small><label for="sign-up-email">Email</label></small>
+                            <input type="text" id="sign-up-email" class="form-control" data-bind="textInput: email"
+                                   placeholder="example@domain.com" />
+
+
+                            <small><label for="sign-up-password">Password</label></small>
+                            <input type="password" id="sign-up-password" class="form-control" data-bind="textInput: password"
+                                   placeholder="Password" />
+
+
+                            <small><label for="sign-up-confirm-password">Confirm password</label></small>
+                            <input type="password" id="sign-up-confirm-password" class="form-control" data-bind="textInput: confirmPassword"
+                                   placeholder="Password" />
+
+                            <br />
+                            <p>
+                                <button data-bind="click: signup, enable: signUpEnabled" class="btn btn-primary">Sign Up</button>
+                                <a href="@Url.RouteUrl("SignIn")" class="btn btn-default">Cancel</a>
+                            </p>
+
+                        </form>
+
+                    </div>
+
+                    <!--Spinner-->
+                    <div class="wait-spinner" data-bind="visible: isBusy">
+                        <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
+                        <span class="lead">Just a moment...</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="~/Scripts/signup.js"></script>
+}

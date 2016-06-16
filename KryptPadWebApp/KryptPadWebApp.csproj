@@ -438,8 +438,6 @@
     <Content Include="Scripts\ko-widgets\confirm-email-widget.js" />
     <Content Include="Scripts\ko-widgets\forgot-password-widget.html" />
     <Content Include="Scripts\ko-widgets\forgot-password-widget.js" />
-    <Content Include="Scripts\ko-widgets\login-widget.html" />
-    <Content Include="Scripts\ko-widgets\login-widget.js" />
     <Content Include="Scripts\ko-widgets\message-widget.html" />
     <Content Include="Scripts\ko-widgets\message-widget.js" />
     <Content Include="Scripts\ko-widgets\profiles-widget.html" />
@@ -457,6 +455,7 @@
     <Content Include="Scripts\sammy-0.7.5.js" />
     <Content Include="Scripts\sammy-0.7.5.min.js" />
     <Content Include="Scripts\signin.js" />
+    <Content Include="Scripts\signup.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -478,11 +477,14 @@
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Shared\_AppLayout.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\App\SignIn.cshtml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Views\App\SignIn.cshtml" />
+    <Content Include="Views\App\ForgotPassword.cshtml" />
+    <Content Include="Views\App\SignUp.cshtml" />
+    <Content Include="Views\App\ResetPassword.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Shared\AppWidgets\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

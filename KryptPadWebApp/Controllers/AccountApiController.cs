@@ -73,7 +73,7 @@ namespace KryptPadWebApp.Controllers
         }
 
         [HttpPost]
-        [Route("Forgot-Password", Name = "ForgotPassword")]
+        [Route("Forgot-Password")]
         public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordRequest model)
         {
             if (ModelState.IsValid)
@@ -86,7 +86,7 @@ namespace KryptPadWebApp.Controllers
                     return Ok();
                 }
 
-
+                
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -104,7 +104,7 @@ namespace KryptPadWebApp.Controllers
         }
 
         [HttpPost]
-        [Route("Reset-Password", Name = "ResetPassword")]
+        [Route("Reset-Password")]
         public async Task<IHttpActionResult> ResetPassword(ResetPasswordRequest model)
         {
             if (!ModelState.IsValid)
