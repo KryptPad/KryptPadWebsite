@@ -348,8 +348,10 @@
     <Content Include="Content\Images\screen.png" />
     <Content Include="Content\Images\social_facebook.png" />
     <Content Include="Content\Images\social_twitter.png" />
+    <Content Include="Content\Images\Square176x176Logo.png" />
     <Content Include="Content\Images\sync128x128.png" />
     <Content Include="Content\SignIn.css" />
+    <Content Include="Content\Images\Square44x44Logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="files\autorun.inf" />
     <Content Include="files\publish.htm" />

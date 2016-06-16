@@ -1,13 +1,17 @@
 ﻿body {
-    background-color: #5c9ccb;
+    background-color: #155686;
 }
 
 .login-wrapper {
     color: #fff;
 }
 
+    .login-wrapper .logo {
+        width: 100px;
+    }
+
     .login-wrapper .login-section {
-        color:#000;
+        color: #000;
         background-color: #d6eaf1;
         border: 1px solid #c8e9f5;
         border-radius: 6px;
