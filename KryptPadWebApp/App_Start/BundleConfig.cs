@@ -38,13 +38,13 @@ namespace KryptPadWebApp
 
             // Create bundle for the main app
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                        "~/Scripts/main-app.js"));
+                        "~/Scripts/app/main-app.js"));
 
             // Sign in specific styles and scripts
 
             // Bundle for sign in stuff
             bundles.Add(new ScriptBundle("~/bundles/signin").Include(
-                        "~/Scripts/signin.js"));
+                        "~/Scripts/app/sign-in.js"));
 
             bundles.Add(new StyleBundle("~/Content/css/signin").Include(
                       "~/Content/SignIn.css"));

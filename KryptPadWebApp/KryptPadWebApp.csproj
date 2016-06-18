@@ -424,6 +424,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\app\forgot-password.js" />
     <Content Include="Scripts\jquery-2.2.3.js" />
     <Content Include="Scripts\jquery-2.2.3.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -446,7 +447,7 @@
     <Content Include="Scripts\ko-widgets\reset-password-widget.js" />
     <Content Include="Scripts\ko-widgets\sign-up-widget.html" />
     <Content Include="Scripts\ko-widgets\sign-up-widget.js" />
-    <Content Include="Scripts\main-app.js" />
+    <Content Include="Scripts\app\main-app.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
@@ -454,8 +455,8 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\sammy-0.7.5.js" />
     <Content Include="Scripts\sammy-0.7.5.min.js" />
-    <Content Include="Scripts\signin.js" />
-    <Content Include="Scripts\signup.js" />
+    <Content Include="Scripts\app\sign-in.js" />
+    <Content Include="Scripts\app\sign-up.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -481,6 +482,7 @@
     <Content Include="Views\App\ForgotPassword.cshtml" />
     <Content Include="Views\App\SignUp.cshtml" />
     <Content Include="Views\App\ResetPassword.cshtml" />
+    <Content Include="Views\App\_SignIn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\AppWidgets\" />

@@ -10,6 +10,7 @@
         // Create some observables for our model
 
         // Store the name of the current view in this observable
+        self.viewMode = ko.observable();
         self.template = ko.observable();
         // Pass in options to our template with this observable
         self.templateOptions = ko.observable();
@@ -29,13 +30,26 @@
             return true;
         };
 
+        // Sets the view for the user
+        self.setView = function (isAuthenticated) {
+            // Check if user is authenticated
+            if (isAuthenticated) {
+                self.viewMode('authenticated-template');
+            } else {
+                self.viewMode('unauthenticated-template');
+            }
+        };
+
         // Setup routes
         Sammy(function () {
 
             // GET: Login
             this.get('#login', function (context) {
                 // Trigger rebind of template
+                delete self.templateOptions();
                 self.template('login-template');
+                self.templateOptions(new SignInViewModel());
+                
             });
 
             // POST: Login
@@ -53,7 +67,7 @@
             // GET: Forgot-Password
             this.get('#forgot-password', function (context) {
                 // Trigger rebind of template
-                self.template('forgot-password-template');
+                //self.template('forgot-password-template');
             });
 
             // GET: Reset-Password
@@ -69,9 +83,9 @@
                     };
 
                     // Set the options
-                    self.templateOptions(model);
+                    //self.templateOptions(model);
                     // Trigger rebind of template
-                    self.template('reset-password-template');
+                    //self.template('reset-password-template');
                 }
                 else {
                     // Show some error or go back to login
@@ -93,9 +107,9 @@
                     };
 
                     // Set the options
-                    self.templateOptions(model);
+                    //self.templateOptions(model);
                     // Trigger rebind of template
-                    self.template('confirm-email-template');
+                    //self.template('confirm-email-template');
                 }
                 else {
                     // Show some error or go back to login
@@ -108,7 +122,7 @@
                 // Check to see if we are authenticated
                 if (self.isSignedIn()) {
                     // Trigger rebind of template
-                    self.template('profiles-template');
+                    //self.template('profiles-template');
                 }
             });
 
@@ -116,6 +130,51 @@
             this.get('/app', function () { this.app.runRoute('get', '#profiles') });
 
         }).run();
+
+        // Set initial view mode
+        self.setView(self.isSignedIn());
+    }
+
+    // Sign in view model
+    function SignInViewModel() {
+        var self = this;
+        
+        self.username = ko.observable();
+        self.password = ko.observable();
+        self.isBusy = ko.observable(false);
+        self.message = ko.observable();
+
+        self.signInEnabled = ko.pureComputed(function () {
+            // Sign in button is only enabled when email and password are filled out
+            return ko.unwrap(self.username) && ko.unwrap(self.password);
+        });
+
+        // Log in
+        self.login = function () {
+
+            // Set busy state
+            self.isBusy(true);
+            // Login
+            app.login(self.username(), self.password()).done(function (data) {
+                // Cache the access token in session storage.
+                app.setToken(data);
+
+                // Login successful, submit form for route handling. The route
+                // will be picked up in the main-app.js file, and it will load
+                // the profiles view
+                $('#login-form').submit();
+
+            }).fail(function (error) {
+                // Set busy state to false
+                self.isBusy(false);
+
+                app.processError(error, function (message) {
+                    // Show the error somewhere
+                    self.message(app.createMessage(app.MSG_ERROR, message));
+                });
+
+            });
+        }
     }
 
     // Create model

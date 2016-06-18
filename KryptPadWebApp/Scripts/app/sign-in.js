@@ -6,7 +6,7 @@
     // App view model
     function ViewModel() {
         var self = this;
-        debugger
+        
         self.username = ko.observable();
         self.password = ko.observable();
         self.isBusy = ko.observable(false);
