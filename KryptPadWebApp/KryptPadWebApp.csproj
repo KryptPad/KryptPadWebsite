@@ -359,7 +359,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\functions.js" />
     <Content Include="files\KryptPad.application" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -482,7 +482,7 @@
     <Content Include="Views\App\ForgotPassword.cshtml" />
     <Content Include="Views\App\SignUp.cshtml" />
     <Content Include="Views\App\ResetPassword.cshtml" />
-    <Content Include="Views\App\_SignIn.cshtml" />
+    <Content Include="Views\App\_Profiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\AppWidgets\" />

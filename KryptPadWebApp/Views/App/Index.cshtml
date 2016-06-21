@@ -7,63 +7,13 @@
 
 
 @*Placeholder for the active template*@
-<div data-bind="template: { name: viewMode }"></div>
-
-
-@*
-    We have two views, an authenticated view, and an unauthenticated view. The authenticated
-    view is for displaying the actual app itself, while the unauthenticated view is for login,
-    signup, forgot password, etc...
-*@
-<script id="unauthenticated-template" type="text/html">
-
-    <div class="unauthenticated">
-        <div class="container">
-
-            @*Row for the login form*@
-            <div class="row">
-
-                <div class="col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
-                    <div class="login-wrapper">
-                        <h1 class="">
-                            <img src="~/Content/Images/Square176x176Logo.png" class="logo" />
-                            Krypt Pad
-                        </h1>
-
-                        @*Active view template*@
-                        <div data-bind="template: { name: template, data: templateOptions }"></div>
-
-                        @*Templates for unauthenticated view*@
-                        <script id="login-template" type="text/html">
-                            @{ Html.RenderPartial("_SignIn"); }
-                        </script>
-
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-</script>
+<div data-bind="template: { name: template, data: templateModel }"></div>
 
 
 @*
     Templates
     These templates load components so that the html and view model can reside in separate files
 *@
-
-@*Login*@
-
-
-@*Forgot password*@
-<script id="forgot-password-template" type="text/html">
-    <forgot-password-widget></forgot-password-widget>
-</script>
 
 @*Reset password*@
 <script id="reset-password-template" type="text/html">
@@ -76,8 +26,9 @@
 </script>
 
 @*Profiles*@
-<script id="profiles-template" type="text/html">
-    <profiles-widget></profiles-widget>
-</script>
+@{ Html.RenderPartial("_Profiles");}
 
 
+@section scripts{
+    @Scripts.Render("~/bundles/app")
+}

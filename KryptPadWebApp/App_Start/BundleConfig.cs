@@ -13,7 +13,7 @@ namespace KryptPadWebApp
                         "~/Scripts/sammy-{version}.js",
                         "~/Scripts/knockout-{version}.js",
                         "~/Scripts/knockout-loaders.js",
-                        "~/Scripts/app.js"));
+                        "~/Scripts/functions.js"));
             
             // jQuery validate - not sure if it will be used
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

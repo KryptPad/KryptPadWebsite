@@ -39,7 +39,7 @@ namespace KryptPadWebApp.Controllers
 
         // GET: ResetPassword
         [Route("ResetPassword", Name = "ResetPassword")]
-        public ActionResult ResetPassword()
+        public ActionResult ResetPassword(string code, string userId)
         {
             return View();
         }
