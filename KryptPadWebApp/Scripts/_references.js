@@ -1,6 +1,7 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="app/forgot-password.js" />
 /// <reference path="app/main-app.js" />
+/// <reference path="app/reset-password.js" />
 /// <reference path="app/sign-in.js" />
 /// <reference path="app/sign-up.js" />
 /// <reference path="bootstrap.min.js" />

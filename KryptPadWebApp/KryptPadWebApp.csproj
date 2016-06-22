@@ -359,6 +359,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\app\reset-password.js" />
     <Content Include="Scripts\functions.js" />
     <Content Include="files\KryptPad.application" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
