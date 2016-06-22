@@ -7,7 +7,7 @@
         var self = this;
 
         // Store the data we got passed
-        self.code = '';//params.data.code;
+        self.code = app.request('code');
 
         // Define some observables
         self.isBusy = ko.observable(false);
@@ -15,6 +15,7 @@
         self.email = ko.observable();
         self.password = ko.observable();
         self.confirmPassword = ko.observable();
+        self.success = ko.observable(false);
 
         self.resetEnabled = ko.pureComputed(function () {
             var pw = ko.unwrap(self.password);
@@ -40,7 +41,9 @@
                 data: postData
             }).done(function (data) {
                 // Success
-                self.message(null);
+                self.message(app.createMessage(app.MSG_SUCCESS, "Your password has been changed."));
+                // Set flag
+                self.success(true);
 
             }).fail(function (error) {
                 // Failed

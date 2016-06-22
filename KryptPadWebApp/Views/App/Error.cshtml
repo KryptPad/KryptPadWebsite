@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div id="confirm-email" class="login-section">
+
+    <p class="lead text-center">ERROR</p>
+
+    <div class="alert alert-danger">
+        <span>An error has occurred.</span>
+    </div>
+
+    <div>
+        <a href="@Url.RouteUrl("SignIn")" class="btn btn-default">Back to Home</a>
+    </div>
+
+</div>

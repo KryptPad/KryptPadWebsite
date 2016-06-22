@@ -92,7 +92,7 @@
 
     app.processError = function (error, fail) {
         var message = '';
-        
+
         // Get the error message
         if (error.responseJSON && error.responseJSON.error_description) {
             // Get the error message from OAuth
@@ -107,11 +107,11 @@
                 var errors = [];
                 // Get all the errors
                 for (var property in state) {
-                    
+
                     if (state.hasOwnProperty(property)) {
                         // Add errors to the list
                         errors.push(state[property].join("<br />"));
-                        
+
                     }
                 }
 
@@ -134,6 +134,12 @@
         if (typeof fail === 'function') {
             fail(message);
         }
+    };
+
+    // Gets the value from the request param
+    app.request = function(name) {
+        if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
+            return decodeURIComponent(name[1]);
     }
 
 })(window);

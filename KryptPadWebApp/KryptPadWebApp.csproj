@@ -484,6 +484,8 @@
     <Content Include="Views\App\SignUp.cshtml" />
     <Content Include="Views\App\ResetPassword.cshtml" />
     <Content Include="Views\App\_Profiles.cshtml" />
+    <Content Include="Views\App\ConfirmEmail.cshtml" />
+    <Content Include="Views\App\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\AppWidgets\" />

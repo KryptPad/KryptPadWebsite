@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Confirm Email";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div id="confirm-email" class="login-section">
+
+    <p class="lead text-center">CONFIRM EMAIL</p>
+
+    <div class="alert alert-success" >
+        <span>Your email address has been confirmed</span>
+    </div>
+    
+    <div>
+        <a href="@Url.RouteUrl("SignIn")" class="btn btn-default">Go back to Sign In page</a>
+    </div>
+
+</div>

@@ -50,7 +50,7 @@ namespace KryptPadWebApp.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}/app#confirm-email?userId={user.Id}&code={HttpUtility.UrlEncode(code)}";
+                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ConfirmEmail", new { userId = user.Id, code = code })}";
 
                 // Send the email
                 await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
@@ -132,7 +132,7 @@ namespace KryptPadWebApp.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Confirm-Email", Name = "ConfirmEmail")]
+        [Route("Confirm-Email")]
         public async Task<IHttpActionResult> ConfirmEmail(ConfirmEmailRequest model)
         {
             if (!ModelState.IsValid)
