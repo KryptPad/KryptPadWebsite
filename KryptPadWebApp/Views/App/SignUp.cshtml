@@ -4,39 +4,46 @@
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
-@*App section*@
-<div id="signup" class="login-section">
-   
-    <p class="lead text-center">SIGN UP</p>
+@*Header*@
+<div class="login-header text-center">
+    <span class="lead ">SIGN UP</span>
+</div>
 
-    <!--Sign up-->
+@*Main body*@
+<div id="signup" class="login-body">
+
+    @*Form*@
     <div data-bind="visible: !isBusy()">
 
         <form id="sign-up-form" method="post" action='@Url.RouteUrl("SignIn")'>
 
             <message-widget params="message: message"></message-widget>
 
-            <small><label for="sign-up-email">Email</label></small>
-            <input type="text" id="sign-up-email" class="form-control" data-bind="textInput: email"
-                   placeholder="example@domain.com" />
+            <p>
+                <small><label class="sr-only" for="sign-up-email">Email</label></small>
+                <input type="text" id="sign-up-email" class="form-control" data-bind="textInput: email"
+                       placeholder="email: example@domain.com" />
+            </p>
 
+            <p>
+                <small><label class="sr-only" for="sign-up-password">Password</label></small>
+                <input type="password" id="sign-up-password" class="form-control" data-bind="textInput: password"
+                       placeholder="Password" />
+            </p>
 
-            <small><label for="sign-up-password">Password</label></small>
-            <input type="password" id="sign-up-password" class="form-control" data-bind="textInput: password"
-                   placeholder="Password" />
+            <p>
+                <small><label class="sr-only" for="sign-up-confirm-password">Confirm password</label></small>
+                <input type="password" id="sign-up-confirm-password" class="form-control" data-bind="textInput: confirmPassword"
+                       placeholder="Confirm password" />
 
-
-            <small><label for="sign-up-confirm-password">Confirm password</label></small>
-            <input type="password" id="sign-up-confirm-password" class="form-control" data-bind="textInput: confirmPassword"
-                   placeholder="Password" />
-
-            <br />
+            </p>
             <p>
                 <button data-bind="click: signup, enable: signUpEnabled" class="btn btn-primary">Sign Up</button>
                 <a href="@Url.RouteUrl("SignIn")" class="btn btn-default">Cancel</a>
             </p>
 
         </form>
+
 
     </div>
 

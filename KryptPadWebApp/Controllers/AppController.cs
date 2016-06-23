@@ -54,30 +54,46 @@ namespace KryptPadWebApp.Controllers
         [Route("ResetPassword", Name = "ResetPassword")]
         public ActionResult ResetPassword(string userId, string code)
         {
-            return View();
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                return RedirectToRoute("SignIn", null);
+            }
+            else
+            {
+                return View();
+            }
+               
         }
 
         // GET: ResetPassword
         [Route("ConfirmEmail", Name = "ConfirmEmail")]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                return RedirectToRoute("SignIn", null);
+            }
+
+            try
+            {
+                // Confirm the email address
+                var result = await UserManager.ConfirmEmailAsync(userId, code);
+
+                // Return OK if the account was confirmed successfully
+                if (result.Succeeded)
+                {
+                    return View();
+                }
+                else
+                {
+                    throw new Exception("User does not exist");
+                }
+            }
+            catch (Exception)
             {
                 return View("Error");
             }
-
-            // Confirm the email address
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-
-            // Return OK if the account was confirmed successfully
-            if (result.Succeeded)
-            {
-                return View();
-            }
-            else
-            {
-                return View("Error");
-            }
+            
             
         }
     }

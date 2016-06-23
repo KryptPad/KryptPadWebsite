@@ -1,22 +1,34 @@
 ﻿body {
-    background-color: #155686;
+    background-color: #173a55;
 }
 
 .login-wrapper {
     color: #fff;
 }
 
+
     .login-wrapper .logo {
         width: 100px;
     }
 
     .login-wrapper .login-section {
-        color: #000;
-        background-color: #d6eaf1;
-        border: 1px solid #c8e9f5;
-        border-radius: 6px;
-        padding: 15px;
+        color: #333;
     }
+
+        .login-wrapper .login-section .login-header {
+            padding: 15px;
+            background-color: #67a4de;
+            color: #fff;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .login-wrapper .login-section .login-body {
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            background-color: #e0e0e0;
+            padding: 15px;
+        }
 
         .login-wrapper .login-section .input-group {
             margin-bottom: 15px;

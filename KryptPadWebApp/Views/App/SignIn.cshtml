@@ -4,11 +4,13 @@
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
-@*Signin section*@
-<div id="signin" class="login-section">
+@*Header*@
+<div class="login-header text-center">
+    <span class="lead ">SIGN IN</span>
+</div>
 
-    <p class="lead text-center">SIGN IN</p>
-
+@*Main body*@
+<div id="signin" class="login-body">
     <!--Login-->
     <div data-bind="visible: !isBusy()">
 
@@ -38,9 +40,9 @@
                 <button data-bind="click: login, enable: signInEnabled" class="btn btn-primary btn-block">Sign In</button>
             </p>
 
-            <div class="text-center">
+            <div>
                 <span>
-                    <a href="@Url.RouteUrl("ForgotPassword")">I forgot my password</a>
+                    <a href="@Url.RouteUrl("ForgotPassword")">Forgot password</a>
                     |
                     <a href="@Url.RouteUrl("SignUp")">Sign up for an account</a>
                 </span>
@@ -54,8 +56,9 @@
         <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
         <span class="lead">Just a moment...</span>
     </div>
-
 </div>
+
+
 
 @section scripts{
     @Scripts.Render("~/bundles/signin")
