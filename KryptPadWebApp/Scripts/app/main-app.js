@@ -29,6 +29,11 @@
             return true;
         };
 
+        // Sign out of the system
+        self.signOut = function () {
+            app.logout();
+        };
+
         // Switches the template to a new one
         self.switchTemplate = function (name, model) {
             // Remove existing template

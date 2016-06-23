@@ -61,7 +61,7 @@
         // Clear the session token
         sessionStorage.removeItem(app.tokenKey);
         // Go to sign in page
-        global.location = "/app";
+        global.location = "/app/signin";
     }
 
     // Returns true if the user is authenticated

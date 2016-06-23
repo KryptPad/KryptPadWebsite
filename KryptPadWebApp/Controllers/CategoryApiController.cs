@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Http;
 using System.Data.Entity;
 using KryptPadWebApp.Models.ApiEntities;
+using KryptPadWebApp.Cryptography;
 
 namespace KryptPadWebApp.Controllers
 {

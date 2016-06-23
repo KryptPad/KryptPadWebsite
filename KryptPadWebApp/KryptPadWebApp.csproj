@@ -333,6 +333,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Dashboard.css" />
     <Content Include="Content\Images\cloud-secure.png" />
     <Content Include="Content\Images\cloud.png" />
     <Content Include="Content\Images\cloud128x128.png" />
@@ -436,18 +437,8 @@
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="Scripts\knockout-loaders.js" />
-    <Content Include="Scripts\ko-widgets\confirm-email-widget.html" />
-    <Content Include="Scripts\ko-widgets\confirm-email-widget.js" />
-    <Content Include="Scripts\ko-widgets\forgot-password-widget.html" />
-    <Content Include="Scripts\ko-widgets\forgot-password-widget.js" />
     <Content Include="Scripts\ko-widgets\message-widget.html" />
     <Content Include="Scripts\ko-widgets\message-widget.js" />
-    <Content Include="Scripts\ko-widgets\profiles-widget.html" />
-    <Content Include="Scripts\ko-widgets\profiles-widget.js" />
-    <Content Include="Scripts\ko-widgets\reset-password-widget.html" />
-    <Content Include="Scripts\ko-widgets\reset-password-widget.js" />
-    <Content Include="Scripts\ko-widgets\sign-up-widget.html" />
-    <Content Include="Scripts\ko-widgets\sign-up-widget.js" />
     <Content Include="Scripts\app\main-app.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
@@ -486,6 +477,7 @@
     <Content Include="Views\App\_Profiles.cshtml" />
     <Content Include="Views\App\ConfirmEmail.cshtml" />
     <Content Include="Views\App\Error.cshtml" />
+    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Shared\AppWidgets\" />

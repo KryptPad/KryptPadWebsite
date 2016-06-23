@@ -1,0 +1,59 @@
+﻿body {
+}
+
+.app-header {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+    .app-header ul.header-menu {
+        list-style: none;
+    }
+
+        .app-header ul.header-menu > li {
+            float: left;
+        }
+
+        .app-header .header-menu .header-button,
+        .app-header .header-menu .header-button {
+            display: inline-block;
+            line-height: 20px;
+            padding: 15px;
+        }
+
+        .app-header .header-menu .dropdown.header-button,
+        .app-header .header-menu .dropdown.header-button {
+            padding: 0;
+        }
+
+            .app-header .header-menu .dropdown.header-button:hover,
+            .app-header .header-menu .dropdown.header-button:focus,
+            .app-header .header-menu .header-button:hover,
+            .app-header .header-menu .header-button:focus {
+                background-color: #eee;
+            }
+
+
+            .app-header .header-menu .dropdown.header-button > a,
+            .app-header .header-menu .header-button {
+                text-decoration: none;
+            }
+
+                .app-header .header-menu .dropdown.header-button > a:hover,
+                .app-header .header-menu .dropdown.header-button > a:focus,
+                .app-header .header-menu .header-button:hover,
+                .app-header .header-menu .header-button:focus {
+                    text-decoration: none;
+                }
+
+            .app-header .header-menu .dropdown.header-button > a > .profile-pic {
+                width: 50px;
+                height: 50px;
+            }
+
+            .app-header .header-menu .dropdown.header-button > a > span {
+                vertical-align: middle;
+                display: inline-block;
+                line-height: 50px;
+                padding: 0 5px;
+            }

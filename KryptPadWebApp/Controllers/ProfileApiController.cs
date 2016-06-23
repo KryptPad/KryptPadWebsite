@@ -14,6 +14,7 @@ using System.Data.Entity;
 using System.Transactions;
 using Newtonsoft.Json.Linq;
 using KryptPadWebApp.Models.Requests;
+using KryptPadWebApp.Cryptography;
 
 namespace KryptPadWebApp.Controllers
 {

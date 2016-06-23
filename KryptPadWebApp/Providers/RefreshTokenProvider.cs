@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin.Security;
+﻿using KryptPadWebApp.Cryptography;
+using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
 using System;
 using System.Collections.Concurrent;
@@ -27,7 +28,7 @@ namespace KryptPadWebApp.Providers
             var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
 
             // Hash the handle and store it
-            var hashedGuid = Models.Encryption.Hash(guid, new byte[] { 9, 28, 187, 245, 132, 89, 205, 112 });
+            var hashedGuid = Encryption.Hash(guid, new byte[] { 9, 28, 187, 245, 132, 89, 205, 112 });
 
             //_refreshTokens.TryAdd(guid, context.Ticket);
             _refreshTokens.TryAdd(hashedGuid, refreshTokenTicket);

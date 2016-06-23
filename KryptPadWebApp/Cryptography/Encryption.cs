@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 
-namespace KryptPadWebApp.Models
+namespace KryptPadWebApp.Cryptography
 {
     public class Encryption
     {
@@ -315,6 +315,42 @@ namespace KryptPadWebApp.Models
 
             // Convert to string
             return Convert.ToBase64String(resultBytes);
+        }
+
+        public static byte[] HashMD5(string plainText)
+        {
+            // Create digest instance to compute our hash
+            var hash = new MD5Digest();
+
+            // Create a buffer large enough to store the computed hash
+            var resultBytes = new byte[hash.GetDigestSize()];
+
+            // Convert plain text string to bytes
+            var plainBytes = Encoding.UTF8.GetBytes(plainText);
+
+            // Process the bytes
+            hash.BlockUpdate(plainBytes, 0, plainBytes.Length);
+
+            // Process final output
+            hash.DoFinal(resultBytes, 0);
+
+            // Convert to string
+            return resultBytes;
+        }
+
+        /// <summary>
+        /// Converts a byte array to a hex string
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string ByteArrayToHex(byte[] bytes)
+        {
+            StringBuilder sb = new StringBuilder(bytes.Length * 2);
+            foreach (byte b in bytes)
+            {
+                sb.AppendFormat("{0:x2}", b);
+            }
+            return sb.ToString();
         }
 
         #endregion

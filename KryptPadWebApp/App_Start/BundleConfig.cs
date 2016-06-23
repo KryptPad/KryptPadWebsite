@@ -49,6 +49,9 @@ namespace KryptPadWebApp
             bundles.Add(new StyleBundle("~/Content/css/signin").Include(
                       "~/Content/SignIn.css"));
 
+            // Bundle for dashboard
+            bundles.Add(new StyleBundle("~/Content/css/dashboard").Include(
+                      "~/Content/Dashboard.css"));
 
         }
     }

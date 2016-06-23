@@ -1,7 +1,7 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/_AppLayout.cshtml";
-    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Dashboardlayout.cshtml";
+    ViewBag.Title = "My Profiles";
 }
 
 
@@ -14,15 +14,7 @@
     Templates
 *@
 
-@*Confirm email*@
-<script id="confirm-email-template" type="text/html">
-    <confirm-email-widget params="data: $data"></confirm-email-widget>
-</script>
-
 @*Profiles*@
 @{ Html.RenderPartial("_Profiles");}
 
 
-@section scripts{
-    @Scripts.Render("~/bundles/app")
-}
