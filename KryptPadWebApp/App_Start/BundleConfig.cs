@@ -13,6 +13,7 @@ namespace KryptPadWebApp
                         "~/Scripts/sammy-{version}.js",
                         "~/Scripts/knockout-{version}.js",
                         "~/Scripts/knockout-loaders.js",
+                        "~/Scripts/md5.js",
                         "~/Scripts/functions.js"));
             
             // jQuery validate - not sure if it will be used

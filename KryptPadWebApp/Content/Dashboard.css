@@ -1,6 +1,7 @@
 ﻿body {
 }
 
+/*Header*/
 .app-header {
     border-bottom: 1px solid #eee;
     margin-bottom: 15px;
@@ -14,11 +15,14 @@
             float: left;
         }
 
+        /*Buttons and text*/
         .app-header .header-menu .header-button,
-        .app-header .header-menu .header-button {
+        .app-header .header-menu .header-button,
+        .app-header .header-menu .header-text {
             display: inline-block;
             line-height: 20px;
             padding: 15px;
+            margin: 0;
         }
 
         .app-header .header-menu .dropdown.header-button,

@@ -12,13 +12,18 @@
 <div id="app" class="container">
 
     <div class="app-header clearfix">
+
+        <div class="pull-left">
+
+        </div>
+
         <div class="pull-right">
 
             <ul class="header-menu">
                 <li>
-                    <a class="header-button" role="button">
-                        Some button
-                    </a>
+                    <p class="header-text visible-lg-inline-block visible-md-inline-block visible-sm-inline-block" data-bind="text: $root.userName">
+                        
+                    </p>
                 </li>
                 
                 @*cd53aabfe965b55c3c3de4e789c373cf*@
@@ -26,7 +31,7 @@
                     <div class="dropdown header-button">
                         @*Profile pic*@
                         <a id="profile-menu-trigger" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            <img src="http://www.gravatar.com/avatar/@Encryption.ByteArrayToHex(Encryption.HashMD5(User.Identity.Name))?d=identicon&s=200" class="profile-pic" alt="" /><span><span class="caret"></span></span>
+                            <img data-bind="attr: {src: $root.profilePic}" class="profile-pic" alt="" /><span><span class="caret"></span></span>
                         </a>
 
                         @*Profile menu*@

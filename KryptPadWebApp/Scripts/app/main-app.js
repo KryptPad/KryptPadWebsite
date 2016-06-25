@@ -13,7 +13,17 @@
         self.template = ko.observable();
         // Pass in options to our template with this observable
         self.templateModel = ko.observable();
+        // Gets the user name
+        self.userName = ko.pureComputed(function () {
+            return app.getUserName();
+        });
+        // Gets the user's profile pic from gravitar
+        self.profilePic = ko.pureComputed(function () {
 
+            var hash = md5(self.userName());
+            return 'http://www.gravatar.com/avatar/' + hash + '?d=identicon&s=200'
+
+        });
         // Behaviors
 
         // Go to sign in view if the user is not already authenticated
