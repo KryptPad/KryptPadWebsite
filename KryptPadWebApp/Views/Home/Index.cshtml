@@ -16,12 +16,12 @@
             <div>
                 <p>
                     <a href="@Url.RouteUrl("SignIn")" title="Sign in" class="btn btn-info">Sign in or create an account</a>
-                    
+
                 </p>
             </div>
 
             @*Download supported clients*@
-            <p>
+            @*<p>
                 Download Krypt Pad for Windows desktop beta 4
             </p>
             <div>
@@ -34,13 +34,13 @@
                         <i class="fa fa-download fa-lg" aria-hidden="true"></i>
                     </div>
                 </a>
-            </div>
+            </div>*@
 
             <hr />
             <p>
                 <small>
-                    Krypt Pad for Windows desktop beta 4 is being discontinued... for now. It will still be available for download, but
-                    will no longer be updated. I may pick it up again in the future if there is a demand for it.
+                    Krypt Pad for Windows desktop beta 4 is being discontinued... but, you can still
+                    download it. <a href="@Url.RouteUrl("Download")" title="Download Krypt Pad beta 4">Download Old Version</a>
                 </small>
             </p>
         </div>
@@ -120,7 +120,7 @@
             <div class="col-md-5 visible-md-block visible-lg-block">
                 <img src="~/Content/Images/favorite2.png" />
             </div>
-            
+
             <div class="col-md-5">
                 <p class="h1">Donation Supported</p>
                 <p class="lead">
