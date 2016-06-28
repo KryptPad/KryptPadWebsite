@@ -481,9 +481,7 @@
     <Content Include="Views\App\Error.cshtml" />
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Shared\AppWidgets\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

@@ -11,44 +11,63 @@
         list-style: none;
     }
 
-        .app-header ul.header-menu > li {
-            float: left;
+    .app-header .app-header-brand {
+        padding:15px;
+        color: #333;
+        line-height: 20px;
+        font-size: 20px;
+        margin: 0;
+        text-decoration: none;
+    }
+
+        .app-header .app-header-brand:hover,
+        .app-header .app-header-brand:focus {
+            
+            text-decoration: none;
         }
 
-        /*Buttons and text*/
-        .app-header .header-menu .header-button,
-        .app-header .header-menu .header-button,
-        .app-header .header-menu .header-text {
-            display: inline-block;
-            line-height: 20px;
-            padding: 15px;
-            margin: 0;
+        .app-header .app-header-brand .logo {
+            height: 50px;
         }
 
-        .app-header .header-menu .dropdown.header-button,
-        .app-header .header-menu .dropdown.header-button {
-            padding: 0;
+    .app-header ul.header-menu > li {
+        float: left;
+    }
+
+    /*Buttons and text*/
+    .app-header .header-menu .header-button,
+    .app-header .header-menu .header-button,
+    .app-header .header-menu .header-text {
+        display: inline-block;
+        line-height: 20px;
+        padding: 15px;
+        margin: 0;
+    }
+
+    .app-header .header-menu .dropdown.header-button,
+    .app-header .header-menu .dropdown.header-button {
+        padding: 0;
+    }
+
+        .app-header .header-menu .dropdown.header-button:hover,
+        .app-header .header-menu .dropdown.header-button:focus,
+        .app-header .header-menu .header-button:hover,
+        .app-header .header-menu .header-button:focus {
+            background-color: #eee;
         }
 
-            .app-header .header-menu .dropdown.header-button:hover,
-            .app-header .header-menu .dropdown.header-button:focus,
+
+        .app-header .header-menu .dropdown.header-button > a,
+        .app-header .header-menu .header-button {
+            text-decoration: none;
+        }
+
+            .app-header .header-menu .dropdown.header-button > a:hover,
+            .app-header .header-menu .dropdown.header-button > a:focus,
             .app-header .header-menu .header-button:hover,
             .app-header .header-menu .header-button:focus {
-                background-color: #eee;
-            }
-
-
-            .app-header .header-menu .dropdown.header-button > a,
-            .app-header .header-menu .header-button {
                 text-decoration: none;
             }
-
-                .app-header .header-menu .dropdown.header-button > a:hover,
-                .app-header .header-menu .dropdown.header-button > a:focus,
-                .app-header .header-menu .header-button:hover,
-                .app-header .header-menu .header-button:focus {
-                    text-decoration: none;
-                }
 
             .app-header .header-menu .dropdown.header-button > a > .profile-pic {
                 width: 50px;
