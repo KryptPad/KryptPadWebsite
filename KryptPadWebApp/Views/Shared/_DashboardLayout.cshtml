@@ -13,11 +13,13 @@
 
     <div class="app-header clearfix">
 
-        <div class="pull-left">
-            <a class="app-header-brand">
-                <img src="~/Content/Images/Square176x176LogoDark.png" class="logo" />
-                Krypt Pad
-            </a>
+        <div class="pull-left visible-lg-block visible-md-block visible-sm-block" >
+            <h1>
+                <a class="app-header-brand">
+                    <img src="~/Content/Images/Square176x176LogoDark.png" class="logo" />
+                    Krypt Pad
+                </a>
+            </h1>
         </div>
 
         <div class="pull-right">
@@ -25,10 +27,10 @@
             <ul class="header-menu">
                 <li>
                     <p class="header-text visible-lg-inline-block visible-md-inline-block visible-sm-inline-block" data-bind="text: $root.userName">
-                        
+
                     </p>
                 </li>
-                
+
                 @*cd53aabfe965b55c3c3de4e789c373cf*@
                 <li>
                     <div class="dropdown header-button">
@@ -39,17 +41,17 @@
 
                         @*Profile menu*@
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-menu-trigger">
-                            
+
                             @*<li role="separator" class="divider"></li>*@
                             <li><a role="button" data-bind="click: $root.signOut">Sign out</a></li>
                         </ul>
 
                     </div>
                 </li>
-                
+
             </ul>
 
-            
+
         </div>
     </div>
 

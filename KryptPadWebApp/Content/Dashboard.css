@@ -3,36 +3,38 @@
 
 /*Header*/
 .app-header {
-    border-bottom: 1px solid #eee;
+    /*border-bottom: 1px solid #eee;*/
     margin-bottom: 15px;
 }
 
-    .app-header ul.header-menu {
-        list-style: none;
-    }
 
     .app-header .app-header-brand {
-        padding:15px;
+        /*padding:15px;*/
         color: #333;
-        line-height: 20px;
-        font-size: 20px;
+        /*line-height: 20px;*/
+        /*font-size: 20px;*/
         margin: 0;
         text-decoration: none;
     }
 
         .app-header .app-header-brand:hover,
         .app-header .app-header-brand:focus {
-            
             text-decoration: none;
         }
 
         .app-header .app-header-brand .logo {
-            height: 50px;
+            height: 96px;
         }
 
-    .app-header ul.header-menu > li {
-        float: left;
+    .app-header ul.header-menu {
+        list-style: none;
+        margin-top: 40px;
+        margin-bottom: 10px;
     }
+
+        .app-header ul.header-menu > li {
+            float: left;
+        }
 
     /*Buttons and text*/
     .app-header .header-menu .header-button,
@@ -80,3 +82,11 @@
                 line-height: 50px;
                 padding: 0 5px;
             }
+
+
+/*Media queries*/
+@media screen and (max-width: 768px){
+    .app-header ul.header-menu {
+        margin-top: 0;
+    }
+}
