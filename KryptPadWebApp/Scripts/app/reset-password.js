@@ -8,11 +8,12 @@
 
         // Store the data we got passed
         self.code = app.request('code');
+        self.userId = app.request('userId');
 
         // Define some observables
         self.isBusy = ko.observable(false);
         self.message = ko.observable();
-        self.email = ko.observable();
+        
         self.password = ko.observable();
         self.confirmPassword = ko.observable();
         self.success = ko.observable(false);
@@ -20,16 +21,15 @@
         self.resetEnabled = ko.pureComputed(function () {
             var pw = ko.unwrap(self.password);
             var cp = ko.unwrap(self.confirmPassword);
-            // Enable sign up button when the email, password and confirm password fields are filled out
-            // properly.
-            return ko.unwrap(self.email) && pw && pw === cp;
+            // Enable sign up button when the password field is filled out properly.
+            return pw && cp;
         });
 
         // Behaviors
         self.reset = function () {
             // Send all the data we need to the api to reset the password
             var postData = {
-                email: self.email(),
+                userId: ko.unwrap(self.userId),
                 code: ko.unwrap(self.code),
                 password: self.password(),
                 confirmPassword: self.confirmPassword()

@@ -112,18 +112,39 @@ namespace KryptPadWebApp.Controllers
                 return BadRequest(ModelState);
             }
 
-            // Get the user based on the email address
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user != null)
+            // Reset the user's password
+            var result = await UserManager.ResetPasswordAsync(model.UserId, model.Code, model.Password);
+            if (result.Succeeded)
             {
-                var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-                if (result.Succeeded)
-                {
-                    return Ok();
-                }
+                return Ok();
             }
 
-            return Ok();
+            return BadRequest("Your account password could not be reset.");
+        }
+
+        /// <summary>
+        /// Changes the user's account password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Change-Password")]
+        [Authorize]
+        public async Task<IHttpActionResult> ChangePassword(ChangePasswordRequest model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Change the password
+            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.CurrentPassword, model.NewPassword);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+
+            return BadRequest("Your account password could not be changed. Please make sure you entered the correct current password.");
         }
 
         /// <summary>
