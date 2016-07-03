@@ -482,6 +482,7 @@
     <Content Include="Views\App\ConfirmEmail.cshtml" />
     <Content Include="Views\App\Error.cshtml" />
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
+    <Content Include="Views\App\_ManageAccount.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

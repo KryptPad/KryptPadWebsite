@@ -13,6 +13,9 @@
         self.template = ko.observable();
         // Pass in options to our template with this observable
         self.templateModel = ko.observable();
+        // Enable or disable template rendering
+        self.templateActive = ko.observable(false);
+
         // Gets the user name
         self.userName = ko.pureComputed(function () {
             return app.getUserName();
@@ -46,65 +49,41 @@
 
         // Switches the template to a new one
         self.switchTemplate = function (name, model) {
-            // Remove existing template
-            var oldTemplate = self.template();
-            self.template(null);
-            delete oldTemplate;
+            // Turn off rendering
+            self.templateActive(false);
+            // Out put some console stuff
+            console.log("Switching template to " + name);
 
             // Set new view model
             self.templateModel(model);
 
             // Trigger rebind of template
             self.template(name);
+            
+            // Turn on rendering
+            self.templateActive(true);
+        };
+
+        /*
+         * Navigation methods
+         */
+        self.goToMyAccount = function () {
+            // Go to sign in page
+            window.location = '#my-account';
         };
 
         // Setup routes
         Sammy(function () {
 
-            // GET: Reset-Password
-            this.get('#reset-password', function (context) {
-                var userId = this.params.userId;
-                var code = this.params.code;
-                
-                // Make sure we have a user id and code
-                if (userId && code) {
-                    // Create model for reset password
-                    var model = {
-                        code: code
-                    };
-
-                    // Set the options
-                    //self.templateOptions(model);
-                    // Trigger rebind of template
-                    //self.template('reset-password-template');
-                }
-                else {
-                    // Show some error or go back to login
-
-                }
-            });
-
-            // GET: Confirm-Email
-            this.get('#confirm-email', function (context) {
-                var userId = this.params.userId;
-                var code = this.params.code;
-
-                // Make sure we have a user id and code
-                if (userId && code) {
-                    // Create model for reset password
-                    var model = {
-                        userId: userId,
-                        code: code
-                    };
-
-                    // Set the options
-                    //self.templateOptions(model);
-                    // Trigger rebind of template
-                    //self.template('confirm-email-template');
-                }
-                else {
-                    // Show some error or go back to login
-
+            // GET: My-Account
+            this.get('#my-account', function (context) {
+                // Check to see if we are authenticated
+                if (self.isSignedIn()) {
+                    // Switch to template
+                    self.switchTemplate('my-account-template', new MyAccountViewModel());
+                } else {
+                    // Go to sign in page
+                    window.location = '/app/signin';
                 }
             });
 
@@ -162,6 +141,11 @@
 
         // Load the profiles
         self.getProfiles();
+    }
+
+    // My Account
+    function MyAccountViewModel() {
+        var self = this;
     }
 
     // Create model

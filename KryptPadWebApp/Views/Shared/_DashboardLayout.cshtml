@@ -9,17 +9,16 @@
     @RenderSection("css", required: false)
 }
 
-<div id="app" class="container">
+<div id="app">
 
     <div class="app-header clearfix">
+        @*visible-lg-block visible-md-block visible-sm-block*@
+        <div class="pull-left ">
+            <a class="app-header-brand">
+                <img src="~/Content/Images/Square44x44Logo.png" class="logo" />
+                Krypt Pad
+            </a>
 
-        <div class="pull-left visible-lg-block visible-md-block visible-sm-block" >
-            <h1>
-                <a class="app-header-brand">
-                    <img src="~/Content/Images/Square176x176LogoDark.png" class="logo" />
-                    Krypt Pad
-                </a>
-            </h1>
         </div>
 
         <div class="pull-right">
@@ -40,7 +39,7 @@
 
                         @*Profile menu*@
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-menu-trigger">
-
+                            <li><a role="button" data-bind="click: $root.goToMyAccount()">My account</a></li>
                             @*<li role="separator" class="divider"></li>*@
                             <li><a role="button" data-bind="click: $root.signOut">Sign out</a></li>
                         </ul>
@@ -54,8 +53,17 @@
         </div>
     </div>
 
+    <div class="content-wrapper open">
 
-    @RenderBody()
+        <div class="side-nav">
+            f
+        </div>
+
+        <div class="main-content">
+            @RenderBody()
+        </div>
+        
+    </div>
 </div>
 
 @section scripts{

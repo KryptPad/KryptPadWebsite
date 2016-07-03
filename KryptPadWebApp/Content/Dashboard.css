@@ -1,18 +1,20 @@
 ﻿body {
+    background-color: #e3ecf3;
 }
 
-/*Header*/
+/*
+    Header
+*/
 .app-header {
-    /*border-bottom: 1px solid #eee;*/
-    margin-bottom: 15px;
+    background-color: #67a4de;
 }
 
 
     .app-header .app-header-brand {
-        /*padding:15px;*/
-        color: #333;
-        /*line-height: 20px;*/
-        /*font-size: 20px;*/
+        display: inline-block;
+        color: #fff;
+        line-height: 20px;
+        padding: 10px 15px;
         margin: 0;
         text-decoration: none;
     }
@@ -23,13 +25,14 @@
         }
 
         .app-header .app-header-brand .logo {
-            height: 96px;
+            height: 30px;
         }
 
     .app-header ul.header-menu {
         list-style: none;
-        margin-top: 40px;
-        margin-bottom: 10px;
+        color: #fff;
+        /*margin-top: 40px;
+        margin-bottom: 10px;*/
     }
 
         .app-header ul.header-menu > li {
@@ -55,7 +58,7 @@
         .app-header .header-menu .dropdown.header-button:focus,
         .app-header .header-menu .header-button:hover,
         .app-header .header-menu .header-button:focus {
-            background-color: #eee;
+            background-color: #83b3e1;
         }
 
 
@@ -83,10 +86,55 @@
                 padding: 0 5px;
             }
 
+                .app-header .header-menu .dropdown.header-button > a > span > .caret {
+                    color: #fff;
+                }
 
 /*Media queries*/
-@media screen and (max-width: 768px){
+@media screen and (max-width: 768px) {
     .app-header ul.header-menu {
         margin-top: 0;
     }
+}
+
+
+/*
+    Side nav
+*/
+.content-wrapper {
+    position: relative;
+}
+
+    .content-wrapper .side-nav {
+        margin-top: 50px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #333;
+        color: #fff;
+        width: 280px;
+    }
+
+    .content-wrapper .main-content {
+        margin-left: 295px;
+    }
+
+
+/*Media queries*/
+@media screen and (max-width: 768px) {
+
+    .content-wrapper .side-nav {
+        width: 50px;
+    }
+
+    .content-wrapper .main-content {
+        margin-left: 65px;
+    }
+
+    .content-wrapper.open .side-nav {
+        width: 280px;
+    }
+
+
 }

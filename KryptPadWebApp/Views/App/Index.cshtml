@@ -7,7 +7,7 @@
 
 
 @*Placeholder for the active template*@
-<div data-bind="template: { name: template, data: templateModel }"></div>
+<div data-bind="template: { name: template, data: templateModel, if: templateActive }"></div>
 
 
 @*
@@ -16,5 +16,10 @@
 
 @*Profiles*@
 @{ Html.RenderPartial("_Profiles");}
+
+@*My Account*@
+@{ Html.RenderPartial("_ManageAccount");}
+
+
 
 
