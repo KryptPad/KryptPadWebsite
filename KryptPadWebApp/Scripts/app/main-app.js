@@ -49,6 +49,14 @@
 
         // Switches the template to a new one
         self.switchTemplate = function (name, model) {
+
+            // Check to see if the user is logged in
+            if (!self.isSignedIn()) {
+                // Go to sign in page
+                window.location = '/app/signin';
+                return;
+            }
+
             // Turn off rendering
             self.templateActive(false);
             // Out put some console stuff
@@ -77,26 +85,19 @@
 
             // GET: My-Account
             this.get('#my-account', function (context) {
-                // Check to see if we are authenticated
-                if (self.isSignedIn()) {
-                    // Switch to template
-                    self.switchTemplate('my-account-template', new MyAccountViewModel());
-                } else {
-                    // Go to sign in page
-                    window.location = '/app/signin';
-                }
+                // Switch to template
+                self.switchTemplate('my-account-template', new MyAccountViewModel());
+            });
+
+            this.get('#change-password', function (context) {
+                // Switch to template
+                self.switchTemplate('change-password-template', new ChangePasswordViewModel());
             });
 
             // GET: Profiles
             this.get('#profiles', function (context) {
-                // Check to see if we are authenticated
-                if (self.isSignedIn()) {
-                    // Switch to template
-                    self.switchTemplate('profiles-template', new ProfilesViewModel());
-                } else {
-                    // Go to sign in page
-                    window.location = '/app/signin';
-                }
+                // Switch to template
+                self.switchTemplate('profiles-template', new ProfilesViewModel());
             });
 
             // When there is no route defined
@@ -106,6 +107,9 @@
 
     }
 
+    /*
+     * Profiles
+     */
     function ProfilesViewModel() {
         var self = this;
 
@@ -143,9 +147,65 @@
         self.getProfiles();
     }
 
-    // My Account
+    /*
+     * My account
+     */
     function MyAccountViewModel() {
         var self = this;
+    }
+
+    /*
+     * Change password
+     */
+    function ChangePasswordViewModel() {
+        var self = this;
+        
+        // Define some observables
+        self.isBusy = ko.observable(false);
+        self.message = ko.observable();
+        
+        self.currentPassword = ko.observable();
+        self.newPassword = ko.observable();
+        self.confirmPassword = ko.observable();
+        self.success = ko.observable(false);
+
+        self.buttonEnabled = ko.pureComputed(function () {
+            // Enable sign up button when the password field is filled out properly.
+            return ko.unwrap(self.currentPassword) && ko.unwrap(self.newPassword) && ko.unwrap(self.confirmPassword);
+        });
+
+        // Behaviors
+        self.changePassword = function () {
+            // Send all the data we need to the api to reset the password
+            var postData = {
+                currentPassword: self.currentPassword(),
+                newPassword: self.newPassword(),
+                confirmPassword: self.confirmPassword()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/account/change-password',
+                data: postData,
+                headers: app.authorizeHeader()
+            }).done(function (data) {
+                // Success
+                self.message(app.createMessage(app.MSG_SUCCESS, "Your password has been changed."));
+                // Set flag
+                self.success(true);
+
+            }).fail(function (error) {
+                // Failed
+                app.processError(error, function (message) {
+                    // Show the error somewhere
+                    self.message(app.createMessage(app.MSG_ERROR, message));
+                });
+
+            }).always(function () {
+                // Set busy state
+                self.isBusy(false);
+            });
+        };
     }
 
     // Create model

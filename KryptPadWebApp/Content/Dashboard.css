@@ -146,6 +146,19 @@
         margin-left: 280px;
     }
 
+        .content-wrapper .main-content .content-section {
+            background-color: #fff;
+            padding: 15px;
+        }
+
+        .content-wrapper .main-content .content-header {
+            margin-bottom: 15px;
+        }
+
+            .content-wrapper .main-content .content-header h1,
+            .content-wrapper .main-content .content-header .h1 {
+                margin: 0;
+            }
 
 /*Media queries*/
 @media screen and (max-width: 768px) {
@@ -159,6 +172,7 @@
     }
 
     .content-wrapper.open .side-nav {
+        z-index: 1000;
         width: 280px;
     }
 }

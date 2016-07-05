@@ -39,11 +39,8 @@
     <!-- ko if: profiles().length === 0 -->
     <span>You don't have any profiles created. Download the Krypt Pad Windows 10 app from the appstore to add profiles.</span>
     <!-- /ko -->
-    <!--Spinner-->
-    <div class="wait-spinner" data-bind="visible: isBusy">
-        <i class="fa fa-spinner fa-pulse fa-3x fa-fw margin-bottom"></i>
-        <span class="lead">Just a moment...</span>
-    </div>
+    
+    @{ Html.RenderPartial("_Spinner");}
 
 </script>
 

@@ -483,6 +483,8 @@
     <Content Include="Views\App\Error.cshtml" />
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
     <Content Include="Views\App\_ManageAccount.cshtml" />
+    <Content Include="Views\App\_Spinner.cshtml" />
+    <Content Include="Views\App\_ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
