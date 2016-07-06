@@ -14,11 +14,19 @@
     <div class="app-header clearfix">
         @*visible-lg-block visible-md-block visible-sm-block*@
         <div class="pull-left ">
-            <a class="app-header-brand">
-                <img src="~/Content/Images/Square44x44Logo.png" class="logo" />
-                Krypt Pad
-            </a>
-
+            <ul class="header-menu">
+                <li>
+                    <a class="header-button header-menu-toggle visible-xs-inline-block" data-bind="click: openMenu" role="button">
+                        <i class="fa fa-bars fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="app-header-brand" >
+                        <img src="~/Content/Images/Square44x44Logo.png" class="logo" />
+                        Krypt Pad
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <div class="pull-right">
@@ -39,9 +47,9 @@
 
                         @*Profile menu*@
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-menu-trigger">
-                            <li><a role="button" data-bind="click: $root.goToMyAccount()">My account</a></li>
+                            <li><a role="button" data-bind="click: $root.goToMyAccount()"><i class="fa fa-user fa-fw"></i> My account</a></li>
                             @*<li role="separator" class="divider"></li>*@
-                            <li><a role="button" data-bind="click: $root.signOut">Sign out</a></li>
+                            <li><a role="button" data-bind="click: $root.signOut"><i class="fa fa-sign-out fa-fw"></i> Sign out</a></li>
                         </ul>
 
                     </div>
@@ -53,19 +61,28 @@
         </div>
     </div>
 
-    <div class="content-wrapper open">
+    @*This section is for the bottom content portion, including menu and content*@
+    <div class="content-wrapper" data-bind="css: {open: menuOpen}">
 
+        @*Menu*@
         <div class="side-nav">
             <ul>
                 <li>
-                    <a href="#my-account">My account</a>
+                    <a data-bind="click: goToMyAccount" role="button">
+                        <i class="fa fa-user fa-fw"></i>
+                        <span class="nav-text">My account</span>
+                    </a>
                 </li>
                 <li>
-                    <a href="#profiles">Profiles</a>
+                    <a data-bind="click: goToProfiles" role="button">
+                        <i class="fa fa-files-o fa-fw"></i>
+                        <span class="nav-text">Profiles</span>
+                    </a>
                 </li>
             </ul>
         </div>
 
+        @*Content*@
         <div class="main-content">
             @RenderBody()
         </div>

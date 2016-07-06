@@ -15,6 +15,14 @@
         self.templateModel = ko.observable();
         // Enable or disable template rendering
         self.templateActive = ko.observable(false);
+        // Indicates whether the menu is open
+        self.menuOpen = ko.observable(false);
+
+
+        // Menu functionality
+        self.openMenu = function () {
+            self.menuOpen(!self.menuOpen());
+        };
 
         // Gets the user name
         self.userName = ko.pureComputed(function () {
@@ -78,7 +86,18 @@
         self.goToMyAccount = function () {
             // Go to sign in page
             window.location = '#my-account';
+            // Hide menu
+            self.menuOpen(false);
         };
+
+        // Profiles
+        self.goToProfiles = function () {
+            // Go to sign in page
+            window.location = '#profiles';
+            // Hide menu
+            self.menuOpen(false);
+        };
+
 
         // Setup routes
         Sammy(function () {

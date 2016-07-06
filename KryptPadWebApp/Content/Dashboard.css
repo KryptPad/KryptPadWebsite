@@ -30,9 +30,7 @@
 
     .app-header ul.header-menu {
         list-style: none;
-        color: #fff;
-        /*margin-top: 40px;
-        margin-bottom: 10px;*/
+        padding: 0;
     }
 
         .app-header ul.header-menu > li {
@@ -41,15 +39,18 @@
 
     /*Buttons and text*/
     .app-header .header-menu .header-button,
-    .app-header .header-menu .header-button,
     .app-header .header-menu .header-text {
         display: inline-block;
         line-height: 20px;
         padding: 15px;
         margin: 0;
+        color: #fff;
     }
 
-    .app-header .header-menu .dropdown.header-button,
+        .app-header .header-menu .header-button.header-menu-toggle {
+            width: 50px;
+        }
+
     .app-header .header-menu .dropdown.header-button {
         padding: 0;
     }
@@ -111,7 +112,7 @@
         top: 0;
         bottom: 0;
         left: 0;
-        background-color: #333;
+        background-color: #191a1d;
         color: #fff;
         width: 280px;
     }
@@ -121,29 +122,29 @@
             padding: 0;
         }
 
-            .content-wrapper .side-nav > ul > li {
+
+            .content-wrapper .side-nav > ul > li > a {
+                display: block;
+                padding: 11px;
+                color: #8b91a0;
+                border-left: 4px solid transparent;
+                transition: all 200ms ease-in-out;
             }
 
-                .content-wrapper .side-nav > ul > li:hover {
-                }
 
-                .content-wrapper .side-nav > ul > li > a {
-                    display: block;
-                    padding: 15px;
+                .content-wrapper .side-nav > ul > li > a:hover,
+                .content-wrapper .side-nav > ul > li > a:focus {
+                    padding-left: 11px;
                     color: #fff;
+                    background-color: #2c2f33;
+                    border-left: 4px solid #67a4de;
+                    text-decoration: none;
                 }
-
-                    .content-wrapper .side-nav > ul > li > a:hover,
-                    .content-wrapper .side-nav > ul > li > a:focus {
-                        padding-left: 11px;
-                        background-color: #444;
-                        border-left: 4px solid #67a4de;
-                        text-decoration: none;
-                    }
 
     .content-wrapper .main-content {
         padding: 15px;
         margin-left: 280px;
+        transition: all 200ms ease-in-out;
     }
 
         .content-wrapper .main-content .content-section {
@@ -165,14 +166,28 @@
 
     .content-wrapper .side-nav {
         width: 50px;
+        transition: all 200ms ease-in-out;
     }
 
+        .content-wrapper .side-nav > ul > li > a .nav-text {
+            transform: translateX(20px);
+            position: absolute;
+            opacity: 0;
+            transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+            
+        }
+
     .content-wrapper .main-content {
-        margin-left: 65px;
+        margin-left: 50px;
     }
 
     .content-wrapper.open .side-nav {
         z-index: 1000;
         width: 280px;
     }
+
+        .content-wrapper.open .side-nav > ul > li > a .nav-text {
+            transform: translateX(10px);
+            opacity: 1;
+        }
 }
