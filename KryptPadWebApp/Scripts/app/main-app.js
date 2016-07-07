@@ -37,19 +37,6 @@
         });
         // Behaviors
 
-        // Go to sign in view if the user is not already authenticated
-        self.isSignedIn = function () {
-            // Check to see if we are authenticated
-            if (!app.isAuthenticated()) {
-                global.location.hash = 'login';
-                // Not signed in
-                return false;
-            }
-
-            // Is signed in
-            return true;
-        };
-
         // Sign out of the system
         self.signOut = function () {
             app.logout();
@@ -59,7 +46,7 @@
         self.switchTemplate = function (name, model) {
 
             // Check to see if the user is logged in
-            if (!self.isSignedIn()) {
+            if (!app.isAuthenticated()) {
                 // Go to sign in page
                 window.location = '/app/signin';
                 return;
@@ -108,7 +95,7 @@
                 self.switchTemplate('my-account-template', new MyAccountViewModel());
             });
 
-            this.get('#change-password', function (context) {
+            this.get('#my-account/change-password', function (context) {
                 // Switch to template
                 self.switchTemplate('change-password-template', new ChangePasswordViewModel());
             });
@@ -171,6 +158,67 @@
      */
     function MyAccountViewModel() {
         var self = this;
+        
+        // Observables for the template
+        self.template = ko.observable();
+        self.templateModel = ko.observable();
+        self.templateActive = ko.observable(false);
+
+        /*
+         * Methods
+         */
+
+        // Switches the template to a new one
+        self.switchTemplate = function (name, model) {
+
+            // Check to see if the user is logged in
+            if (!app.isAuthenticated()) {
+                // Go to sign in page
+                window.location = '/app/signin';
+                return;
+            }
+
+            // Turn off rendering
+            self.templateActive(false);
+            // Out put some console stuff
+            console.log("Switching template to " + name);
+
+            // Set new view model
+            self.templateModel(model);
+
+            // Trigger rebind of template
+            self.template(name);
+
+            // Turn on rendering
+            self.templateActive(true);
+        };
+
+        // Setup routes
+        Sammy(function () {
+
+            //// GET: My-Account
+            //this.get('#my-account/options', function (context) {
+            //    // Switch to template
+            //    self.switchTemplate('account-options-template', new AccountOptionsViewModel());
+            //});
+
+            this.get('#my-account/change-password', function (context) {
+                // Switch to template
+                self.switchTemplate('change-password-template', new ChangePasswordViewModel());
+            });
+
+            //// When there is no route defined
+            //this.get('#my-account', function () { this.app.runRoute('get', '#my-account') });
+
+        }).run();
+
+        // Go to default template
+        self.switchTemplate('account-options-template', new AccountOptionsViewModel());
+    }
+
+    // Account options
+    function AccountOptionsViewModel() {
+        var self = this;
     }
 
     /*
@@ -195,6 +243,11 @@
 
         // Behaviors
         self.changePassword = function () {
+            // Check if model is valid
+            if (!self.isValid()) {
+                return;
+            }
+
             // Send all the data we need to the api to reset the password
             var postData = {
                 currentPassword: self.currentPassword(),
@@ -225,7 +278,46 @@
                 self.isBusy(false);
             });
         };
+
+        /*
+         * Validation
+         */
+
+        // Errors
+        self.errors = ko.validation.group(self);
+
+        // Email
+        self.currentPassword.extend({
+            required: {
+                message: 'Current password is required'
+            }
+        });
+
+        // Password
+        self.newPassword.extend({
+            required: {
+                message: 'New password is required'
+            }
+        });
+
+        // Show errors in our model
+        self.isValid = function () {
+            if (self.errors().length) {
+                self.errors.showAllMessages();
+                return false
+            }
+
+            return true;
+        };
     }
+
+    // Initialize validation
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: false,
+        parseInputAttributes: true
+    }, true);
 
     // Create model
     var model = new AppViewModel();

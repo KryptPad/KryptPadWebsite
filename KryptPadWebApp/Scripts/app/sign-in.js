@@ -6,19 +6,22 @@
     // App view model
     function ViewModel() {
         var self = this;
-        
+
         self.username = ko.observable();
         self.password = ko.observable();
         self.isBusy = ko.observable(false);
         self.message = ko.observable();
 
-        self.signInEnabled = ko.pureComputed(function () {
-            // Sign in button is only enabled when email and password are filled out
-            return ko.unwrap(self.username) && ko.unwrap(self.password);
-        });
+        /*
+         * Methods
+         */
 
         // Log in
         self.login = function () {
+            // Check if model is valid
+            if (!self.isValid()) {
+                return;
+            }
 
             // Set busy state
             self.isBusy(true);
@@ -43,12 +46,52 @@
 
             });
         }
+
+        /*
+         * Validation
+         */
+
+        // Errors
+        self.errors = ko.validation.group(self);
+
+        // Email
+        self.username.extend({
+            required: {
+                message: 'Email is required'
+            }
+        });
+
+        // Password
+        self.password.extend({
+            required: {
+                message: 'Password is required'
+            }
+        });
+
+        // Show errors in our model
+        self.isValid = function () {
+            if (self.errors().length) {
+                self.errors.showAllMessages();
+                return false
+            }
+
+            return true;
+        };
     }
+
+    // Initialize validation
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: false,
+        parseInputAttributes: true
+    }, true);
 
     // Create model
     var model = new ViewModel();
 
     // Apply bindings
     ko.applyBindings(model, node);
+
 
 })(window);

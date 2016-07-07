@@ -132,7 +132,7 @@ namespace KryptPadWebApp.Controllers
         [Authorize]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordRequest model)
         {
-            if (!ModelState.IsValid)
+            if (model == null || !ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }

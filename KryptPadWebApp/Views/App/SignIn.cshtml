@@ -19,6 +19,7 @@
             <message-widget params="message: message"></message-widget>
 
             <label class="sr-only" for="username">Email</label>
+            <span class="text-danger" data-bind="validationMessage: username"></span>
             <div class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-user fa-fw"></i>
@@ -27,7 +28,9 @@
                        placeholder="Email: example@domain.com" />
             </div>
 
+
             <label class="sr-only" for="password">Password</label>
+            <span class="text-danger" data-bind="validationMessage: password"></span>
             <div class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-key fa-fw"></i>
@@ -42,14 +45,14 @@
             </p>
 
             <p>
-                <button data-bind="click: login, enable: signInEnabled" class="btn btn-primary btn-block">Sign In</button>
+                <button data-bind="click: login" class="btn btn-primary btn-block">Sign In</button>
             </p>
 
             <div>
                 <span>
                     <a href="@Url.RouteUrl("ForgotPassword")">Forgot password</a>
                     |
-                    <a href="@Url.RouteUrl("SignUp")">Sign up for an account</a>
+                    <a href="@Url.RouteUrl("SignUp")">Sign up</a>
                 </span>
             </div>
         </form>

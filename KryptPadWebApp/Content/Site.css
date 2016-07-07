@@ -251,3 +251,13 @@ a .circle {
     line-height: 3em;
 }
 
+/*
+    Media queries for buttons
+*/
+@media screen and (max-width:480px) {
+    .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

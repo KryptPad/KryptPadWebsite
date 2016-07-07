@@ -1,16 +1,14 @@
 ﻿<script id="my-account-template" type="text/html">
     <div class="content-header">
-        <h1>My account</h1>
+        <h4>My account</h4>
     </div>
 
-    
-    <div>
-        <p class="lead">Change your account password</p>
-        <p>To keep your account safe, be sure to change your password regularly.</p>
+    @*Placeholder for the active template*@
+    <div data-bind="template: { name: $data.template, data: $data.templateModel, if: $data.templateActive }"></div>
 
-        <a href="#change-password" class="btn btn-primary">Change Password</a>
-    </div>
+    @*Options menu*@
+    @{ Html.RenderPartial("_AccountOptions");}
 
-    <p class="lead">Delete your account</p>
-    <a href="#delete-account" class="btn btn-danger">Delete Account</a>
+    @*Change password*@
+    @{ Html.RenderPartial("_ChangePassword");}
 </script>

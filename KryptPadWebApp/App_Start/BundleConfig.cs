@@ -13,13 +13,11 @@ namespace KryptPadWebApp
                         "~/Scripts/sammy-{version}.js",
                         "~/Scripts/knockout-{version}.js",
                         "~/Scripts/knockout-loaders.js",
+                        "~/Scripts/knockout.validation.min.js",
                         "~/Scripts/md5.js",
                         "~/Scripts/functions.js"));
             
-            // jQuery validate - not sure if it will be used
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
-
+            
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

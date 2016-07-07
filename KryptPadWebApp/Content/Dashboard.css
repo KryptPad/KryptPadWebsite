@@ -1,5 +1,6 @@
 ﻿body {
     background-color: #f5f7f8;
+    padding-top: 50px;
 }
 
 /*
@@ -7,6 +8,10 @@
 */
 .app-header {
     background-color: #67a4de;
+    position: fixed;
+    top:0;
+    width: 100%;
+    z-index: 1001;
 }
 
 
