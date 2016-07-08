@@ -14,6 +14,11 @@
 
         // User forgot password
         self.sendLink = function () {
+            // Check if model is valid
+            if (!self.isValid()) {
+                return;
+            }
+
             // Set busy state
             self.isBusy(true);
 
@@ -45,7 +50,40 @@
 
             });
         };
+
+        /*
+         * Validation
+         */
+
+        // Errors
+        self.errors = ko.validation.group(self);
+
+        // Email
+        self.email.extend({
+            required: {
+                message: 'Email is required'
+            }
+        });
+
+        // Show errors in our model
+        self.isValid = function () {
+            if (self.errors().length) {
+                self.errors.showAllMessages();
+                return false
+            }
+
+            return true;
+        };
+
     }
+
+    // Initialize validation
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: false,
+        parseInputAttributes: true
+    }, true);
 
     // Create model
     var model = new ViewModel();
