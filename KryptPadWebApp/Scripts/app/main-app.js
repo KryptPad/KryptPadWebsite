@@ -219,6 +219,64 @@
     // Account options
     function AccountOptionsViewModel() {
         var self = this;
+
+        // Observables
+        self.message = ko.observable();
+        self.showEmailConfirmationWarning = ko.observable(false);
+
+        /*
+         * Methods
+         */
+
+        // Send an email with a confirmation link to click on
+        self.sendEmailConfirmationLink = function () {
+            $.ajax({
+                type: 'POST',
+                url: '/api/account/send-email-confirmation-link',
+                headers: app.authorizeHeader()
+            }).done(function (data) {
+                // Set some observables
+                self.message(app.createMessage(app.MSG_SUCCESS,
+                    'An email was sent to your email address. Please click on the link to confirm your account.'));
+
+            }).fail(function (error) {
+                // Failed
+                app.processError(error, function (message) {
+                    // Show the error somewhere
+                    self.message(app.createMessage(app.MSG_ERROR, message));
+                });
+
+            }).always(function () {
+
+            });
+        };
+
+        // Get account details
+        self.getAccountDetails = function () {
+
+            $.ajax({
+                type: 'GET',
+                url: '/api/account/details',
+                headers: app.authorizeHeader()
+            }).done(function (data) {
+                // Set some observables
+                self.showEmailConfirmationWarning(!data.EmailConfirmed);
+
+            }).fail(function (error) {
+                // Failed
+                app.processError(error, function (message) {
+                    // Show the error somewhere
+                    self.message(app.createMessage(app.MSG_ERROR, message));
+                });
+
+            }).always(function () {
+                
+            });
+        };
+
+        // Load the details
+        self.getAccountDetails();
+
     }
 
     /*

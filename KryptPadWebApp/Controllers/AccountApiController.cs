@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http;
 using KryptPadWebApp.Models.ApiEntities;
 using KryptPadWebApp.Models.Requests;
+using KryptPadWebApp.Models.Results;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -29,7 +30,11 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
-        //POST: Register
+        /// <summary>
+        /// Registers an account
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Register", Name = "Register")]
         public async Task<IHttpActionResult> Register(CreateAccountRequest model)
@@ -46,15 +51,8 @@ namespace KryptPadWebApp.Controllers
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ConfirmEmail", new { userId = user.Id, code = code })}";
-
-                // Send the email
-                await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
+                // Send confirm link
+                await SendEmailConfirmationLink(user.Id);
 
                 // All is ok
                 return Ok();
@@ -72,21 +70,25 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
+        /// <summary>
+        /// Sends the user an email with a link to reset their password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Forgot-Password")]
         public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordRequest model)
         {
             if (ModelState.IsValid)
             {
-
+                // Get the user from the email address
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return Ok();
                 }
-
-
+                
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link HttpUtility.UrlEncode(code)
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -177,6 +179,74 @@ namespace KryptPadWebApp.Controllers
 
         }
 
+        /// <summary>
+        /// Gets some details about the account
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Details")]
+        [Authorize]
+        public async Task<IHttpActionResult> AccountDetails()
+        {
+            // Find the user by his/her id
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user != null)
+            {
+                // Get some info
+                var details = new AccountDetailsResult()
+                {
+                    EmailConfirmed = user.EmailConfirmed
+                };
+
+                return Json(details);
+            }
+            else
+            {
+                // User not found?
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// Sends a confirmation email to the user
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Send-Email-Confirmation-Link")]
+        [Authorize]
+        public async Task<IHttpActionResult> SendEmailConfirmationLink()
+        {
+            // Find user by id
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user != null && !user.EmailConfirmed)
+            {
+                // Send confirm link
+                await SendEmailConfirmationLink(user.Id);
+
+                // All is ok
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("Email address is already confirmed.");
+            }
+
+
+        }
+
+        #region Helper methods
+        private async Task SendEmailConfirmationLink(string userId)
+        {
+            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+            // Send an email with this link
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(userId);
+            var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ConfirmEmail", new { userId = userId, code = code })}";
+
+            // Send the email
+            await UserManager.SendEmailAsync(userId, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            
+        }
+        #endregion
     }
 
 }
