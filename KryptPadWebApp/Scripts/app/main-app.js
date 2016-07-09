@@ -1,5 +1,5 @@
 ﻿(function (global) {
-    
+
     // Get main app container
     var node = document.getElementById('app');
 
@@ -18,6 +18,32 @@
         // Indicates whether the menu is open
         self.menuOpen = ko.observable(false);
 
+        self.menuOptions = ko.observable([
+            {
+                label: 'My account',
+                url: '#my-account',
+                active: ko.observable(false),
+                icon: 'fa-user',
+                handler: function () {
+                    // Go to sign in page
+                    window.location = this.url;
+                    // Hide menu
+                    self.menuOpen(false);
+                }
+            },
+            {
+                label: 'Profiles',
+                url: '#profiles',
+                active: ko.observable(false),
+                icon: 'fa-files-o',
+                handler: function () {
+                    // Go to sign in page
+                    window.location = this.url;
+                    // Hide menu
+                    self.menuOpen(false);
+                }
+            }
+        ]);
 
         // Menu functionality
         self.openMenu = function () {
@@ -62,11 +88,20 @@
 
             // Trigger rebind of template
             self.template(name);
-            
+
             // Turn on rendering
             self.templateActive(true);
         };
 
+        /*
+         * Methods
+         */
+        self.clearActiveStatus = function () {
+            ko.utils.arrayForEach(self.menuOptions(), function (item) {
+                item.active(false);
+            });
+        };
+        
         /*
          * Navigation methods
          */
@@ -84,8 +119,6 @@
             // Hide menu
             self.menuOpen(false);
         };
-
-
         // Setup routes
         Sammy(function () {
 
@@ -93,6 +126,9 @@
             this.get('#my-account', function (context) {
                 // Switch to template
                 self.switchTemplate('my-account-template', new MyAccountViewModel());
+                // Set active
+                self.clearActiveStatus();
+                self.menuOptions()[0].active(true);
             });
 
             this.get('#my-account/change-password', function (context) {
@@ -104,6 +140,9 @@
             this.get('#profiles', function (context) {
                 // Switch to template
                 self.switchTemplate('profiles-template', new ProfilesViewModel());
+                // Set active
+                self.clearActiveStatus();
+                self.menuOptions()[1].active(true);
             });
 
             // When there is no route defined
@@ -158,7 +197,7 @@
      */
     function MyAccountViewModel() {
         var self = this;
-        
+
         // Observables for the template
         self.template = ko.observable();
         self.templateModel = ko.observable();
@@ -270,7 +309,7 @@
                 });
 
             }).always(function () {
-                
+
             });
         };
 
@@ -284,11 +323,11 @@
      */
     function ChangePasswordViewModel() {
         var self = this;
-        
+
         // Define some observables
         self.isBusy = ko.observable(false);
         self.message = ko.observable();
-        
+
         self.currentPassword = ko.observable();
         self.newPassword = ko.observable();
         self.confirmPassword = ko.observable();

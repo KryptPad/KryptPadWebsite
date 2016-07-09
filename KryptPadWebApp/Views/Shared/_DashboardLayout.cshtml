@@ -67,18 +67,14 @@
         @*Menu*@
         <div class="side-nav">
             <ul>
-                <li>
-                    <a data-bind="click: goToMyAccount" role="button">
-                        <i class="fa fa-user fa-fw"></i>
-                        <span class="nav-text">My account</span>
+                <!-- ko foreach: menuOptions -->
+                <li data-bind="css: {active: active}" >
+                    <a data-bind="click: handler" role="button">
+                        <i class="fa fa-fw" data-bind="css: icon"></i>
+                        <span class="nav-text" data-bind="text: label"></span>
                     </a>
                 </li>
-                <li>
-                    <a data-bind="click: goToProfiles" role="button">
-                        <i class="fa fa-files-o fa-fw"></i>
-                        <span class="nav-text">Profiles</span>
-                    </a>
-                </li>
+                <!-- /ko -->
             </ul>
         </div>
 
