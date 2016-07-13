@@ -21,18 +21,21 @@
 
             <p>
                 <small><label class="sr-only" for="sign-up-email">Email</label></small>
+                <span class="text-danger" data-bind="validationMessage: email"></span>
                 <input type="text" id="sign-up-email" class="form-control" data-bind="textInput: email"
                        placeholder="Email: example@domain.com" />
             </p>
 
             <p>
                 <small><label class="sr-only" for="sign-up-password">Password</label></small>
+                <span class="text-danger" data-bind="validationMessage: password"></span>
                 <input type="password" id="sign-up-password" class="form-control" data-bind="textInput: password"
                        placeholder="Password" />
             </p>
 
             <p>
                 <small><label class="sr-only" for="sign-up-confirm-password">Confirm password</label></small>
+                <span class="text-danger" data-bind="validationMessage: confirmPassword"></span>
                 <input type="password" id="sign-up-confirm-password" class="form-control" data-bind="textInput: confirmPassword"
                        placeholder="Confirm password" />
 
@@ -42,7 +45,7 @@
                 Also, please read the <a href="@Url.RouteUrl("Policy")" target="_blank">privacy policy</a>.
             </p>
             <p>
-                <button data-bind="click: signup, enable: signUpEnabled" class="btn btn-primary">Sign Up</button>
+                <button data-bind="click: signup" class="btn btn-primary">Sign Up</button>
                 <a href="@Url.RouteUrl("SignIn")" class="btn btn-default">Cancel</a>
             </p>
 

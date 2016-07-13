@@ -14,16 +14,13 @@
         self.password = ko.observable();
         self.confirmPassword = ko.observable();
 
-        self.signUpEnabled = ko.pureComputed(function () {
-            var pw = ko.unwrap(self.password);
-            var cp = ko.unwrap(self.confirmPassword);
-            // Enable sign up button when the email, password and confirm password fields are filled out
-            // properly.
-            return ko.unwrap(self.email) && pw && pw === cp;
-        });
-
         // Behaviors
         self.signup = function () {
+            // Check if model is valid
+            if (!self.isValid()) {
+                return;
+            }
+
             // Set busy state
             self.isBusy(true);
 
@@ -71,7 +68,51 @@
 
             });
         };
+
+        /*
+         * Validation
+         */
+
+        // Errors
+        self.errors = ko.validation.group(self);
+
+        // Email
+        self.email
+            .extend({
+                required: {
+                    message: 'Email is required'
+                }
+            })
+            .extend({ email: true });
+
+        // Password
+        self.password.extend({
+            required: {
+                message: 'Password is required'
+            }
+        });
+
+        // Confirm password
+        self.confirmPassword.extend({ equal: { params: self.password, message: 'Passwords don\'t match' } })
+
+        // Show errors in our model
+        self.isValid = function () {
+            if (self.errors().length) {
+                self.errors.showAllMessages();
+                return false
+            }
+
+            return true;
+        };
     }
+
+    // Initialize validation
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: false,
+        parseInputAttributes: true
+    }, true);
 
     // Create model
     var model = new ViewModel();
