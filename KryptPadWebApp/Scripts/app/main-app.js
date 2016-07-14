@@ -17,7 +17,7 @@
         self.templateActive = ko.observable(false);
         // Indicates whether the menu is open
         self.menuOpen = ko.observable(false);
-
+        // Menu items
         self.menuOptions = ko.observable([
             {
                 label: 'My account',
@@ -45,23 +45,26 @@
             }
         ]);
 
-        // Menu functionality
-        self.openMenu = function () {
-            self.menuOpen(!self.menuOpen());
-        };
+        // Just vars
+        self.emailHash = null;
 
         // Gets the user name
         self.userName = ko.pureComputed(function () {
             return app.getUserName();
         });
+
         // Gets the user's profile pic from gravitar
         self.profilePic = ko.pureComputed(function () {
-
-            var hash = md5(self.userName());
-            return 'http://www.gravatar.com/avatar/' + hash + '?d=identicon&s=200'
-
+            return 'http://www.gravatar.com/avatar/' + self.emailHash + '?d=identicon&s=200'
         });
-        // Behaviors
+        
+        /*
+         * Methods
+         */
+        // Menu functionality
+        self.openMenu = function () {
+            self.menuOpen(!self.menuOpen());
+        };
 
         // Sign out of the system
         self.signOut = function () {
@@ -93,12 +96,19 @@
             self.templateActive(true);
         };
 
-        /*
-         * Methods
-         */
+        // Clears the active flag on the menu item
         self.clearActiveStatus = function () {
             ko.utils.arrayForEach(self.menuOptions(), function (item) {
                 item.active(false);
+            });
+        };
+
+        // Get account details
+        self.getAccountDetails = function () {
+            // Get the account details
+            api.getAccountDetails().done(function (data) {
+                // Set some observables
+                self.emailHash = data.EmailHash;
             });
         };
         
@@ -150,6 +160,10 @@
 
         }).run();
 
+        
+
+        // Load the details
+        self.getAccountDetails();
     }
 
     /*
@@ -293,11 +307,7 @@
         // Get account details
         self.getAccountDetails = function () {
 
-            $.ajax({
-                type: 'GET',
-                url: '/api/account/details',
-                headers: app.authorizeHeader()
-            }).done(function (data) {
+            api.getAccountDetails().done(function (data) {
                 // Set some observables
                 self.showEmailConfirmationWarning(!data.EmailConfirmed);
 
@@ -307,8 +317,6 @@
                     // Show the error somewhere
                     self.message(app.createMessage(app.MSG_ERROR, message));
                 });
-
-            }).always(function () {
 
             });
         };
@@ -407,14 +415,6 @@
             return true;
         };
     }
-
-    // Initialize validation
-    ko.validation.init({
-        registerExtenders: true,
-        messagesOnModified: true,
-        insertMessages: false,
-        parseInputAttributes: true
-    }, true);
 
     // Create model
     var model = new AppViewModel();

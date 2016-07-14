@@ -364,6 +364,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\api.js" />
+    <Content Include="Scripts\validation-config.js" />
     <Content Include="Scripts\app\reset-password.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

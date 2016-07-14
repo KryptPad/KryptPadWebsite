@@ -13,6 +13,7 @@ using System.Web.Http;
 using KryptPadWebApp.Models.ApiEntities;
 using KryptPadWebApp.Models.Requests;
 using KryptPadWebApp.Models.Results;
+using KryptPadWebApp.Cryptography;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -205,7 +206,8 @@ namespace KryptPadWebApp.Controllers
                 // Get some info
                 var details = new AccountDetailsResult()
                 {
-                    EmailConfirmed = user.EmailConfirmed
+                    EmailConfirmed = user.EmailConfirmed,
+                    EmailHash = Encryption.ByteArrayToHex(Encryption.HashMD5(User.Identity.GetUserName()))
                 };
 
                 return Json(details);

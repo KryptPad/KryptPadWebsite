@@ -11,5 +11,10 @@ namespace KryptPadWebApp.Models.Results
         /// Gets or sets whether the email address is confirmed
         /// </summary>
         public bool EmailConfirmed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hash of the user's email address
+        /// </summary>
+        public string EmailHash { get; set; }
     }
 }

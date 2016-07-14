@@ -14,8 +14,9 @@ namespace KryptPadWebApp
                         "~/Scripts/knockout-{version}.js",
                         "~/Scripts/knockout-loaders.js",
                         "~/Scripts/knockout.validation.min.js",
-                        "~/Scripts/md5.js",
-                        "~/Scripts/functions.js"));
+                        "~/Scripts/validation-config.js",
+                        "~/Scripts/functions.js",
+                        "~/Scripts/api.js"));
             
             
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
