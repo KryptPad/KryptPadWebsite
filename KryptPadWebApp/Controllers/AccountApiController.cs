@@ -88,7 +88,7 @@ namespace KryptPadWebApp.Controllers
                     // Don't reveal that the user does not exist or is not confirmed
                     return Ok();
                 }
-                
+
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link HttpUtility.UrlEncode(code)
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
@@ -120,8 +120,18 @@ namespace KryptPadWebApp.Controllers
             {
                 return Ok();
             }
+            else
+            {
+                // Add errors
+                foreach (var err in result.Errors)
+                {
+                    ModelState.AddModelError("", err);
+                }
+                // Return errors
+                return BadRequest(ModelState);
+            }
 
-            return BadRequest("Your account password could not be reset.");
+
         }
 
         /// <summary>
@@ -244,7 +254,7 @@ namespace KryptPadWebApp.Controllers
 
             // Send the email
             await UserManager.SendEmailAsync(userId, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-            
+
         }
         #endregion
     }

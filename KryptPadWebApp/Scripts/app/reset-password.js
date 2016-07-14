@@ -13,20 +13,18 @@
         // Define some observables
         self.isBusy = ko.observable(false);
         self.message = ko.observable();
-        
+
         self.password = ko.observable();
         self.confirmPassword = ko.observable();
         self.success = ko.observable(false);
 
-        self.resetEnabled = ko.pureComputed(function () {
-            var pw = ko.unwrap(self.password);
-            var cp = ko.unwrap(self.confirmPassword);
-            // Enable sign up button when the password field is filled out properly.
-            return pw && cp;
-        });
-
         // Behaviors
         self.reset = function () {
+            // Check if model is valid
+            if (!self.isValid()) {
+                return;
+            }
+
             // Send all the data we need to the api to reset the password
             var postData = {
                 userId: ko.unwrap(self.userId),
@@ -57,7 +55,47 @@
                 self.isBusy(false);
             });
         };
+
+        /*
+         * Validation
+         */
+
+        // Errors
+        self.errors = ko.validation.group(self);
+
+        // Password
+        self.password.extend({
+            required: {
+                message: 'Password is required'
+            }
+        });
+
+        // Confirm password
+        self.confirmPassword.extend({
+            equal: {
+                params: self.password,
+                message: 'Passwords don\'t match'
+            }
+        });
+
+        // Show errors in our model
+        self.isValid = function () {
+            if (self.errors().length) {
+                self.errors.showAllMessages();
+                return false
+            }
+
+            return true;
+        };
     }
+
+    // Initialize validation
+    ko.validation.init({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: false,
+        parseInputAttributes: true
+    }, true);
 
     // Create model
     var model = new ViewModel();

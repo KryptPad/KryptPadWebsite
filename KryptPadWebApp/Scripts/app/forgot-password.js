@@ -59,11 +59,13 @@
         self.errors = ko.validation.group(self);
 
         // Email
-        self.email.extend({
-            required: {
-                message: 'Email is required'
-            }
-        });
+        self.email
+            .extend({
+                required: {
+                    message: 'Email is required'
+                }
+            })
+        .extend({ email: true });
 
         // Show errors in our model
         self.isValid = function () {

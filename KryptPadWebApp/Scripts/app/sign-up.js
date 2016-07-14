@@ -93,7 +93,12 @@
         });
 
         // Confirm password
-        self.confirmPassword.extend({ equal: { params: self.password, message: 'Passwords don\'t match' } })
+        self.confirmPassword.extend({
+            equal: {
+                params: self.password,
+                message: 'Passwords don\'t match'
+            }
+        });
 
         // Show errors in our model
         self.isValid = function () {
