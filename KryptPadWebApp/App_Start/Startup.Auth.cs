@@ -36,7 +36,7 @@ namespace KryptPadWebApp
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -72,15 +72,15 @@ namespace KryptPadWebApp
                 TokenEndpointPath = new PathString("/token"),
                 Provider = new AccessTokenProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/account/external"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(5),
-                //RefreshTokenProvider = new RefreshTokenProvider(),
+                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(10),
+                RefreshTokenProvider = new RefreshTokenProvider(),
 
                 // In DEBUG mode, we allow insecure HTTP
-                #if DEBUG
+#if DEBUG
                 AllowInsecureHttp = true
-                #else
+#else
                 AllowInsecureHttp = false
-                #endif
+#endif
             };
 
             // Enable the application to use bearer tokens to authenticate users

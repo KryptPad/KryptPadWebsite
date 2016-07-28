@@ -14,36 +14,46 @@ namespace KryptPadWebApp.Providers
     {
         private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
 
-        public async Task CreateAsync(AuthenticationTokenCreateContext context)
+        public Task CreateAsync(AuthenticationTokenCreateContext context)
         {
+            // Generate token guid
             var guid = Guid.NewGuid().ToString();
 
-            // maybe only create a handle the first time, then re-use for same client
-            // copy properties and set the desired lifetime of refresh token
+            // Create some properties for our ticket
             var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
             {
                 IssuedUtc = context.Ticket.Properties.IssuedUtc,
                 ExpiresUtc = DateTime.UtcNow.AddYears(1)
             };
+
+            // Create token ticket
             var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
 
-            // Hash the handle and store it
-            var hashedGuid = Encryption.Hash(guid, new byte[] { 9, 28, 187, 245, 132, 89, 205, 112 });
-
             //_refreshTokens.TryAdd(guid, context.Ticket);
-            _refreshTokens.TryAdd(hashedGuid, refreshTokenTicket);
+            _refreshTokens.TryAdd(Encryption.Hash(guid), refreshTokenTicket);
 
-            
-            context.SetToken(hashedGuid);
+            // Add original token to ticket
+            context.SetToken(guid);
+
+            return Task.FromResult(0);
         }
 
-        public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+        public Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            AuthenticationTicket ticket;
-            if (_refreshTokens.TryRemove(context.Token, out ticket))
+            Guid token;
+
+            if (Guid.TryParse(context.Token, out token))
             {
-                context.SetTicket(ticket);
+                AuthenticationTicket ticket;
+
+                if (_refreshTokens.TryRemove(Encryption.Hash(token.ToString()), out ticket))
+                {
+                    context.SetTicket(ticket);
+                }
             }
+
+
+            return Task.FromResult(0);
         }
 
         public void Create(AuthenticationTokenCreateContext context)
