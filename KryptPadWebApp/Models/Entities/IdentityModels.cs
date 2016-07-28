@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using KryptPadWebApp.Models.Entities;
 
 namespace KryptPadWebApp.Models
 {
@@ -38,5 +39,6 @@ namespace KryptPadWebApp.Models
         public virtual DbSet<Field> Fields { get; set; }
         public virtual DbSet<FieldType> FieldTypes { get; set; }
         public virtual DbSet<AppSettings> AppSettings { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }
