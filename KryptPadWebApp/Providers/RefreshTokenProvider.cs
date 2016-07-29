@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Infrastructure;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -19,29 +20,32 @@ namespace KryptPadWebApp.Providers
         {
             // Generate token guid
             var guid = Guid.NewGuid().ToString();
+            // Get the client id
             var clientId = context.Ticket.Properties.Dictionary["as:client_id"];
-
-            // Create some properties for our ticket
-            var refreshTokenProperties = new AuthenticationProperties(context.Ticket.Properties.Dictionary)
-            {
-                IssuedUtc = context.Ticket.Properties.IssuedUtc,
-                ExpiresUtc = DateTime.UtcNow.AddYears(1)
-            };
-
-            // Create token ticket
-            var refreshTokenTicket = new AuthenticationTicket(context.Ticket.Identity, refreshTokenProperties);
             
             // Store the refresh token in the database
             using (var ctx = new ApplicationDbContext())
             {
+                // Get the username
+                var username = context.Ticket.Identity.Name;
+
+                // Find any existing refresh tokens for the user/client and remove them
+                var existingTokens = ctx.RefreshTokens.Where((x) => x.ClientId == clientId && x.Username == username);
+
+                // Delete the existing tokens
+                ctx.RefreshTokens.RemoveRange(existingTokens);
+
+                // Get the access token time to live (ttl)
+                var refreshTokenTTL = Convert.ToInt32(ConfigurationManager.AppSettings["RefreshTokenTTL"]);
+
                 // Create refresh token
                 var rt = new RefreshToken()
                 {
                     Id = Encryption.Hash(guid),
-                    Username = context.Ticket.Identity.Name,
+                    Username = username,
                     ClientId = clientId,
                     IssuedUtc = DateTime.UtcNow,
-                    ExpiresUtc = DateTime.UtcNow.AddDays(14)
+                    ExpiresUtc = DateTime.UtcNow.AddSeconds(refreshTokenTTL)
                 };
 
                 // Set token
@@ -58,13 +62,9 @@ namespace KryptPadWebApp.Providers
                 await ctx.SaveChangesAsync();
             }
 
-            //_refreshTokens.TryAdd(guid, context.Ticket);
-            //_refreshTokens.TryAdd(Encryption.Hash(guid), refreshTokenTicket);
-
             // Add original token to ticket
             context.SetToken(guid);
 
-            //return Task.FromResult(0);
         }
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)

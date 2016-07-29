@@ -8,6 +8,7 @@ using Owin;
 using KryptPadWebApp.Models;
 using Microsoft.Owin.Security.OAuth;
 using KryptPadWebApp.Providers;
+using System.Configuration;
 
 namespace KryptPadWebApp
 {
@@ -66,13 +67,16 @@ namespace KryptPadWebApp
             //    ClientSecret = ""
             //});
 
-            var PublicClientId = "self";
+            // Get the access token time to live (ttl)
+            var accessTokenTTL = Convert.ToInt32(ConfigurationManager.AppSettings["AccessTokenTTL"]);
+
+            var publicClientId = "self";
             var OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/token"),
-                Provider = new AccessTokenProvider(PublicClientId),
+                Provider = new AccessTokenProvider(publicClientId),
                 AuthorizeEndpointPath = new PathString("/api/account/external"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(1),
+                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(accessTokenTTL),
                 RefreshTokenProvider = new RefreshTokenProvider(),
 
                 // In DEBUG mode, we allow insecure HTTP
