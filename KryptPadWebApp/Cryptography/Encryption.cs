@@ -101,7 +101,7 @@ namespace KryptPadWebApp.Cryptography
             }
 
             // Generate a random salt
-           var saltBytes = GenerateSalt();
+            var saltBytes = GenerateSalt();
 
             //create cipher engine
             var cipher = new PaddedBufferedBlockCipher(
@@ -135,7 +135,7 @@ namespace KryptPadWebApp.Cryptography
                     //write the data to the stream
                     cipherStream.Write(outputBytes, 0, outputBytes.Length);
                 }
-                
+
                 //do the final block
                 outputBytes = cipher.DoFinal();
 
@@ -291,12 +291,12 @@ namespace KryptPadWebApp.Cryptography
         }
 
         /// <summary>
-        /// Computes a hash from a string and a salt
+        /// Computes a hash from a string and an optional salt
         /// </summary>
         /// <param name="plainText"></param>
         /// <param name="saltBytes"></param>
         /// <returns></returns>
-        public static string Hash(string plainText, byte[] saltBytes)
+        public static string Hash(string plainText, byte[] saltBytes = null)
         {
             // Create digest instance to compute our hash
             var hash = new Sha512Digest();
@@ -305,8 +305,18 @@ namespace KryptPadWebApp.Cryptography
             var resultBytes = new byte[hash.GetDigestSize()];
 
             // Convert plain text string to bytes
-            var plainBytes = saltBytes.Concat(Encoding.UTF8.GetBytes(plainText)).ToArray();
-            
+            byte[] plainBytes;
+            if (saltBytes != null)
+            {
+                // Add salt to our plain text
+                plainBytes = saltBytes.Concat(Encoding.UTF8.GetBytes(plainText)).ToArray();
+            }
+            else
+            {
+                // Not using salt
+                plainBytes = Encoding.UTF8.GetBytes(plainText);
+            }
+
             // Process the bytes
             hash.BlockUpdate(plainBytes, 0, plainBytes.Length);
 

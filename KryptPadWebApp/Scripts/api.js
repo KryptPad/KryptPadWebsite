@@ -3,6 +3,25 @@
     // Create Api object
     var api = global.api = global.api || {};
 
+    // Sign into the system
+    api.login = function (username, password) {
+
+        // Create post data
+        var postData = {
+            grant_type: 'password',
+            username: username,
+            password: password
+        };
+
+        // Send to token endpoint
+        return $.ajax({
+            type: 'POST',
+            url: '/token',
+            data: postData
+        });
+    }
+
+
     // Account related apis
     api.getAccountDetails = function () {
         // Return promise
