@@ -14,7 +14,6 @@ namespace KryptPadWebApp.Providers
 {
     public class RefreshTokenProvider : IAuthenticationTokenProvider
     {
-        private static ConcurrentDictionary<string, AuthenticationTicket> _refreshTokens = new ConcurrentDictionary<string, AuthenticationTicket>();
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
@@ -68,22 +67,37 @@ namespace KryptPadWebApp.Providers
             //return Task.FromResult(0);
         }
 
-        public Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+        public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
             Guid token;
 
             if (Guid.TryParse(context.Token, out token))
             {
-                AuthenticationTicket ticket;
-
-                if (_refreshTokens.TryRemove(Encryption.Hash(token.ToString()), out ticket))
+                using(var ctx = new ApplicationDbContext())
                 {
-                    context.SetTicket(ticket);
+                    // Get the hash of our token
+                    var hash = Encryption.Hash(token.ToString());
+
+                    // Find the refresh token by its hash
+                    var rt = (from r in ctx.RefreshTokens
+                              where r.Id == hash
+                              select r).SingleOrDefault();
+
+                    if (rt != null)
+                    {
+                        // Get ticket from stored data
+                        context.DeserializeTicket(rt.Ticket);
+                        // Delete the token from the DB
+                        ctx.RefreshTokens.Remove(rt);
+
+                        // Save changes
+                        await ctx.SaveChangesAsync();
+
+                    }
                 }
+                
             }
 
-
-            return Task.FromResult(0);
         }
 
         public void Create(AuthenticationTokenCreateContext context)

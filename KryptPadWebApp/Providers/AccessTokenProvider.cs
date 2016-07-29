@@ -80,8 +80,9 @@ namespace KryptPadWebApp.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The username or password is incorrect.");
                 context.Rejected();
+                context.SetError("invalid_grant", "The username or password is incorrect.");
+                
                 return;
             }
 
@@ -138,13 +139,14 @@ namespace KryptPadWebApp.Providers
             var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
             var currentClient = context.OwinContext.Get<string>("as:client_id");
 
-            // enforce client binding of refresh token
+            // Enforce client binding of refresh token
             if (originalClient != currentClient)
             {
                 context.Rejected();
+                return Task.FromResult(0);
             }
 
-            // chance to change authentication ticket for refresh token requests
+            // Chance to change authentication ticket for refresh token requests
             var newId = new ClaimsIdentity(context.Ticket.Identity);
             newId.AddClaim(new Claim("newClaim", "refreshToken"));
 
