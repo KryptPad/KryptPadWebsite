@@ -41,7 +41,7 @@ namespace KryptPadWebApp.Providers
                     Username = context.Ticket.Identity.Name,
                     ClientId = clientId,
                     IssuedUtc = DateTime.UtcNow,
-                    ExpiresUtc = DateTime.UtcNow.AddYears(1)
+                    ExpiresUtc = DateTime.UtcNow.AddDays(14)
                 };
 
                 // Set token
