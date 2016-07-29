@@ -291,6 +291,23 @@ namespace KryptPadWebApp.Cryptography
         }
 
         /// <summary>
+        /// Generates a random salt
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateRandomString(int length)
+        {
+            byte[] randomBytes = new byte[length];
+
+            //create random byte generator
+            var rand = new SecureRandom();
+            //get random bytes for our salt
+            rand.NextBytes(randomBytes);
+
+            // Return the salt
+            return Convert.ToBase64String(randomBytes);
+        }
+
+        /// <summary>
         /// Computes a hash from a string and an optional salt
         /// </summary>
         /// <param name="plainText"></param>

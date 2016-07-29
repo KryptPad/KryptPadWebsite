@@ -18,11 +18,11 @@ namespace KryptPadWebApp.Providers
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            // Generate token guid
-            var guid = Guid.NewGuid().ToString();
+            // Generate token
+            var token = Encryption.GenerateRandomString(32);
             // Get the client id
             var clientId = context.Ticket.Properties.Dictionary["as:client_id"];
-            
+
             // Store the refresh token in the database
             using (var ctx = new ApplicationDbContext())
             {
@@ -41,7 +41,7 @@ namespace KryptPadWebApp.Providers
                 // Create refresh token
                 var rt = new RefreshToken()
                 {
-                    Id = Encryption.Hash(guid),
+                    Id = Encryption.Hash(token),
                     Username = username,
                     ClientId = clientId,
                     IssuedUtc = DateTime.UtcNow,
@@ -63,39 +63,34 @@ namespace KryptPadWebApp.Providers
             }
 
             // Add original token to ticket
-            context.SetToken(guid);
+            context.SetToken(token);
 
         }
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            Guid token;
 
-            if (Guid.TryParse(context.Token, out token))
+            using (var ctx = new ApplicationDbContext())
             {
-                using(var ctx = new ApplicationDbContext())
+                // Get the hash of our token
+                var hash = Encryption.Hash(context.Token);
+
+                // Find the refresh token by its hash
+                var rt = (from r in ctx.RefreshTokens
+                          where r.Id == hash
+                          select r).SingleOrDefault();
+
+                if (rt != null)
                 {
-                    // Get the hash of our token
-                    var hash = Encryption.Hash(token.ToString());
+                    // Get ticket from stored data
+                    context.DeserializeTicket(rt.Ticket);
+                    // Delete the token from the DB
+                    ctx.RefreshTokens.Remove(rt);
 
-                    // Find the refresh token by its hash
-                    var rt = (from r in ctx.RefreshTokens
-                              where r.Id == hash
-                              select r).SingleOrDefault();
+                    // Save changes
+                    await ctx.SaveChangesAsync();
 
-                    if (rt != null)
-                    {
-                        // Get ticket from stored data
-                        context.DeserializeTicket(rt.Ticket);
-                        // Delete the token from the DB
-                        ctx.RefreshTokens.Remove(rt);
-
-                        // Save changes
-                        await ctx.SaveChangesAsync();
-
-                    }
                 }
-                
             }
 
         }
