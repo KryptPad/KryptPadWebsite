@@ -8,6 +8,7 @@
 
         // Create post data
         var postData = {
+            client_id: 'KryptPadWeb',
             grant_type: 'password',
             username: username,
             password: password

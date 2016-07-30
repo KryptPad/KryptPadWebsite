@@ -26,7 +26,7 @@
             // Set busy state
             self.isBusy(true);
             // Login
-            app.login(self.username(), self.password()).done(function (data) {
+            api.login(self.username(), self.password()).done(function (data) {
                 // Cache the access token in session storage.
                 app.setToken(data);
 

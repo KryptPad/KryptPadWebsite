@@ -23,7 +23,7 @@
         var tokenData = JSON.stringify(token);
         // Store the token result in session storage
         sessionStorage.setItem(app.tokenKey, tokenData);
-    }
+    };
 
     // Helper method to get user name from the token
     app.getUserName = function () {
@@ -36,25 +36,7 @@
         else {
             return null;
         }
-    }
-
-    // Sign into the system
-    app.login = function (username, password) {
-
-        // Create post data
-        var postData = {
-            grant_type: 'password',
-            username: username,
-            password: password
-        };
-
-        // Send to token endpoint
-        return $.ajax({
-            type: 'POST',
-            url: '/token',
-            data: postData
-        });
-    }
+    };
 
     // Clears the token from storage
     app.logout = function () {
@@ -62,7 +44,7 @@
         sessionStorage.removeItem(app.tokenKey);
         // Go to sign in page
         global.location = "/app/signin";
-    }
+    };
 
     // Returns true if the user is authenticated
     app.isAuthenticated = function () {
@@ -137,9 +119,9 @@
     };
 
     // Gets the value from the request param
-    app.request = function(name) {
+    app.request = function (name) {
         if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
             return decodeURIComponent(name[1]);
-    }
+    };
 
 })(window);
