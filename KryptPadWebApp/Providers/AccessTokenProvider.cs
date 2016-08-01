@@ -87,7 +87,6 @@ namespace KryptPadWebApp.Providers
             }
 
             var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
-            //ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, CookieAuthenticationDefaults.AuthenticationType);
 
             // Create ticket
             var ticket = new AuthenticationTicket(
@@ -96,7 +95,6 @@ namespace KryptPadWebApp.Providers
 
             // Validate our request for a token
             context.Validated(ticket);
-            //context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

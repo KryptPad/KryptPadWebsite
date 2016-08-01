@@ -182,11 +182,7 @@
             self.isBusy(true);
 
             // Authorize the request
-            $.ajax({
-                type: 'GET',
-                url: '/api/profiles',
-                headers: app.authorizeHeader()
-            }).done(function (data) {
+            api.getProfiles().done(function (data) {
                 // Bind the profiles to the list
                 $.each(data.Profiles, function () {
                     self.profiles.push(this);
@@ -196,7 +192,7 @@
                 app.processError(error, function (message) {
                     self.errorMessage(message);
                 });
-            }).complete(function () {
+            }).always(function () {
                 // Set busy state
                 self.isBusy(false);
             });

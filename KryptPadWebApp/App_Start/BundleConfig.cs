@@ -10,10 +10,11 @@ namespace KryptPadWebApp
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/moment.js",
                         "~/Scripts/sammy-{version}.js",
                         "~/Scripts/knockout-{version}.js",
                         "~/Scripts/knockout-loaders.js",
-                        "~/Scripts/knockout.validation.min.js",
+                        "~/Scripts/knockout.validation.js",
                         "~/Scripts/validation-config.js",
                         "~/Scripts/functions.js",
                         "~/Scripts/api.js"));
