@@ -22,15 +22,7 @@
             // Set busy state
             self.isBusy(true);
 
-            var postData = {
-                email: self.email()
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/api/account/forgot-password',
-                data: postData
-            }).done(function (data) {
+            api.forgotPassword(self.email()).done(function (data) {
                 // Success
                 self.message(app.createMessage(app.MSG_SUCCESS, "If the email address you provided is associated to your account, you should receive an email shortly with instructions on how to change your password."));
 

@@ -57,7 +57,7 @@
         self.profilePic = ko.pureComputed(function () {
             return 'http://www.gravatar.com/avatar/' + self.emailHash + '?d=identicon&s=200'
         });
-        
+
         /*
          * Methods
          */
@@ -111,7 +111,7 @@
                 self.emailHash = data.EmailHash;
             });
         };
-        
+
         /*
          * Navigation methods
          */
@@ -160,7 +160,7 @@
 
         }).run();
 
-        
+
 
         // Load the details
         self.getAccountDetails();
@@ -279,11 +279,9 @@
 
         // Send an email with a confirmation link to click on
         self.sendEmailConfirmationLink = function () {
-            $.ajax({
-                type: 'POST',
-                url: '/api/account/send-email-confirmation-link',
-                headers: app.authorizeHeader()
-            }).done(function (data) {
+
+            // Send confirm email
+            api.sendEmailConfirmationLink().done(function (data) {
                 // Set some observables
                 self.message(app.createMessage(app.MSG_SUCCESS,
                     'An email was sent to your email address. Please click on the link to confirm your account.'));
@@ -295,14 +293,13 @@
                     self.message(app.createMessage(app.MSG_ERROR, message));
                 });
 
-            }).always(function () {
-
             });
         };
 
         // Get account details
         self.getAccountDetails = function () {
 
+            // Get account details
             api.getAccountDetails().done(function (data) {
                 // Set some observables
                 self.showEmailConfirmationWarning(!data.EmailConfirmed);
@@ -349,19 +346,12 @@
                 return;
             }
 
-            // Send all the data we need to the api to reset the password
-            var postData = {
-                currentPassword: self.currentPassword(),
-                newPassword: self.newPassword(),
-                confirmPassword: self.confirmPassword()
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/api/account/change-password',
-                data: postData,
-                headers: app.authorizeHeader()
-            }).done(function (data) {
+            // Change the user's password
+            api.changePassword(
+                self.currentPassword(),
+                self.newPassword(),
+                self.confirmPassword()
+            ).done(function (data) {
                 // Success
                 self.message(app.createMessage(app.MSG_SUCCESS, "Your password has been changed."));
                 // Set flag

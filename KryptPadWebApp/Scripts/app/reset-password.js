@@ -25,19 +25,13 @@
                 return;
             }
 
-            // Send all the data we need to the api to reset the password
-            var postData = {
-                userId: ko.unwrap(self.userId),
-                code: ko.unwrap(self.code),
-                password: self.password(),
-                confirmPassword: self.confirmPassword()
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/api/account/reset-password',
-                data: postData
-            }).done(function (data) {
+            // Reset the user's password
+            api.resetPassword(
+                ko.unwrap(self.userId),
+                ko.unwrap(self.code),
+                self.password(),
+                self.confirmPassword()
+            ).done(function (data) {
                 // Success
                 self.message(app.createMessage(app.MSG_SUCCESS, "Your password has been changed."));
                 // Set flag
@@ -88,7 +82,7 @@
             return true;
         };
     }
-        
+
     // Create model
     var model = new ViewModel();
 

@@ -24,19 +24,14 @@
             // Set busy state
             self.isBusy(true);
 
-            var postData = {
-                email: self.email(),
-                password: self.password(),
-                confirmPassword: self.confirmPassword()
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: '/api/account/register',
-                data: postData
-            }).done(function (data) {
+            // Create an account
+            api.register(
+                self.email(),
+                self.password(),
+                self.confirmPassword()
+            ).done(function (data) {
                 // Success, log into account
-                app.login(self.email(), self.password()).done(function (data) {
+                api.login(self.email(), self.password()).done(function (data) {
                     // Cache the access token in session storage.
                     app.setToken(data);
 
@@ -110,7 +105,7 @@
             return true;
         };
     }
-    
+
     // Create model
     var model = new ViewModel();
 
