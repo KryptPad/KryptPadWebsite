@@ -39,7 +39,7 @@ namespace KryptPadWebApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("", Name = "ApiProfiles")]
+        [Route("")]
         public async Task<IHttpActionResult> Get()
         {
 
@@ -204,11 +204,26 @@ namespace KryptPadWebApp.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("")]
-        public async Task<IHttpActionResult> Post(ApiProfile request)
+        public async Task<IHttpActionResult> Post(CreateProfileRequest request)
         {
+           
+            // If null, this is likely because of an older app version
+            if (request.Passphrase == null)
+            {
+                // Compatability, get from header if not in the request
+                request.Passphrase = Passphrase;
+                request.ConfirmPassphrase = Passphrase;
+
+                if (request.Passphrase != null)
+                {
+                    // Remove fields from validation
+                    ModelState.Remove("Passphrase");
+                    ModelState.Remove("ConfirmPassphrase");
+                }
+            }
 
             // Check passphrase against our password rules
-            var result = await UserManager.PasswordValidator.ValidateAsync(Passphrase);
+            var result = await UserManager.PasswordValidator.ValidateAsync(request.Passphrase);
 
             if (!result.Succeeded)
             {
@@ -245,7 +260,7 @@ namespace KryptPadWebApp.Controllers
                     User = user,
                     Name = request.Name,
                     Key1 = Convert.ToBase64String(saltBytes),
-                    Key2 = Encryption.Hash(Passphrase, saltBytes)
+                    Key2 = Encryption.Hash(request.Passphrase, saltBytes)
                 };
 
                 // Add the profile to the context

@@ -317,6 +317,7 @@
     <Compile Include="Models\Requests\ChangePasswordRequest.cs" />
     <Compile Include="Models\Requests\ConfirmEmailRequest.cs" />
     <Compile Include="Models\Requests\CreateAccountRequest.cs" />
+    <Compile Include="Models\Requests\CreateProfileRequest.cs" />
     <Compile Include="Models\Requests\ForgotPasswordRequest.cs" />
     <Compile Include="Models\Requests\ResetPasswordRequest.cs" />
     <Compile Include="Models\Results\AccountDetailsResult.cs" />

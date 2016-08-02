@@ -141,6 +141,8 @@ namespace KryptPadWebApp.Providers
             if (originalClient != currentClient)
             {
                 context.Rejected();
+                context.SetError("invalid_grant", "Access denied.");
+
                 return Task.FromResult(0);
             }
 

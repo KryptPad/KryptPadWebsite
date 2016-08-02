@@ -161,6 +161,12 @@
 
             // Execute the ajax request based on our ajax options
             return $.ajax(ajaxOptions);
+        }).fail(function (error) {
+            // Does this mean we failed to authenticate?
+            if (error.responseJSON && error.responseJSON.error === 'invalid_grant') {
+                // Initiate logout
+                app.logout();
+            }
         });
 
     };
