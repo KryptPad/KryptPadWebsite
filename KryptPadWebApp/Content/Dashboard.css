@@ -7,7 +7,7 @@
     Header
 */
 .app-header {
-    background-color: #67a4de;
+    background-color: #173a55;
     position: fixed;
     top: 0;
     width: 100%;
@@ -105,12 +105,15 @@
 
 
 /*
-    Side nav
+    Content wrapper
 */
 .content-wrapper {
     position: relative;
 }
 
+    /*
+        Side nav
+    */
     .content-wrapper .side-nav {
         margin-top: 50px;
         position: fixed;
@@ -120,13 +123,13 @@
         background-color: #191a1d;
         color: #fff;
         width: 280px;
+        transition: all 200ms ease-in-out;
     }
 
         .content-wrapper .side-nav > ul {
             list-style: none;
             padding: 0;
         }
-
 
             .content-wrapper .side-nav > ul > li > a {
                 display: block;
@@ -151,6 +154,15 @@
                 text-decoration: none;
             }
 
+            .content-wrapper .side-nav > ul > li > a .nav-text {
+                transform: translateX(20px);
+                position: absolute;
+                transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+            }
+
+    /*
+        Main content
+    */
     .content-wrapper .main-content {
         padding: 15px;
         margin-left: 280px;
@@ -176,14 +188,10 @@
 
     .content-wrapper .side-nav {
         width: 50px;
-        transition: all 200ms ease-in-out;
     }
 
         .content-wrapper .side-nav > ul > li > a .nav-text {
-            transform: translateX(20px);
-            position: absolute;
             opacity: 0;
-            transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
         }
 
     .content-wrapper .main-content {
@@ -196,7 +204,7 @@
     }
 
         .content-wrapper.open .side-nav > ul > li > a .nav-text {
-            transform: translateX(10px);
+            /*transform: translateX(10px);*/
             opacity: 1;
         }
 }
