@@ -206,24 +206,28 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(CreateProfileRequest request)
         {
-           
-            // If null, this is likely because of an older app version
+            var passphrase = "";
             if (request.Passphrase == null)
             {
-                // Compatability, get from header if not in the request
-                request.Passphrase = Passphrase;
-                request.ConfirmPassphrase = Passphrase;
+                // Old way
+                passphrase = Passphrase;
 
-                if (request.Passphrase != null)
+            }
+            else
+            {
+                // New way
+                // If the model state is invalid, return bad request
+                if (!ModelState.IsValid)
                 {
-                    // Remove fields from validation
-                    ModelState.Remove("Passphrase");
-                    ModelState.Remove("ConfirmPassphrase");
+                    return BadRequest(ModelState);
                 }
+
+                passphrase = request.Passphrase;
+
             }
 
             // Check passphrase against our password rules
-            var result = await UserManager.PasswordValidator.ValidateAsync(request.Passphrase);
+            var result = await UserManager.PasswordValidator.ValidateAsync(passphrase);
 
             if (!result.Succeeded)
             {
@@ -232,13 +236,11 @@ namespace KryptPadWebApp.Controllers
                 {
                     ModelState.AddModelError("Errors", error);
                 }
-            }
 
-            // If the model state is invalid, return bad request
-            if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
             }
+
+            
 
             // Create context
             using (var ctx = new ApplicationDbContext())
@@ -260,7 +262,7 @@ namespace KryptPadWebApp.Controllers
                     User = user,
                     Name = request.Name,
                     Key1 = Convert.ToBase64String(saltBytes),
-                    Key2 = Encryption.Hash(request.Passphrase, saltBytes)
+                    Key2 = Encryption.Hash(passphrase, saltBytes)
                 };
 
                 // Add the profile to the context
