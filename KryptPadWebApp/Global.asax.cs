@@ -22,7 +22,7 @@ namespace KryptPadWebApp
         {
 
             // Protect the web.config
-            //EncryptConnString();
+            EncryptConnString();
 
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
@@ -39,15 +39,18 @@ namespace KryptPadWebApp
         public void EncryptConnString()
         {
             // Get config
-            var config = WebConfigurationManager.OpenWebConfiguration(HostingEnvironment.ApplicationVirtualPath);
+            var config = WebConfigurationManager.OpenWebConfiguration("~");
             // Open connection string section
             var section = config.GetSection("connectionStrings");
 
             // If the section is not protected, protect it
             if (!section.SectionInformation.IsProtected)
             {
-                section.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
-                config.Save();
+                // Protect section
+                section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
+                section.SectionInformation.ForceSave = true;
+                // Save config
+                config.Save(System.Configuration.ConfigurationSaveMode.Full);
             }
         }
         
