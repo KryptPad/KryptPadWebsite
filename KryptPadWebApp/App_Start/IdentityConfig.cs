@@ -13,6 +13,7 @@ using Microsoft.Owin.Security;
 using KryptPadWebApp.Models;
 using Microsoft.Owin.Security.Cookies;
 using System.Configuration;
+using KryptPadWebApp.Email;
 
 namespace KryptPadWebApp
 {
@@ -20,36 +21,8 @@ namespace KryptPadWebApp
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Credentials
-            var credentialUserName = ConfigurationManager.AppSettings["SmtpUserName"];
-            var sentFrom = ConfigurationManager.AppSettings["SmtpSendFrom"];
-            var pwd = ConfigurationManager.AppSettings["SmtpPassword"];
-            var server = ConfigurationManager.AppSettings["SmtpHostName"];
-            var port = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpPort"]);
-
-            // Configure the client
-            System.Net.Mail.SmtpClient client =
-                new System.Net.Mail.SmtpClient(server);
-
-            client.Port = port;
-            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-
-            // Create the credentials
-            System.Net.NetworkCredential credentials =
-                new System.Net.NetworkCredential(credentialUserName, pwd);
-            
-            client.EnableSsl = false;
-            client.Credentials = credentials;
-
-            // Create the message
-            var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
-            mail.IsBodyHtml = true;
-            mail.Subject = message.Subject;
-            mail.Body = message.Body;
-
             // Send
-            return client.SendMailAsync(mail);
+            return EmailHelper.SendAsync(message.Subject, message.Body, message.Destination);
         }
     }
 

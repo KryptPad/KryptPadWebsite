@@ -13,6 +13,8 @@ using System.Web.Routing;
 using System.Web.Configuration;
 using System.Web.Security;
 using System.Web.Hosting;
+using KryptPadWebApp.Email;
+
 
 namespace KryptPadWebApp
 {
@@ -22,7 +24,8 @@ namespace KryptPadWebApp
         {
 
             // Protect the web.config
-            EncryptConnString();
+            EncryptConfigSection("connectionStrings");
+            EncryptConfigSection("appSettings");
 
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
@@ -32,27 +35,39 @@ namespace KryptPadWebApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-        
+
         /// <summary>
         /// Encrypts the web.config connection string section
         /// </summary>
-        public void EncryptConnString()
+        public void EncryptConfigSection(string sectionKey)
         {
-            // Get config
-            var config = WebConfigurationManager.OpenWebConfiguration("~");
-            // Open connection string section
-            var section = config.GetSection("connectionStrings");
-
-            // If the section is not protected, protect it
-            if (!section.SectionInformation.IsProtected)
+            try
             {
-                // Protect section
-                section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
-                section.SectionInformation.ForceSave = true;
-                // Save config
-                config.Save(System.Configuration.ConfigurationSaveMode.Full);
+                // Get config
+                var config = WebConfigurationManager.OpenWebConfiguration("~");
+                // Open connection string section
+                var section = config.GetSection(sectionKey);
+
+                // If the section is not protected, protect it
+                if (section != null && !section.SectionInformation.IsProtected && !section.ElementInformation.IsLocked)
+                {
+                    // Protect section
+                    section.SectionInformation.ProtectSection("DataProtectionConfigurationProvider");
+                    section.SectionInformation.ForceSave = true;
+                    // Save config
+                    config.Save(System.Configuration.ConfigurationSaveMode.Full);
+                }
             }
+            catch (Exception ex)
+            {
+                // Log the error
+                EmailHelper.SendAsync(
+                    nameof(EncryptConfigSection),
+                    ex.Message,
+                    System.Configuration.ConfigurationManager.AppSettings["ErrorEmailDestination"]);
+            }
+
         }
-        
+
     }
 }

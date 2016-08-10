@@ -210,6 +210,7 @@
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\ProfileApiController.cs" />
     <Compile Include="Controllers\SecureController.cs" />
+    <Compile Include="Email\EmailHelper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
