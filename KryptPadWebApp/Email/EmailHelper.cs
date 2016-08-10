@@ -29,16 +29,12 @@ namespace KryptPadWebApp.Email
 
             // Configure the client
             var client = new SmtpClient(server);
-
             client.Port = port;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-
-            // Create the credentials
-            var credentials = new NetworkCredential(credentialUserName, pwd);
-
             client.EnableSsl = false;
-            client.Credentials = credentials;
+            // Create the credentials
+            client.Credentials = new NetworkCredential(credentialUserName, pwd);
 
             // Create the message
             var mail = new MailMessage(sentFrom, to);
