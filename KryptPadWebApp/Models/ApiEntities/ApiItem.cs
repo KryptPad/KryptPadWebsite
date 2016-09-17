@@ -17,7 +17,7 @@ namespace KryptPadWebApp.Models.ApiEntities
         /// Gets or sets the name of the item
         /// </summary>
         [Required]
-        [RegularExpression(@"^([a-zA-Z0-9_\-\s\.]+)$", ErrorMessage = "Name can only contain numbers, letters, spaces, and underscores")]
+        [RegularExpression(@"^([a-zA-Z0-9\s\W_]+)$", ErrorMessage = "Name contains invalid characters")]
         public string Name { get; set; }
 
         /// <summary>
