@@ -23,9 +23,19 @@ namespace KryptPadWebApp
         protected void Application_Start()
         {
 
-            // Protect the web.config
-            EncryptConfigSection("connectionStrings");
-            EncryptConfigSection("appSettings");
+            // Encrypt the web.config only if not runnint from localhost
+            if (!System.Diagnostics.Debugger.IsAttached)
+            {
+                // Protect the web.config
+                EncryptConfigSection("connectionStrings");
+                EncryptConfigSection("appSettings");
+            }
+            else
+            {
+                // Unprotect
+                DecryptConfigSection("connectionStrings");
+                DecryptConfigSection("appSettings");
+            }
 
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
@@ -69,5 +79,38 @@ namespace KryptPadWebApp
 
         }
 
+        /// <summary>
+        /// Decrypts a specific section
+        /// </summary>
+        /// <param name="sectionKey"></param>
+        public void DecryptConfigSection(string sectionKey)
+        {
+            try
+            {
+                // Get config
+                var config = WebConfigurationManager.OpenWebConfiguration("~");
+                // Open connection string section
+                var section = config.GetSection(sectionKey);
+
+                // If the section is not protected, protect it
+                if (section != null && section.SectionInformation.IsProtected && !section.ElementInformation.IsLocked)
+                {
+                    // Protect section
+                    section.SectionInformation.UnprotectSection();
+                    section.SectionInformation.ForceSave = true;
+                    // Save config
+                    config.Save(System.Configuration.ConfigurationSaveMode.Full);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the error
+                EmailHelper.SendAsync(
+                    nameof(DecryptConfigSection),
+                    ex.Message,
+                    System.Configuration.ConfigurationManager.AppSettings["ErrorEmailDestination"]);
+            }
+
+        }
     }
 }
