@@ -9,9 +9,9 @@
 
             <h1>Krypt Pad</h1>
             <p class="lead">Secure credential manager</p>
-            <p>
-                Windows 10 app coming Summer 2016!
-            </p>
+            <img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />
+
+
             @*Account interactions*@
             <div>
                 <p>
@@ -22,32 +22,47 @@
 
             @*Download supported clients*@
             @*<p>
-                Download Krypt Pad for Windows desktop beta 4
-            </p>
-            <div>
-                <a href="@Url.RouteUrl("Download")" title="Download Now" class="card-link">
-                    <div class="card">
-                        <p>
-                            <i class="fa fa-windows fa-3x" aria-hidden="true"></i>
-                        </p>
+                    Download Krypt Pad for Windows desktop beta 4
+                </p>
+                <div>
+                    <a href="@Url.RouteUrl("Download")" title="Download Now" class="card-link">
+                        <div class="card">
+                            <p>
+                                <i class="fa fa-windows fa-3x" aria-hidden="true"></i>
+                            </p>
 
-                        <i class="fa fa-download fa-lg" aria-hidden="true"></i>
-                    </div>
-                </a>
-            </div>*@
+                            <i class="fa fa-download fa-lg" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </div>*@
 
-            <hr />
-            <p>
-                <small>
-                    Krypt Pad for Windows desktop beta 4 is being discontinued... but, you can still
-                    download it. <a href="@Url.RouteUrl("Download")" title="Download Krypt Pad beta 4">Download Old Version</a>
-                </small>
-            </p>
+
         </div>
 
     </div>
 }
 
+@*Available downloads*@
+<div class="container text-center">
+    <p class="h1">
+        Download
+    </p>
+    <hr />
+    <p>
+        <a href="http://www.google.com">
+            <i class="fa fa-windows fa-5x"></i>
+        </a>
+    </p>
+    <hr />
+    <p>
+        <small>
+            Krypt Pad for Windows desktop beta 4 is being discontinued... but, you can still
+            download it. <a href="@Url.RouteUrl("Download")" title="Download Krypt Pad beta 4">Download Old Version</a>
+        </small>
+    </p>
+</div>
+
+@*An ad - will probably get blocked anyway :( oh well*@
 <div class="text-center middle">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- KP_RESP_1 -->
@@ -82,16 +97,16 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-md-5">
-                <p class="h1">Safe &amp; Secure</p>
+            <div class="col-sm-4 text-center col-sm-push-8 ">
+                <img src="~/Content/Images/security-electronic-key.svg"  style="width: 80%; max-width:256px" />
+            </div>
+
+            <div class="col-sm-8 col-sm-pull-4">
+                <p class="h1">Security</p>
                 <p class="lead">
                     Security is important, especially when you are storing credentials, credit card numbers, bank information, and other
                     sesitive data. Everything is protected using AES 256bit encryption.
                 </p>
-            </div>
-
-            <div class="col-md-5 visible-md-block visible-lg-block">
-                <img src="~/Content/Images/safe.png" />
             </div>
         </div>
 

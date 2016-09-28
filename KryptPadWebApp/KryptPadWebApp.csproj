@@ -352,10 +352,14 @@
     <Content Include="Content\Images\favorite2.png" />
     <Content Include="Content\Images\favorite2128x128.png" />
     <Content Include="Content\Images\phone.png" />
+    <Content Include="Content\Images\safe-white.svg" />
     <Content Include="Content\Images\safe.png" />
     <Content Include="Content\Images\safe128x128.png" />
     <Content Include="Content\Images\safe32x32.png" />
     <Content Include="Content\Images\screen.png" />
+    <Content Include="Content\Images\security-electronic-key.svg" />
+    <Content Include="Content\Images\security-protection.svg" />
+    <Content Include="Content\Images\security-safe.svg" />
     <Content Include="Content\Images\social_facebook.png" />
     <Content Include="Content\Images\social_twitter.png" />
     <Content Include="Content\Images\Square176x176Logo.png" />
