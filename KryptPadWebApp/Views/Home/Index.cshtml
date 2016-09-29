@@ -11,7 +11,6 @@
             <p class="lead">Secure credential manager</p>
             <img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />
 
-
             @*Account interactions*@
             <div>
                 <p>
@@ -19,23 +18,6 @@
 
                 </p>
             </div>
-
-            @*Download supported clients*@
-            @*<p>
-                    Download Krypt Pad for Windows desktop beta 4
-                </p>
-                <div>
-                    <a href="@Url.RouteUrl("Download")" title="Download Now" class="card-link">
-                        <div class="card">
-                            <p>
-                                <i class="fa fa-windows fa-3x" aria-hidden="true"></i>
-                            </p>
-
-                            <i class="fa fa-download fa-lg" aria-hidden="true"></i>
-                        </div>
-                    </a>
-                </div>*@
-
 
         </div>
 
@@ -77,14 +59,47 @@
 </div>
 
 @*Main content*@
-<div class="hero hero-transparent ">
+<div class="hero hero-light-gray">
     <div class="container text-center">
         <p class="h1">How it works</p>
+
         <p class="lead">
             Keeping track of all your passwords, credit cards, and other personal information can be difficult, or even impossible
             (unless you have a photographic memory). But for the rest of us, Krypt Pad can store sensitive information and keep it
             safe. Your data is encrypted and synced across all your compatible devices.
         </p>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <p>
+                    <img src="~/Content/Images/communication-mobile-phone.svg" width="128" />
+                </p>
+                <p class="lead">
+                    Manage your credentials with a client for your platform
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <p>
+                    <img src="~/Content/Images/security-security-padlock.svg" width="128" />
+                </p>
+                <p class="lead">
+                    AES 256-bit encryption keeps your data secure
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <p>
+                    <img src="~/Content/Images/security-trusted-security.svg" width="128" />
+                </p>
+                <p class="lead">
+                    Your information can be accessed from compatible devices
+                </p>
+            </div>
+            
+        </div>
+        
         <p class="lead">
 
         </p>
@@ -98,7 +113,7 @@
 
         <div class="row">
             <div class="col-sm-4 text-center col-sm-push-8 ">
-                <img src="~/Content/Images/security-electronic-key.svg"  style="width: 80%; max-width:256px" />
+                <img src="~/Content/Images/security-electronic-key.svg" style="width: 80%; max-width:256px" />
             </div>
 
             <div class="col-sm-8 col-sm-pull-4">
@@ -110,20 +125,21 @@
             </div>
         </div>
 
-    </div>
-</div>
+        @*Another ad that will probably be blocked*@
+        <div class="text-center middle">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- KP_RESP_2 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3983402242017131"
+                 data-ad-slot="6799044097"
+                 data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
-<div class="text-center middle">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- KP_RESP_2 -->
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-3983402242017131"
-         data-ad-slot="6799044097"
-         data-ad-format="auto"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
+    </div>
 </div>
 
 @*Donations*@

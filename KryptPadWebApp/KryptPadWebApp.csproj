@@ -343,10 +343,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Dashboard.css" />
+    <Content Include="Content\Images\arrow-gray.svg" />
     <Content Include="Content\Images\cloud-secure.png" />
     <Content Include="Content\Images\cloud.png" />
     <Content Include="Content\Images\cloud128x128.png" />
+    <Content Include="Content\Images\communication-mobile-phone.svg" />
     <Content Include="Content\Images\computer.png" />
+    <Content Include="Content\Images\document-document-flow.svg" />
+    <Content Include="Content\Images\document-new-document.svg" />
     <Content Include="Content\Images\document_text-export.png" />
     <Content Include="Content\Images\document_text-locked.png" />
     <Content Include="Content\Images\favorite2.png" />
@@ -360,6 +364,8 @@
     <Content Include="Content\Images\security-electronic-key.svg" />
     <Content Include="Content\Images\security-protection.svg" />
     <Content Include="Content\Images\security-safe.svg" />
+    <Content Include="Content\Images\security-security-padlock.svg" />
+    <Content Include="Content\Images\security-trusted-security.svg" />
     <Content Include="Content\Images\social_facebook.png" />
     <Content Include="Content\Images\social_twitter.png" />
     <Content Include="Content\Images\Square176x176Logo.png" />

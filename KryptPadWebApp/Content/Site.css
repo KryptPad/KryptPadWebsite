@@ -41,32 +41,34 @@ textarea {
         color: #fff;
     }
 
-.hero-blue a {
-    color: white;
-}
+        .hero.hero-blue a {
+            color: white;
+        }
 
-.hero.hero-light-blue {
-    background-color: #cfebff;
-    /*box-shadow: 0px 4px 12px rgba(0,0,0,0.1),
+    .hero.hero-light-blue {
+        background-color: #cfebff;
+        /*box-shadow: 0px 4px 12px rgba(0,0,0,0.1),
                 0px -4px 12px rgba(0,0,0,0.1);*/
-    /*border-top: 10px dashed #fff;
+        /*border-top: 10px dashed #fff;
     border-bottom: 10px dashed #fff;*/
-}
+    }
 
-.hero.hero-light-red {
-    background-color: #ffddd7;
-    /*border-top: 10px dashed #fff;
-    border-bottom: 10px dashed #fff;*/
-}
+    .hero.hero-light-red {
+        background-color: #ffddd7;
+    }
 
-.hero.hero-transparent {
-    background-color: transparent;
-    /*box-shadow: 0px 5px 13px rgba(0,0,0,0.1), 0px -5px 13px rgba(0,0,0,0.1);*/
-}
+    .hero.hero-light-gray {
+        background-color: #eee;
+    }
 
-.hero.hero-main {
-    margin-bottom: 0;
-}
+    .hero.hero-transparent {
+        background-color: transparent;
+        /*box-shadow: 0px 5px 13px rgba(0,0,0,0.1), 0px -5px 13px rgba(0,0,0,0.1);*/
+    }
+
+    .hero.hero-main {
+        margin-bottom: 0;
+    }
 
 /* Middle content */
 .middle {
