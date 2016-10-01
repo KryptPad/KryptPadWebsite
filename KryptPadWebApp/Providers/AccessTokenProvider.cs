@@ -47,7 +47,7 @@ namespace KryptPadWebApp.Providers
             }
 
             // Validate clientid and clientsecret. You can omit validating client secret if none is provided in your request (as in sample client request above)
-            var validClient = !string.IsNullOrWhiteSpace(clientId);
+            var validClient = true;//!string.IsNullOrWhiteSpace(clientId);
 
             if (validClient)
             {

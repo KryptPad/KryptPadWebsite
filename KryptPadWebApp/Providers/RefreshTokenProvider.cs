@@ -22,6 +22,11 @@ namespace KryptPadWebApp.Providers
             var token = Encryption.GenerateRandomString(32);
             // Get the client id
             var clientId = context.Ticket.Properties.Dictionary["as:client_id"];
+            // No client id? No token.
+            if (string.IsNullOrWhiteSpace(clientId))
+            {
+                return;
+            }
 
             // Store the refresh token in the database
             using (var ctx = new ApplicationDbContext())
