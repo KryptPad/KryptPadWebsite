@@ -38,6 +38,16 @@ namespace KryptPadWebApp.Models
         public Category Category { get; set; }
 
         /// <summary>
+        /// Gets or sets the item's background color
+        /// </summary>
+        public string BackgroundColor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the item's icon
+        /// </summary>
+        public char Icon { get; set; }
+
+        /// <summary>
         /// List of fields under the item
         /// </summary>
         public List<Field> Fields { get; set; }
