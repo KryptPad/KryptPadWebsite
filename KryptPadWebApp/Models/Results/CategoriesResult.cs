@@ -25,7 +25,8 @@ namespace KryptPadWebApp.Models.Results
                                                           {
                                                               Id = i.Id,
                                                               CategoryId = c.Id,
-                                                              Name = Encryption.DecryptFromString(i.Name, passphrase)
+                                                              Name = Encryption.DecryptFromString(i.Name, passphrase),
+                                                              BackgroundColor = i.BackgroundColor
                                                           }).ToArray() : null)
                           }).ToArray();
 

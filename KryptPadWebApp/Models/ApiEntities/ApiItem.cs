@@ -32,6 +32,11 @@ namespace KryptPadWebApp.Models.ApiEntities
         public int CategoryId { get; set; }
 
         /// <summary>
+        /// Gets or sets the item's background color
+        /// </summary>
+        public string BackgroundColor { get; set; }
+
+        /// <summary>
         /// Gets or set the fields for the item
         /// </summary>
         public ApiField[] Fields { get; set; }

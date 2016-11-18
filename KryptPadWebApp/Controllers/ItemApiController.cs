@@ -121,6 +121,7 @@ namespace KryptPadWebApp.Controllers
                         // Encrypt data
                         item.Name = Encryption.EncryptToString(request.Name, Passphrase);
                         item.Notes = Encryption.EncryptToString(request.Notes, Passphrase);
+                        item.BackgroundColor = request.BackgroundColor;
 
                         // Look for changes in categories
                         if (request.CategoryId != categoryId)
