@@ -129,8 +129,21 @@
 
     };
 
-    // Creates an authorization header for web api calls. If the token is about to expire,
-    // the refresh token is sent and a new access token is retrieved.
+    /*
+     * Gets a list of items
+     */
+    api.getItems = function (profileId, passphrase) {
+        return authorizedAjax({
+            type: 'GET',
+            url: '/api/profiles/'+ profileId + '/categories/with-items',
+            headers: { Passphrase: passphrase }
+        });
+
+    };
+
+    /*
+     * Creates an authorization header for web api calls. If the token is about to expire, the refresh token is sent and a new access token is retrieved.
+     */
     function authorizedAjax(ajaxOptions) {
         // Get the token object
         var token = app.getToken();
@@ -148,16 +161,16 @@
         return $.when(token).then(function (data) {
             // Cache the access token in session storage.
             app.setToken(data);
-            // Create an object for our header
-            var headers = {};
 
+            // Check for headers. Create if not there
+            if (!ajaxOptions.headers) {
+                ajaxOptions.headers = {};
+            }
+           
             // Check to see if we have an access token
             if (data) {
-                headers.Authorization = 'Bearer ' + data.access_token;
+                ajaxOptions.headers.Authorization = 'Bearer ' + data.access_token;
             }
-
-            // Set the header with the new access token
-            ajaxOptions.headers = headers;
 
             // Execute the ajax request based on our ajax options
             return $.ajax(ajaxOptions);

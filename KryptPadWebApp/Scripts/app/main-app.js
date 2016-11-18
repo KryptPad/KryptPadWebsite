@@ -155,6 +155,16 @@
                 self.menuOptions()[1].active(true);
             });
 
+            // GET: Items
+            this.get('#profiles/:id', function (context) {
+                var id = this.params['id'];
+                // Switch to template
+                self.switchTemplate('items-template', new ItemsViewModel(id));
+                // Set active
+                self.clearActiveStatus();
+                self.menuOptions()[1].active(true);
+            });
+
             // When there is no route defined
             this.get('/app', function () { this.app.runRoute('get', '#profiles') });
 
@@ -175,13 +185,17 @@
         self.profiles = ko.observableArray([]);
         self.isBusy = ko.observable(false);
         self.errorMessage = ko.observable();
+        self.passphrase = ko.observable();
 
+        /*
+         * Gets the profiles for the user's account
+         */
         self.getProfiles = function () {
 
             // Set busy state
             self.isBusy(true);
 
-            // Authorize the request
+            // Get the profiles
             api.getProfiles().done(function (data) {
                 // Bind the profiles to the list
                 $.each(data.Profiles, function () {
@@ -189,6 +203,7 @@
                 });
 
             }).fail(function (error) {
+                // Handle the error
                 app.processError(error, function (message) {
                     self.errorMessage(message);
                 });
@@ -196,10 +211,58 @@
                 // Set busy state
                 self.isBusy(false);
             });
-        }
+        };
+
+        /*
+         * Selects a profile and goes to the item page
+         */
+        self.enterProfile = function () {
+            // Go to the items page
+            window.location = '#profiles/' + this.Id;
+        };
 
         // Load the profiles
         self.getProfiles();
+    }
+
+    /*
+     * Items
+     */
+    function ItemsViewModel(profileId, passphrase) {
+        var self = this;
+
+        self.items = ko.observableArray([]);
+        self.isBusy = ko.observable(false);
+        self.message = ko.observable();
+
+        /*
+         * Gets the items for the specified profile
+         */
+        self.getItems = function () {
+
+            // Set busy state
+            self.isBusy(true);
+            debugger // Inject passphrase for now
+            // Get the items
+            api.getItems(profileId, passphrase).done(function (data) {
+                //ko.utils.arrayPushAll(self.items, data);
+                $.each(data.Categories, function () {
+                    self.items.push(this);
+                });
+            }).fail(function (error) {
+                // Handle the error
+                app.processError(error, function (message) {
+                    // Show the error somewhere
+                    self.message(app.createMessage(app.MSG_ERROR, message));
+                })
+            }).always(function () {
+                // Set busy state
+                self.isBusy(false);
+            });
+        };
+
+        // Load the items
+        self.getItems();
     }
 
     /*

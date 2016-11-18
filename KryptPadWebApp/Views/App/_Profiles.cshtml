@@ -29,6 +29,7 @@
                 <tr>
                     <td data-bind="text: Name"></td>
                     <!--<td>
+                         data-bind="click: $parent.enterProfile"
                         <i class="fa fa-trash-o fa-lg"></i>
                     </td>-->
                 </tr>
@@ -36,6 +37,11 @@
             </tbody>
 
         </table>
+
+        @*<p>Enter the passphrase</p>
+        <div>
+            <input data-bind="textInput: passphrase" />
+        </div>*@
 
         <!-- ko if: profiles().length === 0 -->
         <span>You don't have any profiles created. Download the Krypt Pad Windows 10 app from the appstore to add profiles.</span>
