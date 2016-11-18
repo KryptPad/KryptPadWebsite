@@ -246,16 +246,16 @@ namespace KryptPadWebApp.Controllers
 
         }
 
-        ///// <summary>
-        ///// This method does nothing except return OK (200) if authorized.
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[Authorize]
-        //public IHttpActionResult Test()
-        //{
-        //    return Ok();
-        //}
+        /// <summary>
+        /// This method does nothing except return OK (200)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Test")]
+        public IHttpActionResult Test()
+        {
+            return Ok();
+        }
 
         #region Helper methods
         private async Task SendEmailConfirmationLink(string userId)
