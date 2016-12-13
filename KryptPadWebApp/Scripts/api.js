@@ -147,7 +147,11 @@
     function authorizedAjax(ajaxOptions) {
         // Get the token object
         var token = app.getToken();
-        
+        if (!token) {
+            // Initiate logout
+            app.logout();
+        }
+
         // get the expiration date from our token
         var expires = moment(token['.expires']);
         

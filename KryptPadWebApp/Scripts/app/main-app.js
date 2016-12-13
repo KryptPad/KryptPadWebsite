@@ -185,6 +185,7 @@
         self.profiles = ko.observableArray([]);
         self.isBusy = ko.observable(false);
         self.errorMessage = ko.observable();
+        self.selectedProfile = ko.observable();
         self.passphrase = ko.observable();
 
         /*
@@ -217,8 +218,21 @@
          * Selects a profile and goes to the item page
          */
         self.enterProfile = function () {
+            // Call api to validate the entered passphrase
+            // If successful, store the passphrase for future api request
+            // Set this profile as our main context and show the items page
+
+
             // Go to the items page
             window.location = '#profiles/' + this.Id;
+        };
+
+        /*
+         * Sets the selected profile
+         */
+        self.providePassphrase = function () {
+            // Set the selected profile
+            self.selectedProfile(this);
         };
 
         // Load the profiles
@@ -231,23 +245,23 @@
     function ItemsViewModel(profileId, passphrase) {
         var self = this;
 
-        self.items = ko.observableArray([]);
+        self.categories = ko.observableArray([]);
         self.isBusy = ko.observable(false);
         self.message = ko.observable();
 
         /*
-         * Gets the items for the specified profile
+         * Gets the categories and items for the specified profile
          */
-        self.getItems = function () {
+        self.getCategories = function () {
 
             // Set busy state
             self.isBusy(true);
             debugger // Inject passphrase for now
-            // Get the items
+            // Get the categories with items
             api.getItems(profileId, passphrase).done(function (data) {
                 //ko.utils.arrayPushAll(self.items, data);
                 $.each(data.Categories, function () {
-                    self.items.push(this);
+                    self.categories.push(this);
                 });
             }).fail(function (error) {
                 // Handle the error
@@ -261,8 +275,8 @@
             });
         };
 
-        // Load the items
-        self.getItems();
+        // Load the categories with items
+        self.getCategories();
     }
 
     /*

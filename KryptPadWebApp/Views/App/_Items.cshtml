@@ -4,29 +4,24 @@
 
         <message-widget params="message: message"></message-widget>
 
-        <!--Items view-->
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <!--<th></th>-->
-                </tr>
-            </thead>
+        <!--Categories view-->
+        <div data-bind="foreach: categories">
 
-            <tbody data-bind="foreach: items">
-                <tr>
-                    <td data-bind="text: Name"></td>
-                    <!--<td>
-                        <i class="fa fa-trash-o fa-lg"></i>
-                    </td>-->
-                </tr>
+            @*Category*@
+            <div>
+                @*Category header*@
+                <p data-bind="text: Name"></p>
 
-            </tbody>
+                @*List of items*@
+                <div class="row">
 
-        </table>
+                </div>
 
-        <!-- ko if: items().length === 0 -->
-        <span>You don't have any items created.</span>
+            </div>
+        </div>
+        
+        <!-- ko if: categories().length === 0 -->
+        <span>You don't have any categories created.</span>
         <!-- /ko -->
 
         @{ Html.RenderPartial("_Spinner");}
