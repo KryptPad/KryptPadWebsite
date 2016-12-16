@@ -233,7 +233,7 @@
                 // Clear message
                 self.profileMessage(null);
                 // Go to the items page
-                window.location = '#profiles/' + data.Id;
+                window.location = '#profiles/' + data.Profiles[0].Id;
 
             }).fail(function (error) {
                 // Handle the error
@@ -244,6 +244,7 @@
                 } else {
                     // Unknown error
                     self.profileMessage(app.createMessage(app.MSG_ERROR, "An unknown error occurred."));
+
                 }
                 
                 // Clear passphrase

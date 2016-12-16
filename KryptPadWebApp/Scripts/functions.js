@@ -7,6 +7,7 @@
 
     // This represents the key for our token response
     app.tokenKey = 'token';
+    app.passphraseKey = 'passphrase';
     // Define some functions for our app
 
     // Gets the token object from storage
@@ -23,6 +24,22 @@
         var tokenData = JSON.stringify(token);
         // Store the token result in session storage
         sessionStorage.setItem(app.tokenKey, tokenData);
+    };
+
+    /*
+     * Gets the profile passphrase
+     */
+    app.getPassphrase = function () {
+        // Return the token response
+        return sessionStorage.getItem(app.passphraseKey);
+    };
+
+    /*
+     * Sets the passphrase
+     */
+    app.setPassphrase = function (passphrase) {
+        // Return the token response
+        sessionStorage.setItem(app.passphraseKey, passphrase);
     };
 
     // Helper method to get user name from the token
