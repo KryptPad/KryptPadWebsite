@@ -129,22 +129,29 @@
 
     };
 
+    api.loadProfile = function (id, passphrase) {
+        return authorizedAjax({
+            type: 'GET',
+            url: '/api/profiles/' + id
+        }, passphrase);
+
+    };
+
     /*
      * Gets a list of items
      */
-    api.getItems = function (profileId, passphrase) {
+    api.getItems = function (profileId) {
         return authorizedAjax({
             type: 'GET',
-            url: '/api/profiles/'+ profileId + '/categories/with-items',
-            headers: { Passphrase: passphrase }
-        });
+            url: '/api/profiles/'+ profileId + '/categories/with-items'
+        }, passphrase);
 
     };
 
     /*
      * Creates an authorization header for web api calls. If the token is about to expire, the refresh token is sent and a new access token is retrieved.
      */
-    function authorizedAjax(ajaxOptions) {
+    function authorizedAjax(ajaxOptions, passphrase) {
         // Get the token object
         var token = app.getToken();
         if (!token) {
@@ -175,6 +182,10 @@
             if (data) {
                 ajaxOptions.headers.Authorization = 'Bearer ' + data.access_token;
             }
+            // Check to see if we have a passphrase
+            if (passphrase) {
+                ajaxOptions.headers.Passphrase = passphrase;
+            }
 
             // Execute the ajax request based on our ajax options
             return $.ajax(ajaxOptions);
@@ -187,4 +198,6 @@
         });
 
     };
+
+    
 })(window);

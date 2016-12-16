@@ -184,9 +184,11 @@
 
         self.profiles = ko.observableArray([]);
         self.isBusy = ko.observable(false);
-        self.errorMessage = ko.observable();
+        self.message = ko.observable();
+        self.profileMessage = ko.observable();
         self.selectedProfile = ko.observable();
         self.passphrase = ko.observable();
+        self.passphraseHasFocus = ko.observable();
 
         /*
          * Gets the profiles for the user's account
@@ -206,8 +208,9 @@
             }).fail(function (error) {
                 // Handle the error
                 app.processError(error, function (message) {
-                    self.errorMessage(message);
+                    self.message(app.createMessage(app.MSG_ERROR, message));
                 });
+
             }).always(function () {
                 // Set busy state
                 self.isBusy(false);
@@ -218,13 +221,42 @@
          * Selects a profile and goes to the item page
          */
         self.enterProfile = function () {
+            var profile = ko.unwrap(self.selectedProfile);
+            if (!profile) {
+                return;
+            }
+
             // Call api to validate the entered passphrase
             // If successful, store the passphrase for future api request
             // Set this profile as our main context and show the items page
+            api.loadProfile(profile.Id, ko.unwrap(self.passphrase)).done(function (data) {
+                // Clear message
+                self.profileMessage(null);
+                // Go to the items page
+                window.location = '#profiles/' + data.Id;
 
+            }).fail(function (error) {
+                // Handle the error
+                if (error.status == 401) {
+                    // Wrong passphrase
+                    self.profileMessage(app.createMessage(app.MSG_ERROR, "The passphrase you entered was incorrect."));
+                    
+                } else {
+                    // Unknown error
+                    self.profileMessage(app.createMessage(app.MSG_ERROR, "An unknown error occurred."));
+                }
+                
+                // Clear passphrase
+                self.passphrase(null);
+                // Set focus back to passphrase
+                self.passphraseHasFocus(true);
 
-            // Go to the items page
-            window.location = '#profiles/' + this.Id;
+            }).always(function () {
+                // Set busy state
+                self.isBusy(false);
+            });;
+
+            
         };
 
         /*
