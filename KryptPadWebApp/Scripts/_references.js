@@ -13,6 +13,7 @@
 /// <reference path="jquery-3.1.1.slim.min.js" />
 /// <reference path="knockout.validation.min.js" />
 /// <reference path="knockout-3.4.0.js" />
+/// <reference path="knockout-bindings.js" />
 /// <reference path="knockout-loaders.js" />
 /// <reference path="ko-widgets/message-widget.js" />
 /// <reference path="md5.js" />

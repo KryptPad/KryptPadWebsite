@@ -48,7 +48,7 @@
         @{ Html.RenderPartial("_Spinner");}
 
         @*Dialog for profile passphrase*@
-        <div id="passphrase-modal" class="modal fade" role="dialog">
+        <div id="passphrase-modal" class="modal fade" role="dialog" data-bind="modalOpen: passphraseModalOpen">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -63,8 +63,8 @@
                                autofocus/>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary" data-bind="click: enterProfile">Go</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" >Cancel</button>
+                        <button type="button" class="btn btn-primary" data-bind="click: enterProfile" >Go</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

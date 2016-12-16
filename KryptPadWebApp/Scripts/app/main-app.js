@@ -189,6 +189,7 @@
         self.selectedProfile = ko.observable();
         self.passphrase = ko.observable();
         self.passphraseHasFocus = ko.observable();
+        self.passphraseModalOpen = ko.observable();
 
         /*
          * Gets the profiles for the user's account
@@ -230,10 +231,14 @@
             // If successful, store the passphrase for future api request
             // Set this profile as our main context and show the items page
             api.loadProfile(profile.Id, ko.unwrap(self.passphrase)).done(function (data) {
+                // Hide the modal
+                self.passphraseModalOpen(false);
+                // Store the passphrase we used in session storage
+                app.setPassphrase(ko.unwrap(self.passphrase));
                 // Clear message
                 self.profileMessage(null);
                 // Go to the items page
-                window.location = '#profiles/' + data.Profiles[0].Id;
+                //window.location = '#profiles/' + data.Profiles[0].Id;
 
             }).fail(function (error) {
                 // Handle the error
@@ -289,9 +294,9 @@
 
             // Set busy state
             self.isBusy(true);
-            debugger // Inject passphrase for now
+            
             // Get the categories with items
-            api.getItems(profileId, passphrase).done(function (data) {
+            api.getItems(profileId).done(function (data) {
                 //ko.utils.arrayPushAll(self.items, data);
                 $.each(data.Categories, function () {
                     self.categories.push(this);

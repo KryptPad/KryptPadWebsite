@@ -141,6 +141,9 @@
      * Gets a list of items
      */
     api.getItems = function (profileId) {
+        // Get the passphrase
+        var passphrase = app.getPassphrase();
+        // Make api call with passphrase
         return authorizedAjax({
             type: 'GET',
             url: '/api/profiles/'+ profileId + '/categories/with-items'
