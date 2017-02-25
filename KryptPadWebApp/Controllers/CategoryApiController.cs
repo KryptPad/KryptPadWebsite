@@ -26,7 +26,6 @@ namespace KryptPadWebApp.Controllers
             {
                 // Return the list of categories and the items within each
                 var categories = (from c in ctx.Categories.Include((cat) => cat.Items)
-                                  orderby c.Name
                                   where c.Profile.User.Id == UserId
                                     && c.Profile.Id == profileId
                                   select c).ToArray();
