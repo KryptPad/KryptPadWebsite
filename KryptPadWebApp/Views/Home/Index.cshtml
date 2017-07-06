@@ -4,44 +4,35 @@
 }
 
 @section pageHeader{
-    <div class="hero hero-main hero-blue">
+    
         <div class="container text-center">
 
             <h1>Krypt Pad</h1>
             <p class="lead">Secure credential manager</p>
             <img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />
 
-            @*Account interactions*@
+            @*Login form*@
             <div>
-                <p>
-                    <a href="@Url.RouteUrl("SignIn")" title="Sign in" class="btn btn-info">Sign in or create an account</a>
-
-                </p>
+                
             </div>
 
         </div>
 
-    </div>
+
 }
 
 @*Available downloads*@
 <div class="container text-center">
     <p class="h1">
-        Download
+        Available for
     </p>
-    <hr />
+    
     <p>
         <a href="https://www.microsoft.com/en-us/store/p/krypt-pad/9nblggh5xd4f" target="_blank">
             <i class="fa fa-windows fa-5x"></i>
         </a>
     </p>
-    <hr />
-    <p>
-        <small>
-            Krypt Pad for Windows desktop beta 4 is being discontinued... but, you can still
-            download it. <a href="@Url.RouteUrl("Download")" title="Download Krypt Pad beta 4">Download Old Version</a>
-        </small>
-    </p>
+    
 </div>
 
 @*An ad - will probably get blocked anyway :( oh well*@
