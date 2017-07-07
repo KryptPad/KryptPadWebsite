@@ -1,6 +1,12 @@
-﻿body {
+﻿html {
+}
+
+body {
     /*padding-top: 50px;*/
     padding-bottom: 20px;
+    background: -o-radial-gradient(#cfe2f1 5%, white 60%); /* For Opera 11.6-12.0 */
+    background: -moz-radial-gradient(#cfe2f1 5%, white 60%); /* For Firefox 3.6-15 */
+    background: radial-gradient(#cfe2f1 5%, white 60%); /* Standard syntax */
 }
 
 /* Header styles */
@@ -20,45 +26,38 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-/*input,
-select,
-textarea {
-    max-width: 280px;
+/* sign form */
+#sign-in {
+    /*border-right: 1px solid #ccc;*/
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+/*@media screen and (max-width: 767px) {
+    #sign-in {
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
 }*/
 
 /* Heros */
 .hero {
     padding-top: 50px;
-    background-color: #eee;
     padding-bottom: 50px;
-    /*margin-bottom: 30px;*/
+    margin-bottom: 30px;
 }
 
 
     .hero.hero-blue {
-        background-color: #3d77b2;
-        color: #fff;
+        background-color: rgba(87, 194, 213, 0.20);
     }
-
-        .hero.hero-blue a {
-            color: white;
-        }
 
     .hero.hero-light-blue {
-        background-color: #cfebff;
-        /*box-shadow: 0px 4px 12px rgba(0,0,0,0.1),
-                0px -4px 12px rgba(0,0,0,0.1);*/
-        /*border-top: 10px dashed #fff;
-    border-bottom: 10px dashed #fff;*/
-    }
-
-    .hero.hero-light-red {
-        background-color: #ffddd7;
+        background-color: rgba(160, 202, 232, 0.35);
     }
 
     .hero.hero-light-gray {
-        background-color: #eee;
+        background-color: rgba(239, 239, 239, 0.50);
     }
 
     .hero.hero-transparent {
@@ -66,9 +65,9 @@ textarea {
         /*box-shadow: 0px 5px 13px rgba(0,0,0,0.1), 0px -5px 13px rgba(0,0,0,0.1);*/
     }
 
-    .hero.hero-main {
+/*.hero.hero-main {
         margin-bottom: 0;
-    }
+    }*/
 
 /* Middle content */
 .middle {
@@ -82,51 +81,24 @@ textarea {
     margin-bottom: 0;
 }
 
-.navbar-inverse {
-    background-color: #333; /*#3d77b2;*/
-    border: none;
-}
-
-    .navbar-inverse .nav.navbar-nav li > a,
-    .navbar-inverse .navbar-text a,
-    .navbar-inverse .navbar-brand {
-        color: #aeddff;
-        transition: all 200ms ease-in-out;
-    }
-
-        .navbar-inverse .nav.navbar-nav li > a:hover,
-        .navbar-inverse .navbar-text a:hover,
-        .navbar-inverse .navbar-brand:hover {
-            color: white;
-            text-decoration: none;
-        }
-
-/* Styles for the login section */
-
-.login {
-    padding: 0 30px;
-    /*height: 20em;*/
-    /*transition: all 200ms ease-in-out;*/
-}
-
 /* Some border styles */
 .border-right {
-    border-right: 2px dashed #333;
+    border-right: 1px dashed #ccc;
 }
 
 .border-left {
-    border-left: 2px dashed #333;
+    border-left: 1px dashed #ccc;
 }
 
 @media screen and (max-width: 767px) {
     .border-right {
         border-right: none;
-        border-bottom: 2px dashed #333;
+        border-bottom: 1px dashed #ccc;
     }
 
     .border-left {
         border-left: none;
-        border-top: 2px dashed #333;
+        border-top: 1px dashed #ccc;
     }
 }
 
@@ -217,7 +189,8 @@ td:last-child {
 
 /* Social bar */
 .social-bar {
-    background-color: #ccc;
+    background-color: rgba(174, 221, 255, 0.25);
+    padding: 15px 0;
     margin-bottom: 20px;
 }
 
@@ -264,5 +237,28 @@ a .circle {
         display: block;
         width: 100%;
         margin-bottom: 10px;
+    }
+}
+
+
+/*Animations*/
+
+.throb {
+    animation: heart-throb 1s ease-in-out infinite;
+    text-shadow: 0 0 0 #a94442;
+}
+
+@keyframes heart-throb {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 0 #a94442;
+    }
+
+    100% {
+        text-shadow: 0 0 .5em rgba(169, 68, 66, 0);
     }
 }

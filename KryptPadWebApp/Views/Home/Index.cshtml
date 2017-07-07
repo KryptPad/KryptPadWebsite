@@ -4,21 +4,109 @@
 }
 
 @section pageHeader{
-    
-        <div class="container text-center">
 
-            <h1>Krypt Pad</h1>
-            <p class="lead">Secure credential manager</p>
-            <img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />
+    @*Account section*@
+    <div class="container text-center">
 
-            @*Login form*@
-            <div>
-                
+        <h1>Krypt Pad</h1>
+        <p class="lead">Secure credential manager</p>
+        @*<img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />*@
+
+        <div class="row">
+            @*Sign in form*@
+            <div id="sign-in" class="col-lg-offset-2 col-md-offset-1 col-lg-4 col-md-5 col-sm-6 border-right">
+
+                <h4>Sign in</h4>
+
+                <form id="login-form" method="post" action='@Url.RouteUrl("App")'>
+
+                    <message-widget params="message: message"></message-widget>
+
+                    <label class="sr-only" for="username">Email</label>
+                    <span class="text-danger" data-bind="validationMessage: username"></span>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-user fa-fw"></i>
+                        </span>
+                        <input type="text" id="username" class="form-control" data-bind="textInput: username"
+                               placeholder="Email: example@domain.com" />
+                    </div>
+                    <br />
+
+                    <label class="sr-only" for="password">Password</label>
+                    <span class="text-danger" data-bind="validationMessage: password"></span>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-key fa-fw"></i>
+                        </span>
+                        <input type="password" id="password" class="form-control" data-bind="textInput: password"
+                               placeholder="password" />
+                    </div>
+
+                    <br />
+
+                    <p>
+                        By signing in, you agree to the <a href="@Url.RouteUrl("Terms")" target="_blank">license terms</a>.
+                        Also, please read the <a href="@Url.RouteUrl("Policy")" target="_blank">privacy policy</a>.
+                    </p>
+
+                    <p>
+                        <button data-bind="click: login" class="btn btn-primary btn-block">Sign In</button>
+                    </p>
+
+                    <div>
+                        <span>
+                            <a href="@Url.RouteUrl("ForgotPassword")">Forgot password</a>
+                            |
+                            <a href="@Url.RouteUrl("SignUp")">Sign up</a>
+                        </span>
+                    </div>
+                </form>
+
+
             </div>
+
+            @*Sign up form*@
+            <div id="sign-up" class="col-lg-4 col-md-5 col-sm-6">
+
+                <h4>Create an account</h4>
+
+                <label class="sr-only" for="username">Email</label>
+                <span class="text-danger" data-bind="validationMessage: username"></span>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw"></i>
+                    </span>
+                    <input type="text" id="username" class="form-control" data-bind="textInput: username"
+                           placeholder="Email: example@domain.com" />
+                </div>
+                <br />
+
+                <label class="sr-only" for="password">Password</label>
+                <span class="text-danger" data-bind="validationMessage: password"></span>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-key fa-fw"></i>
+                    </span>
+                    <input type="password" id="password" class="form-control" data-bind="textInput: password"
+                           placeholder="password" />
+                </div>
+            </div>
+
 
         </div>
 
+    </div>
 
+    @*Social section*@
+    <div class="social-bar">
+        <div class="container text-center">
+
+            <a href="https://www.facebook.com/KryptPad/"><img src="~/Content/Images/social_facebook.png" /></a>
+            <a href="https://twitter.com/KryptPad"><img src="~/Content/Images/social_twitter.png" /></a>
+
+        </div>
+    </div>
 }
 
 @*Available downloads*@
@@ -26,13 +114,16 @@
     <p class="h1">
         Available for
     </p>
-    
-    <p>
-        <a href="https://www.microsoft.com/en-us/store/p/krypt-pad/9nblggh5xd4f" target="_blank">
-            <i class="fa fa-windows fa-5x"></i>
-        </a>
-    </p>
-    
+
+
+    <a href="https://www.microsoft.com/en-us/store/p/krypt-pad/9nblggh5xd4f" target="_blank">
+        <p><i class="fa fa-windows fa-5x"></i></p>
+        
+        Windows 10
+    </a>
+
+    <hr />
+
 </div>
 
 @*An ad - will probably get blocked anyway :( oh well*@
@@ -50,7 +141,7 @@
 </div>
 
 @*Main content*@
-<div class="hero hero-light-gray">
+<div class="hero">
     <div class="container text-center">
         <p class="h1">How it works</p>
 
@@ -88,9 +179,9 @@
                     Your information can be accessed from compatible devices
                 </p>
             </div>
-            
+
         </div>
-        
+
         @*Another ad that will probably be blocked*@
         <div class="text-center middle">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -127,23 +218,23 @@
             </div>
         </div>
 
-        
+
 
     </div>
 </div>
 
 @*Donations*@
-<div id="donate" class="hero hero-light-red">
+<div id="donate" class="hero">
     <div class="container">
 
         <div class="row">
 
             <div class="col-md-5 visible-md-block visible-lg-block">
-                <img src="~/Content/Images/favorite2.png" />
+                <span class="fa-5x"><i class="fa fa-heart fa-4x text-danger throb"></i></span>
             </div>
 
             <div class="col-md-5">
-                <p class="h1">Donation Supported</p>
+                <p class="h1">Donation supported</p>
                 <p class="lead">
                     Krypt Pad is supported by donations. Your contributions help support future development.
                     You are free to donate as much as you'd like; there's no preset amount.
@@ -173,7 +264,7 @@
          data-ad-slot="4431573696"
          data-ad-format="auto"></ins>
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
 </div>
