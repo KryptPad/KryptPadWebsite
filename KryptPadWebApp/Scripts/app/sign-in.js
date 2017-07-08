@@ -1,12 +1,12 @@
 ﻿(function (global) {
 
     // Get main app container
-    var node = document.getElementById('signin');
+    var node = document.getElementById('sign-in');
 
     // App view model
     function ViewModel() {
         var self = this;
-
+        debugger
         self.username = ko.observable();
         self.password = ko.observable();
         self.isBusy = ko.observable(false);

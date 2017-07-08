@@ -5,9 +5,9 @@ using System.Web;
 
 namespace KryptPadWebApp.Models
 {
-    public class AppSettings
+    public class SigninModel
     {
-        public int Id { get; set; }
-        public int Downloads { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

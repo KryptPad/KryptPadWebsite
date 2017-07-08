@@ -8,6 +8,9 @@ using Microsoft.AspNet.Identity;
 
 namespace KryptPadWebApp.Controllers
 {
+    /// <summary>
+    /// Profives the profile passphrase and user id
+    /// </summary>
     [Authorize]
     public class AuthorizedApiController : ApiController
     {

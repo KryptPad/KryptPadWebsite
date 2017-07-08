@@ -7,6 +7,7 @@ body {
     background: -o-radial-gradient(#cfe2f1 5%, white 60%); /* For Opera 11.6-12.0 */
     background: -moz-radial-gradient(#cfe2f1 5%, white 60%); /* For Firefox 3.6-15 */
     background: radial-gradient(#cfe2f1 5%, white 60%); /* Standard syntax */
+    background-repeat: no-repeat;
 }
 
 /* Header styles */

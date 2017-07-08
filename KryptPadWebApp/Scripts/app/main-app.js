@@ -77,7 +77,7 @@
             // Check to see if the user is logged in
             if (!app.isAuthenticated()) {
                 // Go to sign in page
-                window.location = '/app/signin';
+                //window.location = '/app/signin';
                 return;
             }
 
@@ -338,7 +338,7 @@
             // Check to see if the user is logged in
             if (!app.isAuthenticated()) {
                 // Go to sign in page
-                window.location = '/app/signin';
+                //window.location = '/app/signin';
                 return;
             }
 

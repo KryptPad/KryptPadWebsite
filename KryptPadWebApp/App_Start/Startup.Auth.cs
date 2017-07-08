@@ -28,7 +28,7 @@ namespace KryptPadWebApp
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                LoginPath = new PathString("/"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
@@ -38,7 +38,6 @@ namespace KryptPadWebApp
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager, DefaultAuthenticationTypes.ApplicationCookie))
                 }
             });
-            app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
             app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(5));
@@ -68,27 +67,27 @@ namespace KryptPadWebApp
             //});
 
             // Get the access token time to live (ttl)
-            var accessTokenTTL = Convert.ToInt32(ConfigurationManager.AppSettings["AccessTokenTTL"]);
+//            var accessTokenTTL = Convert.ToInt32(ConfigurationManager.AppSettings["AccessTokenTTL"]);
 
-            var publicClientId = "self";
-            var OAuthOptions = new OAuthAuthorizationServerOptions
-            {
-                TokenEndpointPath = new PathString("/token"),
-                Provider = new AccessTokenProvider(publicClientId),
-                AuthorizeEndpointPath = new PathString("/api/account/external"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(accessTokenTTL),
-                RefreshTokenProvider = new RefreshTokenProvider(),
+//            var publicClientId = "self";
+//            var OAuthOptions = new OAuthAuthorizationServerOptions
+//            {
+//                TokenEndpointPath = new PathString("/token"),
+//                Provider = new AccessTokenProvider(publicClientId),
+//                AuthorizeEndpointPath = new PathString("/api/account/external"),
+//                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(accessTokenTTL),
+//                RefreshTokenProvider = new RefreshTokenProvider(),
 
-                // In DEBUG mode, we allow insecure HTTP
-#if DEBUG
-                AllowInsecureHttp = true
-#else
-                AllowInsecureHttp = false
-#endif
-            };
+//                // In DEBUG mode, we allow insecure HTTP
+//#if DEBUG
+//                AllowInsecureHttp = true
+//#else
+//                AllowInsecureHttp = false
+//#endif
+//            };
 
-            // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
+//            // Enable the application to use bearer tokens to authenticate users
+//            app.UseOAuthBearerTokens(OAuthOptions);
         }
     }
 }
