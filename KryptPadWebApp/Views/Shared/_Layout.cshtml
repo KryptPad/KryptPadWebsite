@@ -42,16 +42,14 @@
 
                 <p class="navbar-text navbar-right">
                     <span>Welcome,</span>
-                    @*
-                    <!-- ko ifnot: isAuthenticated -->
-                    <span>Guest</span>
-                    <!-- /ko -->
-                        *@
-                    @*Display the username*@
-                    @*<span data-bind="visible: isAuthenticated">
-                        <a href="/app#account" data-bind="text: username"></a>
-                    </span>*@
-                    <span>@User.Identity.GetUserName()</span>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span>@User.Identity.GetUserName()</span>
+                        <a href="@Url.RouteUrl("DoSignOut")">Sign Out</a>
+                    } else
+                    {
+                        <span>Guest</span>
+                    }
                 </p>
 
             </div>

@@ -12,7 +12,7 @@ namespace KryptPadWebApp.Controllers
     {
         // GET: SelectProfile
         [HttpGet]
-        [Route("Select-Profile", Name = "SelectProfileRoute")]
+        [Route("Select-Profile", Name = "SelectProfile")]
         public ActionResult SelectProfile()
         {
             return View();

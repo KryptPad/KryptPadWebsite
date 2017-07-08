@@ -47,23 +47,39 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
-        // POST: Signin
+        /// <summary>
+        /// Signs the user into the system
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Signin", Name = "DoSigninRoute")]
+        [Route("SignIn", Name = "DoSignIn")]
         public async Task<ActionResult> SignIn(SigninModel model)
         {
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, true, shouldLockout: false);
             if (result == SignInStatus.Success)
             {
-                return RedirectToRoute("SelectProfileRoute");
+                return RedirectToRoute("SelectProfile");
             }
 
 
             return RedirectToRoute("Home");
         }
-        
+
+        /// <summary>
+        /// Signs the user out of the system
+        /// </summary>
+        /// <returns></returns>
+        [Route("SignOut", Name = "DoSignOut")]
+        public async Task<ActionResult> SignOut()
+        {
+            SignInManager.AuthenticationManager.SignOut();
+
+            return await Task.Factory.StartNew(() => { return RedirectToRoute("Home"); });
+        }
+
     }
 }
