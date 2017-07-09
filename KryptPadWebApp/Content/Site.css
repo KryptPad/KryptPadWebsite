@@ -20,6 +20,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
     font-weight: normal;
 }
 
+
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -27,19 +29,32 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
     white-space: normal;
 }
 
-/* sign form */
+/* Sign form */
 #sign-in {
     /*border-right: 1px solid #ccc;*/
     padding-bottom: 15px;
     margin-bottom: 15px;
 }
 
-/*@media screen and (max-width: 767px) {
-    #sign-in {
-        border-right: none;
-        border-bottom: 1px solid #ccc;
+/* Profiles list*/
+#profiles-list {
+}
+
+    #profiles-list .profile {
+        padding: 15px;
+        background-color: rgba(174, 221, 255, 0.25);
+        margin-bottom: 1px;
+
+        transition: all 250ms ease-in-out;
     }
-}*/
+
+    #profiles-list .profile:hover {
+        background-color: rgba(174, 221, 255, 0.75);
+    }
+
+    #profiles-list > div > a:hover {
+        text-decoration: none;
+    }
 
 /* Heros */
 .hero {
@@ -76,7 +91,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
     margin-bottom: 50px;
 }
 
-/* Set the color of the navbar */
+/* Set some navbar styles */
 .navbar {
     border-radius: 0;
     margin-bottom: 0;
@@ -100,69 +115,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
     .border-left {
         border-left: none;
         border-top: 1px dashed #ccc;
-    }
-}
-
-/* Busy indicator styles */
-.indicator {
-    width: 5em;
-    height: 1em;
-    line-height: 1em;
-    display: inline-block;
-}
-
-    .indicator .bar {
-        float: left;
-        background-color: #0087b4;
-        border: 1px solid #007196;
-        width: .5em;
-        margin: 0 .25em;
-        box-sizing: border-box;
-        height: 25%;
-        margin-top: 10%;
-        -webkit-animation: animate 500ms infinite alternate;
-        animation: animate 500ms infinite alternate;
-    }
-
-    .indicator.indicator-light .bar {
-        background-color: white;
-        border: 1px solid #ccc;
-    }
-
-    .indicator .bar:nth-child(1) {
-        -webkit-animation-delay: 100ms;
-        animation-delay: 100ms;
-    }
-
-    .indicator .bar:nth-child(2) {
-        -webkit-animation-delay: 200ms;
-        animation-delay: 200ms;
-    }
-
-    .indicator .bar:nth-child(3) {
-        -webkit-animation-delay: 300ms;
-        animation-delay: 300ms;
-    }
-
-    .indicator .bar:nth-child(4) {
-        -webkit-animation-delay: 400ms;
-        animation-delay: 400ms;
-    }
-
-    .indicator .bar:nth-child(5) {
-        -webkit-animation-delay: 500ms;
-        animation-delay: 500ms;
-    }
-
-@keyframes animate {
-    0% {
-        height: 25%;
-        margin-top: 10%;
-    }
-
-    100% {
-        height: 100%;
-        margin-top: 0;
     }
 }
 

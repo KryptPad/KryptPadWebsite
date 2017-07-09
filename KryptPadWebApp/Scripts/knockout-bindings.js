@@ -9,15 +9,16 @@
 
             // Listen to changes to the observable
             ko.computed(function () {
-                debugger
                 // Access the observable
-                var isOpen = ko.unwrap(valueAccessor());
+                var isOpen = valueAccessor();
 
-                if (isOpen) {
+                if (isOpen()) {
                     $el.modal('show');
+                    isOpen(true);
 
                 } else {
                     $el.modal('hide');
+                    isOpen(false);
                 }
 
             }, null, { disposeWhenNodeIsRemoved: element });

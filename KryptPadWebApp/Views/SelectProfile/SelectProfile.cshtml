@@ -4,6 +4,161 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*Select a profile*@
+<div  class="container">
 
-<h2>SelectProfile</h2>
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6">
 
+            <h2>Select profile</h2>
+
+            <message-widget params="message: message"></message-widget>
+
+            <div id="profiles-list" data-bind="foreach: { data: profiles, afterAdd: fadeIn}">
+
+                <div style="display:none;">
+                    <a role="button" data-bind="click: $root.providePassphrase" data-toggle="modal" data-target="#passphrase-modal">
+                        <div class="profile">
+                            <i class="fa fa-file-text-o fa-fw"></i>
+                            <span data-bind="text: $data.Name"></span>
+                        </div>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    @*Dialog for profile passphrase*@
+    <div id="passphrase-modal" class="modal fade" role="dialog" >
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Enter passphrase</h4>
+                </div>
+                <div class="modal-body">
+
+                    <message-widget params="message: profileMessage"></message-widget>
+
+                    <input id="passphrase-textbox" type="password" class="form-control" data-bind="textInput: passphrase, hasFocus: passphraseHasFocus"
+                           autofocus />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: enterProfile">Go</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+</div>
+
+@section scripts{
+    <script>
+        //var profilesApp = document.getElementById("profiles-list");
+
+        +function () {
+            
+            // Model for profiles
+            function SelectProfiles() {
+                var self = this;
+
+                self.profiles = ko.observableArray([]);
+                self.message = ko.observable();
+                self.profileMessage = ko.observable();
+                self.selectedProfile = ko.observable()
+                self.passphraseHasFocus = ko.observable();
+                self.passphrase = ko.observable();
+                self.isBusy = ko.observable();
+
+                // Methods
+                // Gets the profiles for the logged in user
+                self.getProfiles = function () {
+                    api.getProfiles().done(function (data) {
+
+                        // Add the profiles to the list
+                        ko.utils.arrayPushAll(self.profiles, data.Profiles);
+
+
+                    }).fail(function (error) {
+                        // Handle errors
+                    });
+                };
+
+                // Goes to the profile
+                self.enterProfile = function () {
+                    var profile = self.selectedProfile();
+                    if (!profile) {
+                        return;
+                    }
+
+                    // Get the passphrase
+                    var passphrase = self.passphrase();
+
+                    // Call api to validate the entered passphrase
+                    // If successful, store the passphrase for future api request
+                    // Set this profile as our main context and show the items page
+                    api.loadProfile(profile.Id, passphrase).done(function (data) {
+                        
+                        // Store the passphrase we used in session storage
+                        app.setPassphrase(passphrase);
+                        // Clear message
+                        self.profileMessage(null);
+
+                        // Go to the items page
+                        
+
+                    }).fail(function (error) {
+                        // Handle the error
+                        if (error.status === 401) {
+                            // Wrong passphrase
+                            self.profileMessage(app.createMessage(app.MSG_ERROR, "The passphrase you entered was incorrect."));
+
+                        } else {
+                            // Unknown error
+                            self.profileMessage(app.createMessage(app.MSG_ERROR, "An unknown error occurred."));
+
+                        }
+
+                        // Clear passphrase
+                        self.passphrase(null);
+                        // Set focus to passphrase
+                        self.passphraseHasFocus(true);
+
+                    }).always(function () {
+                        // Set busy state
+                        self.isBusy(false);
+                    });
+                };
+
+                // Prompts the user for the passphrase
+                self.providePassphrase = function () {
+                    self.profileMessage(null);
+                    
+                    // Set the selected profile
+                    self.selectedProfile(this);
+                };
+
+                // Fades an item into view
+                self.fadeIn = function (element, index, data) {
+                    $(element).filter("div").fadeIn();
+                };
+
+                // Initialize
+                self.getProfiles();
+            }
+
+            // Handle UI events
+            $("#passphrase-modal").on("shown.bs.modal", function () {
+                $("#passphrase-textbox").focus();
+            });
+
+            ko.applyBindings(new SelectProfiles());
+
+        }();
+    </script>
+
+}

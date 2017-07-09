@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @*Link FontAwesome CDN*@
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <title>@ViewBag.Title - Krypt Pad</title>
     @Styles.Render("~/Content/css")
@@ -35,11 +35,7 @@
                     <li><a href="@Url.RouteUrl("About")">About</a></li>
 
                 </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li data-bind="visible: isAuthenticated" style="display:none;"><a href="#" data-bind="click: logout">Log Out</a></li>
-                </ul>
-
+                
                 <p class="navbar-text navbar-right">
                     <span>Welcome,</span>
                     @if (User.Identity.IsAuthenticated)
@@ -84,31 +80,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/widgets")
     @RenderSection("scripts", required: false)
 
-    <script>
-        (function () {
-
-            function UserInfoViewModel() {
-                var self = this;
-
-                // Get user name
-                self.isAuthenticated = ko.observable(app.isAuthenticated());
-                self.username = ko.observable(app.getUserName());
-
-                self.logout = function () {
-                    // Clear the token from the storage
-                    app.logout();
-
-                }
-            }
-
-            ko.applyBindings(new UserInfoViewModel(), $('#user-info')[0]);
-
-        })();
-    </script>
-
-    
 </body>
 
 
