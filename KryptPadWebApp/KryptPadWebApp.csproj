@@ -200,7 +200,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountApiController.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\SelectProfileController.cs" />
     <Compile Include="Controllers\AuthorizedApiController.cs" />
@@ -767,9 +766,7 @@
     <Content Include="Views\SelectProfile\SelectProfile.cshtml" />
     <Content Include="Views\Shared\_Signin.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Account\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
