@@ -6,7 +6,9 @@ using System.Web.Mvc;
 
 namespace KryptPadWebApp.Controllers
 {
-    // If debugging, we remove the RequireHttps attribute 
+    /// <summary>
+    /// Forces the url to http. If in debug mode, this requirement is removed.
+    /// </summary>
 #if !DEBUG
     [RequireHttps]
 #endif

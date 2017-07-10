@@ -157,21 +157,19 @@
     function authorizedAjax(ajaxOptions, passphrase) {
         // Get the token object
         var token = app.getToken();
-        if (!token) {
-            // Initiate logout
-            app.logout();
+        if (token) {
+            // get the expiration date from our token
+            var expires = moment(token['.expires']);
+
+            // Is our access token about to expire?
+            if (expires.isBefore(moment())) {
+                console.warn('Access token has expired. Reauthenticating with refresh token.');
+                // Get the new access token
+                token = api.reauthenticate(token);
+            }
         }
 
-        // get the expiration date from our token
-        var expires = moment(token['.expires']);
-        
-        // Is our access token about to expire?
-        if (expires.isBefore(moment())) {
-            console.warn('Access token has expired. Reauthenticating with refresh token.')
-            // Get the new access token
-            token = api.reauthenticate(token);
-        }
-
+        // When token is ready and available
         return $.when(token).then(function (data) {
             // Cache the access token in session storage.
             app.setToken(data);
@@ -185,6 +183,7 @@
             if (data) {
                 ajaxOptions.headers.Authorization = 'Bearer ' + data.access_token;
             }
+
             // Check to see if we have a passphrase
             if (passphrase) {
                 ajaxOptions.headers.Passphrase = passphrase;
@@ -192,12 +191,14 @@
 
             // Execute the ajax request based on our ajax options
             return $.ajax(ajaxOptions);
+
         }).fail(function (error) {
             // Does this mean we failed to authenticate?
             if (error.responseJSON && error.responseJSON.error === 'invalid_grant') {
                 // Initiate logout
                 app.logout();
             }
+
         });
 
     };

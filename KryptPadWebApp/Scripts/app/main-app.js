@@ -55,7 +55,7 @@
 
         // Gets the user's profile pic from gravitar
         self.profilePic = ko.pureComputed(function () {
-            return 'http://www.gravatar.com/avatar/' + self.emailHash + '?d=identicon&s=200'
+            return 'http://www.gravatar.com/avatar/' + self.emailHash + '?d=identicon&s=200';
         });
 
         /*
@@ -77,7 +77,7 @@
             // Check to see if the user is logged in
             if (!app.isAuthenticated()) {
                 // Go to sign in page
-                window.location = '/app/signin';
+                //window.location = '/app/signin';
                 return;
             }
 
@@ -166,7 +166,7 @@
             });
 
             // When there is no route defined
-            this.get('/app', function () { this.app.runRoute('get', '#profiles') });
+            this.get('/app', function () { this.app.runRoute('get', '#profiles'); });
 
         }).run();
 
@@ -242,7 +242,7 @@
 
             }).fail(function (error) {
                 // Handle the error
-                if (error.status == 401) {
+                if (error.status === 401) {
                     // Wrong passphrase
                     self.profileMessage(app.createMessage(app.MSG_ERROR, "The passphrase you entered was incorrect."));
                     
@@ -260,7 +260,7 @@
             }).always(function () {
                 // Set busy state
                 self.isBusy(false);
-            });;
+            });
 
             
         };
@@ -306,7 +306,7 @@
                 app.processError(error, function (message) {
                     // Show the error somewhere
                     self.message(app.createMessage(app.MSG_ERROR, message));
-                })
+                });
             }).always(function () {
                 // Set busy state
                 self.isBusy(false);
@@ -338,7 +338,7 @@
             // Check to see if the user is logged in
             if (!app.isAuthenticated()) {
                 // Go to sign in page
-                window.location = '/app/signin';
+                //window.location = '/app/signin';
                 return;
             }
 
@@ -510,7 +510,7 @@
         self.isValid = function () {
             if (self.errors().length) {
                 self.errors.showAllMessages();
-                return false
+                return false;
             }
 
             return true;

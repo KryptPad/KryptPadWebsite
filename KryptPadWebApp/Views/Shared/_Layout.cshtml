@@ -1,11 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @*Link FontAwesome CDN*@
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <title>@ViewBag.Title - Krypt Pad</title>
     @Styles.Render("~/Content/css")
@@ -13,10 +14,8 @@
 
 </head>
 <body>
-    <div id="fb-root"></div>
 
-
-    <div class="navbar navbar-inverse ">
+    <div class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -36,21 +35,17 @@
                     <li><a href="@Url.RouteUrl("About")">About</a></li>
 
                 </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li data-bind="visible: isAuthenticated" style="display:none;"><a href="#" data-bind="click: logout">Log Out</a></li>
-                </ul>
-
+                
                 <p class="navbar-text navbar-right">
                     <span>Welcome,</span>
-                    <!-- ko ifnot: isAuthenticated -->
-                    <span>Guest</span>
-                    <!-- /ko -->
-                    @*Display the username*@
-                    <span data-bind="visible: isAuthenticated">
-                        <a href="/app#account" data-bind="text: username"></a>
-                    </span>
-
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <span>@User.Identity.GetUserName()</span>
+                        <a href="@Url.RouteUrl("DoSignOut")">Sign Out</a>
+                    } else
+                    {
+                        <span>Guest</span>
+                    }
                 </p>
 
             </div>
@@ -59,14 +54,7 @@
 
     @RenderSection("pageHeader", false)
 
-    <div class="social-bar">
-        <div class="container">
-            <span class="lead" style="vertical-align:middle">Follow Krypt Pad</span>
-            <a href="https://www.facebook.com/KryptPad/"><img src="~/Content/Images/social_facebook.png" /></a>
-            <a href="https://twitter.com/KryptPad"><img src="~/Content/Images/social_twitter.png" /></a>
-            <span style="vertical-align:middle"><span class="fb-like" data-href="https://www.facebook.com/kryptpad" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></span></span>
-        </div>
-    </div>
+    
 
     @RenderBody()
 
@@ -92,38 +80,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/widgets")
     @RenderSection("scripts", required: false)
 
-    <script>
-        (function () {
-
-            function UserInfoViewModel() {
-                var self = this;
-
-                // Get user name
-                self.isAuthenticated = ko.observable(app.isAuthenticated());
-                self.username = ko.observable(app.getUserName());
-
-                self.logout = function () {
-                    // Clear the token from the storage
-                    app.logout();
-
-                }
-            }
-
-            ko.applyBindings(new UserInfoViewModel(), $('#user-info')[0]);
-
-        })();
-    </script>
-
-    <script>
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
 </body>
 
 

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.2.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.2.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -66,14 +66,39 @@
       <HintPath>..\packages\Elmah.Mvc.2.1.2\lib\net40\Elmah.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.1.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -166,33 +191,6 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security">
-      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Google">
-      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Twitter">
-      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
-      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -202,7 +200,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountApiController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\SelectProfileController.cs" />
     <Compile Include="Controllers\AuthorizedApiController.cs" />
     <Compile Include="Controllers\CategoryApiController.cs" />
     <Compile Include="Controllers\FieldApiController.cs" />
@@ -332,6 +332,7 @@
     <Compile Include="Models\Results\ItemSearchResult.cs" />
     <Compile Include="Models\Results\ItemsResult.cs" />
     <Compile Include="Models\Results\ProfileResult.cs" />
+    <Compile Include="Models\SigninModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AccessTokenProvider.cs" />
     <Compile Include="Providers\RefreshTokenProvider.cs" />
@@ -348,23 +349,12 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Dashboard.css" />
     <Content Include="Content\Images\arrow-gray.svg" />
-    <Content Include="Content\Images\cloud-secure.png" />
-    <Content Include="Content\Images\cloud.png" />
-    <Content Include="Content\Images\cloud128x128.png" />
     <Content Include="Content\Images\communication-mobile-phone.svg" />
-    <Content Include="Content\Images\computer.png" />
     <Content Include="Content\Images\document-document-flow.svg" />
     <Content Include="Content\Images\document-new-document.svg" />
     <Content Include="Content\Images\document_text-export.png" />
-    <Content Include="Content\Images\document_text-locked.png" />
-    <Content Include="Content\Images\favorite2.png" />
-    <Content Include="Content\Images\favorite2128x128.png" />
-    <Content Include="Content\Images\phone.png" />
     <Content Include="Content\Images\safe-white.svg" />
-    <Content Include="Content\Images\safe.png" />
-    <Content Include="Content\Images\safe128x128.png" />
     <Content Include="Content\Images\safe32x32.png" />
-    <Content Include="Content\Images\screen.png" />
     <Content Include="Content\Images\security-electronic-key.svg" />
     <Content Include="Content\Images\security-protection.svg" />
     <Content Include="Content\Images\security-safe.svg" />
@@ -375,7 +365,6 @@
     <Content Include="Content\Images\Square176x176Logo.png" />
     <Content Include="Content\Images\Square176x176LogoDark.png" />
     <Content Include="Content\Images\Square48x48LogoDark.png" />
-    <Content Include="Content\Images\sync128x128.png" />
     <Content Include="Content\SignIn.css" />
     <Content Include="Content\Images\Square44x44Logo.png" />
     <Content Include="favicon.ico" />
@@ -383,6 +372,33 @@
     <Content Include="files\publish.htm" />
     <Content Include="files\setup.exe" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\weather-icons\css\weather-icons-wind.css" />
+    <Content Include="fonts\weather-icons\css\weather-icons-wind.min.css" />
+    <Content Include="fonts\weather-icons\css\weather-icons.css" />
+    <Content Include="fonts\weather-icons\css\weather-icons.min.css" />
+    <Content Include="fonts\weather-icons\font\weathericons-regular-webfont.svg" />
+    <Content Include="fonts\weather-icons\values\weathericons.xml" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\api-list.html" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\browserconfig.xml" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\css\img\sky.jpg" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\css\styles.css" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\css\weather-icons-wind.css" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\css\weather-icons-wind.min.css" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\css\weather-icons.css" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\css\weather-icons.min.css" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\apple-touch-icon-57x57.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\apple-touch-icon-60x60.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\apple-touch-icon-precomposed.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\apple-touch-icon.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\favicon-16x16.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\favicon-32x32.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\favicon.ico" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\mstile-150x150.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\mstile-310x150.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\favicons\mstile-70x70.png" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\font\weathericons-regular-webfont.svg" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\index.html" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\api.js" />
@@ -395,6 +411,225 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="bundleconfig.json" />
+    <Content Include="fonts\weather-icons\.gitignore" />
+    <Content Include="fonts\weather-icons\.npmignore" />
+    <Content Include="fonts\weather-icons\bower.json" />
+    <Content Include="fonts\weather-icons\font\weathericons-regular-webfont.eot" />
+    <Content Include="fonts\weather-icons\font\weathericons-regular-webfont.ttf" />
+    <Content Include="fonts\weather-icons\font\weathericons-regular-webfont.woff" />
+    <Content Include="fonts\weather-icons\font\weathericons-regular-webfont.woff2" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-beaufort.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-day.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-direction.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-misc.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-moon-aliases.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-moon.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-neutral.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-night.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-time.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-wind-aliases.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-wind-degrees.less" />
+    <Content Include="fonts\weather-icons\less\icon-classes\classes-wind.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-beaufort.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-day.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-direction.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-misc.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-moon.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-neutral.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-night.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-time.less" />
+    <Content Include="fonts\weather-icons\less\icon-variables\variables-wind-names.less" />
+    <Content Include="fonts\weather-icons\less\mappings\wi-forecast-io.less" />
+    <Content Include="fonts\weather-icons\less\mappings\wi-owm.less" />
+    <Content Include="fonts\weather-icons\less\mappings\wi-wmo4680.less" />
+    <Content Include="fonts\weather-icons\less\mappings\wi-wunderground.less" />
+    <Content Include="fonts\weather-icons\less\mappings\wi-yahoo.less" />
+    <Content Include="fonts\weather-icons\less\weather-icons-classes.less" />
+    <Content Include="fonts\weather-icons\less\weather-icons-core.less" />
+    <Content Include="fonts\weather-icons\less\weather-icons-variables.less" />
+    <Content Include="fonts\weather-icons\less\weather-icons-wind.less" />
+    <Content Include="fonts\weather-icons\less\weather-icons-wind.min.less" />
+    <Content Include="fonts\weather-icons\less\weather-icons.less" />
+    <Content Include="fonts\weather-icons\less\weather-icons.min.less" />
+    <Content Include="fonts\weather-icons\package.json" />
+    <Content Include="fonts\weather-icons\README.md" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-beaufort.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-day.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-direction.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-misc.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-moon-aliases.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-moon.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-neutral.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-night.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-time.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-wind-aliases.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-wind-degrees.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-classes\classes-wind.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-beaufort.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-day.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-direction.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-misc.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-moon.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-neutral.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-night.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-time.scss" />
+    <Content Include="fonts\weather-icons\sass\icon-variables\variables-wind-names.scss" />
+    <Content Include="fonts\weather-icons\sass\mappings\wi-forecast-io.scss" />
+    <Content Include="fonts\weather-icons\sass\mappings\wi-owm.scss" />
+    <Content Include="fonts\weather-icons\sass\mappings\wi-wmo4680.scss" />
+    <Content Include="fonts\weather-icons\sass\mappings\wi-wunderground.scss" />
+    <Content Include="fonts\weather-icons\sass\mappings\wi-yahoo.scss" />
+    <Content Include="fonts\weather-icons\sass\weather-icons-classes.scss" />
+    <Content Include="fonts\weather-icons\sass\weather-icons-core.scss" />
+    <Content Include="fonts\weather-icons\sass\weather-icons-variables.scss" />
+    <Content Include="fonts\weather-icons\sass\weather-icons-wind.min.scss" />
+    <Content Include="fonts\weather-icons\sass\weather-icons-wind.scss" />
+    <Content Include="fonts\weather-icons\sass\weather-icons.min.scss" />
+    <Content Include="fonts\weather-icons\sass\weather-icons.scss" />
+    <Content Include="fonts\weather-icons\_builder\beaufort.edn" />
+    <Content Include="fonts\weather-icons\_builder\csv\bak.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\beaufort.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\day.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\direction.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\misc.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\moon.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\neutral.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\night.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\temp.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\time.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\wind-degrees.csv" />
+    <Content Include="fonts\weather-icons\_builder\csv\wind.csv" />
+    <Content Include="fonts\weather-icons\_builder\day.edn" />
+    <Content Include="fonts\weather-icons\_builder\direction.edn" />
+    <Content Include="fonts\weather-icons\_builder\misc.edn" />
+    <Content Include="fonts\weather-icons\_builder\moon.edn" />
+    <Content Include="fonts\weather-icons\_builder\neutral.edn" />
+    <Content Include="fonts\weather-icons\_builder\night.edn" />
+    <Content Include="fonts\weather-icons\_builder\templates.edn" />
+    <Content Include="fonts\weather-icons\_builder\time.edn" />
+    <Content Include="fonts\weather-icons\_builder\wbuilder" />
+    <Content Include="fonts\weather-icons\_builder\wind-degrees.edn" />
+    <Content Include="fonts\weather-icons\_builder\wind.edn" />
+    <Content Include="fonts\weather-icons\_docs\font-source\artwork\cloud pieces.ai" />
+    <Content Include="fonts\weather-icons\_docs\font-source\artwork\icon template.ai" />
+    <Content Include="fonts\weather-icons\_docs\font-source\artwork\tsunami.ai" />
+    <Content Include="fonts\weather-icons\_docs\font-source\weathericons-regular.glyphs" />
+    <Content Include="fonts\weather-icons\_docs\font-source\weathericons-regular.otf" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\CNAME" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\fonts\FontAwesome.otf" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\font\weathericons-regular-webfont.eot" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\font\weathericons-regular-webfont.ttf" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\font\weathericons-regular-webfont.woff" />
+    <Content Include="fonts\weather-icons\_docs\gh-pages\font\weathericons-regular-webfont.woff2" />
+    <Content Include="fonts\weather-icons\_docs\jade\api-list.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-beaufort.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-day.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-direction.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-misc.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-moon.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-neutral.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-night.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-time.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-wind-cardinal.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list-wind.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\icon-list.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\index.jade" />
+    <Content Include="fonts\weather-icons\_docs\jade\new-icons.jade" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap-includes.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\alerts.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\badges.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\bootstrap.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\breadcrumbs.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\button-groups.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\buttons.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\carousel.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\close.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\code.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\component-animations.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\dropdowns.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\forms.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\glyphicons.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\grid.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\input-groups.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\jumbotron.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\labels.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\list-group.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\media.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\alerts.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\background-variant.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\border-radius.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\buttons.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\center-block.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\clearfix.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\forms.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\gradients.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\grid-framework.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\grid.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\hide-text.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\image.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\labels.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\list-group.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\nav-divider.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\nav-vertical-align.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\opacity.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\pagination.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\panels.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\progress-bar.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\reset-filter.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\reset-text.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\resize.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\responsive-visibility.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\size.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\tab-focus.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\table-row.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\text-emphasis.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\text-overflow.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\mixins\vendor-prefixes.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\modals.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\navbar.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\navs.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\normalize.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\pager.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\pagination.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\panels.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\popovers.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\print.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\progress-bars.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\responsive-embed.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\responsive-utilities.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\scaffolding.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\tables.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\theme.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\thumbnails.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\tooltip.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\type.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\utilities.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\variables.less" />
+    <Content Include="fonts\weather-icons\_docs\less\bootstrap\wells.less" />
+    <Content Include="fonts\weather-icons\_docs\less\cheatsheet.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\animated.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\bordered-pulled.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\core.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\fixed-width.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\font-awesome.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\icons.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\larger.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\list.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\mixins.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\path.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\rotated-flipped.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\stacked.less" />
+    <Content Include="fonts\weather-icons\_docs\less\font-awesome\variables.less" />
+    <Content Include="fonts\weather-icons\_docs\less\main.less" />
+    <Content Include="fonts\weather-icons\_docs\less\mixins.less" />
+    <Content Include="fonts\weather-icons\_docs\less\styles.less" />
+    <Content Include="fonts\weather-icons\_docs\less\variables.less" />
+    <Content Include="fonts\weather-icons\Web.config" />
     <None Include="Properties\PublishProfiles\test.kryptpad.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -404,6 +639,8 @@
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\knockout-3.4.2.debug.js" />
+    <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\knockout-bindings.js" />
     <Content Include="Scripts\knockout-bindings.min.js">
       <DependentUpon>knockout-bindings.js</DependentUpon>
@@ -467,12 +704,12 @@
     <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.Security.dll.deploy" />
     <None Include="Properties\PublishProfiles\Live WebDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\Live.pubxml" />
-    <None Include="Properties\PublishProfiles\Test WebDeploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Test WebDeploy.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <Content Include="Scripts\app\forgot-password.js" />
     <None Include="Properties\PublishProfiles\TestPackage.pubxml" />
-    <Content Include="Scripts\knockout-3.4.0.debug.js" />
-    <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="Scripts\knockout-loaders.js" />
     <Content Include="Scripts\knockout.validation.js" />
     <Content Include="Scripts\knockout.validation.min.js" />
@@ -507,28 +744,32 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Policy.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\App\Index.cshtml" />
+    <Content Include="Views\AppOld\Index.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\Shared\_AppLayout.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\App\SignIn.cshtml" />
-    <Content Include="Views\App\ForgotPassword.cshtml" />
-    <Content Include="Views\App\SignUp.cshtml" />
-    <Content Include="Views\App\ResetPassword.cshtml" />
-    <Content Include="Views\App\_Profiles.cshtml" />
-    <Content Include="Views\App\ConfirmEmail.cshtml" />
-    <Content Include="Views\App\Error.cshtml" />
+    <Content Include="Views\AppOld\SignIn.cshtml" />
+    <Content Include="Views\AppOld\ForgotPassword.cshtml" />
+    <Content Include="Views\AppOld\SignUp.cshtml" />
+    <Content Include="Views\AppOld\ResetPassword.cshtml" />
+    <Content Include="Views\AppOld\_Profiles.cshtml" />
+    <Content Include="Views\AppOld\ConfirmEmail.cshtml" />
+    <Content Include="Views\AppOld\Error.cshtml" />
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
-    <Content Include="Views\App\_ManageAccount.cshtml" />
-    <Content Include="Views\App\_Spinner.cshtml" />
-    <Content Include="Views\App\_ChangePassword.cshtml" />
-    <Content Include="Views\App\_AccountOptions.cshtml" />
+    <Content Include="Views\AppOld\_ManageAccount.cshtml" />
+    <Content Include="Views\AppOld\_Spinner.cshtml" />
+    <Content Include="Views\AppOld\_ChangePassword.cshtml" />
+    <Content Include="Views\AppOld\_AccountOptions.cshtml" />
     <Content Include="Scripts\knockout.validation.min.js.map" />
-    <Content Include="Views\App\_Items.cshtml" />
+    <Content Include="Views\AppOld\_Items.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\SelectProfile\SelectProfile.cshtml" />
+    <Content Include="Views\Shared\_Signin.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Account\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
@@ -637,8 +878,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.2.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.2.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

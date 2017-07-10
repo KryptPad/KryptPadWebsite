@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using KryptPadWebApp.Models;
+using System.Web;
 
 namespace KryptPadWebApp.Providers
 {
@@ -74,10 +75,9 @@ namespace KryptPadWebApp.Providers
         {
             // Get the user manager
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-
+           
             // Find the user based on the credentials provided
             var user = await userManager.FindAsync(context.UserName, context.Password);
-
             if (user == null)
             {
                 context.Rejected();
@@ -85,7 +85,8 @@ namespace KryptPadWebApp.Providers
                 
                 return;
             }
-
+            
+            // Generate a user identity
             var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
 
             // Create ticket
@@ -95,6 +96,7 @@ namespace KryptPadWebApp.Providers
 
             // Validate our request for a token
             context.Validated(ticket);
+            
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

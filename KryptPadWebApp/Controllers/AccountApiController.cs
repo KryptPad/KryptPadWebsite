@@ -106,6 +106,11 @@ namespace KryptPadWebApp.Controllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Resets the user's account password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("Reset-Password")]
         public async Task<IHttpActionResult> ResetPassword(ResetPasswordRequest model)
@@ -191,7 +196,7 @@ namespace KryptPadWebApp.Controllers
         }
 
         /// <summary>
-        /// Gets some details about the account
+        /// Gets some details about the user's account
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -258,6 +263,12 @@ namespace KryptPadWebApp.Controllers
         }
 
         #region Helper methods
+
+        /// <summary>
+        /// Sends the verify email link
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private async Task SendEmailConfirmationLink(string userId)
         {
             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
