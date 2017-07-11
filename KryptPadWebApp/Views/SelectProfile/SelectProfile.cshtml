@@ -5,7 +5,7 @@
 }
 
 @*Select a profile*@
-<div  class="container">
+<div class="container">
 
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
@@ -13,6 +13,12 @@
             <h2>Select profile</h2>
 
             <message-widget params="message: message"></message-widget>
+
+            @*Profile management*@
+            <p>
+                <button type="button" class="btn btn-primary"><i class="fa fa-plus fa-fw"></i> Create profile</button>
+                <button type="button" class="btn btn-default"><i class="fa fa-undo fa-fw"></i> Restore from backup</button>
+            </p>
 
             <div id="profiles-list" data-bind="foreach: { data: profiles, afterAdd: fadeIn}">
 
@@ -27,11 +33,13 @@
 
 
             </div>
+
+            @Html.Partial("_Spinner")
         </div>
     </div>
 
     @*Dialog for profile passphrase*@
-    <div id="passphrase-modal" class="modal fade" role="dialog" >
+    <div id="passphrase-modal" class="modal fade" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -61,7 +69,7 @@
         //var profilesApp = document.getElementById("profiles-list");
 
         +function () {
-            
+
             // Model for profiles
             function SelectProfiles() {
                 var self = this;
@@ -77,6 +85,9 @@
                 // Methods
                 // Gets the profiles for the logged in user
                 self.getProfiles = function () {
+                    // Busy
+                    self.isBusy(true);
+
                     api.getProfiles().done(function (data) {
 
                         // Add the profiles to the list
@@ -85,6 +96,9 @@
 
                     }).fail(function (error) {
                         // Handle errors
+                    }).always(function () {
+                        // Not busy
+                        self.isBusy(false);
                     });
                 };
 
@@ -95,6 +109,9 @@
                         return;
                     }
 
+                    // Busy
+                    self.isBusy(true);
+
                     // Get the passphrase
                     var passphrase = self.passphrase();
 
@@ -102,14 +119,14 @@
                     // If successful, store the passphrase for future api request
                     // Set this profile as our main context and show the items page
                     api.loadProfile(profile.Id, passphrase).done(function (data) {
-                        
+
                         // Store the passphrase we used in session storage
                         app.setPassphrase(passphrase);
                         // Clear message
                         self.profileMessage(null);
 
                         // Go to the items page
-                        
+
 
                     }).fail(function (error) {
                         // Handle the error
@@ -129,7 +146,7 @@
                         self.passphraseHasFocus(true);
 
                     }).always(function () {
-                        // Set busy state
+                        // Not busy
                         self.isBusy(false);
                     });
                 };
@@ -137,7 +154,7 @@
                 // Prompts the user for the passphrase
                 self.providePassphrase = function () {
                     self.profileMessage(null);
-                    
+
                     // Set the selected profile
                     self.selectedProfile(this);
                 };

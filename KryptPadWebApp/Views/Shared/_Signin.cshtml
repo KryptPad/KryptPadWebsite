@@ -6,8 +6,8 @@
 {
     @Html.AntiForgeryToken()
     <div class="text-left">
-        
-        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })   
+
+        @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
 
         <label class="sr-only" for="username">Email</label>
         <span class="text-danger" data-bind="validationMessage: username"></span>
@@ -18,7 +18,10 @@
             @Html.TextBoxFor((m) => m.Email, new { @class = "form-control", placeholder = "Email: example@domain.com" })
 
         </div>
-        <br />
+
+        <p>
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </p>
 
         <label class="sr-only" for="password">Password</label>
         <span class="text-danger" data-bind="validationMessage: password"></span>
@@ -30,7 +33,9 @@
 
         </div>
 
-        <br />
+        <p>
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </p>
 
         <p>
             By signing in, you agree to the <a href="@Url.RouteUrl("Terms")" target="_blank">license terms</a>.
@@ -45,8 +50,6 @@
         <div>
             <span>
                 <a href="@Url.RouteUrl("ForgotPassword")">Forgot password</a>
-                |
-                <a href="@Url.RouteUrl("SignUp")">Sign up</a>
             </span>
         </div>
     </div>

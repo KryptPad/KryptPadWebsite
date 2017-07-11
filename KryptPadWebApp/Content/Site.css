@@ -44,13 +44,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
         padding: 15px;
         background-color: rgba(174, 221, 255, 0.25);
         margin-bottom: 1px;
-
         transition: all 250ms ease-in-out;
     }
 
-    #profiles-list .profile:hover {
-        background-color: rgba(174, 221, 255, 0.75);
-    }
+        #profiles-list .profile:hover {
+            background-color: rgba(174, 221, 255, 0.75);
+        }
 
     #profiles-list > div > a:hover {
         text-decoration: none;
@@ -193,6 +192,38 @@ a .circle {
     }
 }
 
+/* Validation summary styles*/
+.validation-summary-valid {
+    display: none;
+}
+
+
+/* override some bootstrap button styles */
+.btn {
+    border-radius: 0;
+}
+
+    .btn.btn-primary {
+        border-color: rgba(174, 221, 255, 0.75);
+        background-color: rgba(174, 221, 255, 0.25);
+        color: #337ab7
+    }
+
+        .btn.btn-primary:hover {
+            border-color: rgb(174, 221, 255);
+            background-color: rgba(174, 221, 255, 0.75);
+        }
+
+    .btn.btn-default {
+        border-color: rgba(204, 204, 204, 0.75);
+        background-color: rgba(255, 255, 255, 0.25);
+        color: #717171
+    }
+
+        .btn.btn-default:hover {
+            border-color: #ccc;
+            background-color: white;
+        }
 
 /*Animations*/
 

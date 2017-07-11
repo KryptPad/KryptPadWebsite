@@ -756,7 +756,7 @@
     <Content Include="Views\AppOld\Error.cshtml" />
     <Content Include="Views\Shared\_DashboardLayout.cshtml" />
     <Content Include="Views\AppOld\_ManageAccount.cshtml" />
-    <Content Include="Views\AppOld\_Spinner.cshtml" />
+    <Content Include="Views\Shared\_Spinner.cshtml" />
     <Content Include="Views\AppOld\_ChangePassword.cshtml" />
     <Content Include="Views\AppOld\_AccountOptions.cshtml" />
     <Content Include="Scripts\knockout.validation.min.js.map" />

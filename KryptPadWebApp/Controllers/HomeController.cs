@@ -67,6 +67,11 @@ namespace KryptPadWebApp.Controllers
         [Route("SignIn", Name = "DoSignIn")]
         public async Task<ActionResult> SignIn(SigninModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", new HomeIndexViewModel());
+            }
+
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, true, shouldLockout: false);
             switch (result)
