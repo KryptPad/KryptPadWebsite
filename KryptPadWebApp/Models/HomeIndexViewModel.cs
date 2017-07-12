@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KryptPadWebApp.Models.Requests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace KryptPadWebApp.Models
         #region Properties
         
         public SigninModel SigninModel { get; set; } = new SigninModel();
+
+        public CreateAccountRequest CreateAccountRequest { get; set; } = new CreateAccountRequest();
 
         #endregion
 

@@ -201,6 +201,7 @@ a .circle {
 /* override some bootstrap button styles */
 .btn {
     border-radius: 0;
+    transition: all 250ms ease-in-out;
 }
 
     .btn.btn-primary {

@@ -17,38 +17,14 @@
         <div class="row ">
             @*Sign in form*@
             <div id="sign-in" class="col-lg-offset-2 col-md-offset-1 col-lg-4 col-md-5 col-sm-6 border-right">
-
                 @Html.Partial("_Signin", Model.SigninModel)
-
             </div>
 
             @*Sign up form*@
             <div id="sign-up" class="col-lg-4 col-md-5 col-sm-6">
-                
-                    <h4>Create an account</h4>
-                
-                    <label class="sr-only" for="username">Email</label>
-                    <span class="text-danger" data-bind="validationMessage: username"></span>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-user fa-fw"></i>
-                        </span>
-                        <input type="text" id="username" class="form-control" data-bind="textInput: username"
-                               placeholder="Email: example@domain.com" />
-                    </div>
-                    <br />
+                @Html.Partial("_Signup", Model.CreateAccountRequest)
+            </div>
 
-                    <label class="sr-only" for="password">Password</label>
-                    <span class="text-danger" data-bind="validationMessage: password"></span>
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-key fa-fw"></i>
-                        </span>
-                        <input type="password" id="password" class="form-control" data-bind="textInput: password"
-                               placeholder="password" />
-                    </div>
-                </div>
-                <div></div>
         </div>
 
     </div>
@@ -226,5 +202,5 @@
 
 
 @section scripts{
-    
+
 }

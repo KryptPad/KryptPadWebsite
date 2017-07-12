@@ -745,16 +745,12 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\AppOld\Index.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
-    <Content Include="Views\Shared\_AppLayout.cshtml" />
-    <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\AppOld\SignIn.cshtml" />
     <Content Include="Views\AppOld\ForgotPassword.cshtml" />
     <Content Include="Views\AppOld\SignUp.cshtml" />
     <Content Include="Views\AppOld\ResetPassword.cshtml" />
     <Content Include="Views\AppOld\_Profiles.cshtml" />
     <Content Include="Views\AppOld\ConfirmEmail.cshtml" />
     <Content Include="Views\AppOld\Error.cshtml" />
-    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
     <Content Include="Views\AppOld\_ManageAccount.cshtml" />
     <Content Include="Views\Shared\_Spinner.cshtml" />
     <Content Include="Views\AppOld\_ChangePassword.cshtml" />
@@ -765,6 +761,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\SelectProfile\SelectProfile.cshtml" />
     <Content Include="Views\Shared\_Signin.cshtml" />
+    <Content Include="Views\Shared\_Signup.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
