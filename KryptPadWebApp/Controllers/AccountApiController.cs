@@ -52,8 +52,17 @@ namespace KryptPadWebApp.Controllers
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                // Send confirm link
-                await SendEmailConfirmationLink(user.Id);
+                try
+                {
+                    // Send confirm link
+                    await SendEmailConfirmationLink(user.Id);
+                }
+                catch (Exception)
+                {
+                    // Let's ignore this error for now. User will be able to request another code later. At that time we can
+                    // complain about the problem if it happens again.
+                }
+                
 
                 // All is ok
                 return Ok();

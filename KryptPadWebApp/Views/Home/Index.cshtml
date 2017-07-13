@@ -202,5 +202,25 @@
 
 
 @section scripts{
+    <script src="@Url.HttpRouteUrl("GetRoutes", null)"></script>
+    <script src="~/Scripts/app/sign-up.js"></script>
+    <script>
 
+                api.routes = routes;
+
+
+                +function () {
+                    // Get main app container
+                    var $signupNode = $('#signup');
+                    var signupOptions = {
+                        antiForgeryToken: $signupNode.find("input[name='__RequestVerificationToken']").val(),
+                        requestUrl: '@Url.RouteUrl("DoSignIn")',
+                        node: $signupNode[0]
+                    };
+
+                    // Start signup script
+                    new Signup(signupOptions);
+
+                }();
+    </script>
 }

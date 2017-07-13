@@ -1,8 +1,5 @@
-﻿(function (global) {
-
-    // Get main app container
-    var node = document.getElementById('signup');
-
+﻿function Signup (options) {
+    
     // App view model
     function ViewModel() {
         var self = this;
@@ -30,14 +27,11 @@
                 self.password(),
                 self.confirmPassword()
             ).done(function (data) {
+                
                 // Success, log into account
-                api.login(self.email(), self.password()).done(function (data) {
-                    // Cache the access token in session storage.
-                    app.setToken(data);
-
-                    // Login successful, submit form for route handling. The route
-                    // will be picked up in the main-app.js file, and it will load
-                    // the profiles view
+                api.signin(self.email(), self.password(), options.requestUrl, options.antiForgeryToken).done(function (data) {
+                    
+                    // Login successful, submit form to go to select profile page
                     $('#sign-up-form').submit();
 
                 }).fail(function (error) {
@@ -110,6 +104,6 @@
     var model = new ViewModel();
 
     // Apply bindings
-    ko.applyBindings(model, node);
+    ko.applyBindings(model, options.node);
 
-})(window);
+}

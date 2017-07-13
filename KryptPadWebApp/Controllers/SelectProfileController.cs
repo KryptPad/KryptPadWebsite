@@ -10,8 +10,10 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("App")]
     public class SelectProfileController : SecureController
     {
-        // GET: SelectProfile
-        [HttpGet]
+        /// <summary>
+        /// SelectProfile
+        /// </summary>
+        /// <returns></returns>
         [Route("Select-Profile", Name = "SelectProfile")]
         public ActionResult SelectProfile()
         {

@@ -3,21 +3,45 @@
     // Create Api object
     var api = global.api = global.api || {};
 
+    // Create a route table for the api
+    api.routes = {
+        tokenSignin: "/token",
+        signin: null
+    };
+
     // Sign into the system
-    api.login = function (username, password) {
+    api.tokenSignin = function (email, password) {
 
         // Create post data
         var postData = {
             client_id: 'KryptPadWeb',
             grant_type: 'password',
-            username: username,
+            username: email,
             password: password
         };
 
         // Send to token endpoint
         return $.ajax({
             type: 'POST',
-            url: '/token',
+            url: api.routes.tokenSignin,
+            data: postData
+        });
+    };
+
+    // Sign into the system
+    api.signin = function (email, password, requestUrl, antiForgeryToken) {
+        
+        // Create post data
+        var postData = {
+            email: email,
+            password: password,
+            __RequestVerificationToken: antiForgeryToken
+        };
+
+        // Send to token endpoint
+        return $.ajax({
+            type: 'POST',
+            url: api.routes.signin,
             data: postData
         });
     };

@@ -2,61 +2,51 @@
 
 <h4>Sign up</h4>
 
-@using (Html.BeginRouteForm("DoSignIn", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <div class="text-left">
+@*Main body*@
+<div id="signup" class="text-left">
 
-        @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
+    @*Form*@
+    <div data-bind="visible: !isBusy()">
 
-        <label class="sr-only" for="username">Email</label>
-        <div class="input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-user fa-fw"></i>
-            </span>
-            @Html.TextBoxFor((m) => m.Email, new { @class = "form-control", placeholder = "Email: example@domain.com" })
+        <form id="sign-up-form" method="post" action='@Url.RouteUrl("SelectProfile")'>
+            @Html.AntiForgeryToken()
+            
+            <message-widget params="message: message"></message-widget>
 
-        </div>
+            <p>
+                <small><label class="sr-only" for="sign-up-email">Email</label></small>
+                <span class="text-danger" data-bind="validationMessage: email"></span>
+                <input type="text" id="sign-up-email" class="form-control" data-bind="textInput: email"
+                       placeholder="Email: example@domain.com" />
+            </p>
 
-        <p>
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-        </p>
+            <p>
+                <small><label class="sr-only" for="sign-up-password">Password</label></small>
+                <span class="text-danger" data-bind="validationMessage: password"></span>
+                <input type="password" id="sign-up-password" class="form-control" data-bind="textInput: password"
+                       placeholder="Password" />
+            </p>
 
-        <label class="sr-only" for="password">Password</label>
-        <div class="input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-key fa-fw"></i>
-            </span>
-            @Html.PasswordFor((m) => m.Password, new { @class = "form-control", placeholder = "Password" })
+            <p>
+                <small><label class="sr-only" for="sign-up-confirm-password">Confirm password</label></small>
+                <span class="text-danger" data-bind="validationMessage: confirmPassword"></span>
+                <input type="password" id="sign-up-confirm-password" class="form-control" data-bind="textInput: confirmPassword"
+                       placeholder="Confirm password" />
 
-        </div>
+            </p>
+            <p>
+                By signing up, you agree to the <a href="@Url.RouteUrl("Terms")" target="_blank">license terms</a>.
+                Also, please read the <a href="@Url.RouteUrl("Policy")" target="_blank">privacy policy</a>.
+            </p>
+            <p>
+                <button data-bind="click: signup" class="btn btn-primary btn-block">Sign Up</button>
+            </p>
 
-        <p>
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-        </p>
+        </form>
 
-        <label class="sr-only" for="password">Confirm password</label>
-        <div class="input-group">
-            <span class="input-group-addon">
-                <i class="fa fa-key fa-fw"></i>
-            </span>
-            @Html.PasswordFor((m) => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm password" })
-
-        </div>
-
-        <p>
-            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-        </p>
-
-        <p>
-            By signing in, you agree to the <a href="@Url.RouteUrl("Terms")" target="_blank">license terms</a>.
-            Also, please read the <a href="@Url.RouteUrl("Policy")" target="_blank">privacy policy</a>.
-        </p>
-
-        <p>
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-
-        </p>
 
     </div>
-}
+
+    @{ Html.RenderPartial("_Spinner");}
+
+</div>
