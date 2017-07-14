@@ -747,7 +747,6 @@
     <Content Include="Views\AppOld\Index.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
     <Content Include="Views\AppOld\ForgotPassword.cshtml" />
-    <Content Include="Views\AppOld\SignUp.cshtml" />
     <Content Include="Views\AppOld\ResetPassword.cshtml" />
     <Content Include="Views\AppOld\_Profiles.cshtml" />
     <Content Include="Views\AppOld\ConfirmEmail.cshtml" />
@@ -764,7 +763,6 @@
     <Content Include="Views\Shared\_Signin.cshtml" />
     <Content Include="Views\Shared\_Signup.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
@@ -839,6 +837,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KryptPadWebApp.Resources\KryptPadWebApp.Resources.csproj">
+      <Project>{ee00ffb4-2baf-4f1b-8c61-000ab86c7ac0}</Project>
+      <Name>KryptPadWebApp.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

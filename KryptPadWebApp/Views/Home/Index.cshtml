@@ -1,4 +1,5 @@
 ﻿@using KryptPadWebApp.Models
+@using KryptPadWebApp.Resources
 @model HomeIndexViewModel
 @{
     ViewBag.Title = "Home Page";
@@ -7,26 +8,36 @@
 @section pageHeader{
 
     @*Account section*@
-    <div class="container text-center">
+    <div class="container text-center" style="min-height: 100%">
+        <div class="hero hero-heading">
+            
+            <h1>@Strings.AppName</h1>
+            <p class="lead">@Strings.TagLine</p>
+            @*<img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />*@
 
-        <h1>Krypt Pad</h1>
-        <p class="lead">Secure credential manager</p>
-        @*<img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />*@
+            @*Account management*@
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="row ">
+                    @*Sign in form*@
+                    <div id="sign-in" class="col-lg-offset-2 col-md-offset-1 col-lg-4 col-md-5 col-sm-6 border-right">
+                        @Html.Partial("_Signin", Model.SigninModel)
+                    </div>
 
-        @*Account management*@
-        <div class="row ">
-            @*Sign in form*@
-            <div id="sign-in" class="col-lg-offset-2 col-md-offset-1 col-lg-4 col-md-5 col-sm-6 border-right">
-                @Html.Partial("_Signin", Model.SigninModel)
-            </div>
+                    @*Sign up form*@
+                    <div id="sign-up" class="col-lg-4 col-md-5 col-sm-6">
+                        @Html.Partial("_Signup", Model.CreateAccountRequest)
+                    </div>
 
-            @*Sign up form*@
-            <div id="sign-up" class="col-lg-4 col-md-5 col-sm-6">
-                @Html.Partial("_Signup", Model.CreateAccountRequest)
-            </div>
-
+                </div>
+            }
+            else
+            {
+                <p>
+                    <a href="@Url.RouteUrl("SelectProfile")" class="btn btn-primary btn-lg">Go to my account</a>
+                </p>
+            }
         </div>
-
     </div>
 
     @*Social section*@

@@ -1,14 +1,18 @@
 ﻿html {
+    min-height: 100%;
 }
 
 body {
-    /*padding-top: 50px;*/
+    min-height: 100%;
     padding-bottom: 20px;
-    background: -o-radial-gradient(#cfe2f1 5%, white 60%); /* For Opera 11.6-12.0 */
-    background: -moz-radial-gradient(#cfe2f1 5%, white 60%); /* For Firefox 3.6-15 */
-    background: radial-gradient(#cfe2f1 5%, white 60%); /* Standard syntax */
+    /*background: -o-radial-gradient(#cfe2f1 5%, #f1f5f8 60%);
+    background: -moz-radial-gradient(#cfe2f1 5%, #f1f5f8 60%);*/
+    background: radial-gradient(#cfe2f1 5%, #f1f5f8 60%);
+    
     background-repeat: no-repeat;
 }
+
+
 
 /* Header styles */
 h1, .h1 {
@@ -55,13 +59,17 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
         text-decoration: none;
     }
 
+/* Navbar */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
 /* Heros */
 .hero {
     padding-top: 50px;
     padding-bottom: 50px;
     margin-bottom: 30px;
 }
-
 
     .hero.hero-blue {
         background-color: rgba(87, 194, 213, 0.20);

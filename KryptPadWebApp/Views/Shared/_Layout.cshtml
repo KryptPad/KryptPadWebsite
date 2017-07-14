@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+@using KryptPadWebApp.Resources
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +9,14 @@
     @*Link FontAwesome CDN*@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <title>@ViewBag.Title - Krypt Pad</title>
+    <title>@ViewBag.Title - @Strings.AppName</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
 
+    @* Nav menu *@
     <div class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
@@ -26,25 +28,24 @@
 
 
                 <a href="@Url.RouteUrl("Home")" class="navbar-brand">
-                    @*<img src="~/Content/Images/safe32x32.png" class="pull-left" />*@
-                    Krypt Pad
+                    @Strings.AppName
                 </a>
             </div>
             <div id="user-info" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="@Url.RouteUrl("About")">About</a></li>
+                    <li><a href="@Url.RouteUrl("About")">@Strings.About</a></li>
 
                 </ul>
                 
                 <p class="navbar-text navbar-right">
-                    <span>Welcome,</span>
+                    <span>@Strings.Welcome</span>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <span>@User.Identity.GetUserName()</span>
-                        <a href="@Url.RouteUrl("DoSignOut")">Sign Out</a>
+                        <a href="@Url.RouteUrl("DoSignOut")">@Strings.SignOut</a>
                     } else
                     {
-                        <span>Guest</span>
+                        <span>@Strings.Guest</span>
                     }
                 </p>
 
@@ -67,9 +68,9 @@
         <div class="row">
             <div class="col-sm-4">
                 <h5>Resources</h5>
-                <a href="@Url.RouteUrl("Policy")">Policy</a>
+                <a href="@Url.RouteUrl("Policy")">@Strings.PrivacyPolicy</a>
                 <br />
-                <a href="@Url.RouteUrl("Terms")">License Terms</a>
+                <a href="@Url.RouteUrl("Terms")">@Strings.LicenseTerms</a>
             </div>
             <div class="col-sm-4">
                 <h5>Links</h5>

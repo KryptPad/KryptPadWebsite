@@ -1,6 +1,7 @@
 ﻿@model KryptPadWebApp.Models.SigninModel
+@using KryptPadWebApp.Resources
 
-<h4>Sign in</h4>
+<h4>@Strings.SignIn</h4>
 
 @using (Html.BeginRouteForm("DoSignIn", FormMethod.Post))
 {
@@ -9,12 +10,12 @@
 
         @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
 
-        <label class="sr-only" for="username">Email</label>
+        <label class="sr-only" for="username">@Strings.Email</label>
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="fa fa-user fa-fw"></i>
             </span>
-            @Html.TextBoxFor((m) => m.Email, new { @class = "form-control", placeholder = "Email: example@domain.com" })
+            @Html.TextBoxFor((m) => m.Email, new { @class = "form-control", placeholder = Strings.Email })
 
         </div>
 
@@ -22,34 +23,35 @@
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </p>
 
-        <label class="sr-only" for="password">Password</label>
+        <label class="sr-only" for="password">@Strings.Password</label>
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="fa fa-key fa-fw"></i>
             </span>
-            @Html.PasswordFor((m) => m.Password, new { @class = "form-control", placeholder = "Password" })
+            @Html.PasswordFor((m) => m.Password, new { @class = "form-control", placeholder = Strings.Password })
 
         </div>
 
         <p>
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         </p>
+
+        <div class="checkbox">
+            <label>@Html.CheckBoxFor(m => m.RememberMe) @Strings.RememberMe</label>
+        </div>
+
         <p>
-            <label>@Html.CheckBoxFor(m => m.RememberMe) Keep me signed in</label>
-        </p>
-        <p>
-            By signing in, you agree to the <a href="@Url.RouteUrl("Terms")" target="_blank">license terms</a>.
-            Also, please read the <a href="@Url.RouteUrl("Policy")" target="_blank">privacy policy</a>.
+            @Html.Raw(String.Format(Strings.SigninTerms, Html.RouteLink(Strings.LicenseTerms.ToLower(), "Terms"), Html.RouteLink(Strings.PrivacyPolicy.ToLower(), "Policy")))
         </p>
 
         <p>
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block">@Strings.SignIn</button>
 
         </p>
 
         <div>
             <span>
-                <a href="@Url.RouteUrl("ForgotPassword")">Forgot password</a>
+                <a href="@Url.RouteUrl("ForgotPassword")">@Strings.ForgotPassword</a>
             </span>
         </div>
     </div>
