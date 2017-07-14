@@ -1,4 +1,4 @@
-﻿
+﻿@using KryptPadWebApp.Resources
 @{
     ViewBag.Title = "SelectProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -61,37 +61,41 @@
                            autofocus />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-bind="click: enterProfile">Go</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    @* Dialog for adding profile *@
-    <div id="passphrase-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Create profilee</h4>
-                </div>
-                <div class="modal-body">
-
-                    <message-widget params="message: profileMessage"></message-widget>
-
-                    <input id="passphrase-textbox" type="password" class="form-control" data-bind="textInput: passphrase, hasFocus: passphraseHasFocus"
-                           autofocus />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-bind="click: enterProfile">Go</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Strings.Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: enterProfile">@Strings.Go</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
 </div>
+
+@* Dialog for adding profile *@
+<div id="passphrase-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Create profilee</h4>
+            </div>
+            <div class="modal-body">
+
+                <message-widget params="message: profileMessage"></message-widget>
+
+                <p>
+                    <small><label class="sr-only" for="sign-up-email">@Strings.Name</label></small>
+                    <span class="text-danger" data-bind="validationMessage: email"></span>
+                    <input type="text" id="profile-name-input" class="form-control" data-bind="textInput: email"
+                           placeholder="@Strings.Name" />
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Strings.Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: enterProfile">@Strings.Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 @section scripts{
     <script>
