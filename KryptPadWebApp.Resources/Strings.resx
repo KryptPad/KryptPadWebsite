@@ -186,4 +186,10 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="ConfirmPassphrase" xml:space="preserve">
+    <value>Confirm passphrase</value>
+  </data>
+  <data name="Passphrase" xml:space="preserve">
+    <value>Passphrase</value>
+  </data>
 </root>

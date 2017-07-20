@@ -88,6 +88,15 @@ namespace KryptPadWebApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm passphrase.
+        /// </summary>
+        public static string ConfirmPassphrase {
+            get {
+                return ResourceManager.GetString("ConfirmPassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         public static string ConfirmPassword {
@@ -147,6 +156,15 @@ namespace KryptPadWebApp.Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passphrase.
+        /// </summary>
+        public static string Passphrase {
+            get {
+                return ResourceManager.GetString("Passphrase", resourceCulture);
             }
         }
         

@@ -89,6 +89,9 @@
         return { type: type, message: message };
     };
 
+    /*
+     * Process an error received by the server
+     */
     app.processError = function (error, fail) {
         var message = '';
 
@@ -100,8 +103,10 @@
         } else if (error.responseJSON && error.responseJSON.Message) {
             // Get the error message from .net
             message = error.responseJSON.Message;
-
+            
             if (error.responseJSON.ModelState) {
+                // Create a list of model state errors
+                message += "<ul>";
                 var state = error.responseJSON.ModelState;
                 var errors = [];
                 // Get all the errors
@@ -109,12 +114,12 @@
 
                     if (state.hasOwnProperty(property)) {
                         // Add errors to the list
-                        errors.push(state[property].join("<br />"));
+                        errors.push("<li>" + state[property].join("<br />") + "</li>");
 
                     }
                 }
 
-                message += '<br />' + errors.join('<br />');
+                message += '<br />' + errors.join('');
             }
 
         } else {
@@ -133,6 +138,8 @@
         if (typeof fail === 'function') {
             fail(message);
         }
+
+        return message;
     };
 
     // Gets the value from the request param

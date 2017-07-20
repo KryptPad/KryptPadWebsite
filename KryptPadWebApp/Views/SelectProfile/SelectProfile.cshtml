@@ -19,7 +19,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-profile-modal"><i class="fa fa-plus fa-fw"></i> Create profile</button>
                 <button type="button" class="btn btn-default"><i class="fa fa-undo fa-fw"></i> Restore from backup</button>
             </p>
-
+            <span data-bind="html: isBusy"></span>
 
             <div id="profiles-list" data-bind="foreach: { data: profiles, afterAdd: fadeIn}">
 
@@ -35,12 +35,11 @@
 
             </div>
 
-            <!-- ko if: !profiles().length -->
-            <p>
+            @*Show message if we don't have any profiles created yet*@
+            <p data-bind="visible: noProfiles" style="display: none;">
                 You don't have any profiles yet. Why not create one?
             </p>
-            <!-- /ko -->
-
+                        
             @Html.Partial("_Spinner")
         </div>
     </div>
@@ -82,11 +81,34 @@
 
                 <message-widget params="message: message"></message-widget>
 
-                <p>
-                    <small><label class="sr-only" for="sign-up-email">@Strings.Name</label></small>
-                    <span class="text-danger" data-bind="validationMessage: name"></span>
+                <div>
+                    <small><label class="sr-only" for="profile-name-input">@Strings.Name</label></small>
                     <input type="text" id="profile-name-input" class="form-control" data-bind="textInput: name"
                            placeholder="@Strings.Name" />
+                </div>
+                <p>
+                    <span class="text-danger" data-bind="validationMessage: name"></span>
+                </p>
+
+                <div>
+                    <span>@Strings.PassphraseRequirement</span>
+                    <br />
+                    <small><label class="sr-only" for="profile-passphrase-input">@Strings.Passphrase</label></small>
+                    <input type="password" id="profile-passphrase-input" class="form-control" data-bind="textInput: passphrase"
+                           placeholder="@Strings.Passphrase" />
+                </div>
+                <p>
+                    <span class="text-danger" data-bind="validationMessage: passphrase"></span>
+                </p>
+
+                <div>
+                    <small><label class="sr-only" for="profile-confirm-passphrase-input">@Strings.ConfirmPassphrase</label></small>
+                    <input type="password" id="profile-confirm-passphrase-input" class="form-control" data-bind="textInput: confirmPassphrase"
+                           placeholder="@Strings.ConfirmPassphrase" />
+
+                </div>
+                <p>
+                    <span class="text-danger" data-bind="validationMessage: confirmPassphrase"></span>
                 </p>
             </div>
             <div class="modal-footer">
@@ -122,6 +144,12 @@
                 self.selectedProfile = ko.observable()
                 self.passphraseHasFocus = ko.observable();
                 self.passphrase = ko.observable();
+
+                // Computed observables
+                self.noProfiles = ko.pureComputed(function () {
+                    return !self.profiles().length;
+
+                });
 
                 // Methods
                 // Gets the profiles for the logged in user
@@ -230,7 +258,11 @@
 
                 // Save the profile
                 self.save = function () {
-                    debugger
+                    // Check if model is valid
+                    if (!self.isValid()) {
+                        return;
+                    }
+
                     var postData = {
                         name: self.name(),
                         passphrase: self.passphrase(),
@@ -251,13 +283,53 @@
 
 
                     }).fail(function (error) {
-                        // Unknown error
-                        self.message(app.createMessage(app.MSG_ERROR, "An unknown error occurred."));
+                        // Get the error response in a readable format
+                        var err = app.processError(error);
+                        self.message(app.createMessage(app.MSG_ERROR, err));
+
                     }).always(function () {
                         // Not busy
                         self.isBusy(false);
+
                     });
                 };
+
+                // Errors
+                self.errors = ko.validation.group(self);
+
+                // Name validation
+                self.name
+                    .extend({
+                        required: {
+                            message: 'Name is required'
+                        }
+                    });
+
+                // Password
+                self.passphrase.extend({
+                    required: {
+                        message: 'Passphrase is required'
+                    }
+                });
+
+                // Confirm password
+                self.confirmPassphrase.extend({
+                    equal: {
+                        params: self.passphrase,
+                        message: 'Passphrases don\'t match'
+                    }
+                });
+
+                // Show errors in our model
+                self.isValid = function () {
+                    if (self.errors().length) {
+                        self.errors.showAllMessages();
+                        return false
+                    }
+
+                    return true;
+                };
+
             }
 
             var createProfileApp = new CreateProfile();

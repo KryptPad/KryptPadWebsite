@@ -14,28 +14,34 @@
             
             <message-widget params="message: message"></message-widget>
 
-            <p>
+            <div>
                 <small><label class="sr-only" for="sign-up-email">@Strings.Email</label></small>
-                <span class="text-danger" data-bind="validationMessage: email"></span>
                 <input type="text" id="sign-up-email" class="form-control" data-bind="textInput: email"
                        placeholder="@Strings.Email" />
+            </div>
+            <p>
+                <span class="text-danger" data-bind="validationMessage: email"></span>
             </p>
 
-            <p>
+            <div>
                 <span>@Strings.PasswordRequirement</span>
                 <br />
                 <small><label class="sr-only" for="sign-up-password">@Strings.Password</label></small>
-                <span class="text-danger" data-bind="validationMessage: password"></span>
                 <input type="password" id="sign-up-password" class="form-control" data-bind="textInput: password"
                        placeholder="@Strings.Password" />
+            </div>
+            <p>
+                <span class="text-danger" data-bind="validationMessage: password"></span>
             </p>
 
-            <p>
+            <div>
                 <small><label class="sr-only" for="sign-up-confirm-password">@Strings.ConfirmPassword</label></small>
-                <span class="text-danger" data-bind="validationMessage: confirmPassword"></span>
                 <input type="password" id="sign-up-confirm-password" class="form-control" data-bind="textInput: confirmPassword"
                        placeholder="@Strings.ConfirmPassword" />
 
+            </div>
+            <p>
+                <span class="text-danger" data-bind="validationMessage: confirmPassword"></span>
             </p>
             
             <p>
