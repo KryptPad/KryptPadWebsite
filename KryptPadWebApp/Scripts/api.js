@@ -6,7 +6,8 @@
     // Create a route table for the api
     api.routes = {
         tokenSignin: "/token",
-        signin: null
+        signin: null,
+        createProfile: '/api/profiles'
     };
 
     // Sign into the system
@@ -144,7 +145,9 @@
         });
     };
 
-    // Gets a list of profiles for the user
+    /*
+     * Gets a list of profiles for the user
+     */
     api.getProfiles = function () {
         return authorizedAjax({
             type: 'GET',
@@ -153,6 +156,9 @@
 
     };
 
+    /*
+     * Loads a profile using the passphrase
+     */
     api.loadProfile = function (id, passphrase) {
         return authorizedAjax({
             type: 'GET',
@@ -173,6 +179,24 @@
             url: '/api/profiles/'+ profileId + '/categories/with-items'
         }, passphrase);
 
+    };
+
+    /*
+     * Save profile
+     */
+    api.saveProfile = function (profileId, data) {
+        // Make api call to POST if new, and PUT if not new
+        if (!profileId) {
+            // This is a new profile
+            return authorizedAjax({
+                type: 'POST',
+                url: api.routes.createProfile,
+                data: data
+            });
+        } else {
+            // This is an existing profile, update it
+        }
+       
     };
 
     /*

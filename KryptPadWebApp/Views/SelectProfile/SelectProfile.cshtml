@@ -5,7 +5,7 @@
 }
 
 @*Select a profile*@
-<div class="container">
+<div id="profile-list" class="container">
 
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
@@ -16,11 +16,11 @@
 
             @*Profile management*@
             <p>
-                <button type="button" class="btn btn-primary"><i class="fa fa-plus fa-fw"></i> Create profile</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-profile-modal"><i class="fa fa-plus fa-fw"></i> Create profile</button>
                 <button type="button" class="btn btn-default"><i class="fa fa-undo fa-fw"></i> Restore from backup</button>
             </p>
 
-            
+
             <div id="profiles-list" data-bind="foreach: { data: profiles, afterAdd: fadeIn}">
 
                 <div style="display:none;">
@@ -34,7 +34,7 @@
 
 
             </div>
-            
+
             <!-- ko if: !profiles().length -->
             <p>
                 You don't have any profiles yet. Why not create one?
@@ -71,27 +71,27 @@
 </div>
 
 @* Dialog for adding profile *@
-<div id="passphrase-modal" class="modal fade" role="dialog">
+<div id="new-profile-modal" class="modal fade" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Create profilee</h4>
+                <h4 class="modal-title">Create profile</h4>
             </div>
             <div class="modal-body">
 
-                <message-widget params="message: profileMessage"></message-widget>
+                <message-widget params="message: message"></message-widget>
 
                 <p>
                     <small><label class="sr-only" for="sign-up-email">@Strings.Name</label></small>
-                    <span class="text-danger" data-bind="validationMessage: email"></span>
-                    <input type="text" id="profile-name-input" class="form-control" data-bind="textInput: email"
+                    <span class="text-danger" data-bind="validationMessage: name"></span>
+                    <input type="text" id="profile-name-input" class="form-control" data-bind="textInput: name"
                            placeholder="@Strings.Name" />
                 </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">@Strings.Cancel</button>
-                <button type="button" class="btn btn-primary" data-bind="click: enterProfile">@Strings.Save</button>
+                <button type="button" class="btn btn-primary" data-bind="click: save">@Strings.Save</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -99,9 +99,17 @@
 
 @section scripts{
     <script>
-        //var profilesApp = document.getElementById("profiles-list");
-
         +function () {
+
+            // Handle UI events
+            $("#passphrase-modal").on("shown.bs.modal", function () {
+                $("#passphrase-textbox").focus();
+            });
+
+
+            // Get the node for profiles list
+            var profilesList = document.getElementById("profiles-list");
+
 
             // Model for profiles
             function SelectProfiles() {
@@ -109,11 +117,11 @@
 
                 self.profiles = ko.observableArray([]);
                 self.message = ko.observable();
+                self.isBusy = ko.observable();
                 self.profileMessage = ko.observable();
                 self.selectedProfile = ko.observable()
                 self.passphraseHasFocus = ko.observable();
                 self.passphrase = ko.observable();
-                self.isBusy = ko.observable();
 
                 // Methods
                 // Gets the profiles for the logged in user
@@ -122,7 +130,7 @@
                     self.isBusy(true);
 
                     api.getProfiles().done(function (data) {
-                        
+
                         // Add the profiles to the list
                         ko.utils.arrayPushAll(self.profiles, data.Profiles);
 
@@ -201,14 +209,64 @@
                 self.getProfiles();
             }
 
-            // Handle UI events
-            $("#passphrase-modal").on("shown.bs.modal", function () {
-                $("#passphrase-textbox").focus();
-            });
+            // Create instance of the profiles list app
+            var profilesListApp = new SelectProfiles();
 
-            ko.applyBindings(new SelectProfiles());
+            ko.applyBindings(profilesListApp, profilesList);
 
+
+            // Get the node for new profile
+            var newProfile = document.getElementById("new-profile-modal");
+
+            // Model for new profile
+            function CreateProfile() {
+                var self = this;
+
+                self.message = ko.observable();
+                self.isBusy = ko.observable();
+                self.name = ko.observable();
+                self.passphrase = ko.observable();
+                self.confirmPassphrase = ko.observable();
+
+                // Save the profile
+                self.save = function () {
+                    debugger
+                    var postData = {
+                        name: self.name(),
+                        passphrase: self.passphrase(),
+                        confirmPassphrase: self.confirmPassphrase()
+                    };
+
+                    // Busy
+                    self.isBusy(true);
+
+                    api.saveProfile(0, postData).done(function (data) {
+
+                        // Store the passphrase we used in session storage
+                        app.setPassphrase(passphrase);
+                        // Clear message
+                        self.profileMessage(null);
+
+                        // Go to the items page
+
+
+                    }).fail(function (error) {
+                        // Unknown error
+                        self.message(app.createMessage(app.MSG_ERROR, "An unknown error occurred."));
+                    }).always(function () {
+                        // Not busy
+                        self.isBusy(false);
+                    });
+                };
+            }
+
+            var createProfileApp = new CreateProfile();
+
+            ko.applyBindings(createProfileApp, newProfile);
         }();
+
+
+
     </script>
 
 }
