@@ -74,7 +74,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Create profile</h4>
+                <h4 class="modal-title">
+                    Create profile
+                    <a role="button" data-toggle="popover" title="Popover title" data-content="@Strings.CreateProfileMessage"><i class="fa fa-question-circle"></i></a>
+                </h4>
             </div>
             <div class="modal-body">
 
@@ -127,6 +130,7 @@
                 $("#passphrase-textbox").focus();
             });
 
+            $('[data-toggle="popover"]').popover();
 
             // Get the node for profiles list
             var profilesList = document.getElementById("select-profile");
@@ -145,7 +149,7 @@
                 self.passphrase = ko.observable();
 
                 // Computed observables
-                self.noProfiles = ko.computed(function () {
+                self.noProfiles = ko.pureComputed(function () {
                     return !self.profiles().length;
 
                 });

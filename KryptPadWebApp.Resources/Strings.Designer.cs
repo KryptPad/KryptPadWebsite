@@ -106,6 +106,15 @@ namespace KryptPadWebApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A profile stores all your sensitive data and encrypts it with a passphrase. When creating your profile, choose a strong passphrase and DO NOT FORGET IT. Unlike your account password, which can be reset if forgotten, your profile passphrase is used to encrypt your sensitive information, and therefore cannot be reset if lost..
+        /// </summary>
+        public static string CreateProfileMessage {
+            get {
+                return ResourceManager.GetString("CreateProfileMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {

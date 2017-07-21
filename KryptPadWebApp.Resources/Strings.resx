@@ -192,4 +192,7 @@
   <data name="Passphrase" xml:space="preserve">
     <value>Passphrase</value>
   </data>
+  <data name="CreateProfileMessage" xml:space="preserve">
+    <value>A profile stores all your sensitive data and encrypts it with a passphrase. When creating your profile, choose a strong passphrase and DO NOT FORGET IT. Unlike your account password, which can be reset if forgotten, your profile passphrase is used to encrypt your sensitive information, and therefore cannot be reset if lost.</value>
+  </data>
 </root>
