@@ -5,7 +5,7 @@
 }
 
 @*Select a profile*@
-<div id="profile-list" class="container">
+<div id="select-profile" class="container">
 
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
@@ -19,8 +19,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-profile-modal"><i class="fa fa-plus fa-fw"></i> Create profile</button>
                 <button type="button" class="btn btn-default"><i class="fa fa-undo fa-fw"></i> Restore from backup</button>
             </p>
-            <span data-bind="html: isBusy"></span>
-
+            
             <div id="profiles-list" data-bind="foreach: { data: profiles, afterAdd: fadeIn}">
 
                 <div style="display:none;">
@@ -36,7 +35,7 @@
             </div>
 
             @*Show message if we don't have any profiles created yet*@
-            <p data-bind="visible: noProfiles" style="display: none;">
+            <p data-bind="visible: noProfiles" style="display: none" >
                 You don't have any profiles yet. Why not create one?
             </p>
                         
@@ -130,7 +129,7 @@
 
 
             // Get the node for profiles list
-            var profilesList = document.getElementById("profiles-list");
+            var profilesList = document.getElementById("select-profile");
 
 
             // Model for profiles
@@ -146,7 +145,7 @@
                 self.passphrase = ko.observable();
 
                 // Computed observables
-                self.noProfiles = ko.pureComputed(function () {
+                self.noProfiles = ko.computed(function () {
                     return !self.profiles().length;
 
                 });
