@@ -1,6 +1,6 @@
 ﻿@using KryptPadWebApp.Resources
 @{
-    ViewBag.Title = "SelectProfile";
+    ViewBag.Title = Strings.SelectProfile;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,14 +10,14 @@
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
 
-            <h2>Select profile</h2>
+            <h2>@Strings.SelectProfile</h2>
 
             <message-widget params="message: message"></message-widget>
 
             @*Profile management*@
             <p>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-profile-modal"><i class="fa fa-plus fa-fw"></i> Create profile</button>
-                <button type="button" class="btn btn-default"><i class="fa fa-undo fa-fw"></i> Restore from backup</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-profile-modal"><i class="fa fa-plus fa-fw"></i> @Strings.CreateProfile</button>
+                <button type="button" class="btn btn-default"><i class="fa fa-undo fa-fw"></i> @Strings.RestoreFromBackup</button>
             </p>
             
             <div id="profiles-list" data-bind="foreach: { data: profiles, afterAdd: fadeIn}">
@@ -36,7 +36,7 @@
 
             @*Show message if we don't have any profiles created yet*@
             <p data-bind="visible: noProfiles" style="display: none" >
-                You don't have any profiles yet. Why not create one?
+                @Strings.NoProfiles
             </p>
                         
             @Html.Partial("_Spinner")
@@ -49,7 +49,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Enter passphrase</h4>
+                    <h4 class="modal-title">@Strings.EnterPassphrase</h4>
                 </div>
                 <div class="modal-body">
 
@@ -75,8 +75,8 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">
-                    Create profile
-                    <a role="button" data-toggle="popover" title="Popover title" data-content="@Strings.CreateProfileMessage"><i class="fa fa-question-circle"></i></a>
+                    @Strings.CreateProfile
+                    <a role="button" data-toggle="popover" title=" @Strings.CreateProfile" data-content="@Strings.CreateProfileMessage"><i class="fa fa-question-circle"></i></a>
                 </h4>
             </div>
             <div class="modal-body">
@@ -278,7 +278,7 @@
                     api.saveProfile(0, postData).done(function (data) {
 
                         // Store the passphrase we used in session storage
-                        app.setPassphrase(passphrase);
+                        app.setPassphrase(self.passphrase());
                         // Clear message
                         self.profileMessage(null);
 

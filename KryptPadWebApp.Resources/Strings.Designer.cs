@@ -19,7 +19,7 @@ namespace KryptPadWebApp.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -106,6 +106,15 @@ namespace KryptPadWebApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create profile.
+        /// </summary>
+        public static string CreateProfile {
+            get {
+                return ResourceManager.GetString("CreateProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A profile stores all your sensitive data and encrypts it with a passphrase. When creating your profile, choose a strong passphrase and DO NOT FORGET IT. Unlike your account password, which can be reset if forgotten, your profile passphrase is used to encrypt your sensitive information, and therefore cannot be reset if lost..
         /// </summary>
         public static string CreateProfileMessage {
@@ -120,6 +129,24 @@ namespace KryptPadWebApp.Resources {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is required.
+        /// </summary>
+        public static string EmailRequired {
+            get {
+                return ResourceManager.GetString("EmailRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter passphrase.
+        /// </summary>
+        public static string EnterPassphrase {
+            get {
+                return ResourceManager.GetString("EnterPassphrase", resourceCulture);
             }
         }
         
@@ -151,6 +178,15 @@ namespace KryptPadWebApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Items.
+        /// </summary>
+        public static string Items {
+            get {
+                return ResourceManager.GetString("Items", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License terms.
         /// </summary>
         public static string LicenseTerms {
@@ -165,6 +201,24 @@ namespace KryptPadWebApp.Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have any categories yet. Why not create one?.
+        /// </summary>
+        public static string NoCategories {
+            get {
+                return ResourceManager.GetString("NoCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have any profiles yet. Why not create one?.
+        /// </summary>
+        public static string NoProfiles {
+            get {
+                return ResourceManager.GetString("NoProfiles", resourceCulture);
             }
         }
         
@@ -196,6 +250,15 @@ namespace KryptPadWebApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password is required.
+        /// </summary>
+        public static string PasswordRequired {
+            get {
+                return ResourceManager.GetString("PasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your password should be at least eight characters long and contain at least one symbol, one lower-case letter, one upper-case letter, and one number..
         /// </summary>
         public static string PasswordRequirement {
@@ -223,11 +286,29 @@ namespace KryptPadWebApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restore from backup.
+        /// </summary>
+        public static string RestoreFromBackup {
+            get {
+                return ResourceManager.GetString("RestoreFromBackup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select profile.
+        /// </summary>
+        public static string SelectProfile {
+            get {
+                return ResourceManager.GetString("SelectProfile", resourceCulture);
             }
         }
         

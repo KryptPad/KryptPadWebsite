@@ -10,7 +10,7 @@
     @*Account section*@
     <div class="container text-center" style="min-height: 100%">
         <div class="hero hero-heading">
-            
+
             <h1>@Strings.AppName</h1>
             <p class="lead">@Strings.TagLine</p>
             @*<img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />*@
@@ -214,13 +214,14 @@
 
 @section scripts{
     <script src="@Url.HttpRouteUrl("GetRoutes", null)"></script>
+    <script src="@Url.HttpRouteUrl("GetStrings", null)"></script>
     <script src="~/Scripts/app/sign-up.js"></script>
     <script>
-
-                api.routes = routes;
-
-
+        
                 +function () {
+                    api.routes = routes;
+                    api.strings = strings;
+
                     // Get main app container
                     var $signupNode = $('#signup');
                     var signupOptions = {

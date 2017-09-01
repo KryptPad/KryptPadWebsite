@@ -195,4 +195,31 @@
   <data name="CreateProfileMessage" xml:space="preserve">
     <value>A profile stores all your sensitive data and encrypts it with a passphrase. When creating your profile, choose a strong passphrase and DO NOT FORGET IT. Unlike your account password, which can be reset if forgotten, your profile passphrase is used to encrypt your sensitive information, and therefore cannot be reset if lost.</value>
   </data>
+  <data name="CreateProfile" xml:space="preserve">
+    <value>Create profile</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="SelectProfile" xml:space="preserve">
+    <value>Select profile</value>
+  </data>
+  <data name="EmailRequired" xml:space="preserve">
+    <value>Email is required</value>
+  </data>
+  <data name="EnterPassphrase" xml:space="preserve">
+    <value>Enter passphrase</value>
+  </data>
+  <data name="NoCategories" xml:space="preserve">
+    <value>You don't have any categories yet. Why not create one?</value>
+  </data>
+  <data name="NoProfiles" xml:space="preserve">
+    <value>You don't have any profiles yet. Why not create one?</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+  <data name="RestoreFromBackup" xml:space="preserve">
+    <value>Restore from backup</value>
+  </data>
 </root>

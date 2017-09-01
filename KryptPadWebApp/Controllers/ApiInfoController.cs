@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using KryptPadWebApp.Resources;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
@@ -30,10 +31,41 @@ namespace KryptPadWebApp.Controllers
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             };
-
-            var json = JsonConvert.SerializeObject(routes, ss);
+            // Serialize
+            var routesJson = JsonConvert.SerializeObject(routes, ss);
             // Create a javascript object
-            var js = $"var routes = {json}";
+            var js = $"var routes = {routesJson};";
+
+            return await Task.Factory.StartNew(() => JavaScript(js));
+        }
+
+        [Route("Get-Strings", Name = "GetStrings")]
+        public async Task<IHttpActionResult> GetStrings()
+        {
+            // Get string resources
+            var strings = new Dictionary<string, string>();
+            var stringsType = typeof(Strings);
+            // Use reflection to build a dictionary of the string resources
+            var stringProperties = stringsType.GetProperties();
+            foreach (var stringProperty in stringProperties)
+            {
+                var obj = stringProperty.GetValue(null, null);
+                if (obj is string)
+                {
+                    strings.Add(stringProperty.Name, (string)obj);
+                }
+            }
+
+
+            // Serialization settings
+            var ss = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+            // Serialize
+            var stringsJson = JsonConvert.SerializeObject(strings, ss);
+            // Create a javascript object
+            var js = $"var strings = {stringsJson};";
 
             return await Task.Factory.StartNew(() => JavaScript(js));
         }

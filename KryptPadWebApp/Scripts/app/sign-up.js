@@ -69,7 +69,7 @@
         self.email
             .extend({
                 required: {
-                    message: 'Email is required'
+                    message: api.strings.emailRequired
                 }
             })
             .extend({ email: true });
@@ -77,7 +77,7 @@
         // Password
         self.password.extend({
             required: {
-                message: 'Password is required'
+                message: api.strings.passwordRequired
             }
         });
 
