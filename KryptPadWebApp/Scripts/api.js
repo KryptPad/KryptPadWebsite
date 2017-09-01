@@ -2,14 +2,7 @@
 
     // Create Api object
     var api = global.api = global.api || {};
-
-    // Create a route table for the api
-    api.routes = {
-        tokenSignin: "/token",
-        signin: null,
-        createProfile: '/api/profiles'
-    };
-
+    
     // Sign into the system
     api.tokenSignin = function (email, password) {
 
@@ -24,7 +17,7 @@
         // Send to token endpoint
         return $.ajax({
             type: 'POST',
-            url: api.routes.tokenSignin,
+            url: '/token',
             data: postData
         });
     };
@@ -42,7 +35,7 @@
         // Send to token endpoint
         return $.ajax({
             type: 'POST',
-            url: api.routes.signin,
+            url: _routes.signin,
             data: postData
         });
     };
@@ -190,7 +183,7 @@
             // This is a new profile
             return authorizedAjax({
                 type: 'POST',
-                url: api.routes.createProfile,
+                url: '/api/profiles',
                 data: data
             });
         } else {

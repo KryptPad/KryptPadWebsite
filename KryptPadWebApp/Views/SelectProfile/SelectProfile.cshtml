@@ -19,7 +19,7 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-profile-modal"><i class="fa fa-plus fa-fw"></i> @Strings.CreateProfile</button>
                 <button type="button" class="btn btn-default"><i class="fa fa-undo fa-fw"></i> @Strings.RestoreFromBackup</button>
             </p>
-            
+
             <div id="profiles-list" data-bind="foreach: { data: profiles, afterAdd: fadeIn}">
 
                 <div style="display:none;">
@@ -35,10 +35,10 @@
             </div>
 
             @*Show message if we don't have any profiles created yet*@
-            <p data-bind="visible: noProfiles" style="display: none" >
+            <p data-bind="visible: noProfiles" style="display: none">
                 @Strings.NoProfiles
             </p>
-                        
+
             @Html.Partial("_Spinner")
         </div>
     </div>
@@ -122,6 +122,8 @@
 </div><!-- /.modal -->
 
 @section scripts{
+    <script src="@Url.HttpRouteUrl("GetRoutes", null)"></script>
+    <script src="@Url.HttpRouteUrl("GetStrings", null)"></script>
     <script>
         +function () {
 
@@ -204,11 +206,11 @@
                         // Handle the error
                         if (error.status === 401) {
                             // Wrong passphrase
-                            self.profileMessage(app.createMessage(app.MSG_ERROR, "The passphrase you entered was incorrect."));
+                            self.profileMessage(app.createMessage(app.MSG_ERROR, _strings.invalidPassphrase));
 
                         } else {
                             // Unknown error
-                            self.profileMessage(app.createMessage(app.MSG_ERROR, "An unknown error occurred."));
+                            self.profileMessage(app.createMessage(app.MSG_ERROR, _strings.unknownError));
 
                         }
 

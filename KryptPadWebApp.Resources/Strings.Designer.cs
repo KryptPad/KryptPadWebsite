@@ -178,6 +178,15 @@ namespace KryptPadWebApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The passphrase you entered was incorrect..
+        /// </summary>
+        public static string InvalidPassphrase {
+            get {
+                return ResourceManager.GetString("InvalidPassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Items.
         /// </summary>
         public static string Items {
@@ -363,6 +372,15 @@ namespace KryptPadWebApp.Resources {
         public static string TagLine {
             get {
                 return ResourceManager.GetString("TagLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unknown error occurred..
+        /// </summary>
+        public static string UnknownError {
+            get {
+                return ResourceManager.GetString("UnknownError", resourceCulture);
             }
         }
         

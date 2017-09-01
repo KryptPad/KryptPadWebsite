@@ -6,7 +6,7 @@
     // App view model
     function ViewModel() {
         var self = this;
-        debugger
+        
         self.username = ko.observable();
         self.password = ko.observable();
         self.isBusy = ko.observable(false);
@@ -45,7 +45,7 @@
                 });
 
             });
-        }
+        };
 
         /*
          * Validation
@@ -72,7 +72,7 @@
         self.isValid = function () {
             if (self.errors().length) {
                 self.errors.showAllMessages();
-                return false
+                return false;
             }
 
             return true;

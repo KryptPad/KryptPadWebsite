@@ -34,7 +34,7 @@ namespace KryptPadWebApp.Controllers
             // Serialize
             var routesJson = JsonConvert.SerializeObject(routes, ss);
             // Create a javascript object
-            var js = $"var routes = {routesJson};";
+            var js = $"var _routes = {routesJson};";
 
             return await Task.Factory.StartNew(() => JavaScript(js));
         }
@@ -65,7 +65,7 @@ namespace KryptPadWebApp.Controllers
             // Serialize
             var stringsJson = JsonConvert.SerializeObject(strings, ss);
             // Create a javascript object
-            var js = $"var strings = {stringsJson};";
+            var js = $"var _strings = {stringsJson};";
 
             return await Task.Factory.StartNew(() => JavaScript(js));
         }

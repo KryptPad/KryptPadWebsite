@@ -210,6 +210,9 @@
   <data name="EnterPassphrase" xml:space="preserve">
     <value>Enter passphrase</value>
   </data>
+  <data name="InvalidPassphrase" xml:space="preserve">
+    <value>The passphrase you entered was incorrect.</value>
+  </data>
   <data name="NoCategories" xml:space="preserve">
     <value>You don't have any categories yet. Why not create one?</value>
   </data>
@@ -221,5 +224,8 @@
   </data>
   <data name="RestoreFromBackup" xml:space="preserve">
     <value>Restore from backup</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>An unknown error occurred.</value>
   </data>
 </root>

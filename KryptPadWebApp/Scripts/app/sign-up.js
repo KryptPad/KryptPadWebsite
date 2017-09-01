@@ -69,7 +69,7 @@
         self.email
             .extend({
                 required: {
-                    message: api.strings.emailRequired
+                    message: _strings.emailRequired
                 }
             })
             .extend({ email: true });
@@ -77,7 +77,7 @@
         // Password
         self.password.extend({
             required: {
-                message: api.strings.passwordRequired
+                message: _strings.passwordRequired
             }
         });
 
@@ -93,7 +93,7 @@
         self.isValid = function () {
             if (self.errors().length) {
                 self.errors.showAllMessages();
-                return false
+                return false;
             }
 
             return true;
