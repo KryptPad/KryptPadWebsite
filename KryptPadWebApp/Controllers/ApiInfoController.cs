@@ -15,7 +15,7 @@ using System.Web.Http;
 namespace KryptPadWebApp.Controllers
 {
     [RoutePrefix("Api")]
-    public class ApiInfoController : ApiController
+    public class APIInfoController : ApiController
     {
         [Route("Get-Routes", Name = "GetRoutes")]
         public async Task<IHttpActionResult> GetRoutes()
@@ -23,7 +23,8 @@ namespace KryptPadWebApp.Controllers
             // Get routes
             var routes = new
             {
-                Signin = Url.Route("DoSignIn", null)
+                Signin = Url.Route("DoSignIn", null),
+                Items = Url.Route("Items", null)
             };
 
             // Serialization settings

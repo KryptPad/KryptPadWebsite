@@ -201,7 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountApiController.cs" />
-    <Compile Include="Controllers\ApiInfoController.cs" />
+    <Compile Include="Controllers\APIInfoController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\SelectProfileController.cs" />
