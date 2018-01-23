@@ -209,6 +209,7 @@
     <Compile Include="Controllers\CategoryApiController.cs" />
     <Compile Include="Controllers\FieldApiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IdentityApiController.cs" />
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\ProfileApiController.cs" />
     <Compile Include="Controllers\SecureController.cs" />
