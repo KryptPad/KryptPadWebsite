@@ -79,6 +79,9 @@ namespace KryptPadWebApp.Controllers
 
                     if (VerifyPassphrase(profile, Passphrase))
                     {
+                        // For security, do not return the passphrase or salt
+                        profile.Key1 = null;
+                        profile.Key2 = null;
                         // Return the profile
                         return Json(new ProfileResult(new[] { profile }));
                     }
@@ -206,29 +209,14 @@ namespace KryptPadWebApp.Controllers
         [Route("")]
         public async Task<IHttpActionResult> Post(CreateProfileRequest request)
         {
-            var passphrase = "";
-            if (request.Passphrase == null)
+            // If the model state is invalid, return bad request
+            if (!ModelState.IsValid)
             {
-                // Old way
-                passphrase = Passphrase;
-
-            }
-            else
-            {
-                // New way
-                // If the model state is invalid, return bad request
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                passphrase = request.Passphrase;
-
+                return BadRequest(ModelState);
             }
 
             // Check passphrase against our password rules
-            var result = await UserManager.PasswordValidator.ValidateAsync(passphrase);
-
+            var result = await UserManager.PasswordValidator.ValidateAsync(request.Passphrase);
             if (!result.Succeeded)
             {
                 // Add errors to the model state
@@ -239,18 +227,15 @@ namespace KryptPadWebApp.Controllers
 
                 return BadRequest(ModelState);
             }
-
             
-
             // Create context
             using (var ctx = new ApplicationDbContext())
             {
                 // Find the user
                 var user = ctx.Users.Find(UserId);
-
                 if (user == null)
                 {
-                    return BadRequest("User not found.");
+                    return BadRequest("User not found");
                 }
 
                 // Generate a random salt for the profile
@@ -262,7 +247,7 @@ namespace KryptPadWebApp.Controllers
                     User = user,
                     Name = request.Name,
                     Key1 = Convert.ToBase64String(saltBytes),
-                    Key2 = Encryption.Hash(passphrase, saltBytes)
+                    Key2 = Encryption.Hash(request.Passphrase, saltBytes)
                 };
 
                 // Add the profile to the context

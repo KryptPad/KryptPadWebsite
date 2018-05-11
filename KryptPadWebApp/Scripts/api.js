@@ -2,15 +2,15 @@
 
     // Create Api object
     var api = global.api = global.api || {};
-
+    
     // Sign into the system
-    api.login = function (username, password) {
+    api.tokenSignin = function (email, password) {
 
         // Create post data
         var postData = {
             client_id: 'KryptPadWeb',
             grant_type: 'password',
-            username: username,
+            username: email,
             password: password
         };
 
@@ -18,6 +18,24 @@
         return $.ajax({
             type: 'POST',
             url: '/token',
+            data: postData
+        });
+    };
+
+    // Sign into the system
+    api.signin = function (email, password, requestUrl, antiForgeryToken) {
+        
+        // Create post data
+        var postData = {
+            email: email,
+            password: password,
+            __RequestVerificationToken: antiForgeryToken
+        };
+
+        // Send to token endpoint
+        return $.ajax({
+            type: 'POST',
+            url: _routes.signin,
             data: postData
         });
     };
@@ -120,7 +138,9 @@
         });
     };
 
-    // Gets a list of profiles for the user
+    /*
+     * Gets a list of profiles for the user
+     */
     api.getProfiles = function () {
         return authorizedAjax({
             type: 'GET',
@@ -130,34 +150,67 @@
     };
 
     /*
-     * Gets a list of items
+     * Loads a profile using the passphrase
      */
-    api.getItems = function (profileId, passphrase) {
+    api.loadProfile = function (id, passphrase) {
         return authorizedAjax({
             type: 'GET',
-            url: '/api/profiles/'+ profileId + '/categories/with-items',
-            headers: { Passphrase: passphrase }
-        });
+            url: '/api/profiles/' + id
+        }, passphrase);
 
+    };
+
+    /*
+     * Gets a list of items
+     */
+    api.getItems = function (profileId) {
+        // Get the passphrase
+        var passphrase = app.getPassphrase();
+        // Make api call with passphrase
+        return authorizedAjax({
+            type: 'GET',
+            url: '/api/profiles/'+ profileId + '/categories/with-items'
+        }, passphrase);
+
+    };
+
+    /*
+     * Save profile
+     */
+    api.saveProfile = function (profileId, data) {
+        // Make api call to POST if new, and PUT if not new
+        if (!profileId) {
+            // This is a new profile
+            return authorizedAjax({
+                type: 'POST',
+                url: '/api/profiles',
+                data: data
+            });
+        } else {
+            // This is an existing profile, update it
+        }
+       
     };
 
     /*
      * Creates an authorization header for web api calls. If the token is about to expire, the refresh token is sent and a new access token is retrieved.
      */
-    function authorizedAjax(ajaxOptions) {
+    function authorizedAjax(ajaxOptions, passphrase) {
         // Get the token object
         var token = app.getToken();
-        
-        // get the expiration date from our token
-        var expires = moment(token['.expires']);
-        
-        // Is our access token about to expire?
-        if (expires.isBefore(moment())) {
-            console.warn('Access token has expired. Reauthenticating with refresh token.')
-            // Get the new access token
-            token = api.reauthenticate(token);
+        if (token) {
+            // get the expiration date from our token
+            var expires = moment(token['.expires']);
+
+            // Is our access token about to expire?
+            if (expires.isBefore(moment())) {
+                console.warn('Access token has expired. Reauthenticating with refresh token.');
+                // Get the new access token
+                token = api.reauthenticate(token);
+            }
         }
 
+        // When token is ready and available
         return $.when(token).then(function (data) {
             // Cache the access token in session storage.
             app.setToken(data);
@@ -172,15 +225,24 @@
                 ajaxOptions.headers.Authorization = 'Bearer ' + data.access_token;
             }
 
+            // Check to see if we have a passphrase
+            if (passphrase) {
+                ajaxOptions.headers.Passphrase = passphrase;
+            }
+
             // Execute the ajax request based on our ajax options
             return $.ajax(ajaxOptions);
+
         }).fail(function (error) {
             // Does this mean we failed to authenticate?
             if (error.responseJSON && error.responseJSON.error === 'invalid_grant') {
                 // Initiate logout
                 app.logout();
             }
+
         });
 
     };
+
+    
 })(window);

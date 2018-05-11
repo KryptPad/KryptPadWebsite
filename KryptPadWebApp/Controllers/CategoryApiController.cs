@@ -24,12 +24,13 @@ namespace KryptPadWebApp.Controllers
 
             using (var ctx = new ApplicationDbContext())
             {
+                // Return the list of categories and the items within each
                 var categories = (from c in ctx.Categories.Include((cat) => cat.Items)
-                                  where c.Profile.User.Id == UserId &&
-                                  c.Profile.Id == profileId
+                                  where c.Profile.User.Id == UserId
+                                    && c.Profile.Id == profileId
                                   select c).ToArray();
 
-
+                // Build and decrypt the result
                 return Json(new CategoriesResult(categories, Passphrase));
             }
 

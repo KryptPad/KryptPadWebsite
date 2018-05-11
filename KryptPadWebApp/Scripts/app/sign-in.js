@@ -1,12 +1,12 @@
 ﻿(function (global) {
 
     // Get main app container
-    var node = document.getElementById('signin');
+    var node = document.getElementById('sign-in');
 
     // App view model
     function ViewModel() {
         var self = this;
-
+        
         self.username = ko.observable();
         self.password = ko.observable();
         self.isBusy = ko.observable(false);
@@ -45,7 +45,7 @@
                 });
 
             });
-        }
+        };
 
         /*
          * Validation
@@ -72,7 +72,7 @@
         self.isValid = function () {
             if (self.errors().length) {
                 self.errors.showAllMessages();
-                return false
+                return false;
             }
 
             return true;

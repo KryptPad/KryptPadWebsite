@@ -1,47 +1,71 @@
-﻿@model KryptPadWebApp.Models.HomeIndexViewModel
+﻿@using KryptPadWebApp.Models
+@using KryptPadWebApp.Resources
+@model HomeIndexViewModel
 @{
     ViewBag.Title = "Home Page";
 }
 
 @section pageHeader{
-    <div class="hero hero-main hero-blue">
+
+    @*Account section*@
+    <div class="container text-center" style="min-height: 100%">
+        <div class="hero hero-heading">
+
+            <h1>@Strings.AppName</h1>
+            <p class="lead">@Strings.TagLine</p>
+            @*<img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />*@
+
+            @*Account management*@
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="row ">
+                    @*Sign in form*@
+                    <div id="sign-in" class="col-lg-offset-2 col-md-offset-1 col-lg-4 col-md-5 col-sm-6 border-right">
+                        @Html.Partial("_Signin", Model.SigninModel)
+                    </div>
+
+                    @*Sign up form*@
+                    <div id="sign-up" class="col-lg-4 col-md-5 col-sm-6">
+                        @Html.Partial("_Signup", Model.CreateAccountRequest)
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <p>
+                    <a href="@Url.RouteUrl("SelectProfile")" class="btn btn-primary btn-lg">Go to my account</a>
+                </p>
+            }
+        </div>
+    </div>
+
+    @*Social section*@
+    <div class="social-bar">
         <div class="container text-center">
 
-            <h1>Krypt Pad</h1>
-            <p class="lead">Secure credential manager</p>
-            <img src="~/Content/Images/safe-white.svg" width="256" alt="Krypt Pad" />
-
-            @*Account interactions*@
-            <div>
-                <p>
-                    <a href="@Url.RouteUrl("SignIn")" title="Sign in" class="btn btn-info">Sign in or create an account</a>
-
-                </p>
-            </div>
+            <a href="https://www.facebook.com/KryptPad/"><img src="~/Content/Images/social_facebook.png" /></a>
+            <a href="https://twitter.com/KryptPad"><img src="~/Content/Images/social_twitter.png" /></a>
 
         </div>
-
     </div>
 }
 
 @*Available downloads*@
 <div class="container text-center">
     <p class="h1">
-        Download
+        Available for
     </p>
+
+
+    <a href="https://www.microsoft.com/en-us/store/p/krypt-pad/9nblggh5xd4f" target="_blank">
+        <p><i class="fa fa-windows fa-5x"></i></p>
+
+        Windows 10
+    </a>
+
     <hr />
-    <p>
-        <a href="https://www.microsoft.com/en-us/store/p/krypt-pad/9nblggh5xd4f" target="_blank">
-            <i class="fa fa-windows fa-5x"></i>
-        </a>
-    </p>
-    <hr />
-    <p>
-        <small>
-            Krypt Pad for Windows desktop beta 4 is being discontinued... but, you can still
-            download it. <a href="@Url.RouteUrl("Download")" title="Download Krypt Pad beta 4">Download Old Version</a>
-        </small>
-    </p>
+
 </div>
 
 @*An ad - will probably get blocked anyway :( oh well*@
@@ -59,7 +83,7 @@
 </div>
 
 @*Main content*@
-<div class="hero hero-light-gray">
+<div class="hero">
     <div class="container text-center">
         <p class="h1">How it works</p>
 
@@ -97,9 +121,9 @@
                     Your information can be accessed from compatible devices
                 </p>
             </div>
-            
+
         </div>
-        
+
         @*Another ad that will probably be blocked*@
         <div class="text-center middle">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -136,23 +160,23 @@
             </div>
         </div>
 
-        
+
 
     </div>
 </div>
 
 @*Donations*@
-<div id="donate" class="hero hero-light-red">
+<div id="donate" class="hero">
     <div class="container">
 
         <div class="row">
 
             <div class="col-md-5 visible-md-block visible-lg-block">
-                <img src="~/Content/Images/favorite2.png" />
+                <span class="fa-5x"><i class="fa fa-heart fa-4x text-danger throb"></i></span>
             </div>
 
             <div class="col-md-5">
-                <p class="h1">Donation Supported</p>
+                <p class="h1">Donation supported</p>
                 <p class="lead">
                     Krypt Pad is supported by donations. Your contributions help support future development.
                     You are free to donate as much as you'd like; there's no preset amount.
@@ -182,12 +206,30 @@
          data-ad-slot="4431573696"
          data-ad-format="auto"></ins>
     <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 
 </div>
 
 
 @section scripts{
+    <script src="@Url.HttpRouteUrl("GetRoutes", null)"></script>
+    <script src="@Url.HttpRouteUrl("GetStrings", null)"></script>
+    <script src="~/Scripts/app/sign-up.js"></script>
+    <script>
+        
+                +function () {
+                    // Get main app container
+                    var $signupNode = $('#signup');
+                    var signupOptions = {
+                        antiForgeryToken: $signupNode.find("input[name='__RequestVerificationToken']").val(),
+                        requestUrl: '@Url.RouteUrl("DoSignIn")',
+                        node: $signupNode[0]
+                    };
 
+                    // Start signup script
+                    new Signup(signupOptions);
+
+                }();
+    </script>
 }

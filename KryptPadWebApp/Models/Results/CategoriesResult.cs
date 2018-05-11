@@ -28,7 +28,7 @@ namespace KryptPadWebApp.Models.Results
                                                               Name = Encryption.DecryptFromString(i.Name, passphrase),
                                                               BackgroundColor = i.BackgroundColor
                                                           }).ToArray() : null)
-                          }).ToArray();
+                          }).OrderBy(c=>c.Name).ToArray();
 
         }
 

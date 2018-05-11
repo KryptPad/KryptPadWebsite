@@ -7,6 +7,7 @@
 
     // This represents the key for our token response
     app.tokenKey = 'token';
+    app.passphraseKey = 'passphrase';
     // Define some functions for our app
 
     // Gets the token object from storage
@@ -23,6 +24,22 @@
         var tokenData = JSON.stringify(token);
         // Store the token result in session storage
         sessionStorage.setItem(app.tokenKey, tokenData);
+    };
+
+    /*
+     * Gets the profile passphrase
+     */
+    app.getPassphrase = function () {
+        // Return the token response
+        return sessionStorage.getItem(app.passphraseKey);
+    };
+
+    /*
+     * Sets the passphrase
+     */
+    app.setPassphrase = function (passphrase) {
+        // Return the token response
+        sessionStorage.setItem(app.passphraseKey, passphrase);
     };
 
     // Helper method to get user name from the token
@@ -43,7 +60,7 @@
         // Clear the session token
         sessionStorage.removeItem(app.tokenKey);
         // Go to sign in page
-        global.location = "/app/signin";
+        //global.location = "/app/signin";
     };
 
     // Returns true if the user is authenticated
@@ -72,6 +89,9 @@
         return { type: type, message: message };
     };
 
+    /*
+     * Process an error received by the server
+     */
     app.processError = function (error, fail) {
         var message = '';
 
@@ -83,8 +103,10 @@
         } else if (error.responseJSON && error.responseJSON.Message) {
             // Get the error message from .net
             message = error.responseJSON.Message;
-
+            
             if (error.responseJSON.ModelState) {
+                // Create a list of model state errors
+                message += "<ul>";
                 var state = error.responseJSON.ModelState;
                 var errors = [];
                 // Get all the errors
@@ -92,12 +114,12 @@
 
                     if (state.hasOwnProperty(property)) {
                         // Add errors to the list
-                        errors.push(state[property].join("<br />"));
+                        errors.push("<li>" + state[property].join("<br />") + "</li>");
 
                     }
                 }
 
-                message += '<br />' + errors.join('<br />');
+                message += '<br />' + errors.join('');
             }
 
         } else {
@@ -116,6 +138,8 @@
         if (typeof fail === 'function') {
             fail(message);
         }
+
+        return message;
     };
 
     // Gets the value from the request param

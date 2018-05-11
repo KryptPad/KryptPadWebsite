@@ -1,7 +1,18 @@
-﻿body {
-    /*padding-top: 50px;*/
-    padding-bottom: 20px;
+﻿html {
+    min-height: 100%;
 }
+
+body {
+    min-height: 100%;
+    padding-bottom: 20px;
+    /*background: -o-radial-gradient(#cfe2f1 5%, #f1f5f8 60%);
+    background: -moz-radial-gradient(#cfe2f1 5%, #f1f5f8 60%);*/
+    background: radial-gradient(#cfe2f1 5%, #f1f5f8 60%);
+    
+    background-repeat: no-repeat;
+}
+
+
 
 /* Header styles */
 h1, .h1 {
@@ -13,6 +24,8 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
     font-weight: normal;
 }
 
+
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -20,45 +33,54 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-/*input,
-select,
-textarea {
-    max-width: 280px;
-}*/
+/* Sign form */
+#sign-in {
+    /*border-right: 1px solid #ccc;*/
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+/* Profiles list*/
+#profiles-list {
+}
+
+    #profiles-list .profile {
+        padding: 15px;
+        background-color: rgba(174, 221, 255, 0.25);
+        margin-bottom: 1px;
+        transition: all 250ms ease-in-out;
+    }
+
+        #profiles-list .profile:hover {
+            background-color: rgba(174, 221, 255, 0.75);
+        }
+
+    #profiles-list > div > a:hover {
+        text-decoration: none;
+    }
+
+/* Navbar */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.25);
+}
 
 /* Heros */
 .hero {
     padding-top: 50px;
-    background-color: #eee;
     padding-bottom: 50px;
-    /*margin-bottom: 30px;*/
+    margin-bottom: 30px;
 }
 
-
     .hero.hero-blue {
-        background-color: #3d77b2;
-        color: #fff;
+        background-color: rgba(87, 194, 213, 0.20);
     }
-
-        .hero.hero-blue a {
-            color: white;
-        }
 
     .hero.hero-light-blue {
-        background-color: #cfebff;
-        /*box-shadow: 0px 4px 12px rgba(0,0,0,0.1),
-                0px -4px 12px rgba(0,0,0,0.1);*/
-        /*border-top: 10px dashed #fff;
-    border-bottom: 10px dashed #fff;*/
-    }
-
-    .hero.hero-light-red {
-        background-color: #ffddd7;
+        background-color: rgba(160, 202, 232, 0.35);
     }
 
     .hero.hero-light-gray {
-        background-color: #eee;
+        background-color: rgba(239, 239, 239, 0.50);
     }
 
     .hero.hero-transparent {
@@ -66,9 +88,9 @@ textarea {
         /*box-shadow: 0px 5px 13px rgba(0,0,0,0.1), 0px -5px 13px rgba(0,0,0,0.1);*/
     }
 
-    .hero.hero-main {
+/*.hero.hero-main {
         margin-bottom: 0;
-    }
+    }*/
 
 /* Middle content */
 .middle {
@@ -76,120 +98,30 @@ textarea {
     margin-bottom: 50px;
 }
 
-/* Set the color of the navbar */
+/* Set some navbar styles */
 .navbar {
     border-radius: 0;
     margin-bottom: 0;
 }
 
-.navbar-inverse {
-    background-color: #333; /*#3d77b2;*/
-    border: none;
-}
-
-    .navbar-inverse .nav.navbar-nav li > a,
-    .navbar-inverse .navbar-text a,
-    .navbar-inverse .navbar-brand {
-        color: #aeddff;
-        transition: all 200ms ease-in-out;
-    }
-
-        .navbar-inverse .nav.navbar-nav li > a:hover,
-        .navbar-inverse .navbar-text a:hover,
-        .navbar-inverse .navbar-brand:hover {
-            color: white;
-            text-decoration: none;
-        }
-
-/* Styles for the login section */
-
-.login {
-    padding: 0 30px;
-    /*height: 20em;*/
-    /*transition: all 200ms ease-in-out;*/
-}
-
 /* Some border styles */
 .border-right {
-    border-right: 2px dashed #333;
+    border-right: 1px dashed #ccc;
 }
 
 .border-left {
-    border-left: 2px dashed #333;
+    border-left: 1px dashed #ccc;
 }
 
 @media screen and (max-width: 767px) {
     .border-right {
         border-right: none;
-        border-bottom: 2px dashed #333;
+        border-bottom: 1px dashed #ccc;
     }
 
     .border-left {
         border-left: none;
-        border-top: 2px dashed #333;
-    }
-}
-
-/* Busy indicator styles */
-.indicator {
-    width: 5em;
-    height: 1em;
-    line-height: 1em;
-    display: inline-block;
-}
-
-    .indicator .bar {
-        float: left;
-        background-color: #0087b4;
-        border: 1px solid #007196;
-        width: .5em;
-        margin: 0 .25em;
-        box-sizing: border-box;
-        height: 25%;
-        margin-top: 10%;
-        -webkit-animation: animate 500ms infinite alternate;
-        animation: animate 500ms infinite alternate;
-    }
-
-    .indicator.indicator-light .bar {
-        background-color: white;
-        border: 1px solid #ccc;
-    }
-
-    .indicator .bar:nth-child(1) {
-        -webkit-animation-delay: 100ms;
-        animation-delay: 100ms;
-    }
-
-    .indicator .bar:nth-child(2) {
-        -webkit-animation-delay: 200ms;
-        animation-delay: 200ms;
-    }
-
-    .indicator .bar:nth-child(3) {
-        -webkit-animation-delay: 300ms;
-        animation-delay: 300ms;
-    }
-
-    .indicator .bar:nth-child(4) {
-        -webkit-animation-delay: 400ms;
-        animation-delay: 400ms;
-    }
-
-    .indicator .bar:nth-child(5) {
-        -webkit-animation-delay: 500ms;
-        animation-delay: 500ms;
-    }
-
-@keyframes animate {
-    0% {
-        height: 25%;
-        margin-top: 10%;
-    }
-
-    100% {
-        height: 100%;
-        margin-top: 0;
+        border-top: 1px dashed #ccc;
     }
 }
 
@@ -217,7 +149,8 @@ td:last-child {
 
 /* Social bar */
 .social-bar {
-    background-color: #ccc;
+    background-color: rgba(174, 221, 255, 0.25);
+    padding: 15px 0;
     margin-bottom: 20px;
 }
 
@@ -264,5 +197,61 @@ a .circle {
         display: block;
         width: 100%;
         margin-bottom: 10px;
+    }
+}
+
+/* Validation summary styles*/
+.validation-summary-valid {
+    display: none;
+}
+
+
+/* override some bootstrap button styles */
+.btn {
+    border-radius: 0;
+    transition: all 250ms ease-in-out;
+}
+
+    .btn.btn-primary {
+        border-color: rgba(174, 221, 255, 0.75);
+        background-color: rgba(174, 221, 255, 0.25);
+        color: #337ab7
+    }
+
+        .btn.btn-primary:hover {
+            border-color: rgb(174, 221, 255);
+            background-color: rgba(174, 221, 255, 0.75);
+        }
+
+    .btn.btn-default {
+        border-color: rgba(204, 204, 204, 0.75);
+        background-color: rgba(255, 255, 255, 0.25);
+        color: #717171
+    }
+
+        .btn.btn-default:hover {
+            border-color: #ccc;
+            background-color: white;
+        }
+
+/*Animations*/
+
+.throb {
+    animation: heart-throb 1s ease-in-out infinite;
+    text-shadow: 0 0 0 #a94442;
+}
+
+@keyframes heart-throb {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 0 #a94442;
+    }
+
+    100% {
+        text-shadow: 0 0 .5em rgba(169, 68, 66, 0);
     }
 }

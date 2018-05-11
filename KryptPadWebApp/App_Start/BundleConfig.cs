@@ -14,6 +14,7 @@ namespace KryptPadWebApp
                         "~/Scripts/sammy-{version}.js",
                         "~/Scripts/knockout-{version}.js",
                         "~/Scripts/knockout-loaders.js",
+                        "~/Scripts/knockout-bindings.js",
                         "~/Scripts/knockout.validation.js",
                         "~/Scripts/validation-config.js",
                         "~/Scripts/functions.js",

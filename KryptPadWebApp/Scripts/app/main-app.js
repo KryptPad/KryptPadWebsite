@@ -55,7 +55,7 @@
 
         // Gets the user's profile pic from gravitar
         self.profilePic = ko.pureComputed(function () {
-            return 'http://www.gravatar.com/avatar/' + self.emailHash + '?d=identicon&s=200'
+            return 'http://www.gravatar.com/avatar/' + self.emailHash + '?d=identicon&s=200';
         });
 
         /*
@@ -77,7 +77,7 @@
             // Check to see if the user is logged in
             if (!app.isAuthenticated()) {
                 // Go to sign in page
-                window.location = '/app/signin';
+                //window.location = '/app/signin';
                 return;
             }
 
@@ -166,7 +166,7 @@
             });
 
             // When there is no route defined
-            this.get('/app', function () { this.app.runRoute('get', '#profiles') });
+            this.get('/app', function () { this.app.runRoute('get', '#profiles'); });
 
         }).run();
 
@@ -184,8 +184,12 @@
 
         self.profiles = ko.observableArray([]);
         self.isBusy = ko.observable(false);
-        self.errorMessage = ko.observable();
+        self.message = ko.observable();
+        self.profileMessage = ko.observable();
+        self.selectedProfile = ko.observable();
         self.passphrase = ko.observable();
+        self.passphraseHasFocus = ko.observable();
+        self.passphraseModalOpen = ko.observable();
 
         /*
          * Gets the profiles for the user's account
@@ -205,8 +209,9 @@
             }).fail(function (error) {
                 // Handle the error
                 app.processError(error, function (message) {
-                    self.errorMessage(message);
+                    self.message(app.createMessage(app.MSG_ERROR, message));
                 });
+
             }).always(function () {
                 // Set busy state
                 self.isBusy(false);
@@ -217,8 +222,55 @@
          * Selects a profile and goes to the item page
          */
         self.enterProfile = function () {
-            // Go to the items page
-            window.location = '#profiles/' + this.Id;
+            var profile = ko.unwrap(self.selectedProfile);
+            if (!profile) {
+                return;
+            }
+
+            // Call api to validate the entered passphrase
+            // If successful, store the passphrase for future api request
+            // Set this profile as our main context and show the items page
+            api.loadProfile(profile.Id, ko.unwrap(self.passphrase)).done(function (data) {
+                // Hide the modal
+                self.passphraseModalOpen(false);
+                // Store the passphrase we used in session storage
+                app.setPassphrase(ko.unwrap(self.passphrase));
+                // Clear message
+                self.profileMessage(null);
+                // Go to the items page
+                //window.location = '#profiles/' + data.Profiles[0].Id;
+
+            }).fail(function (error) {
+                // Handle the error
+                if (error.status === 401) {
+                    // Wrong passphrase
+                    self.profileMessage(app.createMessage(app.MSG_ERROR, "The passphrase you entered was incorrect."));
+                    
+                } else {
+                    // Unknown error
+                    self.profileMessage(app.createMessage(app.MSG_ERROR, "An unknown error occurred."));
+
+                }
+                
+                // Clear passphrase
+                self.passphrase(null);
+                // Set focus back to passphrase
+                self.passphraseHasFocus(true);
+
+            }).always(function () {
+                // Set busy state
+                self.isBusy(false);
+            });
+
+            
+        };
+
+        /*
+         * Sets the selected profile
+         */
+        self.providePassphrase = function () {
+            // Set the selected profile
+            self.selectedProfile(this);
         };
 
         // Load the profiles
@@ -231,38 +283,38 @@
     function ItemsViewModel(profileId, passphrase) {
         var self = this;
 
-        self.items = ko.observableArray([]);
+        self.categories = ko.observableArray([]);
         self.isBusy = ko.observable(false);
         self.message = ko.observable();
 
         /*
-         * Gets the items for the specified profile
+         * Gets the categories and items for the specified profile
          */
-        self.getItems = function () {
+        self.getCategories = function () {
 
             // Set busy state
             self.isBusy(true);
-            debugger // Inject passphrase for now
-            // Get the items
-            api.getItems(profileId, passphrase).done(function (data) {
+            
+            // Get the categories with items
+            api.getItems(profileId).done(function (data) {
                 //ko.utils.arrayPushAll(self.items, data);
                 $.each(data.Categories, function () {
-                    self.items.push(this);
+                    self.categories.push(this);
                 });
             }).fail(function (error) {
                 // Handle the error
                 app.processError(error, function (message) {
                     // Show the error somewhere
                     self.message(app.createMessage(app.MSG_ERROR, message));
-                })
+                });
             }).always(function () {
                 // Set busy state
                 self.isBusy(false);
             });
         };
 
-        // Load the items
-        self.getItems();
+        // Load the categories with items
+        self.getCategories();
     }
 
     /*
@@ -286,7 +338,7 @@
             // Check to see if the user is logged in
             if (!app.isAuthenticated()) {
                 // Go to sign in page
-                window.location = '/app/signin';
+                //window.location = '/app/signin';
                 return;
             }
 
@@ -458,7 +510,7 @@
         self.isValid = function () {
             if (self.errors().length) {
                 self.errors.showAllMessages();
-                return false
+                return false;
             }
 
             return true;
