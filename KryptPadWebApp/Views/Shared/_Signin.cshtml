@@ -1,0 +1,58 @@
+﻿@model KryptPadWebApp.Models.SigninModel
+@using KryptPadWebApp.Resources
+
+<h4>@Strings.SignIn</h4>
+
+@using (Html.BeginRouteForm("DoSignIn", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="text-left">
+
+        @Html.ValidationSummary(false, "", new { @class = "alert alert-danger" })
+
+        <label class="sr-only" for="username">@Strings.Email</label>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-user fa-fw"></i>
+            </span>
+            @Html.TextBoxFor((m) => m.Email, new { @class = "form-control", placeholder = Strings.Email })
+
+        </div>
+
+        <p>
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </p>
+
+        <label class="sr-only" for="password">@Strings.Password</label>
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="fa fa-key fa-fw"></i>
+            </span>
+            @Html.PasswordFor((m) => m.Password, new { @class = "form-control", placeholder = Strings.Password })
+
+        </div>
+
+        <p>
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+        </p>
+
+        <div class="checkbox">
+            <label>@Html.CheckBoxFor(m => m.RememberMe) @Strings.RememberMe</label>
+        </div>
+
+        <p>
+            @Html.Raw(String.Format(Strings.SigninTerms, Html.RouteLink(Strings.LicenseTerms.ToLower(), "Terms"), Html.RouteLink(Strings.PrivacyPolicy.ToLower(), "Policy")))
+        </p>
+
+        <p>
+            <button type="submit" class="btn btn-primary btn-block">@Strings.SignIn</button>
+
+        </p>
+
+        <div>
+            <span>
+                <a href="@Url.RouteUrl("ForgotPassword")">@Strings.ForgotPassword</a>
+            </span>
+        </div>
+    </div>
+}

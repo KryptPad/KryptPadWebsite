@@ -1,0 +1,350 @@
+﻿@using KryptPadWebApp.Resources
+@{
+    ViewBag.Title = Strings.SelectProfile;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*Select a profile*@
+<div id="select-profile" class="container">
+
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-6">
+
+            <h2>@Strings.SelectProfile</h2>
+
+            <message-widget params="message: message"></message-widget>
+
+            @*Profile management*@
+            <p>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new-profile-modal"><i class="fa fa-plus fa-fw"></i> @Strings.CreateProfile</button>
+                <button type="button" class="btn btn-default"><i class="fa fa-undo fa-fw"></i> @Strings.RestoreFromBackup</button>
+            </p>
+
+            <div id="profiles-list" data-bind="foreach: { data: profiles, afterAdd: fadeIn}">
+
+                <div style="display:none;">
+                    <a role="button" data-bind="click: $root.providePassphrase" data-toggle="modal" data-target="#passphrase-modal">
+                        <div class="profile">
+                            <i class="fa fa-file-text-o fa-fw"></i>
+                            <span data-bind="text: $data.Name"></span>
+                        </div>
+                    </a>
+                </div>
+
+
+            </div>
+
+            @*Show message if we don't have any profiles created yet*@
+            <p data-bind="visible: noProfiles" style="display: none">
+                @Strings.NoProfiles
+            </p>
+
+            @Html.Partial("_Spinner")
+        </div>
+    </div>
+
+    @*Dialog for profile passphrase*@
+    <div id="passphrase-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">@Strings.EnterPassphrase</h4>
+                </div>
+                <div class="modal-body">
+
+                    <message-widget params="message: profileMessage"></message-widget>
+
+                    <input id="passphrase-textbox" type="password" class="form-control" data-bind="textInput: passphrase, hasFocus: passphraseHasFocus"
+                           autofocus />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Strings.Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: enterProfile">@Strings.Go</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</div>
+
+@* Dialog for adding profile *@
+<div id="new-profile-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">
+                    @Strings.CreateProfile
+                    <a role="button" data-toggle="popover" title=" @Strings.CreateProfile" data-content="@Strings.CreateProfileMessage"><i class="fa fa-question-circle"></i></a>
+                </h4>
+            </div>
+            <div class="modal-body">
+
+                <message-widget params="message: message"></message-widget>
+
+                <div>
+                    <small><label class="sr-only" for="profile-name-input">@Strings.Name</label></small>
+                    <input type="text" id="profile-name-input" class="form-control" data-bind="textInput: name"
+                           placeholder="@Strings.Name" />
+                </div>
+                <p>
+                    <span class="text-danger" data-bind="validationMessage: name"></span>
+                </p>
+
+                <div>
+                    <span>@Strings.PassphraseRequirement</span>
+                    <br />
+                    <small><label class="sr-only" for="profile-passphrase-input">@Strings.Passphrase</label></small>
+                    <input type="password" id="profile-passphrase-input" class="form-control" data-bind="textInput: passphrase"
+                           placeholder="@Strings.Passphrase" />
+                </div>
+                <p>
+                    <span class="text-danger" data-bind="validationMessage: passphrase"></span>
+                </p>
+
+                <div>
+                    <small><label class="sr-only" for="profile-confirm-passphrase-input">@Strings.ConfirmPassphrase</label></small>
+                    <input type="password" id="profile-confirm-passphrase-input" class="form-control" data-bind="textInput: confirmPassphrase"
+                           placeholder="@Strings.ConfirmPassphrase" />
+
+                </div>
+                <p>
+                    <span class="text-danger" data-bind="validationMessage: confirmPassphrase"></span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">@Strings.Cancel</button>
+                <button type="button" class="btn btn-primary" data-bind="click: save">@Strings.Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@section scripts{
+    <script src="@Url.HttpRouteUrl("GetRoutes", null)"></script>
+    <script src="@Url.HttpRouteUrl("GetStrings", null)"></script>
+    <script>
+        +function () {
+
+            // Handle UI events
+            $("#passphrase-modal").on("shown.bs.modal", function () {
+                $("#passphrase-textbox").focus();
+            });
+
+            $('[data-toggle="popover"]').popover();
+
+            // Get the node for profiles list
+            var profilesList = document.getElementById("select-profile");
+
+
+            // Model for profiles
+            function SelectProfiles() {
+                var self = this;
+
+                self.profiles = ko.observableArray([]);
+                self.message = ko.observable();
+                self.isBusy = ko.observable();
+                self.profileMessage = ko.observable();
+                self.selectedProfile = ko.observable()
+                self.passphraseHasFocus = ko.observable();
+                self.passphrase = ko.observable();
+
+                // Computed observables
+                self.noProfiles = ko.pureComputed(function () {
+                    return !self.profiles().length;
+
+                });
+
+                // Methods
+                // Gets the profiles for the logged in user
+                self.getProfiles = function () {
+                    // Busy
+                    self.isBusy(true);
+
+                    api.getProfiles().done(function (data) {
+
+                        // Add the profiles to the list
+                        ko.utils.arrayPushAll(self.profiles, data.Profiles);
+
+
+                    }).fail(function (error) {
+                        // Handle errors
+                    }).always(function () {
+                        // Not busy
+                        self.isBusy(false);
+                    });
+                };
+
+                // Goes to the profile
+                self.enterProfile = function () {
+                    var profile = self.selectedProfile();
+                    if (!profile) {
+                        return;
+                    }
+
+                    // Busy
+                    self.isBusy(true);
+
+                    // Get the passphrase
+                    var passphrase = self.passphrase();
+
+                    // Call api to validate the entered passphrase
+                    // If successful, store the passphrase for future api request
+                    // Set this profile as our main context and show the items page
+                    api.loadProfile(profile.Id, passphrase).done(function (data) {
+
+                        // Store the passphrase we used in session storage
+                        app.setPassphrase(passphrase);
+                        // Clear message
+                        self.profileMessage(null);
+
+                        // Go to the items page
+                        window.location(_routes.items);
+
+                    }).fail(function (error) {
+                        // Handle the error
+                        if (error.status === 401) {
+                            // Wrong passphrase
+                            self.profileMessage(app.createMessage(app.MSG_ERROR, _strings.invalidPassphrase));
+
+                        } else {
+                            // Unknown error
+                            self.profileMessage(app.createMessage(app.MSG_ERROR, _strings.unknownError));
+
+                        }
+
+                        // Clear passphrase
+                        self.passphrase(null);
+                        // Set focus to passphrase
+                        self.passphraseHasFocus(true);
+
+                    }).always(function () {
+                        // Not busy
+                        self.isBusy(false);
+                    });
+                };
+
+                // Prompts the user for the passphrase
+                self.providePassphrase = function () {
+                    self.profileMessage(null);
+
+                    // Set the selected profile
+                    self.selectedProfile(this);
+                };
+
+                // Fades an item into view
+                self.fadeIn = function (element, index, data) {
+                    $(element).filter("div").fadeIn();
+                };
+
+                // Initialize
+                self.getProfiles();
+            }
+
+            // Create instance of the profiles list app
+            var profilesListApp = new SelectProfiles();
+
+            ko.applyBindings(profilesListApp, profilesList);
+
+
+            // Get the node for new profile
+            var newProfile = document.getElementById("new-profile-modal");
+
+            // Model for new profile
+            function CreateProfile() {
+                var self = this;
+
+                self.message = ko.observable();
+                self.isBusy = ko.observable();
+                self.name = ko.observable();
+                self.passphrase = ko.observable();
+                self.confirmPassphrase = ko.observable();
+
+                // Save the profile
+                self.save = function () {
+                    // Check if model is valid
+                    if (!self.isValid()) {
+                        return;
+                    }
+
+                    var postData = {
+                        name: self.name(),
+                        passphrase: self.passphrase(),
+                        confirmPassphrase: self.confirmPassphrase()
+                    };
+
+                    // Busy
+                    self.isBusy(true);
+
+                    api.saveProfile(0, postData).done(function (data) {
+
+                        // Store the passphrase we used in session storage
+                        app.setPassphrase(self.passphrase());
+                        // Clear message
+                        self.profileMessage(null);
+                        debugger
+                        // Go to the items page
+                        window.location(_routes.items);
+
+
+                    }).fail(function (error) {
+                        // Get the error response in a readable format
+                        var err = app.processError(error);
+                        self.message(app.createMessage(app.MSG_ERROR, err));
+
+                    }).always(function () {
+                        // Not busy
+                        self.isBusy(false);
+
+                    });
+                };
+
+                // Errors
+                self.errors = ko.validation.group(self);
+
+                // Name validation
+                self.name
+                    .extend({
+                        required: {
+                            message: 'Name is required'
+                        }
+                    });
+
+                // Password
+                self.passphrase.extend({
+                    required: {
+                        message: 'Passphrase is required'
+                    }
+                });
+
+                // Confirm password
+                self.confirmPassphrase.extend({
+                    equal: {
+                        params: self.passphrase,
+                        message: 'Passphrases don\'t match'
+                    }
+                });
+
+                // Show errors in our model
+                self.isValid = function () {
+                    if (self.errors().length) {
+                        self.errors.showAllMessages();
+                        return false
+                    }
+
+                    return true;
+                };
+
+            }
+
+            var createProfileApp = new CreateProfile();
+
+            ko.applyBindings(createProfileApp, newProfile);
+        }();
+
+
+
+    </script>
+
+}

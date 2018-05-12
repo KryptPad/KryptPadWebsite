@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "Scripts/knockout-bindings.min.js",
+    "inputFiles": [
+      "Scripts/knockout-bindings.js"
+    ]
+  }
+]
