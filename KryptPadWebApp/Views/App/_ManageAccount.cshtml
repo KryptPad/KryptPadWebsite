@@ -1,0 +1,14 @@
+﻿<script id="my-account-template" type="text/html">
+    <div class="content-header">
+        <h4>My account</h4>
+    </div>
+
+    @*Placeholder for the active template*@
+    <div data-bind="template: { name: $data.template, data: $data.templateModel, if: $data.templateActive }"></div>
+
+    @*Options menu*@
+    @{ Html.RenderPartial("_AccountOptions");}
+
+    @*Change password*@
+    @{ Html.RenderPartial("_ChangePassword");}
+</script>

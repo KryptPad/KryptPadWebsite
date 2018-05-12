@@ -1,0 +1,94 @@
+﻿@using KryptPadWebApp.Cryptography
+@{
+    Layout = "~/Views/Shared/_AppLayout.cshtml";
+}
+
+@section css{
+    @Styles.Render("~/Content/css/dashboard")
+
+    @RenderSection("css", required: false)
+}
+
+<div id="app">
+
+    <div class="app-header clearfix">
+        @*visible-lg-block visible-md-block visible-sm-block*@
+        <div class="pull-left ">
+            <ul class="header-menu">
+                <li>
+                    <a class="header-button header-menu-toggle visible-xs-inline-block" data-bind="click: openMenu" role="button">
+                        <i class="fa fa-bars fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="app-header-brand" >
+                        <img src="~/Content/Images/Square44x44Logo.png" class="logo" />
+                        Krypt Pad
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="pull-right">
+
+            <ul class="header-menu">
+                <li>
+                    <p class="header-text visible-lg-inline-block visible-md-inline-block visible-sm-inline-block" data-bind="text: $root.userName">
+
+                    </p>
+                </li>
+
+                <li>
+                    <div class="dropdown header-button">
+                        @*Profile pic*@
+                        <a id="profile-menu-trigger" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <img data-bind="attr: {src: $root.profilePic}" class="profile-pic" alt="" /><span><span class="caret"></span></span>
+                        </a>
+
+                        @*Profile menu*@
+                        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-menu-trigger">
+                            <li><a role="button" data-bind="click: $root.goToMyAccount()"><i class="fa fa-user fa-fw"></i> My account</a></li>
+                            @*<li role="separator" class="divider"></li>*@
+                            <li><a role="button" data-bind="click: $root.signOut"><i class="fa fa-sign-out fa-fw"></i> Sign out</a></li>
+                        </ul>
+
+                    </div>
+                </li>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+    @*This section is for the bottom content portion, including menu and content*@
+    <div class="content-wrapper" data-bind="css: {open: menuOpen}">
+
+        @*Menu*@
+        <div class="side-nav">
+            <ul>
+                <!-- ko foreach: menuOptions -->
+                <li data-bind="css: {active: active}" >
+                    <a data-bind="click: handler" role="button">
+                        <i class="fa fa-fw" data-bind="css: icon"></i>
+                        <span class="nav-text" data-bind="text: label"></span>
+                    </a>
+                </li>
+                <!-- /ko -->
+            </ul>
+        </div>
+
+        @*Content*@
+        <div class="main-content">
+            @RenderBody()
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+
+    @Scripts.Render("~/bundles/app")
+
+    @RenderSection("scripts", required: false)
+}

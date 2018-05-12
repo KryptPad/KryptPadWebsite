@@ -1,0 +1,32 @@
+﻿<script id="account-options-template" type="text/html">
+    <div class="content-section">
+
+        <message-widget params="message: message"></message-widget>
+
+        <div class="alert alert-warning" style="display: none" data-bind="visible: $data.showEmailConfirmationWarning">
+
+            <strong>Notice:</strong>
+            Your email address has not yet been confirmed. Click
+            <a data-bind="click: $data.sendEmailConfirmationLink" class="alert-link" role="button">here</a>
+            to resend the confirmation link to the email address with which you created your account.
+
+        </div>
+
+        <div>
+            <p class="lead">Change your account password</p>
+            <span>To keep your account safe, be sure to change your password regularly.</span>
+
+            <p>
+                <a href="#my-account/change-password" class="btn btn-primary">Change Password</a>
+            </p>
+        </div>
+
+        @*<div>
+            <span class="lead">Delete your account</span>
+            <p>
+                <a href="#my-account/delete-account" class="btn btn-danger">Delete Account</a>
+            </p>
+        </div>*@
+
+    </div>
+</script>

@@ -1,0 +1,25 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Dashboardlayout.cshtml";
+    ViewBag.Title = "My Profiles";
+}
+
+
+
+@*Placeholder for the active template*@
+<div data-bind="template: { name: template, data: templateModel, if: templateActive }"></div>
+
+
+@*
+    Templates
+*@
+
+@*Profiles*@
+@{ Html.RenderPartial("_Profiles");}
+
+@*Items*@
+@{ Html.RenderPartial("_Items");}
+
+@*My Account*@
+@{ Html.RenderPartial("_ManageAccount");}
+
