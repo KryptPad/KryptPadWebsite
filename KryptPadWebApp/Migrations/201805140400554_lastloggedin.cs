@@ -3,11 +3,11 @@ namespace KryptPadWebApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class add_lastLoggedInDate : DbMigration
+    public partial class lastloggedin : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.AspNetUsers", "LastLoggedIn", c => c.DateTime(nullable: false));
+            AddColumn("dbo.AspNetUsers", "LastLoggedIn", c => c.DateTime());
         }
         
         public override void Down()

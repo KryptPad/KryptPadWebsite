@@ -7,13 +7,13 @@ namespace KryptPadWebApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class add_lastLoggedInDateNull : IMigrationMetadata
+    public sealed partial class lastloggedin : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(add_lastLoggedInDateNull));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(lastloggedin));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805140310141_add_lastLoggedInDateNull"; }
+            get { return "201805140400554_lastloggedin"; }
         }
         
         string IMigrationMetadata.Source
