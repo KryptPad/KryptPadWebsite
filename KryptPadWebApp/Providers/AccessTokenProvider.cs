@@ -93,6 +93,11 @@ namespace KryptPadWebApp.Providers
                 oAuthIdentity,
                 CreateProperties(user.UserName, context.ClientId));
 
+            // Set last logged in time
+            user.LastLoggedIn = DateTime.UtcNow;
+            // Update the user
+            await userManager.UpdateAsync(user);
+
             // Validate our request for a token
             context.Validated(ticket);
         }

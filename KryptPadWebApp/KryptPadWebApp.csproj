@@ -304,6 +304,14 @@
     <Compile Include="Migrations\201611091314141_item_update.Designer.cs">
       <DependentUpon>201611091314141_item_update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805140239374_add_lastLoggedInDate.cs" />
+    <Compile Include="Migrations\201805140239374_add_lastLoggedInDate.Designer.cs">
+      <DependentUpon>201805140239374_add_lastLoggedInDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805140310141_add_lastLoggedInDateNull.cs" />
+    <Compile Include="Migrations\201805140310141_add_lastLoggedInDateNull.Designer.cs">
+      <DependentUpon>201805140310141_add_lastLoggedInDateNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Models\Entities\AppSettings.cs" />
@@ -595,6 +603,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611091314141_item_update.resx">
       <DependentUpon>201611091314141_item_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805140239374_add_lastLoggedInDate.resx">
+      <DependentUpon>201805140239374_add_lastLoggedInDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805140310141_add_lastLoggedInDateNull.resx">
+      <DependentUpon>201805140310141_add_lastLoggedInDateNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
