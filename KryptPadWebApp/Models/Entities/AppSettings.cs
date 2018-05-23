@@ -9,5 +9,6 @@ namespace KryptPadWebApp.Models
     {
         public int Id { get; set; }
         public int Downloads { get; set; }
+        public string BroadcastMessage { get; set; }
     }
 }

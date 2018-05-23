@@ -203,6 +203,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountApiController.cs" />
+    <Compile Include="Controllers\AppAPIController.cs" />
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\AuthorizedApiController.cs" />
     <Compile Include="Controllers\CategoryApiController.cs" />
@@ -308,6 +309,10 @@
     <Compile Include="Migrations\201805140400554_lastloggedin.Designer.cs">
       <DependentUpon>201805140400554_lastloggedin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805221327357_broadcast_message.cs" />
+    <Compile Include="Migrations\201805221327357_broadcast_message.Designer.cs">
+      <DependentUpon>201805221327357_broadcast_message.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Models\Entities\AppSettings.cs" />
@@ -400,7 +405,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Properties\PublishProfiles\test.kryptpad.com - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -470,7 +474,6 @@
     <None Include="Properties\PublishProfiles\Test WebDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
     <Content Include="Scripts\app\forgot-password.js" />
-    <None Include="Properties\PublishProfiles\TestPackage.pubxml" />
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="Scripts\knockout-loaders.js" />
@@ -602,6 +605,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805140400554_lastloggedin.resx">
       <DependentUpon>201805140400554_lastloggedin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805221327357_broadcast_message.resx">
+      <DependentUpon>201805221327357_broadcast_message.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
