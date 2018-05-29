@@ -18,7 +18,7 @@ namespace KryptPadWebApp.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("broadcast-message")]
-        public IHttpActionResult GetBroadcastMessage()
+        public HttpResponseMessage GetBroadcastMessage()
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -28,15 +28,18 @@ namespace KryptPadWebApp.Controllers
                     // Get the broadcast message and return it
                     if (!string.IsNullOrWhiteSpace(appSettings.BroadcastMessage))
                     {
-                        return Ok(appSettings.BroadcastMessage);
+                        var resp = new HttpResponseMessage(HttpStatusCode.OK);
+                        resp.Content = new StringContent(appSettings.BroadcastMessage, System.Text.Encoding.UTF8, "text/plain");
+                        return resp;
+
                     }
-                   
+
                 }
                 
             }
 
             // Nothing to show here
-            return StatusCode(HttpStatusCode.NoContent);
+            return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
     }
