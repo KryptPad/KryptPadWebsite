@@ -313,11 +313,16 @@
     <Compile Include="Migrations\201805221327357_broadcast_message.Designer.cs">
       <DependentUpon>201805221327357_broadcast_message.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808190415329_favorites.cs" />
+    <Compile Include="Migrations\201808190415329_favorites.Designer.cs">
+      <DependentUpon>201808190415329_favorites.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Models\Entities\AppSettings.cs" />
     <Compile Include="Models\Entities\AuthorizedClients.cs" />
     <Compile Include="Models\Entities\Category.cs" />
+    <Compile Include="Models\Entities\Favorite.cs" />
     <Compile Include="Models\Entities\Field.cs" />
     <Compile Include="Models\Entities\FieldType.cs" />
     <Compile Include="Models\Entities\RefreshToken.cs" />
@@ -608,6 +613,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805221327357_broadcast_message.resx">
       <DependentUpon>201805221327357_broadcast_message.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808190415329_favorites.resx">
+      <DependentUpon>201808190415329_favorites.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
