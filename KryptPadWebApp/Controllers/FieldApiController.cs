@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Data.Entity;
 using KryptPadWebApp.Cryptography;
+using KryptPadWebApp.Models.Entities;
 
 namespace KryptPadWebApp.Controllers
 {

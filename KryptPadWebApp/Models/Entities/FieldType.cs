@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace KryptPadWebApp.Models
+namespace KryptPadWebApp.Models.Entities
 {
     public class FieldType
     {
