@@ -1,4 +1,5 @@
-﻿//using KryptPadWebApp.Cryptography;
+﻿
+using KryptPadWebApp.Models.Entities;
 using KryptPadWebApp.Models;
 using KryptPadWebApp.Models.Results;
 using System;
@@ -177,6 +178,7 @@ namespace KryptPadWebApp.Controllers
 
             }
         }
+               
 
         #region HelperMethods
 

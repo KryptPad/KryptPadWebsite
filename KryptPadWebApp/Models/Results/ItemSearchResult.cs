@@ -1,5 +1,6 @@
 ﻿using KryptPadWebApp.Cryptography;
 using KryptPadWebApp.Models.ApiEntities;
+using KryptPadWebApp.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

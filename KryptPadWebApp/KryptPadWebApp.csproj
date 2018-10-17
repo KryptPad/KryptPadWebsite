@@ -214,6 +214,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityApiController.cs" />
     <Compile Include="Controllers\ItemApiController.cs" />
+    <Compile Include="Controllers\ItemApiV2Controller.cs" />
     <Compile Include="Controllers\ProfileApiController.cs" />
     <Compile Include="Controllers\SecureController.cs" />
     <Compile Include="Email\EmailHelper.cs" />
@@ -319,6 +320,10 @@
     <Compile Include="Migrations\201808190415329_favorites.cs" />
     <Compile Include="Migrations\201808190415329_favorites.Designer.cs">
       <DependentUpon>201808190415329_favorites.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809101904181_fav_key.cs" />
+    <Compile Include="Migrations\201809101904181_fav_key.Designer.cs">
+      <DependentUpon>201809101904181_fav_key.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
@@ -619,6 +624,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808190415329_favorites.resx">
       <DependentUpon>201808190415329_favorites.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809101904181_fav_key.resx">
+      <DependentUpon>201809101904181_fav_key.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
