@@ -263,7 +263,7 @@ namespace KryptPadWebApp.Controllers
                 await UserManager.DeleteAsync(user);
 
                 // Send the email
-                await UserManager.SendEmailAsync(userId, "Your account has been deleted", "You're account has been successfully deleted. If you did not initiate this. Conact support immediately.");
+                await UserManager.SendEmailAsync(user.Id, "Your account has been deleted", "You're account has been successfully deleted. If you did not initiate this. Conact support immediately.");
 
                 // All is ok
                 return Ok();
