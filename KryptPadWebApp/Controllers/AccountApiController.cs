@@ -247,6 +247,36 @@ namespace KryptPadWebApp.Controllers
         }
 
         /// <summary>
+        /// Deletes the user's account
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Delete-Account")]
+        [Authorize]
+        public async Task<IHttpActionResult> DeleteAccount()
+        {
+            // Find user by id
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user != null)
+            {
+
+                await UserManager.DeleteAsync(user);
+
+                // Send the email
+                await UserManager.SendEmailAsync(userId, "Your account has been deleted", "You're account has been successfully deleted. If you did not initiate this. Conact support immediately.");
+
+                // All is ok
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("User does not exist.");
+            }
+
+
+        }
+
+        /// <summary>
         /// This method does nothing except return OK (200)
         /// </summary>
         /// <returns></returns>
