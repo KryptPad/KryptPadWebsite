@@ -14,6 +14,7 @@ using KryptPadWebApp.Models.ApiEntities;
 using KryptPadWebApp.Models.Requests;
 using KryptPadWebApp.Models.Results;
 using KryptPadWebApp.Cryptography;
+using KryptPadWebApp.Email;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -250,8 +251,8 @@ namespace KryptPadWebApp.Controllers
         /// Deletes the user's account
         /// </summary>
         /// <returns></returns>
-        [HttpPost]
-        [Route("Delete-Account")]
+        [HttpDelete]
+        [Route("")]
         [Authorize]
         public async Task<IHttpActionResult> DeleteAccount()
         {
@@ -259,14 +260,18 @@ namespace KryptPadWebApp.Controllers
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
             {
-
+                // Get the user's email address
+                var email = user.Email;
+                
+                // Delete the account
                 await UserManager.DeleteAsync(user);
 
                 // Send the email
-                await UserManager.SendEmailAsync(user.Id, "Your account has been deleted", "You're account has been successfully deleted. If you did not initiate this. Conact support immediately.");
+                await EmailHelper.SendAsync("Your account has been deleted.", "You're account has been successfully deleted. If you did not initiate this, contact support immediately.", email);
 
                 // All is ok
                 return Ok();
+
             }
             else
             {

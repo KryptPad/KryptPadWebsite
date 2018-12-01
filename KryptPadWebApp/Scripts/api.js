@@ -100,7 +100,7 @@
             type: 'POST',
             url: '/api/account/change-password',
             data: postData
-        })
+        });
     };
 
     // Reset password
@@ -113,7 +113,7 @@
             confirmPassword: confirmPassword
         };
 
-        return authorizedAjax({
+        return $.ajax({
             type: 'POST',
             url: '/api/account/reset-password',
             data: postData
