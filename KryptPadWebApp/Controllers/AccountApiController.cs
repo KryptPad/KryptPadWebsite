@@ -1,20 +1,15 @@
-﻿using KryptPadWebApp.Models;
+﻿using KryptPadWebApp.Cryptography;
+using KryptPadWebApp.Email;
+using KryptPadWebApp.Models;
+using KryptPadWebApp.Models.Requests;
+using KryptPadWebApp.Models.Results;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity.Owin;
 using System.Web.Http;
-using KryptPadWebApp.Models.ApiEntities;
-using KryptPadWebApp.Models.Requests;
-using KryptPadWebApp.Models.Results;
-using KryptPadWebApp.Cryptography;
-using KryptPadWebApp.Email;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -53,6 +48,10 @@ namespace KryptPadWebApp.Controllers
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
+                // The device must be authorized before the user can sign in. Since
+                // we are signing up, automatically authorize the device
+                await AddAuthorizedDevice(user.Id, model.AppId);
+
                 // Send confirm link
                 await SendEmailConfirmationLink(user.Id);
 
@@ -92,9 +91,9 @@ namespace KryptPadWebApp.Controllers
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link HttpUtility.UrlEncode(code)
+                // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ResetPassword", new { userId = user.Id, code = code })}";
+                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ResetPassword", new { userId = user.Id, code })}";
 
                 // Send the email
                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
@@ -192,6 +191,32 @@ namespace KryptPadWebApp.Controllers
         }
 
         /// <summary>
+        /// Confirm account
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("Authorize-Device")]
+        public async Task<IHttpActionResult> AuthorizeDevice(string userId, string code, string appId)
+        {
+            // Confirm the email address
+            var success = await UserManager.VerifyUserTokenAsync(userId, "AuthorizeDevice-" + appId, code);
+            if (success)
+            {
+                var authorized = await AddAuthorizedDevice(userId, Guid.Parse(appId));
+                if (authorized)
+                {
+                    return Ok();
+                }
+
+
+            }
+
+            return BadRequest();
+
+        }
+
+        /// <summary>
         /// Gets some details about the account
         /// </summary>
         /// <returns></returns>
@@ -262,7 +287,7 @@ namespace KryptPadWebApp.Controllers
             {
                 // Get the user's email address
                 var email = user.Email;
-                
+
                 // Delete the account
                 await UserManager.DeleteAsync(user);
 
@@ -293,12 +318,41 @@ namespace KryptPadWebApp.Controllers
         }
 
         #region Helper methods
+
+        private async Task<bool> AddAuthorizedDevice(string userId, Guid appId)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Get the user
+                var user = ctx.Users.Find(userId);
+                if (user != null)
+                {
+
+                    var authorizedDevice = new Models.Entities.AuthorizedDevice()
+                    {
+                        Id = appId,
+                        User = user
+                    };
+
+                    // Add the authorized device
+                    ctx.AuthorizedDevices.Add(authorizedDevice);
+
+                    await ctx.SaveChangesAsync();
+
+                    return true;
+
+                }
+            }
+
+            return false;
+        }
+
         private async Task SendEmailConfirmationLink(string userId)
         {
             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
             // Send an email with this link
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userId);
-            var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ConfirmEmail", new { userId = userId, code = code })}";
+            var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ConfirmEmail", new { userId, code })}";
 
             // Send the email
             await UserManager.SendEmailAsync(userId, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");

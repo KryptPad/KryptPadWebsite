@@ -10,6 +10,8 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using KryptPadWebApp.Models;
+using KryptPadWebApp.Email;
+using System.Web;
 
 namespace KryptPadWebApp.Providers
 {
@@ -74,10 +76,13 @@ namespace KryptPadWebApp.Providers
         {
             // Get the user manager
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            // Read the form data
+            var formData = await context.Request.ReadFormAsync();
+            // Get the tenant id
+            var appId = Guid.Parse(formData["app_id"]);
 
             // Find the user based on the credentials provided
             var user = await userManager.FindAsync(context.UserName, context.Password);
-
             if (user == null)
             {
                 context.Rejected();
@@ -85,6 +90,30 @@ namespace KryptPadWebApp.Providers
                 
                 return;
             }
+
+            // Now that we have a user, look up the authorized devices. This will prevent someone from logging in with
+            // the username and password until the device is authorized. An email will be sent to the user with a link
+            // to add the device if it is the first time they are using it. Once they click the link, the device
+            // will be added, and the user can then log in.
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Look up id in authorized devices. If it is not there, send an email to the user
+                var authorizedId = ctx.AuthorizedDevices.Where(x => x.User.Id == user.Id && x.Id == appId).SingleOrDefault();
+                if (authorizedId == null)
+                {
+                    var code = await userManager.GenerateUserTokenAsync("AuthorizeDevice-" + appId, user.Id);
+                    var link = $"<a href=\"{context.Request.Scheme}://{context.Request.Host}/api/account/authorize-device?userId={user.Id}&code={HttpUtility.UrlEncode(code)}&appId={appId}\">Authorize device</a>";
+
+                    // Send email and set error message
+                    await EmailHelper.SendAsync("Authorize Device", $"Your username and password was used to log in to Krypt Pad, but the device was not recognized. If this was you, click the link to authorize this device. {link}", user.Email);
+
+                    // Reject the login
+                    context.Rejected();
+                    context.SetError("invalid_grant", "Before you can log in, you must first authorize this device. We sent you an email with a link. Click the link to authorize this device and try logging in again.");
+                    return;
+                }
+            }
+
 
             var oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
 

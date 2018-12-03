@@ -6,7 +6,7 @@ using System.Web;
 
 namespace KryptPadWebApp.Models.Entities
 {
-    public class AuthorizedClients
+    public class AuthorizedClient
     {
         
         /// <summary>

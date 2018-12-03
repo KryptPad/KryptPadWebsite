@@ -325,10 +325,23 @@
     <Compile Include="Migrations\201809101904181_fav_key.Designer.cs">
       <DependentUpon>201809101904181_fav_key.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812031938336_Authorized_Devices.cs" />
+    <Compile Include="Migrations\201812031938336_Authorized_Devices.Designer.cs">
+      <DependentUpon>201812031938336_Authorized_Devices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812031943223_Authorized_Devices1.cs" />
+    <Compile Include="Migrations\201812031943223_Authorized_Devices1.Designer.cs">
+      <DependentUpon>201812031943223_Authorized_Devices1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812032140118_Authorized_Devices2.cs" />
+    <Compile Include="Migrations\201812032140118_Authorized_Devices2.Designer.cs">
+      <DependentUpon>201812032140118_Authorized_Devices2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
     <Compile Include="Models\Entities\AppSettings.cs" />
-    <Compile Include="Models\Entities\AuthorizedClients.cs" />
+    <Compile Include="Models\Entities\AuthorizedClient.cs" />
+    <Compile Include="Models\Entities\AuthorizedDevice.cs" />
     <Compile Include="Models\Entities\Category.cs" />
     <Compile Include="Models\Entities\Favorite.cs" />
     <Compile Include="Models\Entities\Field.cs" />
@@ -627,6 +640,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809101904181_fav_key.resx">
       <DependentUpon>201809101904181_fav_key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031938336_Authorized_Devices.resx">
+      <DependentUpon>201812031938336_Authorized_Devices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812031943223_Authorized_Devices1.resx">
+      <DependentUpon>201812031943223_Authorized_Devices1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812032140118_Authorized_Devices2.resx">
+      <DependentUpon>201812032140118_Authorized_Devices2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
