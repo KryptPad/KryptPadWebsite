@@ -102,7 +102,7 @@ namespace KryptPadWebApp.Providers
                 if (authorizedId == null)
                 {
                     var code = await userManager.GenerateUserTokenAsync("AuthorizeDevice-" + appId, user.Id);
-                    var link = $"<a href=\"{context.Request.Scheme}://{context.Request.Host}/api/account/authorize-device?userId={user.Id}&code={HttpUtility.UrlEncode(code)}&appId={appId}\">Authorize device</a>";
+                    var link = $"<a href=\"{context.Request.Scheme}://{context.Request.Host}/account/authorize-device?userId={user.Id}&code={HttpUtility.UrlEncode(code)}&appId={appId}\">Authorize device</a>";
 
                     // Send email and set error message
                     await EmailHelper.SendAsync("Authorize Device", $"Your username and password was used to log in to Krypt Pad, but the device was not recognized. If this was you, click the link to authorize this device. {link}", user.Email);

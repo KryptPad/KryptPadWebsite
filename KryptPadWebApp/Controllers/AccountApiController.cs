@@ -1,5 +1,6 @@
 ﻿using KryptPadWebApp.Cryptography;
 using KryptPadWebApp.Email;
+using KryptPadWebApp.Helpers;
 using KryptPadWebApp.Models;
 using KryptPadWebApp.Models.Requests;
 using KryptPadWebApp.Models.Results;
@@ -50,7 +51,7 @@ namespace KryptPadWebApp.Controllers
             {
                 // The device must be authorized before the user can sign in. Since
                 // we are signing up, automatically authorize the device
-                await AddAuthorizedDevice(user.Id, model.AppId);
+                await AuthorizedDeviceHelper.AddAuthorizedDevice(user.Id, model.AppId);
 
                 // Send confirm link
                 await SendEmailConfirmationLink(user.Id);
@@ -203,7 +204,7 @@ namespace KryptPadWebApp.Controllers
             var success = await UserManager.VerifyUserTokenAsync(userId, "AuthorizeDevice-" + appId, code);
             if (success)
             {
-                var authorized = await AddAuthorizedDevice(userId, Guid.Parse(appId));
+                var authorized = await AuthorizedDeviceHelper.AddAuthorizedDevice(userId, Guid.Parse(appId));
                 if (authorized)
                 {
                     return Ok();
@@ -287,13 +288,21 @@ namespace KryptPadWebApp.Controllers
             {
                 // Get the user's email address
                 var email = user.Email;
+                try
+                {
+                    // Delete the account
+                    await UserManager.DeleteAsync(user);
 
-                // Delete the account
-                await UserManager.DeleteAsync(user);
+                    // Send the email
+                    await EmailHelper.SendAsync("Your account has been deleted.", "You're account has been successfully deleted. If you did not initiate this, contact support immediately.", email);
 
-                // Send the email
-                await EmailHelper.SendAsync("Your account has been deleted.", "You're account has been successfully deleted. If you did not initiate this, contact support immediately.", email);
+                }
+                catch (Exception ex)
+                {
 
+                    throw ex;
+                }
+                
                 // All is ok
                 return Ok();
 
@@ -319,33 +328,7 @@ namespace KryptPadWebApp.Controllers
 
         #region Helper methods
 
-        private async Task<bool> AddAuthorizedDevice(string userId, Guid appId)
-        {
-            using (var ctx = new ApplicationDbContext())
-            {
-                // Get the user
-                var user = ctx.Users.Find(userId);
-                if (user != null)
-                {
-
-                    var authorizedDevice = new Models.Entities.AuthorizedDevice()
-                    {
-                        User = user,
-                        AppId = appId
-                    };
-
-                    // Add the authorized device
-                    ctx.AuthorizedDevices.Add(authorizedDevice);
-
-                    await ctx.SaveChangesAsync();
-
-                    return true;
-
-                }
-            }
-
-            return false;
-        }
+        
 
         private async Task SendEmailConfirmationLink(string userId)
         {
