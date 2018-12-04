@@ -98,7 +98,7 @@ namespace KryptPadWebApp.Providers
             using (var ctx = new ApplicationDbContext())
             {
                 // Look up id in authorized devices. If it is not there, send an email to the user
-                var authorizedId = ctx.AuthorizedDevices.Where(x => x.User.Id == user.Id && x.Id == appId).SingleOrDefault();
+                var authorizedId = ctx.AuthorizedDevices.Where(x => x.User.Id == user.Id && x.AppId == appId).FirstOrDefault();
                 if (authorizedId == null)
                 {
                     var code = await userManager.GenerateUserTokenAsync("AuthorizeDevice-" + appId, user.Id);

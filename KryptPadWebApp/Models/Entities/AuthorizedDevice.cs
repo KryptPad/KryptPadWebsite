@@ -9,20 +9,23 @@ namespace KryptPadWebApp.Models.Entities
 {
     public class AuthorizedDevice
     {
-
         /// <summary>
-        /// Gets or sets the Id
+        /// Primary key
         /// </summary>
-        [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the user
         /// </summary>
         [JsonIgnore]
-        [Key]
+        [Required]
         public ApplicationUser User { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Id
+        /// </summary>
+        [Required]
+        public Guid AppId { get; set; }
 
     }
 }

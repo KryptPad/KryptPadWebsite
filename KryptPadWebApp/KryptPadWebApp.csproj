@@ -19,7 +19,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44310</IISExpressSSLPort>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -325,17 +325,9 @@
     <Compile Include="Migrations\201809101904181_fav_key.Designer.cs">
       <DependentUpon>201809101904181_fav_key.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812031938336_Authorized_Devices.cs" />
-    <Compile Include="Migrations\201812031938336_Authorized_Devices.Designer.cs">
-      <DependentUpon>201812031938336_Authorized_Devices.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812031943223_Authorized_Devices1.cs" />
-    <Compile Include="Migrations\201812031943223_Authorized_Devices1.Designer.cs">
-      <DependentUpon>201812031943223_Authorized_Devices1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201812032140118_Authorized_Devices2.cs" />
-    <Compile Include="Migrations\201812032140118_Authorized_Devices2.Designer.cs">
-      <DependentUpon>201812032140118_Authorized_Devices2.cs</DependentUpon>
+    <Compile Include="Migrations\201812040458206_authorized_devices.cs" />
+    <Compile Include="Migrations\201812040458206_authorized_devices.Designer.cs">
+      <DependentUpon>201812040458206_authorized_devices.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Cryptography\Encryption.cs" />
@@ -641,14 +633,8 @@
     <EmbeddedResource Include="Migrations\201809101904181_fav_key.resx">
       <DependentUpon>201809101904181_fav_key.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812031938336_Authorized_Devices.resx">
-      <DependentUpon>201812031938336_Authorized_Devices.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812031943223_Authorized_Devices1.resx">
-      <DependentUpon>201812031943223_Authorized_Devices1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201812032140118_Authorized_Devices2.resx">
-      <DependentUpon>201812032140118_Authorized_Devices2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812040458206_authorized_devices.resx">
+      <DependentUpon>201812040458206_authorized_devices.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

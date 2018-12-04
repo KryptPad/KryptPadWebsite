@@ -7,13 +7,13 @@ namespace KryptPadWebApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Authorized_Devices2 : IMigrationMetadata
+    public sealed partial class authorized_devices : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Authorized_Devices2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(authorized_devices));
         
         string IMigrationMetadata.Id
         {
-            get { return "201812032140118_Authorized_Devices2"; }
+            get { return "201812040458206_authorized_devices"; }
         }
         
         string IMigrationMetadata.Source

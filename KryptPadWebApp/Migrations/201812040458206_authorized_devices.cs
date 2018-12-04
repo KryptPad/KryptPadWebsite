@@ -3,7 +3,7 @@ namespace KryptPadWebApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Authorized_Devices : DbMigration
+    public partial class authorized_devices : DbMigration
     {
         public override void Up()
         {
@@ -11,7 +11,8 @@ namespace KryptPadWebApp.Migrations
                 "dbo.AuthorizedDevices",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
+                        AppId = c.Guid(nullable: false),
                         User_Id = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)

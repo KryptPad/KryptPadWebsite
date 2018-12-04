@@ -330,8 +330,8 @@ namespace KryptPadWebApp.Controllers
 
                     var authorizedDevice = new Models.Entities.AuthorizedDevice()
                     {
-                        Id = appId,
-                        User = user
+                        User = user,
+                        AppId = appId
                     };
 
                     // Add the authorized device
