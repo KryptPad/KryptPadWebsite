@@ -1,15 +1,13 @@
 ﻿using KryptPadWebApp.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace KryptPadWebApp.Helpers
 {
     class AuthorizedDeviceHelper
     {
-        public static async Task<bool> AddAuthorizedDevice(string userId, Guid appId)
+        public static async Task<bool> AddAuthorizedDevice(string userId, Guid appId, string ipAddress)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -29,7 +27,9 @@ namespace KryptPadWebApp.Helpers
                     var authorizedDevice = new Models.Entities.AuthorizedDevice()
                     {
                         User = user,
-                        AppId = appId
+                        AppId = appId,
+                        AccessedFromIPAddress = ipAddress,
+                        DateAuthorized = DateTime.UtcNow
                     };
 
                     // Add the authorized device

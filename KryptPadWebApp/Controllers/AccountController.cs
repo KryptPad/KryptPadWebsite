@@ -29,13 +29,13 @@ namespace KryptPadWebApp.Controllers
         [HttpGet]
         [Route("authorize-device")]
         [AllowAnonymous]
-        public async Task<ActionResult> AuthorizeDevice(string userId, string code, string appId)
+        public async Task<ActionResult> AuthorizeDevice(string userId, string code, string appId, string ipAddress)
         {
             // Confirm the email address
             var success = await UserManager.VerifyUserTokenAsync(userId, "AuthorizeDevice-" + appId, code);
             if (success)
             {
-                var authorized = await AuthorizedDeviceHelper.AddAuthorizedDevice(userId, Guid.Parse(appId));
+                var authorized = await AuthorizedDeviceHelper.AddAuthorizedDevice(userId, Guid.Parse(appId), ipAddress);
                 if (!authorized)
                 {
                     ModelState.AddModelError("", "Failed to authorize your device.");

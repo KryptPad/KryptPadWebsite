@@ -51,7 +51,7 @@ namespace KryptPadWebApp.Controllers
             {
                 // The device must be authorized before the user can sign in. Since
                 // we are signing up, automatically authorize the device
-                await AuthorizedDeviceHelper.AddAuthorizedDevice(user.Id, model.AppId);
+                await AuthorizedDeviceHelper.AddAuthorizedDevice(user.Id, model.AppId, HttpContext.Current.Request.UserHostAddress);
 
                 // Send confirm link
                 await SendEmailConfirmationLink(user.Id);
@@ -191,31 +191,31 @@ namespace KryptPadWebApp.Controllers
 
         }
 
-        /// <summary>
-        /// Confirm account
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("Authorize-Device")]
-        public async Task<IHttpActionResult> AuthorizeDevice(string userId, string code, string appId)
-        {
-            // Confirm the email address
-            var success = await UserManager.VerifyUserTokenAsync(userId, "AuthorizeDevice-" + appId, code);
-            if (success)
-            {
-                var authorized = await AuthorizedDeviceHelper.AddAuthorizedDevice(userId, Guid.Parse(appId));
-                if (authorized)
-                {
-                    return Ok();
-                }
+        ///// <summary>
+        ///// Confirm account
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("Authorize-Device")]
+        //public async Task<IHttpActionResult> AuthorizeDevice(string userId, string code, string appId)
+        //{
+        //    // Confirm the email address
+        //    var success = await UserManager.VerifyUserTokenAsync(userId, "AuthorizeDevice-" + appId, code);
+        //    if (success)
+        //    {
+        //        var authorized = await AuthorizedDeviceHelper.AddAuthorizedDevice(userId, Guid.Parse(appId));
+        //        if (authorized)
+        //        {
+        //            return Ok();
+        //        }
 
 
-            }
+        //    }
 
-            return BadRequest();
+        //    return BadRequest();
 
-        }
+        //}
 
         /// <summary>
         /// Gets some details about the account

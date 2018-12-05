@@ -30,5 +30,16 @@ namespace KryptPadWebApp.Models.Entities
         //[Index("IX_Authorized", 2)]
         public Guid AppId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the IP address from where the login attempt was made
+        /// </summary>
+        public string AccessedFromIPAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date when the user authorized the device
+        /// </summary>
+        [Required]
+        public DateTime DateAuthorized { get; set; }
+
     }
 }
