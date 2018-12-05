@@ -100,7 +100,7 @@ namespace KryptPadWebApp.Providers
                     var link = $"<a href=\"{context.Request.Scheme}://{context.Request.Host}/account/authorize-device?userId={user.Id}&code={HttpUtility.UrlEncode(code)}&appId={appId}&ipAddress={context.Request.RemoteIpAddress}\">Authorize device</a>";
 
                     // Send email and set error message
-                    await EmailHelper.SendAsync("Authorize Device", $"Your username and password was used to log in to Krypt Pad, but the device was not recognized.\n\nDate (UTC):{DateTime.UtcNow}\nIP Address: {context.Request.RemoteIpAddress}\n\nIf this was you, click the link to authorize this device. {link}", user.Email);
+                    await EmailHelper.SendAsync("Authorize Device", $"Your username and password was used to log in to Krypt Pad, but the device was not recognized.<br /><br />Date (UTC): {DateTime.UtcNow}<br />IP Address: {context.Request.RemoteIpAddress}<br /><br />If this was you, click the link to authorize this device. {link}", user.Email);
 
                     // Reject the login
                     context.Rejected();
