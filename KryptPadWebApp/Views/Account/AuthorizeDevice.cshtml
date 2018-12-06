@@ -9,23 +9,12 @@
 <div class="container">
 
 
-    <h2>Authorize Device</h2>
+    <h4>Authorize Device</h4>
 
-    @if (!ViewContext.ViewData.ModelState.IsValid)
-    {
-        <div class="alert alert-danger">
-            @Html.ValidationSummary()
-        </div>
-    }
-
-    @if (ViewContext.ViewData.ModelState.IsValid)
-    {
-        <div class="alert alert-success">
-            <p>
-                You have successfully authorized your device.
-            </p>
-        </div>
-
-    }
+    <div class="alert alert-success">
+        <p>
+            You have successfully authorized your device.
+        </p>
+    </div>
 
 </div>

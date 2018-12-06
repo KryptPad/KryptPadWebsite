@@ -31,19 +31,57 @@ namespace KryptPadWebApp.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> AuthorizeDevice(string userId, string code, string appId, string ipAddress)
         {
-            // Confirm the email address
-            var success = await UserManager.VerifyUserTokenAsync(userId, "AuthorizeDevice-" + appId, code);
-            if (success)
+            try
             {
-                var authorized = await AuthorizedDeviceHelper.AddAuthorizedDevice(userId, Guid.Parse(appId), ipAddress);
-                if (!authorized)
+                // Confirm the email address
+                var success = await UserManager.VerifyUserTokenAsync(userId, "AuthorizeDevice-" + appId, code);
+                if (success)
                 {
-                    ModelState.AddModelError("", "Failed to authorize your device.");
+                    var authorized = await AuthorizedDeviceHelper.AddAuthorizedDevice(userId, Guid.Parse(appId), ipAddress);
+                    if (authorized)
+                    {
+                        return View();
+                    }
+
                 }
-                
+
+                throw new Exception("Failed to authorize this device for this user.");
+
+            }
+            catch (Exception)
+            {
+                return View("Error");
             }
 
-            return View();
+
+        }
+
+        [HttpGet]
+        [Route("confirm-email", Name = "ConfirmEmail")]
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        {
+
+            try
+            {
+                // Confirm the email address
+                var result = await UserManager.ConfirmEmailAsync(userId, code);
+                if (result.Succeeded)
+                {
+                    return View();
+                }
+                else
+                {
+                    throw new Exception("User does not exist");
+                }
+
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
+
+
         }
     }
 }

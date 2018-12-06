@@ -161,62 +161,7 @@ namespace KryptPadWebApp.Controllers
             return BadRequest("Your account password could not be changed. Please make sure you entered the correct current password.");
         }
 
-        /// <summary>
-        /// Confirm account
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("Confirm-Email")]
-        public async Task<IHttpActionResult> ConfirmEmail(ConfirmEmailRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            // Confirm the email address
-            var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Code);
-
-            // Return OK if the account was confirmed successfully
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
-
-
-        }
-
-        ///// <summary>
-        ///// Confirm account
-        ///// </summary>
-        ///// <param name="model"></param>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[Route("Authorize-Device")]
-        //public async Task<IHttpActionResult> AuthorizeDevice(string userId, string code, string appId)
-        //{
-        //    // Confirm the email address
-        //    var success = await UserManager.VerifyUserTokenAsync(userId, "AuthorizeDevice-" + appId, code);
-        //    if (success)
-        //    {
-        //        var authorized = await AuthorizedDeviceHelper.AddAuthorizedDevice(userId, Guid.Parse(appId));
-        //        if (authorized)
-        //        {
-        //            return Ok();
-        //        }
-
-
-        //    }
-
-        //    return BadRequest();
-
-        //}
-
+        
         /// <summary>
         /// Gets some details about the account
         /// </summary>

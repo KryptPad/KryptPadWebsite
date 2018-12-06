@@ -66,35 +66,6 @@ namespace KryptPadWebApp.Controllers
         }
 
         // GET: ResetPassword
-        [Route("ConfirmEmail", Name = "ConfirmEmail")]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
-        {
-            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
-            {
-                return RedirectToRoute("SignIn", null);
-            }
-
-            try
-            {
-                // Confirm the email address
-                var result = await UserManager.ConfirmEmailAsync(userId, code);
-
-                // Return OK if the account was confirmed successfully
-                if (result.Succeeded)
-                {
-                    return View();
-                }
-                else
-                {
-                    throw new Exception("User does not exist");
-                }
-            }
-            catch (Exception)
-            {
-                return View("Error");
-            }
-            
-            
-        }
+        
     }
 }
