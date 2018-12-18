@@ -1,17 +1,13 @@
 ﻿
-using KryptPadWebApp.Models.Entities;
+using KryptPadWebApp.Cryptography;
 using KryptPadWebApp.Models;
+using KryptPadWebApp.Models.ApiEntities;
+using KryptPadWebApp.Models.Entities;
 using KryptPadWebApp.Models.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Data.Entity;
-using System.Net;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using KryptPadWebApp.Models.ApiEntities;
-using KryptPadWebApp.Cryptography;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -19,7 +15,7 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("Api/Profiles/{profileId}/Categories/{categoryId}/Items")]
     public class ItemApiController : AuthorizedApiController
     {
-        
+
         /// <summary>
         /// Gets a specific item and details
         /// </summary>
@@ -41,7 +37,18 @@ namespace KryptPadWebApp.Controllers
                                 i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
-                             select i).ToArray();
+                             select new Item()
+                             {
+                                 Id = i.Id,
+                                 Category = i.Category,
+                                 Name = i.Name,
+                                 Notes = i.Notes,
+                                 BackgroundColor = i.BackgroundColor,
+                                 Fields = i.Fields,
+                                 Icon = i.Icon,
+                                 IsFavorite = (from f in ctx.Favorites where f.Item.Id==i.Id select true).FirstOrDefault(),
+                                 ItemType = i.ItemType
+                             }).ToArray();
 
 
                 // Return items
@@ -178,7 +185,7 @@ namespace KryptPadWebApp.Controllers
 
             }
         }
-               
+
 
         #region HelperMethods
 

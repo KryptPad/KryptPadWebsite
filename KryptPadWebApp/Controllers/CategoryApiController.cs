@@ -1,16 +1,13 @@
-﻿using KryptPadWebApp.Models;
-using KryptPadWebApp.Models.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using System.Data.Entity;
+﻿using KryptPadWebApp.Cryptography;
+using KryptPadWebApp.Models;
 using KryptPadWebApp.Models.ApiEntities;
-using KryptPadWebApp.Cryptography;
 using KryptPadWebApp.Models.Entities;
+using KryptPadWebApp.Models.Results;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -28,10 +25,34 @@ namespace KryptPadWebApp.Controllers
                 var categories = (from c in ctx.Categories.Include((cat) => cat.Items)
                                   where c.Profile.User.Id == UserId &&
                                   c.Profile.Id == profileId
-                                  select c).ToArray();
+                                  select new
+                                  {
+                                      Category = c,
+                                      Items = (from i in c.Items
+                                               select new
+                                               {
+                                                   Item = i,
+                                                   IsFavorite = (from f in ctx.Favorites
+                                                                 where f.Item.Id == i.Id
+                                                                 select true).FirstOrDefault()
+                                               })
+                                  }).ToArray();
+
+                var catList = new List<Category>();
+                foreach (var c in categories)
+                {
+                    var newCategory = c.Category;
+                    foreach (var i in c.Items)
+                    {
+                        var newItem = c.Category.Items.Where(x => x.Id == i.Item.Id).First();
+                        newItem.IsFavorite = i.IsFavorite;
+                    }
+
+                    catList.Add(newCategory);
+                }
 
 
-                return Json(new CategoriesResult(categories, Passphrase));
+                return Json(new CategoriesResult(catList.ToArray(), Passphrase));
             }
 
 

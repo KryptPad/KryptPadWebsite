@@ -20,10 +20,10 @@ namespace KryptPadWebApp.Controllers
     public class ItemApiV2Controller : AuthorizedApiController
     {
 
-        // POST api/<controller>/5
-        [HttpPost]
-        [Route("set-fav")]
-        public async Task<IHttpActionResult> SetFavorite(int id)
+        // PUT api/<controller>/5
+        [HttpPut]
+        [Route("favorite")]
+        public async Task<IHttpActionResult> AddFavorite(int id)
         {
             // Add the item to the favorites
             using (var ctx = new ApplicationDbContext())
@@ -51,11 +51,46 @@ namespace KryptPadWebApp.Controllers
                     // Something isn't right. Either the id is invalid or belongs to someone else
                     return BadRequest();
                 }
-                                               
+
             }
 
 
         }
+
+        // DELETE api/<controller>/5
+        [HttpDelete]
+        [Route("favorite")]
+        public async Task<IHttpActionResult> DeleteFavorite(int id)
+        {
+            // Add the item to the favorites
+            using (var ctx = new ApplicationDbContext())
+            {
+                // Get the item by its ID
+                var favorite = await (from f in ctx.Favorites
+                                  where f.Item.Id == id && f.Item.Category.Profile.User.Id == UserId
+                                  select f).FirstOrDefaultAsync();
+
+                if (favorite != null)
+                {
+                    ctx.Favorites.Remove(favorite);
+
+                    // Save the fav
+                    await ctx.SaveChangesAsync();
+
+                    return Ok();
+                }
+                else
+                {
+                    // Something isn't right. Either the id is invalid or belongs to someone else
+                    return BadRequest();
+                }
+
+            }
+
+
+        }
+
+
     }
 
 }

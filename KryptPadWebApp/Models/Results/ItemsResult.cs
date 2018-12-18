@@ -23,6 +23,7 @@ namespace KryptPadWebApp.Models.Results
                          BackgroundColor = i.BackgroundColor,
                          Name = Encryption.DecryptFromString(i.Name, passphrase),
                          Notes = Encryption.DecryptFromString(i.Notes, passphrase),
+                         IsFavorite = i.IsFavorite,
                          Fields = (from f in i.Fields
                                    select new ApiField() {
                                        Id = f.Id,

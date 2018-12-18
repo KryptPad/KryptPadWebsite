@@ -19,7 +19,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressSSLPort>44310</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -220,6 +220,7 @@
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\ItemApiV2Controller.cs" />
     <Compile Include="Controllers\ProfileApiController.cs" />
+    <Compile Include="Controllers\ProfileApiV2Controller.cs" />
     <Compile Include="Controllers\SecureController.cs" />
     <Compile Include="Email\EmailHelper.cs" />
     <Compile Include="Global.asax.cs">
@@ -684,6 +685,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\ProfileApiV2\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
