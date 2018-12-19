@@ -3,7 +3,6 @@ using KryptPadWebApp.Models;
 using KryptPadWebApp.Models.ApiEntities;
 using KryptPadWebApp.Models.Entities;
 using KryptPadWebApp.Models.Results;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,23 +35,21 @@ namespace KryptPadWebApp.Controllers
                                                                  where f.Item.Id == i.Id
                                                                  select true).FirstOrDefault()
                                                })
-                                  }).ToArray();
+                                  });
 
-                var catList = new List<Category>();
+                // Convert the list of categories and items to the response we want to send back
+                // We're doing this to explicitly set whether an item is a favorite or not
                 foreach (var c in categories)
                 {
-                    var newCategory = c.Category;
                     foreach (var i in c.Items)
                     {
-                        var newItem = c.Category.Items.Where(x => x.Id == i.Item.Id).First();
-                        newItem.IsFavorite = i.IsFavorite;
+                        var item = c.Category.Items.Where(x => x.Id == i.Item.Id).First();
+                        item.IsFavorite = i.IsFavorite;
                     }
-
-                    catList.Add(newCategory);
                 }
 
-
-                return Json(new CategoriesResult(catList.ToArray(), Passphrase));
+                // Convert to resultset we want
+                return Json(new CategoriesResult(categories.Select(x => x.Category).ToArray(), Passphrase));
             }
 
 

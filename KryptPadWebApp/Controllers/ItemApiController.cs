@@ -31,28 +31,34 @@ namespace KryptPadWebApp.Controllers
             using (var ctx = new ApplicationDbContext())
             {
                 var items = (from i in ctx.Items
-                                .Include(x => x.Fields)
-                                .Include(x => x.Category)
                              where i.Id == id &&
                                 i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
-                             select new Item()
+                             select new
                              {
-                                 Id = i.Id,
-                                 Category = i.Category,
-                                 Name = i.Name,
-                                 Notes = i.Notes,
-                                 BackgroundColor = i.BackgroundColor,
-                                 Fields = i.Fields,
-                                 Icon = i.Icon,
-                                 IsFavorite = (from f in ctx.Favorites where f.Item.Id==i.Id select true).FirstOrDefault(),
-                                 ItemType = i.ItemType
-                             }).ToArray();
+                                 Item = i,
+                                 i.Fields,
+                                 i.Category,
+                                 // Determine if this item is in our list of favorites
+                                 IsFavorite = (from f in ctx.Favorites
+                                               where f.Item.Id == i.Id
+                                               select true).FirstOrDefault()
+                             });
 
+                // Convert the list of items and items to the response we want to send back
+                // We're doing this to explicitly set whether an item is a favorite or not
+                foreach (var i in items)
+                {
+                    //var fsdfd = i.Item.Category.Id;
+                    i.Item.IsFavorite = i.IsFavorite;
+                    // This is just stupid, but EF has issues with including navigation properties
+                    // when using projection :/
+                    i.Item.Fields = i.Fields;
+                }
 
                 // Return items
-                return Json(new ItemsResult(items, Passphrase));
+                return Json(new ItemsResult(items.Select(x => x.Item).ToArray(), Passphrase));
             }
         }
 
