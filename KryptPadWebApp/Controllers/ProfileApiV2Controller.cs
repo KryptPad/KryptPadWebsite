@@ -35,5 +35,6 @@ namespace KryptPadWebApp.Controllers
                 return Json(new ItemsResult(favorites, Passphrase));
             }
         }
+
     }
 }
