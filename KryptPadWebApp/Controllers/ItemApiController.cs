@@ -50,7 +50,6 @@ namespace KryptPadWebApp.Controllers
                 // We're doing this to explicitly set whether an item is a favorite or not
                 foreach (var i in items)
                 {
-                    //var fsdfd = i.Item.Category.Id;
                     i.Item.IsFavorite = i.IsFavorite;
                     // This is just stupid, but EF has issues with including navigation properties
                     // when using projection :/
@@ -58,7 +57,7 @@ namespace KryptPadWebApp.Controllers
                 }
 
                 // Return items
-                return Json(new ItemsResult(items.Select(x => x.Item).ToArray(), Passphrase));
+                return Json(new ItemResult(items.Select(x => x.Item).ToArray(), Passphrase));
             }
         }
 

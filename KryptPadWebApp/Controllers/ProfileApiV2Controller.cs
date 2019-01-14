@@ -1,7 +1,5 @@
 ﻿using KryptPadWebApp.Models;
 using KryptPadWebApp.Models.Results;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,16 +21,14 @@ namespace KryptPadWebApp.Controllers
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var favorites = await (from i in ctx.Items
-                                       join f in ctx.Favorites on new { i.Id } equals new { f.Item.Id }
-                                       where i.Category.Profile.Id == id
-                                       && i.Category.Profile.User.Id == UserId
-                                       select i
+                var favorites = await (from f in ctx.Favorites.Include(x => x.Item.Category)
+                                       where f.Item.Category.Profile.Id == id
+                                          && f.Item.Category.Profile.User.Id == UserId
+                                       select f
                                  ).ToArrayAsync();
-                    
-                    
+
                 // Return items
-                return Json(new ItemsResult(favorites, Passphrase));
+                return Json(new ItemsResult(favorites.Select(x => x.Item).ToArray(), Passphrase));
             }
         }
 

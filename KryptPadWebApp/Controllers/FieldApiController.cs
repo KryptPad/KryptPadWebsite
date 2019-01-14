@@ -39,6 +39,7 @@ namespace KryptPadWebApp.Controllers
                               select new ApiField
                               {
                                   Id = f.Id,
+                                  FieldType = f.FieldType,
                                   Name = f.Name,
                                   Value = f.Value
                               }).ToArray();
