@@ -27,6 +27,12 @@ namespace KryptPadWebApp.Controllers
                                        select f
                                  ).ToArrayAsync();
 
+                // Mark all these as favorites
+                foreach (var fav in favorites)
+                {
+                    fav.Item.IsFavorite = true;
+                }
+
                 // Return items
                 return Json(new ItemsResult(favorites.Select(x => x.Item).ToArray(), Passphrase));
             }
