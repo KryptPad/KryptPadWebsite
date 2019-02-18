@@ -101,32 +101,32 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+    <Reference Include="Microsoft.Owin, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.0\lib\net451\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Google, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.0\lib\net451\Microsoft.Owin.Security.Google.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.0\lib\net451\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Twitter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.0\lib\net451\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=4.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -211,7 +211,6 @@
     <Compile Include="Controllers\AccountApiController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppAPIController.cs" />
-    <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\AuthorizedApiController.cs" />
     <Compile Include="Controllers\CategoryApiController.cs" />
     <Compile Include="Controllers\FieldApiController.cs" />
@@ -358,12 +357,12 @@
     <Compile Include="Models\ApiEntities\ApiCategory.cs" />
     <Compile Include="Models\ApiEntities\ApiField.cs" />
     <Compile Include="Models\Requests\ChangePassphraseRequest.cs" />
-    <Compile Include="Models\Requests\ChangePasswordRequest.cs" />
+    <Compile Include="Models\Requests\ChangePasswordModel.cs" />
     <Compile Include="Models\Requests\ConfirmEmailRequest.cs" />
     <Compile Include="Models\Requests\CreateAccountRequest.cs" />
     <Compile Include="Models\Requests\CreateProfileRequest.cs" />
     <Compile Include="Models\Requests\ForgotPasswordRequest.cs" />
-    <Compile Include="Models\Requests\ResetPasswordRequest.cs" />
+    <Compile Include="Models\Requests\ResetPasswordModel.cs" />
     <Compile Include="Models\Results\AccountDetailsResult.cs" />
     <Compile Include="Models\Results\CategoriesResult.cs" />
     <Compile Include="Models\Results\FieldsResult.cs" />
@@ -388,7 +387,6 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Dashboard.css" />
     <Content Include="Content\Images\arrow-gray.svg" />
     <Content Include="Content\Images\cloud-secure.png" />
     <Content Include="Content\Images\cloud.png" />
@@ -418,12 +416,8 @@
     <Content Include="Content\Images\Square176x176LogoDark.png" />
     <Content Include="Content\Images\Square48x48LogoDark.png" />
     <Content Include="Content\Images\sync128x128.png" />
-    <Content Include="Content\SignIn.css" />
     <Content Include="Content\Images\Square44x44Logo.png" />
     <Content Include="favicon.ico" />
-    <Content Include="files\autorun.inf" />
-    <Content Include="files\publish.htm" />
-    <Content Include="files\setup.exe" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\api.js" />
@@ -431,6 +425,14 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -441,108 +443,33 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <Content Include="Scripts\knockout-3.4.2.debug.js" />
-    <Content Include="Scripts\knockout-3.4.2.js" />
-    <Content Include="Scripts\moment-with-locales.js" />
-    <Content Include="Scripts\moment-with-locales.min.js" />
-    <Content Include="Scripts\moment.js" />
-    <Content Include="Scripts\moment.min.js" />
-    <Content Include="Scripts\popper-utils.js" />
-    <Content Include="Scripts\popper-utils.min.js" />
-    <Content Include="Scripts\popper.js" />
-    <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\umd\popper-utils.js" />
-    <Content Include="Scripts\umd\popper-utils.min.js" />
-    <Content Include="Scripts\umd\popper.js" />
-    <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Scripts\validation-config.js" />
-    <Content Include="Scripts\app\reset-password.js" />
-    <Content Include="Scripts\functions.js" />
-    <Content Include="files\KryptPad.application" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_28\file_icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_28\Images\icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.application" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.exe.config.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.exe.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.exe.manifest" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_28\KryptPad.Security.dll.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_32\file_icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_32\Images\icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.application" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.exe.config.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.exe.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.exe.manifest" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_32\KryptPad.Security.dll.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_33\file_icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_33\Images\icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.application" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.exe.config.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.exe.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.exe.manifest" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_33\KryptPad.Security.dll.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_34\file_icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_34\Images\icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.application" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.exe.config.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.exe.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.exe.manifest" />
-    <Content Include="files\Application Files\KryptPad_0_5_0_34\KryptPad.Security.dll.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_0_35\file_icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_0_35\Images\icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.application" />
-    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.exe.config.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.exe.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.exe.manifest" />
-    <Content Include="files\Application Files\KryptPad_0_6_0_35\KryptPad.Security.dll.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_5_36\file_icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_5_36\Images\icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.application" />
-    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.exe.config.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.exe.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.exe.manifest" />
-    <Content Include="files\Application Files\KryptPad_0_6_5_36\KryptPad.Security.dll.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_7_5_37\file_icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_7_5_37\Images\icon.ico.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.application" />
-    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.exe.config.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.exe.deploy" />
-    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.exe.manifest" />
-    <Content Include="files\Application Files\KryptPad_0_7_5_37\KryptPad.Security.dll.deploy" />
     <None Include="Properties\PublishProfiles\Live WebDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\Live.pubxml" />
     <None Include="Properties\PublishProfiles\Test WebDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\Test.pubxml" />
-    <Content Include="Scripts\app\forgot-password.js" />
-    <Content Include="Scripts\knockout-loaders.js" />
-    <Content Include="Scripts\knockout.validation.js" />
-    <Content Include="Scripts\knockout.validation.min.js" />
-    <Content Include="Scripts\ko-widgets\message-widget.html" />
-    <Content Include="Scripts\ko-widgets\message-widget.js" />
-    <Content Include="Scripts\app\main-app.js" />
-    <Content Include="Scripts\md5.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\sammy-0.7.5.js" />
-    <Content Include="Scripts\sammy-0.7.5.min.js" />
-    <Content Include="Scripts\app\sign-in.js" />
-    <Content Include="Scripts\app\sign-up.js" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -560,27 +487,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Policy.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\App\Index.cshtml" />
     <Content Include="Views\Home\Terms.cshtml" />
-    <Content Include="Views\Shared\_AppLayout.cshtml" />
-    <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\App\SignIn.cshtml" />
-    <Content Include="Views\App\ForgotPassword.cshtml" />
-    <Content Include="Views\App\SignUp.cshtml" />
-    <Content Include="Views\App\ResetPassword.cshtml" />
-    <Content Include="Views\App\_Profiles.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\App\Error.cshtml" />
-    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
-    <Content Include="Views\App\_ManageAccount.cshtml" />
-    <Content Include="Views\App\_Spinner.cshtml" />
-    <Content Include="Views\App\_ChangePassword.cshtml" />
-    <Content Include="Views\App\_AccountOptions.cshtml" />
-    <Content Include="Scripts\knockout.validation.min.js.map" />
-    <Content Include="Views\App\_Items.cshtml" />
     <Content Include="Views\Account\AuthorizeDevice.cshtml" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -684,11 +596,9 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\ProfileApiV2\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

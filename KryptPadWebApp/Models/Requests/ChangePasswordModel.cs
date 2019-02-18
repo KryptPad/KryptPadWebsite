@@ -6,7 +6,7 @@ using System.Web;
 
 namespace KryptPadWebApp.Models.Requests
 {
-    public class ChangePasswordRequest
+    public class ChangePasswordModel
     {
         [Required]
         public string CurrentPassword { get; set; }

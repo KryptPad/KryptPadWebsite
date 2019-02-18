@@ -6,8 +6,10 @@ using System.Web;
 
 namespace KryptPadWebApp.Models.Requests
 {
-    public class ResetPasswordRequest
+    public class ResetPasswordModel
     {
+        public bool Success { get; set; }
+
         [Required]
         public string UserId { get; set; }
 

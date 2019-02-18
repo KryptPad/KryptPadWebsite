@@ -13,6 +13,12 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, .lead {
     font-weight: normal;
 }
 
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none;
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -36,22 +42,13 @@ textarea {
 }
 
 
-    .hero.hero-blue {
-        background-color: #3d77b2;
-        color: #fff;
-    }
-
-        .hero.hero-blue a {
-            color: white;
-        }
-
     .hero.hero-light-blue {
         background-color: #cfebff;
-        /*box-shadow: 0px 4px 12px rgba(0,0,0,0.1),
-                0px -4px 12px rgba(0,0,0,0.1);*/
-        /*border-top: 10px dashed #fff;
-    border-bottom: 10px dashed #fff;*/
     }
+
+        .hero.hero-light-blue a {
+            color: #333;
+        }
 
     .hero.hero-light-red {
         background-color: #ffddd7;

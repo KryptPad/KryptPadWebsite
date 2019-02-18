@@ -8,13 +8,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Net.Http;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
 namespace KryptPadWebApp.Controllers
 {
-    [RoutePrefix("Api/Account")]
+    [RoutePrefix("api/account")]
     public class AccountApiController : ApiController
     {
         /// <summary>
@@ -28,13 +29,15 @@ namespace KryptPadWebApp.Controllers
             }
         }
 
+        #region Account management
+                
         /// <summary>
         /// Registers an account
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Register", Name = "Register")]
+        [Route("register")]
         public async Task<IHttpActionResult> Register(CreateAccountRequest model)
         {
             // Check if we have a valid model state
@@ -54,7 +57,7 @@ namespace KryptPadWebApp.Controllers
                 await AuthorizedDeviceHelper.AddAuthorizedDevice(user.Id, model.AppId, HttpContext.Current.Request.UserHostAddress);
 
                 // Send confirm link
-                await SendEmailConfirmationLink(user.Id);
+                await SendConfirmEmail(user.Id);
 
                 // All is ok
                 return Ok();
@@ -73,101 +76,11 @@ namespace KryptPadWebApp.Controllers
         }
 
         /// <summary>
-        /// Sends the user an email with a link to reset their password
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("Forgot-Password")]
-        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordRequest model)
-        {
-            if (ModelState.IsValid)
-            {
-                // Get the user from the email address
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return Ok();
-                }
-
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ResetPassword", new { userId = user.Id, code })}";
-
-                // Send the email
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                return Ok();
-
-            }
-
-            // Oops
-            return BadRequest();
-        }
-
-        [HttpPost]
-        [Route("Reset-Password")]
-        public async Task<IHttpActionResult> ResetPassword(ResetPasswordRequest model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            // Reset the user's password
-            var result = await UserManager.ResetPasswordAsync(model.UserId, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            else
-            {
-                // Add errors
-                foreach (var err in result.Errors)
-                {
-                    ModelState.AddModelError("", err);
-                }
-                // Return errors
-                return BadRequest(ModelState);
-            }
-
-
-        }
-
-        /// <summary>
-        /// Changes the user's account password
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("Change-Password")]
-        [Authorize]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordRequest model)
-        {
-            if (model == null || !ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            // Change the password
-            var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.CurrentPassword, model.NewPassword);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-
-            return BadRequest("Your account password could not be changed. Please make sure you entered the correct current password.");
-        }
-
-        
-        /// <summary>
         /// Gets some details about the account
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("Details")]
+        [Route("details")]
         [Authorize]
         public async Task<IHttpActionResult> AccountDetails()
         {
@@ -198,14 +111,19 @@ namespace KryptPadWebApp.Controllers
         [HttpPost]
         [Route("Send-Email-Confirmation-Link")]
         [Authorize]
-        public async Task<IHttpActionResult> SendEmailConfirmationLink()
+        public async Task<IHttpActionResult> SendEmailConfirmationLink(ApplicationUser user = null)
         {
-            // Find user by id
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user == null)
+            {
+                // Find user by id
+                user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            }
+
+            // Check if the user is found and not already confirmed
             if (user != null && !user.EmailConfirmed)
             {
                 // Send confirm link
-                await SendEmailConfirmationLink(user.Id);
+                await SendConfirmEmail(user.Id);
 
                 // All is ok
                 return Ok();
@@ -247,7 +165,7 @@ namespace KryptPadWebApp.Controllers
 
                     throw ex;
                 }
-                
+
                 // All is ok
                 return Ok();
 
@@ -259,6 +177,109 @@ namespace KryptPadWebApp.Controllers
 
 
         }
+        
+        #endregion
+
+        #region Password management
+
+        /// <summary>
+        /// Sends the user an email with a link to reset their password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("forgot-password")]
+        public async Task<IHttpActionResult> ForgotPassword(ForgotPasswordRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Get the user from the email address
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user != null && !user.EmailConfirmed)
+                {
+                    // User is not verified, resend verification email
+                    await SendEmailConfirmationLink(user);
+                    return Ok();
+                }
+                if (user == null)
+                {
+                    // Don't send anything, the user does not exist
+                    return Ok();
+                }
+
+                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                // Send an email with this link
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = $"{Request.RequestUri.Scheme}://{Request.RequestUri.Authority}{Url.Route("ChangePassword", new { userId = user.Id, code })}";
+
+                // Send the email
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                return Ok();
+
+            }
+
+            // Oops
+            return BadRequest();
+        }
+
+        //[HttpPost]
+        //[Route("Reset-Password")]
+        //public async Task<IHttpActionResult> ResetPassword(ResetPasswordRequest model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    // Reset the user's password
+        //    var result = await UserManager.ResetPasswordAsync(model.UserId, model.Code, model.Password);
+        //    if (result.Succeeded)
+        //    {
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        // Add errors
+        //        foreach (var err in result.Errors)
+        //        {
+        //            ModelState.AddModelError("", err);
+        //        }
+        //        // Return errors
+        //        return BadRequest(ModelState);
+        //    }
+
+
+        //}
+
+        ///// <summary>
+        ///// Changes the user's account password
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[HttpPost]
+        //[Route("Change-Password")]
+        //[Authorize]
+        //public async Task<IHttpActionResult> ChangePassword(ChangePasswordRequest model)
+        //{
+        //    if (model == null || !ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    // Change the password
+        //    var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.CurrentPassword, model.NewPassword);
+        //    if (result.Succeeded)
+        //    {
+        //        return Ok();
+        //    }
+
+        //    return BadRequest("Your account password could not be changed. Please make sure you entered the correct current password.");
+        //}
+
+
+        #endregion
+  
 
         /// <summary>
         /// This method does nothing except return OK (200)
@@ -272,10 +293,8 @@ namespace KryptPadWebApp.Controllers
         }
 
         #region Helper methods
-
         
-
-        private async Task SendEmailConfirmationLink(string userId)
+        private async Task SendConfirmEmail(string userId)
         {
             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
             // Send an email with this link
