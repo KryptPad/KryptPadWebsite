@@ -12,7 +12,7 @@ namespace KryptPadWebApp.Helpers
             using (var ctx = new ApplicationDbContext())
             {
                 // Check if device is already authorized
-                var authorizedId = ctx.AuthorizedDevices.Where(x => x.User.Id == userId && x.AppId == appId).FirstOrDefault();
+                var authorizedId = ctx.AuthorizedDevices.Where(x => x.User.Id == userId && x.AppId == appId && x.AccessedFromIPAddress == ipAddress).FirstOrDefault();
                 if (authorizedId != null)
                 {
                     // This device is already authorized

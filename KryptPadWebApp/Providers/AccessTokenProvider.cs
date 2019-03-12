@@ -94,8 +94,9 @@ namespace KryptPadWebApp.Providers
             {
                 using (var ctx = new ApplicationDbContext())
                 {
+                    var ipAddress = context.Request.RemoteIpAddress;
                     // Look up id in authorized devices. If it is not there, send an email to the user
-                    var authorizedId = ctx.AuthorizedDevices.Where(x => x.User.Id == user.Id && x.AppId == appId).FirstOrDefault();
+                    var authorizedId = ctx.AuthorizedDevices.Where(x => x.User.Id == user.Id && x.AppId == appId && x.AccessedFromIPAddress == ipAddress).FirstOrDefault();
                     if (authorizedId == null)
                     {
                         var code = await userManager.GenerateUserTokenAsync("AuthorizeDevice-" + appId, user.Id);
