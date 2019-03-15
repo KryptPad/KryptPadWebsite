@@ -123,6 +123,11 @@ namespace KryptPadWebApp.Controllers
 
         }
 
+        /// <summary>
+        /// User posts new password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("change-password")]
         [ValidateAntiForgeryToken]

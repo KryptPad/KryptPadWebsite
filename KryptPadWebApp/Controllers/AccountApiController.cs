@@ -8,10 +8,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Net.Http;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Linq;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -30,7 +30,7 @@ namespace KryptPadWebApp.Controllers
         }
 
         #region Account management
-                
+
         /// <summary>
         /// Registers an account
         /// </summary>
@@ -109,7 +109,7 @@ namespace KryptPadWebApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Route("Send-Email-Confirmation-Link")]
+        [Route("send-email-confirmation-link")]
         [Authorize]
         public async Task<IHttpActionResult> SendEmailConfirmationLink(ApplicationUser user = null)
         {
@@ -133,6 +133,52 @@ namespace KryptPadWebApp.Controllers
                 return BadRequest("Email address is already confirmed.");
             }
 
+
+        }
+
+        [HttpPost]
+        [Route("deauthorize-devices")]
+        [Authorize]
+        public async Task<IHttpActionResult> DeauthorizeAllDevices()
+        {
+            // Find user by id
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user != null)
+            {
+                using (var ctx = new ApplicationDbContext())
+                {
+
+                    // Sign-out of all devices
+                    var tokens = (from t in ctx.RefreshTokens
+                                  where t.Username == user.Email
+                                  select t).ToArray();
+
+                    // Delete all refresh tokens
+                    ctx.RefreshTokens.RemoveRange(tokens);
+
+                    // Get all devices for the user
+                    var devices = (from d in ctx.AuthorizedDevices
+                                   where d.User.Id == user.Id
+                                   select d).ToArray();
+
+                    // Delete them all
+                    ctx.AuthorizedDevices.RemoveRange(devices);
+                    // Commit
+                    await ctx.SaveChangesAsync();
+
+                }
+
+                // Invalidate tokens
+                await UserManager.UpdateSecurityStampAsync(user.Id);
+
+                // All is ok
+                return Ok();
+
+            }
+            else
+            {
+                return BadRequest("User does not exist.");
+            }
 
         }
 
@@ -177,7 +223,7 @@ namespace KryptPadWebApp.Controllers
 
 
         }
-        
+
         #endregion
 
         #region Password management
@@ -279,7 +325,7 @@ namespace KryptPadWebApp.Controllers
 
 
         #endregion
-  
+
 
         /// <summary>
         /// This method does nothing except return OK (200)
@@ -293,7 +339,7 @@ namespace KryptPadWebApp.Controllers
         }
 
         #region Helper methods
-        
+
         private async Task SendConfirmEmail(string userId)
         {
             // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
