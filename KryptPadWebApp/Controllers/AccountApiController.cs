@@ -52,9 +52,13 @@ namespace KryptPadWebApp.Controllers
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                // The device must be authorized before the user can sign in. Since
-                // we are signing up, automatically authorize the device
-                await AuthorizedDeviceHelper.AddAuthorizedDevice(user.Id, model.AppId, HttpContext.Current.Request.UserHostAddress);
+                // We can't authorize the device if we have no app ID. It is probably an old app
+                if (model.AppId != Guid.Empty)
+                {
+                    // The device must be authorized before the user can sign in. Since
+                    // we are signing up, automatically authorize the device
+                    await AuthorizedDeviceHelper.AddAuthorizedDevice(user.Id, model.AppId, HttpContext.Current.Request.UserHostAddress);
+                }
 
                 // Send confirm link
                 await SendConfirmEmail(user.Id);
