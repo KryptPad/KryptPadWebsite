@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace KryptPadWebApp.Models
+namespace KryptPadWebApp.Models.Entities
 {
     public class Item
     {
@@ -51,5 +49,10 @@ namespace KryptPadWebApp.Models
         /// List of fields under the item
         /// </summary>
         public List<Field> Fields { get; set; }
+               
+        [NotMapped]
+        public bool IsFavorite { get; set; }
+
+
     }
 }

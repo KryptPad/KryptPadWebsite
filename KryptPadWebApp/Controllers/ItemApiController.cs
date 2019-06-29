@@ -1,16 +1,13 @@
-﻿//using KryptPadWebApp.Cryptography;
+﻿
+using KryptPadWebApp.Cryptography;
 using KryptPadWebApp.Models;
+using KryptPadWebApp.Models.ApiEntities;
+using KryptPadWebApp.Models.Entities;
 using KryptPadWebApp.Models.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Data.Entity;
-using System.Net;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using KryptPadWebApp.Models.ApiEntities;
-using KryptPadWebApp.Cryptography;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -18,7 +15,7 @@ namespace KryptPadWebApp.Controllers
     [RoutePrefix("Api/Profiles/{profileId}/Categories/{categoryId}/Items")]
     public class ItemApiController : AuthorizedApiController
     {
-        
+
         /// <summary>
         /// Gets a specific item and details
         /// </summary>
@@ -34,17 +31,33 @@ namespace KryptPadWebApp.Controllers
             using (var ctx = new ApplicationDbContext())
             {
                 var items = (from i in ctx.Items
-                                .Include(x => x.Fields)
-                                .Include(x => x.Category)
                              where i.Id == id &&
                                 i.Category.Id == categoryId &&
                                 i.Category.Profile.Id == profileId &&
                                 i.Category.Profile.User.Id == UserId
-                             select i).ToArray();
+                             select new
+                             {
+                                 Item = i,
+                                 i.Fields,
+                                 i.Category,
+                                 // Determine if this item is in our list of favorites
+                                 IsFavorite = (from f in ctx.Favorites
+                                               where f.Item.Id == i.Id
+                                               select true).FirstOrDefault()
+                             });
 
+                // Convert the list of items and items to the response we want to send back
+                // We're doing this to explicitly set whether an item is a favorite or not
+                foreach (var i in items)
+                {
+                    i.Item.IsFavorite = i.IsFavorite;
+                    // This is just stupid, but EF has issues with including navigation properties
+                    // when using projection :/
+                    i.Item.Fields = i.Fields;
+                }
 
                 // Return items
-                return Json(new ItemsResult(items, Passphrase));
+                return Json(new ItemResult(items.Select(x => x.Item).ToArray(), Passphrase));
             }
         }
 
@@ -177,6 +190,7 @@ namespace KryptPadWebApp.Controllers
 
             }
         }
+
 
         #region HelperMethods
 

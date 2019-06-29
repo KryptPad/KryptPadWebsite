@@ -37,6 +37,11 @@ namespace KryptPadWebApp.Models.ApiEntities
         public string BackgroundColor { get; set; }
 
         /// <summary>
+        /// Gets or sets whether this is a favorite item
+        /// </summary>
+        public bool IsFavorite { get; set; }
+
+        /// <summary>
         /// Gets or set the fields for the item
         /// </summary>
         public ApiField[] Fields { get; set; }

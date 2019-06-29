@@ -1,5 +1,6 @@
 ﻿using KryptPadWebApp.Cryptography;
 using KryptPadWebApp.Models.ApiEntities;
+using KryptPadWebApp.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,16 +22,9 @@ namespace KryptPadWebApp.Models.Results
                          CategoryId = i.Category.Id,
                          BackgroundColor = i.BackgroundColor,
                          Name = Encryption.DecryptFromString(i.Name, passphrase),
-                         Notes = Encryption.DecryptFromString(i.Notes, passphrase),
-                         Fields = (from f in i.Fields
-                                   select new ApiField() {
-                                       Id = f.Id,
-                                       FieldType=f.FieldType,
-                                       Name = Encryption.DecryptFromString(f.Name, passphrase),
-                                       Value = Encryption.DecryptFromString(f.Value, passphrase)
-                                   }).ToArray()
+                         IsFavorite = i.IsFavorite
                      }).ToArray();
-            
+
         }
     }
 }

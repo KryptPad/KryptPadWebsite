@@ -1,9 +1,7 @@
 ﻿using KryptPadWebApp.Cryptography;
 using KryptPadWebApp.Models.ApiEntities;
-using System;
-using System.Collections.Generic;
+using KryptPadWebApp.Models.Entities;
 using System.Linq;
-using System.Web;
 
 namespace KryptPadWebApp.Models.Results
 {
@@ -26,7 +24,8 @@ namespace KryptPadWebApp.Models.Results
                                                               Id = i.Id,
                                                               CategoryId = c.Id,
                                                               Name = Encryption.DecryptFromString(i.Name, passphrase),
-                                                              BackgroundColor = i.BackgroundColor
+                                                              BackgroundColor = i.BackgroundColor,
+                                                              IsFavorite = i.IsFavorite
                                                           }).ToArray() : null)
                           }).ToArray();
 

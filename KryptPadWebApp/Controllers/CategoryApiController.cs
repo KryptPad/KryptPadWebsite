@@ -1,15 +1,12 @@
-﻿using KryptPadWebApp.Models;
-using KryptPadWebApp.Models.Results;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
-using System.Data.Entity;
+﻿using KryptPadWebApp.Cryptography;
+using KryptPadWebApp.Models;
 using KryptPadWebApp.Models.ApiEntities;
-using KryptPadWebApp.Cryptography;
+using KryptPadWebApp.Models.Entities;
+using KryptPadWebApp.Models.Results;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace KryptPadWebApp.Controllers
 {
@@ -27,10 +24,32 @@ namespace KryptPadWebApp.Controllers
                 var categories = (from c in ctx.Categories.Include((cat) => cat.Items)
                                   where c.Profile.User.Id == UserId &&
                                   c.Profile.Id == profileId
-                                  select c).ToArray();
+                                  select new
+                                  {
+                                      Category = c,
+                                      Items = (from i in c.Items
+                                               select new
+                                               {
+                                                   Item = i,
+                                                   IsFavorite = (from f in ctx.Favorites
+                                                                 where f.Item.Id == i.Id
+                                                                 select true).FirstOrDefault()
+                                               })
+                                  });
 
+                // Convert the list of categories and items to the response we want to send back
+                // We're doing this to explicitly set whether an item is a favorite or not
+                foreach (var c in categories)
+                {
+                    foreach (var i in c.Items)
+                    {
+                        var item = c.Category.Items.Where(x => x.Id == i.Item.Id).First();
+                        item.IsFavorite = i.IsFavorite;
+                    }
+                }
 
-                return Json(new CategoriesResult(categories, Passphrase));
+                // Convert to resultset we want
+                return Json(new CategoriesResult(categories.Select(x => x.Category).ToArray(), Passphrase));
             }
 
 

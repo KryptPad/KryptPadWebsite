@@ -19,5 +19,8 @@ namespace KryptPadWebApp.Models.Requests
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //[Required]
+        public Guid AppId { get; set; }
     }
 }

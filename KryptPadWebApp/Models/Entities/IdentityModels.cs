@@ -43,8 +43,10 @@ namespace KryptPadWebApp.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Field> Fields { get; set; }
+        public virtual DbSet<Favorite> Favorites { get; set; }
         public virtual DbSet<FieldType> FieldTypes { get; set; }
         public virtual DbSet<AppSettings> AppSettings { get; set; }
         public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
+        public virtual DbSet<AuthorizedDevice> AuthorizedDevices { get; set; }
     }
 }

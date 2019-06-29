@@ -1,5 +1,6 @@
 namespace KryptPadWebApp.Migrations
 {
+    using KryptPadWebApp.Models.Entities;
     using Models;
     using System;
     using System.Data.Entity;
