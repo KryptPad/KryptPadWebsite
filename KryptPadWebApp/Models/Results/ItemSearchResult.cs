@@ -25,7 +25,10 @@ namespace KryptPadWebApp.Models.Results
                                                           {
                                                               Id = i.Id,
                                                               CategoryId = c.Id,
-                                                              Name = i.Name
+                                                              Name = Encryption.DecryptFromString(i.Name, passphrase),
+                                                              Notes = Encryption.DecryptFromString(i.Notes, passphrase),
+                                                              Fields = (i.Fields != null ? (from f in i.Fields
+                                                                                            select new ApiField(f, passphrase)).ToArray() : null)
                                                           }).ToArray() : null)
                           }).ToArray();
 
