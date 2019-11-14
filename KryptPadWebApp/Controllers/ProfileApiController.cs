@@ -475,7 +475,7 @@ namespace KryptPadWebApp.Controllers
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var categories = (from c in ctx.Categories.Include((cat) => cat.Items)
+                var categories = (from c in ctx.Categories.Include((cat) => cat.Items.Select(i => i.Fields))
                                   where c.Profile.User.Id == UserId &&
                                   c.Profile.Id == id
                                   select c).ToArray();
@@ -483,12 +483,15 @@ namespace KryptPadWebApp.Controllers
                 // Filter the list
                 foreach (var category in categories)
                 {
-                    // Get all the items in the category where the name matches the query, or a field in the item matches the query
+                    // Get all the items in the category where the name matches the query, 
+                    // or a field in the item matches the query,
+                    // or the notes in the item matches the query.
                     category.Items = (from i in category.Items
                                       where q == null
                                          || (
                                              Encryption.DecryptFromString(i.Name, Passphrase).IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0
-                                             || i.Fields.Any(f => Encryption.DecryptFromString(f.Name, Passphrase).IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                             || (i.Notes != null && Encryption.DecryptFromString(i.Notes, Passphrase).IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                             || i.Fields.Any(f => Encryption.DecryptFromString(f.Value, Passphrase).IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
                                       )
                                       select i).ToList();
 

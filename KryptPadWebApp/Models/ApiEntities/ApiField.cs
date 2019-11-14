@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KryptPadWebApp.Cryptography;
+using KryptPadWebApp.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,5 +32,13 @@ namespace KryptPadWebApp.Models.ApiEntities
         /// Gets or sets the Base64 encoded cipher text
         /// </summary>
         public string Value { get; set; }
+
+        public ApiField() { }
+        public ApiField(Field field, string passphrase) {
+            Id = field.Id;
+            FieldType = field.FieldType;
+            Name = Encryption.DecryptFromString(Name, passphrase);
+            Value = Encryption.DecryptFromString(Value, passphrase);
+        }
     }
 }
