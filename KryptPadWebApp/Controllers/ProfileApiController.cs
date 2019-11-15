@@ -471,7 +471,7 @@ namespace KryptPadWebApp.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("{id}/search")]
-        public IHttpActionResult GetItems(int id, [FromBody]string q)
+        public IHttpActionResult Search(int id, [FromBody]string q)
         {
             using (var ctx = new ApplicationDbContext())
             {
@@ -489,9 +489,9 @@ namespace KryptPadWebApp.Controllers
                     category.Items = (from i in category.Items
                                       where q == null
                                          || (
-                                             Encryption.DecryptFromString(i.Name, Passphrase).IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0
-                                             || (i.Notes != null && Encryption.DecryptFromString(i.Notes, Passphrase).IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
-                                             || i.Fields.Any(f => Encryption.DecryptFromString(f.Value, Passphrase).IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                              (i.Name != null && Encryption.DecryptFromString(i.Name, Passphrase)?.IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                             || (i.Notes != null && Encryption.DecryptFromString(i.Notes, Passphrase)?.IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                             || (i.Fields != null && i.Fields.Any(f => f.Value != null && Encryption.DecryptFromString(f.Value, Passphrase)?.IndexOf(q, StringComparison.CurrentCultureIgnoreCase) >= 0))
                                       )
                                       select i).ToList();
 
