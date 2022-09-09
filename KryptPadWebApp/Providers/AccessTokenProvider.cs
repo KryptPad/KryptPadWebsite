@@ -72,6 +72,7 @@ namespace KryptPadWebApp.Providers
             // DISABLED!
             context.Rejected();
             context.SetError("invalid_grant", "Logins are temporarily disabled due to web host outtage.");
+            return;
 
             // Get the user manager
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
