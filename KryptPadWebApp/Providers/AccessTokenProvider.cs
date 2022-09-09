@@ -69,6 +69,10 @@ namespace KryptPadWebApp.Providers
         /// <returns></returns>
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            // DISABLED!
+            context.Rejected();
+            context.SetError("invalid_grant", "Logins are temporarily disabled due to web host outtage.");
+
             // Get the user manager
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             // Read the form data
