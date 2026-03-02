@@ -216,3 +216,4 @@ KryptPadWebApp/Web.Release.config
 # Website files
 KryptPadWebApp/[Ff]iles/
 KryptPadWebApp/Web.Debug.config
+/KryptPadWebApp/App_Data/krypt-pad-dekrypter.zip
