@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Dekrypter Tool";
+}
+
+@section pageHeader{
+
+    <div class="hero hero-main hero-blue">
+        <div class="container">
+            <h1>Dekrypter Tool</h1>
+        </div>
+    </div>
+}
+
+<div class="container">
+    
+    <h1>
+        1. Download the Dekrypter Tool
+    </h1>
+
+    @Html.ActionLink("Download Krypt Pad Dekrypter Tool", "Download", null, new { @class = "btn btn-primary" })
+
+    <h1>
+        2. Download your profiles from the Krypt Pad app
+    </h1>
+
+    <p>
+        If you have an existing account, you can log in to the Krypt Pad app and download your profiles. Click the Download Profile button on the top right corner of the home screen.
+
+
+    </p>
+
+    <p>
+        <img src="~/Content/Images/dekrypter-how-to-1.png" class="img-responsive" alt="Download profile" />
+    </p>
+
+    <p>
+        Save your profile somewhere on your computer
+    </p>
+    <p>
+        <img src="~/Content/Images/dekrypter-how-to-2.png" class="img-responsive" alt="Save profile on computer" />
+    </p>
+    <p>
+        <img src="~/Content/Images/dekrypter-how-to-3.png" class="img-responsive" alt="Run Dekrypter tool" />
+    </p>
+    <h1>
+        3. Decrypt your profiles with the Dekrypter Tool
+    </h1>
+    <p>
+        Open the Dekrypter Tool and select the .zip file you downloaded from the app. Enter your master password to decrypt your profiles.
+    </p>
+    <p>
+        <img src="~/Content/Images/dekrypter-how-to-4.png" class="img-responsive" alt="Select file and enter passphrase" />
+    </p>
+    <p>
+        Select your profile you saved and enter the profile passphrase (NOT YOUR LOGIN PASSWORD.)
+    </p>
+    <p>
+        <img src="~/Content/Images/dekrypter-how-to-5.png" class="img-responsive" alt="Select file and enter passphrase" />
+    </p>
+
+    <p>
+        Click the Dekrypt or Dekrypt to File button to decrypt your profile. If successful, you will see your decrypted profile or be able to save the file.
+    </p>
+
+    <p>
+        <img src="~/Content/Images/dekrypter-how-to-6.png" class="img-responsive" alt="Select file and enter passphrase" />
+    </p>
+
+</div>

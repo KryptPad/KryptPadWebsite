@@ -21,19 +21,13 @@ namespace KryptPadWebApp.Controllers
         }
 
         [Route("Download", Name = "Download")]
-        public async Task<FileResult> DownloadFile()
+        public async Task<FileResult> Download()
         {
             // Map path to the download file
-            var pathName = Server.MapPath("~/files/KryptPad.application");
-
-            // Create the view model for our view
-            var model = new HomeIndexViewModel();
-
-            // Increase download count
-            await model.IncrementDownloadCount();
+            var pathName = Server.MapPath("~/App_Data/krypt-pad-dekrypter.zip");
 
             // Return the file
-            return File(pathName, "application/octet-stream", "KryptPad.application");
+            return File(pathName, "application/octet-stream", "krypt-pad-dekrypter.zip");
         }
 
         [Route("Policy", Name = "Policy")]
@@ -50,6 +44,12 @@ namespace KryptPadWebApp.Controllers
 
         [Route("About", Name = "About")]
         public ActionResult About()
+        {
+            return View();
+        }
+
+        [Route("Dekrypter", Name = "Dekrypter")]
+        public ActionResult Dekrypter()
         {
             return View();
         }

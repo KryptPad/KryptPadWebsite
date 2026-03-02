@@ -40,6 +40,9 @@ namespace KryptPadWebApp.Controllers
         [Route("register")]
         public async Task<IHttpActionResult> Register(CreateAccountRequest model)
         {
+            // DISABLED!
+            ModelState.AddModelError("Errors", "Krypt Pad online services are shutting down by Oct 10, 2026. New user registration is disabled.");
+
             // Check if we have a valid model state
             if (!ModelState.IsValid)
             {
