@@ -80,11 +80,7 @@ namespace KryptPadWebApp
                 RefreshTokenProvider = new RefreshTokenProvider(),
 
                 // In DEBUG mode, we allow insecure HTTP
-#if DEBUG
                 AllowInsecureHttp = true
-#else
-                AllowInsecureHttp = false
-#endif
             };
 
             // Enable the application to use bearer tokens to authenticate users
