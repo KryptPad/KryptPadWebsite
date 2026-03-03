@@ -22,7 +22,7 @@
             @*<button class="navbar-toggler mx-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>*@
-            <a class="navbar-brand" href="#">Krypt Pad</a>
+            <a class="navbar-brand" href="@Url.RouteUrl("Home")">Krypt Pad</a>
 
             @*<a href="@Url.RouteUrl("Home")" class="navbar-brand">
             <img src="~/Content/Images/safe32x32.png" class="pull-left" />
@@ -63,6 +63,24 @@
             <a href="https://www.facebook.com/KryptPad/"><img src="~/Content/Images/social_facebook.png" /></a>
             <a href="https://twitter.com/KryptPad"><img src="~/Content/Images/social_twitter.png" /></a>
             <span style="vertical-align:middle"><span class="fb-like" data-href="https://www.facebook.com/kryptpad" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></span></span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="alert alert-danger text-left">
+            <p>
+                <strong>ATTENTION:</strong> Krypt Pad online services will be shutting down by October 10, 2026. If you would like to keep your data, <strong>you must download your existing profiles from the app</strong> and decrypt them with the decrypter tool before that date.
+                If you already have an account, you may continue to log in until the shutdown date, but you will not be able to create a new account.
+            </p>
+
+            <p>
+                <strong>After the shutdown date, all data will be deleted and unrecoverable.</strong>
+            </p>
+
+            <p>
+                <a href="@Url.RouteUrl("Dekrypter")" class="alert-link">Click here</a>
+                to learn more about the Dekrypter tool to decrypt your downloaded profiles
+            </p>
         </div>
     </div>
 
