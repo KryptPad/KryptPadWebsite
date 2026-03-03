@@ -16,7 +16,7 @@ namespace KryptPadWebApp.Helpers
                 if (authorizedId != null)
                 {
                     // This device is already authorized
-                    return false;
+                    return true;
                 }
 
                 // Get the user

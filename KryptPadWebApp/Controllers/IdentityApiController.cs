@@ -18,7 +18,7 @@ namespace KryptPadWebApp.Controllers
             // This is a shim to prepare for a server migratoin and to use IdentityServer4. For now, we
             // will be providing the values that this site uses, but the new site will have new values
             // which the app will read and use.
-            var resp = new { token_endpoint = $"{Request.RequestUri.Scheme }://{Request.RequestUri.Authority}/token" };
+            var resp = new { token_endpoint = $"https://{Request.RequestUri.Authority}/token" };
 
             return Json(resp);
         }
